@@ -1,0 +1,145 @@
+TASK com.scetia.Pro id=305
+  ACTIVITY com.scetia.Pro/com.lessu.xieshi.scan.ShebeixinxiActivity 67e3ccf pid=22669
+    Local FragmentActivity 218a3dbf State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    FragmentManager misc state:
+      mActivity=com.lessu.xieshi.scan.ShebeixinxiActivity@218a3dbf
+      mContainer=android.support.v4.app.FragmentActivity$2@2766ac8c
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{224c32f5 V.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{24ce5efb V.E..... ... 0,0-1080,1920}
+          android.view.ViewStub{3df11b18 G.E..... ... 0,0-0,0 #102037d}
+          android.widget.FrameLayout{227a0971 V.E..... ... 0,60-1080,1920}
+            android.support.v7.internal.widget.ActionBarOverlayLayout{31d4cbad V.E..... ... 0,0-1080,1860 #7f0d0051 app:id/decor_content_parent}
+              android.support.v7.internal.widget.NativeActionModeAwareLayout{423b273 V.E..... ... 0,168-1080,1860 #1020002 android:id/content}
+                android.widget.RelativeLayout{3ded7a48 V.E..... ... 0,0-1080,1692 #7f0d0078 app:id/activity_shebeixinxi}
+                  android.support.v7.widget.AppCompatTextView{150f30e1 V.ED.... ... 48,48-48,105 #7f0d0079 app:id/tv}
+              android.support.v7.internal.widget.ActionBarContainer{1b843530 V.ED.... ... 0,0-1080,168 #7f0d0052 app:id/action_bar_container}
+                android.support.v7.widget.Toolbar{129f75a9 V.E..... ... 0,0-1080,168 #7f0d0053 app:id/action_bar}
+                  android.widget.TextView{390a283a V.ED.... ... 48,43-288,124}
+                  android.support.v7.widget.ActionMenuView{18ecfa1d V.E..... ... 1080,0-1080,168}
+                android.support.v7.internal.widget.ActionBarContextView{1faf745c G.E..... ... 0,0-0,0 #7f0d0054 app:id/action_context_bar}
+        android.view.View{ae07cc7 V.ED.... ... 0,0-1080,60 #102002f android:id/statusBarBackground}
+
+  ACTIVITY com.scetia.Pro/com.lessu.xieshi.scan.PrintDataActivity 1df89aef pid=22669
+    Local FragmentActivity 5c669a5 State:
+      mCreated=truemResumed=false mStopped=true mReallyStopped=true
+      mLoadersStarted=false
+    FragmentManager misc state:
+      mActivity=com.lessu.xieshi.scan.PrintDataActivity@5c669a5
+      mContainer=android.support.v4.app.FragmentActivity$2@f924fd5
+      mCurState=2 mStateSaved=true mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{ea9df0e I.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{a92ff3c V.E..... ... 0,0-1080,1920}
+          android.view.ViewStub{2ec324c5 G.E..... ... 0,0-0,0 #102037d}
+          android.widget.FrameLayout{13a8de1a V.E..... ... 0,60-1080,1920 #1020002 android:id/content}
+            android.widget.LinearLayout{2a5c8109 V.E..... ... 0,0-1080,1860}
+              com.lessu.navigation.NavigationBar{ab8c4dd V.E..... ... 0,0-1080,147}
+                android.widget.LinearLayout{2debc723 V.E..... ... 0,0-134,147}
+                  com.lessu.navigation.BarButtonItem{3364841 V.E..... ... 0,0-134,147}
+                    com.lessu.uikit.Buttons.Button{b66c1e6 VFED..C. ... 36,0-98,147}
+                android.widget.LinearLayout{c22a420 V.E..... ... 0,0-1080,147}
+                  android.widget.TextView{10ca79e V.ED.... ... 0,0-1080,147}
+                android.widget.LinearLayout{981d1d9 V.E..... ... 1035,0-1080,147}
+              com.lessu.xieshi.customView.DragLayout{fb75550 V.E..... ... 0,147-1080,1860 #7f0d013b app:id/dl}
+                android.widget.RelativeLayout{18ede349 V.E...C. ... 0,0-1080,1713}
+                  android.widget.LinearLayout{e5a396f V.E..... ... 0,0-1080,1713}
+                    android.widget.LinearLayout{34c4767c V.E...C. ... 0,75-1080,357 #7f0d013c app:id/ll_shenqingshangbao}
+                      android.widget.ImageView{200a7f26 V.ED.... ... 96,111-156,171}
+                      android.widget.TextView{ab31914 V.ED.... ... 204,107-408,175}
+                    android.widget.LinearLayout{195df5bd V.E...C. ... 0,357-1080,639 #7f0d013d app:id/ll_shenhexiazai}
+                      android.widget.ImageView{3b0f67b2 V.ED.... ... 96,111-156,171}
+                      android.widget.TextView{1432b280 V.ED.... ... 204,107-408,175}
+                    android.widget.LinearLayout{1af930b9 V.E...C. ... 0,639-1080,921 #7f0d013e app:id/ll_rukuchakan}
+                      android.widget.ImageView{11084cfe V.ED.... ... 96,112-156,170}
+                      android.widget.TextView{35076ac V.ED.... ... 204,107-408,175}
+                    android.widget.LinearLayout{22731f75 V.E...C. ... 0,921-1080,1203 #7f0d013f app:id/ll_shebeixinxi}
+                      android.widget.ImageView{8183b0a V.ED.... ... 96,118-156,164}
+                      android.widget.TextView{29a45198 V.ED.... ... 204,107-408,175}
+                    android.widget.LinearLayout{3f633df1 V.E..... ... 0,1203-1080,1485}
+                      android.widget.TextView{1386fdd6 V.ED.... ... 96,1-402,69}
+                      android.widget.SeekBar{1b557857 VFED.... ... 42,111-537,171 #7f0d0140 app:id/sb_scan}
+                      android.widget.TextView{2697bbb0 V.ED.... ... 96,213-510,281}
+                android.widget.ImageView{3aead210 V.ED.... ... 648,0-1728,1713}
+                com.lessu.xieshi.customView.MyRelativeLayout{3eaba29 V.E...C. ... 648,0-1728,1713}
+                  android.widget.LinearLayout{145ff1ae V.E..... ... 0,0-1080,1713}
+                    android.widget.LinearLayout{3111b4f V.E..... ... 0,0-1080,141}
+                      android.widget.TextView{32b4e2dc V.ED..C. ... 48,42-132,99 #7f0d0141 app:id/tv_baocun}
+                      android.widget.TextView{64bcfe5 V.ED..C. ... 267,42-351,99 #7f0d0142 app:id/tv_duqv}
+                      android.widget.TextView{37bd7aba V.ED..C. ... 486,42-570,99 #7f0d0143 app:id/tv_qingchu}
+                      android.widget.TextView{1cee1d6b V.ED..C. ... 750,32-978,109 #7f0d0144 app:id/tv_shujvjiaohu}
+                    android.widget.ImageView{a1b50c8 V.ED.... ... 0,141-1080,144}
+                    android.widget.LinearLayout{16388886 V.E..... ... 0,144-1080,285}
+                      android.widget.LinearLayout{d4f2547 V.E..... ... 48,42-538,99}
+                        android.widget.TextView{23f8b174 V.ED.... ... 0,0-126,57}
+                        android.widget.TextView{aad169d V.ED.... ... 126,0-150,57 #7f0d0145 app:id/tv_tiaoma_num}
+                        android.widget.TextView{2304a712 V.ED.... ... 150,0-276,57}
+                      android.view.View{1dcecee3 V.ED.... ... 538,0-541,141}
+                      android.widget.LinearLayout{27c97f99 V.E..... ... 589,42-1080,99}
+                        android.widget.TextView{1f02225e V.ED.... ... 0,0-126,57}
+                        android.widget.TextView{d15763f V.ED.... ... 126,0-150,57 #7f0d0146 app:id/tv_xinpian_num}
+                        android.widget.TextView{fe4bb0c V.ED.... ... 150,0-276,57}
+                    android.widget.ImageView{2ca97c55 V.ED.... ... 0,285-1080,288}
+                    android.widget.LinearLayout{26ca066a V.E..... ... 0,288-1080,1713}
+                      com.baoyz.swipemenulistview.SwipeMenuListView{31f5375b V.ED.VC. ... 0,0-538,1425 #7f0d0147 app:id/lv_tiaoma}
+                      android.view.View{840f8c2 V.ED.... ... 538,0-541,1425}
+                      com.baoyz.swipemenulistview.SwipeMenuListView{378136d3 V.ED.VC. ... 541,0-1080,1425 #7f0d0148 app:id/lv_xinpian}
+        android.view.View{218fc935 V.ED.... ... 0,0-1080,60 #102002f android:id/statusBarBackground}
+
+  ACTIVITY com.scetia.Pro/com.lessu.xieshi.login.FirstActivity 18c9af2a pid=22669
+    Local Activity 178fcfa1 State:
+      mResumed=false mStopped=true mFinished=false
+      mLoadersStarted=false
+      mChangingConfigurations=false
+      mCurrentConfig={1.0 ?mcc?mnc zh_CN ldltr sw360dp w360dp h620dp 480dpi nrml long port finger -keyb/v/h dpad/v s.55 themeChanged=0 themeChangedFlags=0}
+    FragmentManager misc state:
+      mActivity=com.lessu.xieshi.login.FirstActivity@178fcfa1
+      mContainer=android.app.Activity$1@95d13ea
+      mCurState=3 mStateSaved=true mDestroyed=false
+    ViewRoot:
+      mAdded=true mRemoved=false
+      mConsumeBatchedInputScheduled=false
+      mConsumeBatchedInputImmediatelyScheduled=false
+      mPendingInputEventCount=0
+      mProcessInputEventsScheduled=false
+      mTraversalScheduled=false
+      android.view.ViewRootImpl$NativePreImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$ImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$NativePostImeInputStage: mQueueLength=0
+    Choreographer:
+      mFrameScheduled=false
+      mLastFrameTime=267127749 (258620 ms ago)
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{2ed69760 I.E..... R.....I. 0,0-1080,1920}
+        android.widget.LinearLayout{2bafecde V.E..... ......I. 0,0-1080,1920}
+          android.view.ViewStub{5c7aebf G.E..... ......I. 0,0-0,0 #102037d}
+          android.widget.FrameLayout{33fdc98c V.E..... ......I. 0,60-1080,1920 #1020002 android:id/content}
+            android.widget.LinearLayout{1283f278 V.E..... ......I. 0,0-1080,1860}
+              android.widget.ImageView{8f6b6b7 V.ED..C. ......I. 393,237-687,531 #7f0d0063 app:id/iv_touxiang}
+              android.widget.TextView{22fcbb42 V.ED.... ......I. 507,573-572,641 #7f0d0064 app:id/tv_yonghuming}
+              android.widget.LinearLayout{39ee9890 V.E..... ......I. 0,809-1080,1243}
+                android.widget.LinearLayout{2c730589 V.E...C. ......I. 0,0-357,434 #7f0d0065 app:id/ll_seccion1}
+                  android.widget.ImageView{99f498e V.ED.... ......I. 48,48-309,309 #7f0d0066 app:id/iv_seccion1}
+                  android.widget.TextView{18fd7145 V.ED.... ......I. 112,342-244,386 #7f0d0067 app:id/tv_seccion1}
+                android.widget.LinearLayout{3cca709a V.E...C. ......I. 357,0-714,434 #7f0d0068 app:id/ll_seccion2}
+                  android.widget.ImageView{19d0dcb V.ED.... ......I. 48,48-309,309 #7f0d0069 app:id/iv_seccion2}
+                  android.widget.TextView{1d4efc66 V.ED.... ......I. 63,342-294,386 #7f0d006a app:id/tv_seccion2}
+                android.widget.LinearLayout{286cbba7 V.E...C. ......I. 714,0-1071,434 #7f0d006b app:id/ll_seccion3}
+                  android.widget.ImageView{21a2f854 V.ED.... ......I. 48,48-309,309 #7f0d006c app:id/iv_seccion3}
+                  android.widget.TextView{1e9f6b43 V.ED.... ......I. 112,342-244,386 #7f0d006d app:id/tv_seccion3}
+              android.widget.LinearLayout{156145c0 V.E..... ......I. 0,1243-1080,1677}
+                android.widget.LinearLayout{302b62f9 V.E...C. ......I. 0,0-357,434 #7f0d006e app:id/ll_seccion4}
+                  android.widget.ImageView{37323e V.ED.... ......I. 48,48-309,309 #7f0d006f app:id/iv_seccion4}
+                  android.widget.TextView{1f3635b5 V.ED.... ......I. 112,342-244,386 #7f0d0070 app:id/tv_seccion4}
+                android.widget.LinearLayout{d70344a V.E...C. ......I. 357,0-714,434 #7f0d0071 app:id/ll_seccion5}
+                  android.widget.ImageView{23f0ffbb V.ED.... ......I. 48,48-309,309 #7f0d0072 app:id/iv_seccion5}
+                  android.widget.TextView{2a854b16 V.ED.... ......I. 112,342-244,386 #7f0d0073 app:id/tv_seccion5}
+                android.widget.LinearLayout{20a5dc97 V.E...C. ......I. 714,0-1071,434 #7f0d0074 app:id/ll_seccion6}
+                  android.widget.ImageView{239f1e84 V.ED.... ......I. 48,48-309,309 #7f0d0075 app:id/iv_seccion6}
+                  android.widget.TextView{424666d V.ED.... ......I. 112,342-244,386 #7f0d0076 app:id/tv_seccion6}
+        android.view.View{501c78f V.ED.... ......I. 0,0-1080,60 #102002f android:id/statusBarBackground}
+    Looper (main, tid 1) {29aef6db}
+      (Total messages: 0, idling=false, quitting=false)

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="Button">
+	    
+		<attr name="background_normal" format="reference" />
+		<attr name="background_highlight" format="reference" />
+		<attr name="background_selected" format="reference" />
+		<attr name="background_disable" format="reference" />
+		
+		<attr name="title_normal" format="reference|string" />
+		<attr name="title_highlight" format="reference|string" />
+		<attr name="title_selected" format="reference|string" />
+		<attr name="title_disable" format="reference|string" />
+		
+		<attr name="title_color_normal" format="color" />
+		<attr name="title_color_highlight" format="color" />
+		<attr name="title_color_selected" format="color" />
+		<attr name="title_color_disable" format="color" />
+		
+	</declare-styleable>
+
+    <declare-styleable name="ImageView">
+        <attr name="corner_radius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SelectStyleableCell">
+        <attr name="normal_background" format="color"/>
+        <attr name="hightlight_background" format="color"/>
+    </declare-styleable>
+    
+    
+    <declare-styleable name="RatioLayout">
+        <attr name="ratio_adjust_for">
+            <enum name="width" 	value="0" />
+            <enum name="height" value="1" />
+        </attr>
+        <attr name="ratio" format="float"></attr>
+        
+    </declare-styleable>
+</resources>

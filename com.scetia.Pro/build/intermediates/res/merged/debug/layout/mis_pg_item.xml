@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="93dp"
+	android:orientation="vertical"
+	android:descendantFocusability="blocksDescendants"
+	>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="80dp"
+		android:background="#ffffff"
+		android:orientation="horizontal"
+		>
+		 <CheckBox
+			 android:id="@+id/cb_xuanzhong"
+			 android:layout_gravity="center_vertical"
+			 android:layout_marginLeft="12dp"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:button="@drawable/checkbox_selector_in"
+		      ></CheckBox>
+		<!--<ImageView-->
+			<!--android:id="@+id/iv_xuanzhong"-->
+			<!--android:layout_gravity="center_vertical"-->
+			<!--android:layout_marginLeft="12dp"-->
+			<!--android:layout_width="wrap_content"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:background="@drawable/weixuanzhongmis"/>-->
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="93dp"
+			android:background="#ffffff"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:gravity="center_vertical"
+				android:layout_width="match_parent"
+				android:layout_height="40dp"
+				android:orientation="horizontal"
+				android:layout_marginLeft="21dp">
+				<TextView
+					android:textSize="13sp"
+					android:textColor="#666666"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="单位: "/>
+
+				<TextView
+					android:id="@+id/tv_pg_danwei"
+					android:textSize="13sp"
+					android:textColor="#333333"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					/>
+			</LinearLayout>
+
+			<LinearLayout
+
+				android:layout_width="match_parent"
+				android:layout_height="40dp"
+				android:orientation="horizontal"
+				android:layout_marginLeft="21dp">
+				<LinearLayout
+					android:gravity="center_vertical"
+					android:layout_weight="5"
+					android:layout_width="0dp"
+					android:layout_height="40dp">
+					<TextView
+						android:textSize="13sp"
+						android:textColor="#666666"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="类型: "/>
+
+					<TextView
+						android:id="@+id/tv_pg_leixin"
+						android:textSize="13sp"
+						android:textColor="#333333"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						/>
+				</LinearLayout>
+				<LinearLayout
+					android:gravity="center_vertical"
+					android:layout_weight="5"
+					android:layout_width="0dp"
+					android:layout_height="40dp">
+					<TextView
+						android:id="@+id/tv_pg3"
+						android:textSize="13sp"
+						android:textColor="#666666"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						/>
+
+					<TextView
+						android:id="@+id/tv_pg_zhuangtai"
+						android:textSize="13sp"
+						android:textColor="#333333"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						/>
+				</LinearLayout>
+				<LinearLayout
+					android:gravity="center_vertical"
+					android:layout_weight="6"
+					android:layout_width="0dp"
+					android:layout_height="40dp">
+					<TextView
+						android:id="@+id/tv_pg4"
+						android:textSize="13sp"
+						android:textColor="#666666"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						/>
+
+					<TextView
+						android:id="@+id/tv_pg_num"
+						android:textSize="13sp"
+						android:textColor="#333333"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						/>
+				</LinearLayout>
+			</LinearLayout>
+
+		</LinearLayout>
+	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="13dp"
+		android:background="#efefef"/>
+</LinearLayout>
+

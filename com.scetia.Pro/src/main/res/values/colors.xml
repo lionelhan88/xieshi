@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="common_background">#e5e5e5</color>
+    <color name="textcolor">#3598dc</color>
+    <color name="white">#ffffff</color>
+
+    <color name="danlan">#3598DC</color>
+    <color name="shenlan">#00a00a</color>
+    <color name="light_gray">#F3F3F3</color>
+    <color name="light_gray1">#AAA</color>
+    "#3598dc"
+
+</resources>

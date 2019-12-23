@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="#F3F3F3"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y180"
+        android:background="@drawable/bt_click_bg"
+        android:descendantFocusability="blocksDescendants">
+        <CheckBox
+            android:id="@+id/cb_comparison_approval"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x33"
+            android:button="@drawable/checkbox_selector_in"
+            />
+        <TextView
+            android:id="@+id/mis_com_is_approval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:textColor="#268BEB"
+            android:layout_marginTop="@dimen/y28"
+            android:layout_marginRight="20dp"
+            android:text="未审批"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y28"
+            android:layout_marginLeft="@dimen/x25"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_toRightOf="@+id/cb_comparison_approval"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="#666666"
+                android:text="比对项目："/>
+            <TextView
+                android:id="@+id/mis_com_approval_name"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="#333333"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="水泥统计比对"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/y28"
+            android:layout_marginLeft="@dimen/x25"
+            android:layout_toRightOf="@+id/cb_comparison_approval"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="#666666"
+                android:text="计划编号："/>
+            <TextView
+                android:id="@+id/mis_com_approval_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="#333333"
+                android:text="T1805"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/y28"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="#666666"
+                android:text="计划日期："/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="#333333"
+                android:text="2018-8-10"
+                android:id="@+id/mis_com_approval_date" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

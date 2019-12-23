@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arrayAntiQ">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+    <!-- devlist -->
+    <string name="btDisconnect">断开连接</string>
+    <string name="rbPairedDev">已配对设备</string>
+    <string name="rbNewDev">未配对设备</string>
+    <string name="btTest">测试</string>
+    <string name="tvDevList">蓝牙设备列表</string>
+
+    <!-- inventorytag -->
+    <string name="tvInventoryName">识别标签</string>
+    <string name="tvCountOfTags">标签数&#160;&#160;</string>
+    <string name="rbInventorySingle">单步</string>
+    <string name="rbInventoryLoop">单标签循环</string>
+    <string name="rbInventoryAnti">防碰撞</string>
+    <string name="tvQ">Q值：</string>
+    <string name="btInventory">识别标签</string>
+    <string name="tvTagUii">标签号</string>
+    <string name="tvTagLen">长度</string>
+    <string name="tvTagCount">次数</string>
+    <string name="btClear">清空数据</string>
+
+
+    <string name="app_name">建设检测</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sample_list">SampleListActivity</string>
+    <string name="title_activity_qrcode">QRCodeActivity</string>
+    <string name="title_activity_report_detail">ReportDetailActivity</string>
+    <string name="title_activity_sample_detail">SampleDetailActivity</string>
+    <string name="title_activity_validate">ValidateActivity</string>
+    <string name="title_activity_data_auditing">DataAuditingActivity</string>
+    <string name="title_activity_construction_list">ConstructionListActivity</string>
+    <string name="title_activity_project_list">ProjectListActivity</string>
+    <string name="title_activity_frame_menu">FrameMenuActivity</string>
+    <string name="title_activity_fragment_frame_menu">FragmentFrameMenuActivity</string>
+    <string name="title_activity_sliding_menu">SlidingMenuActivity</string>
+    <string name="title_activity_data_search">DataSearchActivity</string>
+    <string name="title_activity_xie_shi_sliding_menu">XieShiSlidingMenuActivity</string>
+    <string name="title_activity_auditing_detail">AuditingDetailActivity</string>
+    <string name="title_activity_data_examine">DataExamineActivity</string>
+    <string name="title_activity_today_statistics">TodayStatisticsActivity</string>
+    <string name="title_activity_construction_search">ConstructionSearchActivity</string>
+    <string name="title_activity_construction_detail">ConstructionDetailActivity</string>
+    <string name="title_activity_unqualifield_search">UnqualifieldSearchActivity</string>
+    <string name="title_activity_test_report">TestReportActivity</string>
+    <string name="title_activity_report_preview">ReportPreviewActivity</string>
+    <string name="title_activity_record_preview">RecordPreviewActivity</string>
+    <string name="title_activity_examine_search">ExamineSearchActivity</string>
+    <string name="title_activity_examine_detail">ExamineDetailActivity</string>
+    <string name="title_activity_test_constract">TestConstractActivity</string>
+    <string name="title_activity_sample_search">SampleSearchActivity</string>
+    <string name="title_activity_report_content">ReportContentActivity</string>
+    <string name="title_activity_upload_picture">UploadPictureActivity</string>
+    <string name="title_activity_image_gallery">ImageGalleryActivity</string>
+    <string name="title_activity_examine_report_detail">ExamineReportDetailActivity</string>
+    <string name="title_activity_examine_sample_list">ExamineSampleListActivity</string>
+    <string name="title_activity_examine_sample_detail">ExamineSampleDetailActivity</string>
+    <string name="title_activity_examine_params">ExamineParamsActivity</string>
+    <string name="title_activity_admin_today_statistics">AdminTodayStatisticsActivity</string>
+    <string name="title_activity_admin_today_statistics_search">AdminTodayStatisticsSearchActivity</string>
+    <string name="title_activity_qrcode_detail">QrcodeDetailActivity</string>
+    <string name="title_activity_today_statistics_detail">TodayStatisticsDetailActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_service">ServiceActivity</string>
+    <string name="title_activity_password">PasswordActivity</string>
+    <string name="title_activity_password_complete">PasswordCompleteActivity</string>
+
+    <string-array name="arrayBank">
+        <item>RESERVED</item>
+        <item>UII</item>
+        <item>TID</item>
+        <item>USER</item>
+    </string-array>
+    <string-array name="arrayOption_Read">
+        <item>单次读</item>
+        <item>循环读</item>
+        <item>防碰撞读（1级）</item>
+        <item>防碰撞读（2级）</item>
+    </string-array>
+
+    //年假管理
+    <string name="apply_date_select">选择</string>
+
+</resources>

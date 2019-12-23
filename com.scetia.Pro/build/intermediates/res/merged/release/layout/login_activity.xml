@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="版本号:"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_login_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="230dp"
+                android:gravity="center_horizontal"
+                android:text="建设检测"
+                android:textColor="#ffffff"
+                android:textSize="26sp" />
+
+            <EditText
+                android:id="@+id/userNameEditText"
+                android:layout_width="290dp"
+                android:layout_height="46dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginTop="78dp"
+                android:background="@drawable/zh"
+                android:drawableLeft="@drawable/male_user"
+                android:drawablePadding="5dp"
+                android:hint="账号"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="#a5a4a4" />
+
+            <EditText
+                android:id="@+id/passWordEditText"
+                android:layout_width="290dp"
+                android:layout_height="46dp"
+                android:background="@drawable/zh"
+                android:drawableLeft="@drawable/tuceng_7"
+                android:drawablePadding="5dp"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="#a5a4a4" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.lessu.uikit.Buttons.Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="290dp"
+                    android:layout_height="46dp"
+                    android:text="登录"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/text_size_large"
+                    app:background_highlight="@drawable/denglu"
+                    app:background_normal="@drawable/denglu" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

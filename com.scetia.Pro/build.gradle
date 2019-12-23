@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "com.scetia.Pro"
+        minSdkVersion 19
+        targetSdkVersion 22
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+
+dependencies {
+    compile project(':lSUIKit')
+    compile project(':pullToRefreash')
+    compile 'com.android.support:support-v4:22.1.0'
+    compile 'com.android.support:appcompat-v7:22.1.0'
+    compile files('libs/zbar.jar')
+    compile files('libs/uhfreaderapi.jar')
+    compile project(':library')
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
+    compile files('libs/BaiduLBS_Android.jar')
+}

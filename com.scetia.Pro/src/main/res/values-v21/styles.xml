@@ -1,0 +1,10 @@
+<resources>
+
+    <style name="translucentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        //5.x以上开始需要把颜色设置为透明
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>
