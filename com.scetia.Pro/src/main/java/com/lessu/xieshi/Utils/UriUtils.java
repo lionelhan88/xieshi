@@ -38,10 +38,11 @@ public class UriUtils {
                 final String type = split[0];
 
                 if ("primary".equalsIgnoreCase(type)) {
+                    if(split.length>=4) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1] + ":" + split[2] + ":" + split[3];
+                    }
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
-
-                // TODO handle non-primary volumes
             }
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {

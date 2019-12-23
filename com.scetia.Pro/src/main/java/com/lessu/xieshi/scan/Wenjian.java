@@ -1,10 +1,11 @@
 package com.lessu.xieshi.scan;
 
+import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.lessu.xieshi.AppApplication;
+import com.lessu.xieshi.Utils.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,12 +42,12 @@ public  class Wenjian {
 
             fopauto = new FileOutputStream(autosavefile);
 
-            System.out.println("一开始写入文件222222");
+            LogUtil.showLogD("一开始写入文件222222");
             if (!autosavefile.exists()) {
-                System.out.println("一开始写入文件333333");
+                LogUtil.showLogD("一开始写入文件333333");
                 autosavefile.createNewFile();
             }
-            System.out.println("写入文件");
+            LogUtil.showLogD("写入文件");
             //fopauto.write("tiaoma".getBytes());
             for (int i = 0; i < Tal.size(); i++) {
                 byte[] contentInBytes = Tal.get(i).getBytes();
@@ -86,10 +87,9 @@ public  class Wenjian {
                 System.out.println(cacheDirectory);
 
                 fop = new FileOutputStream(cacheDirectory);
-
-                System.out.println("一开始写入文件222222");
+                LogUtil.showLogD("一开始写入文件222222");
                 if (!cacheDirectory.exists()) {
-                    System.out.println("一开始写入文件333333");
+                    LogUtil.showLogD("一开始写入文件333333");
                     cacheDirectory.createNewFile();
                 }
                 System.out.println("写入文件");
@@ -117,10 +117,9 @@ public  class Wenjian {
     }
 
 
-    public static String duqv(File file){
+    public static String duqv(Context context,File file){
         StringBuffer sb=new StringBuffer();
         String encoding="GBK";
-        Log.e("wqs",file.getAbsolutePath());
         try {
             if(file.isFile() && file.exists()){
                 InputStreamReader read = new InputStreamReader(
@@ -132,10 +131,10 @@ public  class Wenjian {
                 }
                 read.close();
             }else{
-                System.out.println("找不到指定的文件");
+                Toast.makeText(context,"找不到指定的文件",Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            System.out.println("读取文件内容出错");
+            Toast.makeText(context,"读取文件内容出错",Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
         return sb.toString();

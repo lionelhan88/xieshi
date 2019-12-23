@@ -614,7 +614,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 intentread.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
                 intentread.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(intentread, 1);
-
                 break;
             case R.id.tv_qingchu:
                 Xal.clear();
@@ -644,7 +643,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     intentshujvjiaohu.putExtra("uidstr", uidStr);
                     intentshujvjiaohu.putExtra("TALXAL", s);
                     intentshujvjiaohu.setClass(PrintDataActivity.this, ShujvjiaohuActivity.class);
-
                     startActivity(intentshujvjiaohu);
                 } else {
                     Toast.makeText(PrintDataActivity.this, "设备编号为空", Toast.LENGTH_SHORT).show();
@@ -947,8 +945,12 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             if(uri!=null){
                 path=UriUtils.getPath(this,uri);
             }
+            if(path==null){
+                Toast.makeText(this,"文件路径为空！",Toast.LENGTH_LONG).show();
+                return;
+            }
             File file = new File(path);
-            String duqv = Wenjian.duqv(file);
+            String duqv = Wenjian.duqv(this,file);
             if (duqv.length() != 0 && duqv != null) {
                 if (duqv.contains("xinpian")) {
                     String[] split = duqv.split("xinpian");
