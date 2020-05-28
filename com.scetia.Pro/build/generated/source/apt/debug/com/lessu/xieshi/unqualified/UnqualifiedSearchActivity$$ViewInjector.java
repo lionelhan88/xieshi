@@ -7,7 +7,7 @@ import butterknife.ButterKnife.Finder;
 public class UnqualifiedSearchActivity$$ViewInjector {
   public static void inject(Finder finder, final com.lessu.xieshi.unqualified.UnqualifiedSearchActivity target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131559076, "method 'Report_CreateDateEditTextPreDidClick'");
+    view = finder.findRequiredView(source, 2131559080, "method 'Report_CreateDateEditTextPreDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -16,7 +16,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.Report_CreateDateEditTextPreDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559077, "method 'Report_CreateDateEditTextEndDidClick'");
+    view = finder.findRequiredView(source, 2131559081, "method 'Report_CreateDateEditTextEndDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -34,7 +34,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.ProjectAreaButtonDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559080, "method 'typeButtonDidClick'");
+    view = finder.findRequiredView(source, 2131559084, "method 'typeButtonDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -43,7 +43,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.typeButtonDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559082, "method 'ManageUnitIDButton'");
+    view = finder.findRequiredView(source, 2131559086, "method 'ManageUnitIDButton'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -52,7 +52,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.ManageUnitIDButton();
         }
       });
-    view = finder.findRequiredView(source, 2131559083, "method 'UqExecStatusButton'");
+    view = finder.findRequiredView(source, 2131559087, "method 'UqExecStatusButton'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -61,7 +61,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.UqExecStatusButton();
         }
       });
-    view = finder.findRequiredView(source, 2131559084, "method 'bt_jianceleibieDidClick'");
+    view = finder.findRequiredView(source, 2131559088, "method 'bt_jianceleibieDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -70,7 +70,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.bt_jianceleibieDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559085, "method 'bt_jiancexiangmuDidClick'");
+    view = finder.findRequiredView(source, 2131559089, "method 'bt_jiancexiangmuDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -79,7 +79,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.bt_jiancexiangmuDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559089, "method 'CheckItemButtonDidClick'");
+    view = finder.findRequiredView(source, 2131559093, "method 'CheckItemButtonDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -88,7 +88,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.CheckItemButtonDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559064, "method 'materialButtonDidClick'");
+    view = finder.findRequiredView(source, 2131559068, "method 'materialButtonDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -97,7 +97,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.materialButtonDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559067, "method 'projectButtonDidClick'");
+    view = finder.findRequiredView(source, 2131559071, "method 'projectButtonDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -106,7 +106,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.projectButtonDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559091, "method 'StartDateEditTextDidClick'");
+    view = finder.findRequiredView(source, 2131559095, "method 'StartDateEditTextDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -115,7 +115,7 @@ public class UnqualifiedSearchActivity$$ViewInjector {
           target.StartDateEditTextDidClick();
         }
       });
-    view = finder.findRequiredView(source, 2131559092, "method 'EndDateEditTextDidClick'");
+    view = finder.findRequiredView(source, 2131559096, "method 'EndDateEditTextDidClick'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(

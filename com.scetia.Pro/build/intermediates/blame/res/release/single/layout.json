@@ -456,6 +456,10 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\setting_activity.xml"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout\\test2_layout.xml",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\test2_layout.xml"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout\\project_search_activity.xml",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\project_search_activity.xml"
     },

@@ -7,7 +7,7 @@ import butterknife.ButterKnife.Finder;
 public class ValidateActivity$$ViewInjector {
   public static void inject(Finder finder, final com.lessu.xieshi.login.ValidateActivity target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131559106, "method 'getValidateButtonDidPress'");
+    view = finder.findRequiredView(source, 2131559110, "method 'getValidateButtonDidPress'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -16,7 +16,7 @@ public class ValidateActivity$$ViewInjector {
           target.getValidateButtonDidPress();
         }
       });
-    view = finder.findRequiredView(source, 2131559107, "method 'validateButtonDidPress'");
+    view = finder.findRequiredView(source, 2131559111, "method 'validateButtonDidPress'");
     view.setOnClickListener(
       new android.view.View.OnClickListener() {
         @Override public void onClick(
@@ -25,7 +25,7 @@ public class ValidateActivity$$ViewInjector {
           target.validateButtonDidPress();
         }
       });
-    view = finder.findRequiredView(source, 2131559104, "method 'phoneNumEditTextChanged'");
+    view = finder.findRequiredView(source, 2131559108, "method 'phoneNumEditTextChanged'");
     ((android.widget.TextView) view).addTextChangedListener(
       new android.text.TextWatcher() {
         @Override public void onTextChanged(

@@ -5,13 +5,16 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -29,6 +32,7 @@ import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Changezifu;
 import com.lessu.xieshi.Utils.JieMi;
+import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.UriUtils;
 import com.lessu.xieshi.customView.DragLayout;
@@ -203,8 +207,32 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         lv_xinpian.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
         madaptertiaoma = new MyAdaptertiaoma();
         madapterxinpian = new MyAdapterxinpian();
-
         lv_tiaoma.setAdapter(madaptertiaoma);
+        lv_tiaoma.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+                //长按删除当前项
+                AlertDialog.Builder builder = new AlertDialog.Builder(PrintDataActivity.this);
+                builder.setTitle("提示");
+                builder.setMessage("是否删除"+Tal.get(pos)+"?");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Tal.remove(pos);
+                        dialogInterface.dismiss();
+                        madaptertiaoma.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+                return false;
+            }
+        });
         lv_xinpian.setAdapter(madapterxinpian);
         tv_tiaoma_num.setText(Tal.size() + "");
         tv_xinpian_num.setText(Xal.size() + "");
@@ -217,41 +245,32 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         tv_duqv.setOnClickListener(this);
         tv_qingchu.setOnClickListener(this);
         tv_shujvjiaohu.setOnClickListener(this);
-
-
     }
 
     private void initData() {
         //这里打开对话框如果设备编号为空的话
         // check(getDeviceAddress());
-
-
         device = bluetoothAdapter.getRemoteDevice(getDeviceAddress());
         //设置当前设备名称
         //deviceName.setText(device.getName());
         // 一上来就先连接蓝牙设备
-
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 getuidd();
-
-                if (Shref.getString(PrintDataActivity.this, getDeviceAddress(), null) == null) {
+                if (Shref.getString(PrintDataActivity.this, getDeviceAddress(), null) == null){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             while (cuowulianjie) {
-                                System.out.println("在断开。。。。。。。。。。。。。。");
+                                LogUtil.showLogD("在断开。。。。。。。。。。。。。。");
                                 duankai();
-
                             }
                             showt("请返回重新获取设备编号");
                         }
                     });
                 }
-
-                boolean flag = connect();
+                boolean flag =connect();
                 if (!flag) {
                     // 连接失败
                     runOnUiThread(new Runnable() {
@@ -277,6 +296,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         }).start();
     }
 
+    /**
+     * 获取设备编号
+     */
     private void getuidd() {
         getUid();
         while (Shref.getString(PrintDataActivity.this, getDeviceAddress(), null) == null) {
@@ -288,7 +310,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             showt("正在获取设备号。。。。。");
                         }
                     });
-
                     xunuid();
                 } else {
                     j = 1;
@@ -303,13 +324,11 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         });
                         System.out.println("在断开。。。。。。。。。。。。。。");
                         duankai();
-
                     }
-
                 }
             } else {
                 getUid();
-                if (lianjieshibai == true) {
+                if (lianjieshibai) {
                     return;
                 }
             }
@@ -333,14 +352,14 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     private String getDeviceAddress() {
         // 直接通过Context类的getIntent()即可获取Intent
         Intent intent = this.getIntent();
-        // 判断
+        // 判断deviceaddress
         if (Shref.getString(PrintDataActivity.this, "deviceaddress", null) == null) {
             Shref.setString(PrintDataActivity.this, "deviceaddress", intent.getStringExtra("deviceAddress"));
-            System.out.println("!=null......" + intent.getStringExtra("deviceAddress"));
+           LogUtil.showLogD("null......" + intent.getStringExtra("deviceAddress"));
             return intent.getStringExtra("deviceAddress");
         } else {
             String deviceaddress = Shref.getString(PrintDataActivity.this, "deviceaddress", null);
-            System.out.println("null......" + intent.getStringExtra("deviceAddress"));
+            LogUtil.showLogD("不为null......" + intent.getStringExtra("deviceAddress"));
             return deviceaddress;
         }
     }
@@ -389,7 +408,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
-        System.out.println("断开蓝牙设备连接");
+        LogUtil.showLogD("断开蓝牙设备连接");
         try {
             if (bluetoothSocket != null) {
                 bluetoothSocket.close();
@@ -443,12 +462,10 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     } while (bytes <= 0);
 
                     buffer2 = (byte[]) buffer.clone();
-
                     for (int i = 0; i < buffer.length; ++i) {
                         buffer[i] = 0;
                     }
                     String ceshishujv = new String(buffer2, 0, bytes);
-
                     Pattern p = Pattern.compile("\\s*|\t|\r|\n");
                     Matcher m = p.matcher(ceshishujv);
                     ceshishujv = m.replaceAll("");
@@ -474,7 +491,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                     String substring = Ts.substring(0, 1);
                                     if (Ts.length() == 10 && substring.equals("1")) {
                                         if (!Tal.contains(Ts)) {
-                                            Tal.add(Ts);
+                                            Tal.add(0,Ts);
                                         }
                                         Ts1 = null;
                                         Ts2 = null;
@@ -499,7 +516,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                 Ts = new String(buffer2, 0, 10);
                                 String substring = Ts.substring(0, 1);
                                 if (!Tal.contains(Ts) && substring.equals("1")) {
-                                    Tal.add(Ts);
+                                    Tal.add(0,Ts);
                                 }
                                 Ts = null;
                                 System.out.println("Ts...." + Ts);
@@ -520,7 +537,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             String jiexinpian = JieMi.jiexinpian(s);
                             if (jiexinpian != null) {
                                 if (!Xal.contains(jiexinpian)) {
-                                    Xal.add(jiexinpian);
+                                    Xal.add(0,jiexinpian);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -567,7 +584,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 //                uidStr="35ffda054759303542791143";
 //                AppApplication.muidstr=uidStr;
                 if (uidStr != null) {
-
                     String s1 = "";
                     for (int i = 0; i < Tal.size(); i++) {
                         s1 = s1 + Tal.get(i) + ";";
@@ -586,7 +602,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
             case R.id.ll_shenhexiazai:
                 if (uidStr != null) {
-                    startActivity(new Intent(PrintDataActivity.this, ShenhexiazaiActivity.class));
+                    Intent intent = new Intent(PrintDataActivity.this, ShenhexiazaiActivity.class);
+                    intent.putExtra("uidstr",uidStr);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(PrintDataActivity.this, "设备编号为空", Toast.LENGTH_SHORT).show();
                 }
@@ -841,7 +859,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 System.out.println("在断开。。。。。。。。。。。。。。");
                 duankai();
             }
-
         } else {
             runOnUiThread(new Runnable() {
                 @Override
@@ -881,7 +898,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
             ViewHoldertiaoma holder;
             if (view == null) {
                 holder = new ViewHoldertiaoma();

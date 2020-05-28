@@ -131,8 +131,6 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
                 //progressDialog = ProgressDialog.show(context, "请稍等...",
                 //"搜索蓝牙设备中...", true);
                 startAnima();
-
-
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED
                     .equals(action)) {
                 System.out.println("设备搜索完毕");

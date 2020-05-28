@@ -90,6 +90,7 @@ public class FirstActivity extends BaseActivity {
 
     private LocationClient mLocationClient;
     private BDLocationListener mBDLocationListener;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,16 +147,17 @@ public class FirstActivity extends BaseActivity {
 
     /**
      * 获取当前时间点的天气情况
+     *
      * @param token
      * @param longgitude
      * @param latiformat
      */
-    private void getHourWeather(final String cityName, String token, String longgitude, String latiformat){
+    private void getHourWeather(final String cityName, String token, String longgitude, String latiformat) {
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("Token", token);
         params.put("JD", longgitude);
         params.put("WD", latiformat);
-        System.out.println("params.............."+params);
+        System.out.println("params.............." + params);
         EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceWeather.asmx/GetHour"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
@@ -165,17 +167,21 @@ public class FirstActivity extends BaseActivity {
                 List<Hourbean.DataBean> data = hourbean.getData();
                 Hourbean.DataBean dataBean = data.get(0);
                 String wthr = dataBean.getWthr();
-                tv_tianqi.setText(cityName+" > "+wthr);
-                tv_temp.setText(dataBean.getTemp()+"℃");
+                tv_tianqi.setText(cityName + " > " + wthr);
+                tv_temp.setText(dataBean.getTemp() + "℃");
             }
+
             @Override
             public String onFailed(ApiError error) {
-                System.out.println("shibai......"+error.errorMeesage);
+                System.out.println("shibai......" + error.errorMeesage);
                 return null;
             }
         });
     }
-    /** 获得所在位置经纬度及详细地址 */
+
+    /**
+     * 获得所在位置经纬度及详细地址
+     */
     public void getLocation() {
         // 声明定位参数
         LocationClientOption option = new LocationClientOption();
@@ -204,11 +210,11 @@ public class FirstActivity extends BaseActivity {
                 double longitude = location.getLongitude();
                 final String latiformat = df.format(latitude);
                 final String longformat = df.format(longitude);
-                final String city = location.getCity().substring(0,location.getCity().length()-1);
+                final String city = location.getCity().substring(0, location.getCity().length() - 1);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        getHourWeather(city,Contenttianqi.gettoken(), longformat, latiformat);
+                        getHourWeather(city, Contenttianqi.gettoken(), longformat, latiformat);
                     }
                 });
                 if (mLocationClient.isStarted()) {
@@ -223,6 +229,7 @@ public class FirstActivity extends BaseActivity {
 
         }
     }
+
     private void getLogin() {
 
         HashMap<String, Object> params = new HashMap<String, Object>();
@@ -787,7 +794,6 @@ public class FirstActivity extends BaseActivity {
         }
 
     }
-
 
 
 }

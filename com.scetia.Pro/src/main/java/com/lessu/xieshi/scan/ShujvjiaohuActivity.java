@@ -162,6 +162,7 @@ public class ShujvjiaohuActivity extends NavigationActivity implements View.OnCl
         });
     }
     private void initData() {
+        xalTallist.clear();
         Intent intent = getIntent();
         uidstr = intent.getStringExtra("uidstr");
         talxal = intent.getStringExtra("TALXAL");

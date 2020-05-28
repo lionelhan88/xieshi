@@ -41,7 +41,9 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 
 
-
+/**
+ * 当前页面在android9.0后要开启硬件加速，否则输入密码时不会实时显示
+ */
 public class LoginActivity extends BaseActivity {
 	private TextView tv_login_version;
 	private String userName;
@@ -60,7 +62,7 @@ public class LoginActivity extends BaseActivity {
 		Intent intent=getIntent();
 		boolean exit = intent.getBooleanExtra("exit", false);
 		boolean jiebang = intent.getBooleanExtra("jiebang", false);
-		if (userpower != null && userpower != ""&& exit==false&&jiebang==false) {
+		if (userpower != null && userpower != ""&& !exit && !jiebang) {
 			System.out.println("走这里直接进入。。。。");
 			Toboundary(userpower);
 		} else {

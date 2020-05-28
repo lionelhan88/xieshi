@@ -18,7 +18,6 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
-import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.MyToast;
 import com.lessu.xieshi.Utils.Shref;
@@ -152,6 +151,7 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
     }
 
     private void initData() {
+        sss="";
         Intent intent=getIntent();
         uidstr = intent.getStringExtra("uidstr");
         new Thread(new Runnable() {
@@ -163,6 +163,7 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                 String soapAction1= "http://tempuri.org/GetReportUpState ";
                 SoapObject soapObject1 = new SoapObject(nameSpace1, methodName1);
                 soapObject1.addProperty("membercode", Shref.getString(ShenhexiazaiActivity.this,"huiyuanhao",""));
+                //soapObject1.addProperty("membercode", "0000");
                 SoapSerializationEnvelope envelope1 = new SoapSerializationEnvelope(
                         SoapEnvelope.VER10);
                 envelope1.bodyOut = soapObject1;
@@ -180,12 +181,15 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                 }
                 SoapObject object1 = (SoapObject) envelope1.bodyIn;
                 String s2 = object1.toString();
+               /* String s2 ="GetReportUpStateResult=1010000331~1010000336;" +
+                        "1050000175~1050000177;1150080333~1150080347;1150080318~1150080332;" +
+                        "1010000359~1010000361;1150080318~1150080332;1050000178;1050000207;" +
+                        "1010000356~1010000358;; message=anyType{};";*/
                 System.out.println(s2);
                 if(s2.contains("GetReportUpStateResult=")){
-                    String result = s2.substring(s2.indexOf("GetReportUpStateResult=") + 23, s2.indexOf(";"));
+                    String result = s2.substring(s2.indexOf("GetReportUpStateResult=") + 23, s2.indexOf("message"));
                     System.out.println("result....."+result);
-
-                    if(result.equals("anyType{}")){
+                    if(result.contains("anyType{}")){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -193,99 +197,105 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                             }
                         });
                     }else {
-                        if (result.contains("~")) {
-                            String[] split = result.split("~");
-                            String s = split[0];
-                            String s1 = split[1];
-                            int start = Integer.parseInt(s);
-                            int end = Integer.parseInt(s1);
-                            for (int i = start; i < end + 1; i++) {
-                                sss = sss + i + ";";
+                        result = result.substring(0,result.lastIndexOf(";"));
+                        String[] numberTeam = result.split(";");
+                        for (int j=0;j<numberTeam.length;j++) {
+                            //sss = "";
+                            String sTeam = numberTeam[j];
+                            if (sTeam.contains("~")) {
+                                String[] split = sTeam.split("~");
+                                String s = split[0];
+                                String s1 = split[1];
+                                int start = Integer.parseInt(s);
+                                int end = Integer.parseInt(s1);
+                                for (int i = start; i < end + 1; i++) {
+                                    sss = sss + i + ";";
+                                }
+                            } else {
+                                sss = sss+sTeam + ";";
+                            }
+                        }
+                            String nameSpace2 = "http://tempuri.org/";
+                            String methodName2 = "CheckSamples";
+                            String endPoint2 = "http://www.scetia.com/Scetia.SampleManage.WS/SampleManagement.asmx";
+                            String soapAction2 = "http://tempuri.org/CheckSamples";
+                            SoapObject soapObject2 = new SoapObject(nameSpace2, methodName2);
+                            soapObject2.addProperty("coreCodeStr", sss);
+                            soapObject2.addProperty("membercode", uidstr);
+                            //soapObject2.addProperty("membercode", "35ffd0054843353230782243");
+                            SoapSerializationEnvelope envelope2 = new SoapSerializationEnvelope(
+                                    SoapEnvelope.VER10);
+                            envelope2.bodyOut = soapObject2;
+                            envelope2.dotNet = true;
+                            envelope2.setOutputSoapObject(soapObject2);
+                            HttpTransportSE transport2 = new HttpTransportSE(endPoint2);
+                            try {
+                                transport2.call(soapAction2, envelope2);
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (XmlPullParserException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
                             }
 
-                        } else {
-                            sss = result + ";";
-                        }
-                        String nameSpace2 = "http://tempuri.org/";
-                        String methodName2 = "CheckSamples";
-                        String endPoint2 = "http://www.scetia.com/Scetia.SampleManage.WS/SampleManagement.asmx";
-                        String soapAction2 = "http://tempuri.org/CheckSamples";
-                        SoapObject soapObject2 = new SoapObject(nameSpace2, methodName2);
-                        soapObject2.addProperty("coreCodeStr", sss);
-                        soapObject2.addProperty("membercode", AppApplication.muidstr);
-                        //soapObject2.addProperty("membercode", "35ffd0054843353230782243");
-                        SoapSerializationEnvelope envelope2 = new SoapSerializationEnvelope(
-                                SoapEnvelope.VER10);
-                        envelope2.bodyOut = soapObject2;
-                        envelope2.dotNet = true;
-                        envelope2.setOutputSoapObject(soapObject2);
-                        HttpTransportSE transport2 = new HttpTransportSE(endPoint2);
-                        try {
-                            transport2.call(soapAction2, envelope2);
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (XmlPullParserException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        SoapObject object2 = (SoapObject) envelope2.bodyIn;
-                        System.out.println(object2.toString());
-                        if (object2.getPropertyCount() >= 1) {
-                            SoapObject shujvsoap = (SoapObject) object2.getProperty(0);
-                            System.out.println("书vjiaohu..........." + shujvsoap.toString());
-                            for (int i = 0; i < shujvsoap.getPropertyCount(); i++) {
-                                SoapObject soap3 = (SoapObject) shujvsoap.getProperty(i);
-                                System.out.println(i + "......" + soap3.toString());
-                                XalTal info = new XalTal();
-                                if (soap3.toString().contains("Contract_SignNo")) {
-                                    info.setContract_SignNo(soap3.getProperty("Contract_SignNo").toString());
-                                }
-                                if (soap3.toString().contains("Sample_BsId")) {
-                                    info.setSample_BsId(soap3.getProperty("Sample_BsId").toString());
-                                }
-                                if (soap3.toString().contains("KindName")) {
-                                    info.setKindName(soap3.getProperty("KindName").toString());
-                                }
-                                if (soap3.toString().contains("ItemName")) {
-                                    info.setItemName(soap3.getProperty("ItemName").toString());
-                                }
-                                if (soap3.toString().contains("SampleName")) {
-                                    info.setSampleName(soap3.getProperty("SampleName").toString());
-                                }
-                                if (soap3.toString().contains("SpecName")) {
-                                    info.setSpecName(soap3.getProperty("SpecName").toString());
-                                }
-                                if (soap3.toString().contains("GradeName")) {
-                                    info.setGradeName(soap3.getProperty("GradeName").toString());
-                                }
-                                if (soap3.toString().contains("RetStatus")) {
-                                    info.setRetStatus(Integer.parseInt(soap3.getProperty("RetStatus").toString()));
-                                }
-                                if (soap3.toString().contains("BuildUnitName")) {
-                                    info.setBuildUnitName(soap3.getProperty("BuildUnitName").toString());
-                                }
-                                if (soap3.toString().contains("ProjectName")) {
-                                    info.setProjectName(soap3.getProperty("ProjectName").toString());
-                                }
-                                alll.add(info);
-                            }
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    iv_shenheloding.setVisibility(View.GONE);
-                                    lv_shenheshujvjiaohu.setVisibility(View.VISIBLE);
-                                    if (myAdapter != null) {
-                                        myAdapter.notifyDataSetChanged();
-                                    } else {
-                                        myAdapter = new MyAdapter();
+                            SoapObject object2 = (SoapObject) envelope2.bodyIn;
+                            System.out.println(object2.toString());
+                            if (object2.getPropertyCount() >= 1) {
+                                SoapObject shujvsoap = (SoapObject) object2.getProperty(0);
+                                System.out.println("书vjiaohu..........." + shujvsoap.toString());
+                                for (int i = 0; i < shujvsoap.getPropertyCount(); i++) {
+                                    SoapObject soap3 = (SoapObject) shujvsoap.getProperty(i);
+                                    System.out.println(i + "......" + soap3.toString());
+                                    XalTal info = new XalTal();
+                                    if (soap3.toString().contains("Contract_SignNo")) {
+                                        info.setContract_SignNo(soap3.getProperty("Contract_SignNo").toString());
                                     }
-                                    lv_shenheshujvjiaohu.setAdapter(myAdapter);
+                                    if (soap3.toString().contains("Sample_BsId")) {
+                                        info.setSample_BsId(soap3.getProperty("Sample_BsId").toString());
+                                    }
+                                    if (soap3.toString().contains("KindName")) {
+                                        info.setKindName(soap3.getProperty("KindName").toString());
+                                    }
+                                    if (soap3.toString().contains("ItemName")) {
+                                        info.setItemName(soap3.getProperty("ItemName").toString());
+                                    }
+                                    if (soap3.toString().contains("SampleName")) {
+                                        info.setSampleName(soap3.getProperty("SampleName").toString());
+                                    }
+                                    if (soap3.toString().contains("SpecName")) {
+                                        info.setSpecName(soap3.getProperty("SpecName").toString());
+                                    }
+                                    if (soap3.toString().contains("GradeName")) {
+                                        info.setGradeName(soap3.getProperty("GradeName").toString());
+                                    }
+                                    if (soap3.toString().contains("RetStatus")) {
+                                        info.setRetStatus(Integer.parseInt(soap3.getProperty("RetStatus").toString()));
+                                    }
+                                    if (soap3.toString().contains("BuildUnitName")) {
+                                        info.setBuildUnitName(soap3.getProperty("BuildUnitName").toString());
+                                    }
+                                    if (soap3.toString().contains("ProjectName")) {
+                                        info.setProjectName(soap3.getProperty("ProjectName").toString());
+                                    }
+                                    alll.add(info);
                                 }
-                            });
-                        } else {
-                        }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        iv_shenheloding.setVisibility(View.GONE);
+                                        lv_shenheshujvjiaohu.setVisibility(View.VISIBLE);
+                                        if (myAdapter != null) {
+                                            myAdapter.notifyDataSetChanged();
+                                        } else {
+                                            myAdapter = new MyAdapter();
+                                        }
+                                        lv_shenheshujvjiaohu.setAdapter(myAdapter);
+                                    }
+                                });
+                            } else {
+                            }
+
                     }
                 }
             }
