@@ -34,7 +34,6 @@ public class MisZsPresenter implements IMisZssearchContract.Presenter {
         EasyAPI.apiConnectionAsync(activity, true, false, ApiMethodDescription.get("/ServiceMis.asmx/GetCertificateInfoByNum"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
-                // TODO Auto-generated method stub
                 System.out.println(result);
                 Miszhengshu miszhengshu = GsonUtil.JsonToObject(result.toString(), Miszhengshu.class);
                 view.ZssearchCall(true,miszhengshu);

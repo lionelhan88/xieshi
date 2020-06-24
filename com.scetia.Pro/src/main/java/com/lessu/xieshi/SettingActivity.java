@@ -17,6 +17,7 @@ import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.login.LoginActivity;
+import com.lessu.xieshi.scan.ScanActivity;
 
 import java.io.File;
 import java.util.HashMap;
@@ -106,7 +107,21 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 		Intent intent = new Intent(SettingActivity.this, ServiceActivity.class);
 		startActivity(intent);
 	}
-	
+	@OnClick(R.id.bt_set_login_out)
+	public void resetLogin(){
+		LSAlert.showDialog(this, "提示", "确定要重新登陆吗？", "确定", "取消",
+				new DialogCallback() {
+					@Override
+					public void onConfirm() {
+						loginOut();
+					}
+
+					@Override
+					public void onCancel() {
+
+					}
+				});
+	}
 	@OnClick(R.id.updateButton)
 	public void updateButtonDidClick(){
 		HashMap<String, Object> params = new HashMap<String, Object>();
@@ -115,12 +130,10 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), params, new EasyAPI.ApiFastSuccessCallBack() {
 			@Override
 			public void onSuccessJson(JsonElement result) {
-				// TODO Auto-generated method stub
 				String versionName = null;
 				try {
 					versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
 				} catch (NameNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
@@ -133,7 +146,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 				if (localCount>serviceCount){
 					count = serviceCount;
 				}
-				Boolean updateFlag = false;
+				boolean updateFlag = false;
 				try{
 				for (int i=0;i<count;i++){
 					if (Integer.parseInt(localVersionArray[i])<Integer.parseInt(serviceVersionArray[i])){
@@ -155,92 +168,56 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 						
 						@Override
 						public void onConfirm() {
-							// TODO Auto-generated method stub
 							downLoadFile(urlString);
-//								if (updatefile == null){
-//									LSAlert.showAlert(SettingActivity.this, "未成功下载更新软件，请稍后再试");
-//									return;
-//								}
-//								else{
-//									installApk(updatefile);
-//								}
 						}
 						
 						@Override
 						public void onCancel() {
-							// TODO Auto-generated method stub
-							
 						}
 					});
 				}
 			}
 			
 		});
-			
-		
+	}
+	@OnClick(R.id.scanLogin)
+	public void scanLogin(){
+		if(Shref.getString(SettingActivity.this, Common.USERID,"").equals("")){
+			//如果userid是"",则要提示用户重新登录才能获取到userId
+			LSAlert.showDialog(SettingActivity.this, "提示", "使用此功能需要重新登录\n是否现在登录？",
+					"确定", "取消", new LSAlert.DialogCallback() {
+						@Override
+						public void onConfirm() {
+							//退出登录
+							loginOut();
+						}
+
+						@Override
+						public void onCancel() {
+
+						}
+					});
+		}
+		Intent scanIntent = new Intent(SettingActivity.this, ScanActivity.class);
+		startActivity(scanIntent);
 	}
 	protected void downLoadFile(String httpUrl) {
-        // TODO Auto-generated method stub
-		final Uri uri = Uri.parse(httpUrl);          
+		final Uri uri = Uri.parse(httpUrl);
 		final Intent it = new Intent(Intent.ACTION_VIEW, uri);          
 		startActivity(it);
-//		if (updateVersion.isEmpty()){
-//			LSAlert.showAlert(SettingActivity.this, "当前以是最新版本或服务器版本未获取到！");
-//			return null;
-//		}
-//        final String fileName = "updata"+updateVersion+".apk";
-//        File tmpFile = new File("/sdcard/xieshi_update");
-//        if (!tmpFile.exists()) {
-//                tmpFile.mkdir();
-//        }
-//        final File file = new File("/sdcard/update/" + fileName);
-//
-//       try {
-//                URL url = new URL(httpUrl);
-//                try {
-//                        HttpURLConnection conn = (HttpURLConnection) url
-//                                        .openConnection();
-//                        InputStream is = conn.getInputStream();
-//                        FileOutputStream fos = new FileOutputStream(file);
-//                        byte[] buf = new byte[256];
-//                        conn.connect();
-//                        double count = 0;
-//                        if (conn.getResponseCode() >= 400) {
-//                                Toast.makeText(SettingActivity.this, "连接超时", Toast.LENGTH_SHORT)
-//                                                .show();
-//                        } else {
-//                                while (count <= 100) {
-//                                        if (is != null) {
-//                                                int numRead = is.read(buf);
-//                                                if (numRead <= 0) {
-//                                                        break;
-//                                                } else {
-//                                                        fos.write(buf, 0, numRead);
-//                                                }
-//
-//                                       } else {
-//                                                break;
-//                                        }
-//
-//                               }
-//                        }
-//
-//                       conn.disconnect();
-//                        fos.close();
-//                        is.close();
-//                } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//
-//                       e.printStackTrace();
-//                }
-//        } catch (MalformedURLException e) {
-//                // TODO Auto-generated catch block
-//
-//               e.printStackTrace();
-//        }
-//
-//       return file;
-}
+	}
+
+	/**
+	 * 退出登录
+	 */
+	private void loginOut(){
+		Intent intentTUICHU = new Intent();
+		intentTUICHU.setClass(SettingActivity.this, LoginActivity.class);
+		intentTUICHU.putExtra("exit", true);
+		intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intentTUICHU);
+		finish();
+	}
 	/**
      * 安装APK
      */

@@ -141,6 +141,14 @@ public class NavigationBar extends RelativeLayout {
 	        item.setTintColor(tintColor);
 		}
 	}
+    public void addRightBarItem(BarButtonItem item){
+        if(item == null){
+            rightBarLayout.removeAllViews();
+        }else{
+            rightBarLayout.addView(item);
+            item.setTintColor(tintColor);
+        }
+    }
 
 //    @property(nonatomic,assign) UIBarStyle barStyle;
 //    @property(nonatomic,assign) id delegate;

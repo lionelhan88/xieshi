@@ -34,9 +34,12 @@ public class ShebeixinxiActivity extends AppCompatActivity {
         tv1 = (TextView) findViewById(R.id.tv1);
         Intent intent=getIntent();
         String uidstr = intent.getStringExtra("uidstr");
+        if(uidstr==null||uidstr.equals("")){
+            uidstr = AppApplication.muidstr;
+        }
         System.out.println("uidstr........"+uidstr);
         tv.setText("设备编号："+uidstr);
-        if(AppApplication.muidstr!=null) {
+        if(uidstr!=null) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {

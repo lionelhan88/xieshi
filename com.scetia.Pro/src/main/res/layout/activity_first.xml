@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_tianqi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,21 +28,31 @@
             <TextView
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/x20"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:textColor="#ffffff"
                 android:id="@+id/tv_tianqi"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_tianqi"/>
             <TextView
                 android:id="@+id/first_tv_tmp"
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/x30"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:textColor="#ffffff"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_tianqi"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/first_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x20"
+                android:src="@drawable/icon_setting"/>
+        </RelativeLayout>
         <ImageView
             android:id="@+id/iv_touxiang"
             android:layout_gravity="center_horizontal"
@@ -211,9 +221,6 @@
                     android:textColor="#666666"
                     android:text="新加功能"/>
             </LinearLayout>
-
-
-
         </LinearLayout>
     </LinearLayout>
 

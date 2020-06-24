@@ -1,5 +1,6 @@
 package com.lessu.xieshi;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -14,19 +15,20 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.util.Stack;
+
 public class AppApplication extends ShareableApplication{
 	public static boolean isfirst=true;
 	private static AppApplication mcontext;
 	public static String muidstr;
 	public static boolean isGLY=false;
 	public static boolean isupdate=false;
+	public static Stack<Activity> activityManages = new Stack<Activity>();
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		mcontext=this;
 		DensityUtil.initInstance(this);
-
 		//cc_edit
 		LSUtil.setValueStatic("service", "telecom");
 
@@ -64,10 +66,11 @@ public class AppApplication extends ShareableApplication{
 				.build();//开始构建
 
 		ImageLoader.getInstance().init(config);//全局初始化此配置
-
-
 	}
 	public static Context getAppContext(){
 		return mcontext;
+	}
+	public static void  exit(){
+		System.exit(0);
 	}
 }

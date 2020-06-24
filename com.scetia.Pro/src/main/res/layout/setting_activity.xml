@@ -11,6 +11,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/scanLogin"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/icon_set_scan"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:text="扫一扫"
+                android:textSize="@dimen/text_size_medium" />
+
+            <ImageView
+                android:layout_width="7dp"
+                android:layout_height="14dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/next" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d2d2d2" />
+        <LinearLayout
             android:id="@+id/passwordButton"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -142,6 +172,21 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/next" />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d2d2d2" />
+        <Button
+            android:id="@+id/bt_set_login_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y40"
+            android:text="重新登陆"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@drawable/login_out_bt_background"
+            />
     </LinearLayout>
 
 </LinearLayout>

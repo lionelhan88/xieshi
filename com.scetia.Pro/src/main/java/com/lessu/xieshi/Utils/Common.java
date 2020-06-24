@@ -10,4 +10,13 @@ public class Common {
     public static final String DEVICEID="DEVICEID";
     public static final String PHONENUMBER="PHONENUMBER";
     public static final String PICNAME="PICNAME";
+    //2020-06-01 存入userid，为了扫码登录
+    public static final String USERID="user_id";
+    /**
+     * 用户单位信息
+     */
+    public static final String MEMBERINFOSTR="MemberInfoStr";
+
+    public static final String DX_BASE_URL = "https://bgtj.o-learn.cn";
+    public static final String DX_SCAN_LOGIN = DX_BASE_URL+"/thirdparty/jzjc/appInterfaceApi/scanQRCode";
 }

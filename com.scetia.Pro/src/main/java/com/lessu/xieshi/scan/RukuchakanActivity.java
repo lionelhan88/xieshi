@@ -13,6 +13,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
+import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Changezifu;
 import com.lessu.xieshi.Utils.JieMi;
@@ -194,6 +195,9 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
     private void initData() {
         Intent intent=getIntent();
         uidstr = intent.getStringExtra("uidstr");
+        if(uidstr==null||uidstr.equals("")){
+            uidstr = AppApplication.muidstr;
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -266,7 +270,6 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 intent1.setClass(RukuchakanActivity.this,ShenqingshangbaoActivity.class);
                 startActivity(intent1);
                 finish();
-
                 break;
 
             case R.id.ll_shenhexiazai:
@@ -278,14 +281,10 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 break;
 
             case R.id.ll_shebeixinxi:
-
-
                 Intent intent = new Intent();
                 intent.putExtra("uidstr", uidstr);
                 intent.setClass(RukuchakanActivity.this, ShebeixinxiActivity.class);
                 startActivity(intent);
-
-
                 break;
         }
     }

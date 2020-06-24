@@ -581,8 +581,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_shenqingshangbao:
-//                uidStr="35ffda054759303542791143";
-//                AppApplication.muidstr=uidStr;
                 if (uidStr != null) {
                     String s1 = "";
                     for (int i = 0; i < Tal.size(); i++) {
@@ -593,6 +591,8 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     }
                     Intent intent1 = new Intent();
                     intent1.putExtra("talxal", s1);
+                    //传入uid
+                    intent1.putExtra("uidstr",uidStr);
                     intent1.setClass(PrintDataActivity.this, ShenqingshangbaoActivity.class);
                     startActivity(intent1);
                 } else {

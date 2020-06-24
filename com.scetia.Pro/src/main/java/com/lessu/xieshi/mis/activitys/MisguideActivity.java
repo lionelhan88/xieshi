@@ -1,10 +1,14 @@
 package com.lessu.xieshi.mis.activitys;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.DialogPreference;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,20 +21,26 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.AppApplication;
+import com.lessu.xieshi.QRCodeActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.SettingActivity;
+import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.login.LoginActivity;
 import com.lessu.xieshi.mis.bean.Misguidebean;
+import com.lessu.xieshi.scan.ScanActivity;
 import com.lessu.xieshi.tianqi.activitys.TianqiActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 public class MisguideActivity extends NavigationActivity {
     private BarButtonItem handleButtonItem;
     private LinearLayout ll_addparent;
     private BarButtonItem handleButtonItem1;
+    private BarButtonItem handleButtonItem2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +53,10 @@ public class MisguideActivity extends NavigationActivity {
         navigationBar.setLeftBarItem(null);
 
         handleButtonItem1 = new BarButtonItem(this, R.drawable.duoyund);
+        handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
         handleButtonItem1.setOnClickMethod(this, "tianqi");
-        navigationBar.setRightBarItem(handleButtonItem1);
+        navigationBar.addRightBarItem(handleButtonItem2);
+        navigationBar.addRightBarItem(handleButtonItem1);
         //检查软件是否需要更新
         getUpdate();
         initView();
@@ -54,6 +66,29 @@ public class MisguideActivity extends NavigationActivity {
 
     private void initView() {
         ll_addparent = (LinearLayout) findViewById(R.id.ll_addparent);
+        handleButtonItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Shref.getString(MisguideActivity.this, Common.USERID,"").equals("")){
+                    //如果userid是"",则要提示用户重新登录才能获取到userId
+                    LSAlert.showDialog(MisguideActivity.this, "提示", "使用此功能需要重新登录\n是否现在登录？",
+                            "确定", "取消", new LSAlert.DialogCallback() {
+                                @Override
+                                public void onConfirm() {
+                                    //退出登录
+                                    loginOut();
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+                            });
+                }else{
+                    startActivity(new Intent((MisguideActivity.this),ScanActivity.class));
+                }
+            }
+        });
     }
 
     private void getUpdate() {
@@ -63,17 +98,17 @@ public class MisguideActivity extends NavigationActivity {
         EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
-                // TODO Auto-generated method stub
                 String versionName = null;
                 try {
                     versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
                     System.out.println("versionName.." + versionName);
                 } catch (PackageManager.NameNotFoundException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
                 String serviceVersion = json.get("Version").getAsString();
+                //是否强制更新标识
+                final int isMustBeUpdate = json.get("Update_Flag").getAsInt();
                 String[] localVersionArray = versionName.split("\\.");
                 String[] serviceVersionArray = serviceVersion.split("\\.");
                 int localCount = localVersionArray.length;
@@ -82,7 +117,7 @@ public class MisguideActivity extends NavigationActivity {
                 if (localCount > serviceCount) {
                     count = serviceCount;
                 }
-                Boolean updateFlag = false;
+                boolean updateFlag = false;
                 try {
                     for (int i = 0; i < count; i++) {
                         if (Integer.parseInt(localVersionArray[i]) < Integer.parseInt(serviceVersionArray[i])) {
@@ -96,26 +131,41 @@ public class MisguideActivity extends NavigationActivity {
                 }
                 if (updateFlag) {
                     final String urlString = json.get("Update_Url").getAsString();
-                    String description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新";
-                    LSAlert.showDialog(MisguideActivity.this, "检查到新版本", description, "确定", "取消", new LSAlert.DialogCallback() {
-
+                    String description="";
+                    if(isMustBeUpdate==1){
+                        //强制更新
+                        description = "更新内容:\r\n" + json.get("Description").getAsString()
+                                +"\r\n此更新为强制更新，否则不可用！\r\n"+ "是否立即前往更新？";
+                    }else{
+                        description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
+                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MisguideActivity.this)
+                            .setTitle("检查到新版本")
+                            .setMessage(description)
+                            .setCancelable(false)
+                            .setPositiveButton("确定",null)
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onConfirm() {
-                            downLoadFile(urlString);
-//								if (updatefile == null){
-//									LSAlert.showAlert(SettingActivity.this, "未成功下载更新软件，请稍后再试");
-//									return;
-//								}
-//								else{
-//									installApk(updatefile);
-//								}
-                        }
-
-                        @Override
-                        public void onCancel() {
-
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(isMustBeUpdate==1) {
+                                AppApplication.exit();
+                            }
                         }
                     });
+                    final AlertDialog dialog = builder.create();
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+                            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    downLoadFile(urlString);
+                                }
+                            });
+                        }
+                    });
+                    dialog.show();
                 }
             }
 
@@ -134,9 +184,6 @@ public class MisguideActivity extends NavigationActivity {
     private void initData() {
         Intent intent = getIntent();
         String shortuserpower = intent.getStringExtra("shortuserpower");
-        System.out.println("shortuserpower..." + shortuserpower);
-        //shortuserpower="11111";//这里是测试用的测试测试测试！！！
-
         Misguidebean huiyuanbean = new Misguidebean(R.drawable.huiyuanxinxi, "会员信息查询", MisHysearchActivity.class);
         Misguidebean zhenshubean = new Misguidebean(R.drawable.zhengshuxinxi, "证书信息查询", MisZssearchActivity.class);
         Misguidebean pinguchaxunbean = new Misguidebean(R.drawable.pingguchaxun, "评估信息查询", MisPinguActivity.class);
@@ -147,7 +194,7 @@ public class MisguideActivity extends NavigationActivity {
 
         Misguidebean settingbean = new Misguidebean(R.drawable.shezhimis, "系统设置", SettingActivity.class);
         Misguidebean loginbean = new Misguidebean(R.drawable.chongxindenglu, "重新登陆", LoginActivity.class);
-
+        //Misguidebean scanBean = new Misguidebean(R.drawable.icon_scan,"扫一扫",ScanActivity.class);
 
         final ArrayList<Misguidebean> al = new ArrayList();
         String s1 = shortuserpower.substring(0, 1);
@@ -199,12 +246,7 @@ public class MisguideActivity extends NavigationActivity {
                 @Override
                 public void onClick(View view) {
                     if (finalI == al.size() - 1) {
-                        Intent intentTUICHU = new Intent();
-                        intentTUICHU.setClass(MisguideActivity.this, LoginActivity.class);
-                        intentTUICHU.putExtra("exit", true);
-                        intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intentTUICHU);
-                        finish();
+                        loginOut();
                     } else {
                         startActivity(new Intent(MisguideActivity.this, al.get(finalI).clazz));
                     }
@@ -214,7 +256,17 @@ public class MisguideActivity extends NavigationActivity {
         }
     }
 
-
+    /**
+     * 退出登录
+     */
+    private void loginOut(){
+        Intent intentTUICHU = new Intent();
+        intentTUICHU.setClass(MisguideActivity.this, LoginActivity.class);
+        intentTUICHU.putExtra("exit", true);
+        intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intentTUICHU);
+        finish();
+    }
     public void tianqi() {
         startActivity(new Intent(MisguideActivity.this, TianqiActivity.class));
     }

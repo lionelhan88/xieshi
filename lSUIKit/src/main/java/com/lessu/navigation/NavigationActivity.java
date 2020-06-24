@@ -35,7 +35,6 @@ public class NavigationActivity extends FragmentActivity {
         setNavigationBar(new NavigationBar(this));
         ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-//        LSAlert.showAlert(this,"提示",String.format("%2d",tasks.get(0).numActivities));
         if (tasks.get(0).numActivities > 1){
             BarButtonItem backButtonItem = BarButtonItem.backBarButtonItem(this);
             //getNavigationBar().setLeftBarItem(backButtonItem);

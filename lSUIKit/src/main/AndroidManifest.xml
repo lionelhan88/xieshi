@@ -7,10 +7,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
-    <uses-sdk
+   <!-- <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="19"
-        />
+        />-->
     <application>
         <activity android:name="com.lessu.activity.WebViewActivity"></activity>
     </application>

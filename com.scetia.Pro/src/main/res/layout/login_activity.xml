@@ -36,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
+                    android:paddingRight="@dimen/x10"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -52,8 +53,8 @@
                 android:id="@+id/userNameEditText"
                 android:layout_width="290dp"
                 android:layout_height="46dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginTop="78dp"
+                android:layout_marginBottom="17dp"
                 android:background="@drawable/zh"
                 android:drawableLeft="@drawable/male_user"
                 android:drawablePadding="5dp"

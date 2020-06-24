@@ -18,6 +18,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
+import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.MyToast;
 import com.lessu.xieshi.Utils.Shref;
@@ -154,6 +155,10 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
         sss="";
         Intent intent=getIntent();
         uidstr = intent.getStringExtra("uidstr");
+        if(uidstr==null|| uidstr.equals("")){
+            //有可能其他页面没有传入这个uid，所以获取全局的uid
+            uidstr = AppApplication.muidstr;
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -172,11 +177,7 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                 HttpTransportSE transport1 = new HttpTransportSE(endPoint1);
                 try {
                     transport1.call(soapAction1, envelope1);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (XmlPullParserException e) {
-                    // TODO Auto-generated catch block
+                } catch (IOException | XmlPullParserException e) {
                     e.printStackTrace();
                 }
                 SoapObject object1 = (SoapObject) envelope1.bodyIn;
@@ -187,7 +188,7 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                         "1010000356~1010000358;; message=anyType{};";*/
                 System.out.println(s2);
                 if(s2.contains("GetReportUpStateResult=")){
-                    String result = s2.substring(s2.indexOf("GetReportUpStateResult=") + 23, s2.indexOf("message"));
+                    String result = s2.substring(s2.indexOf("=")+1, s2.indexOf("message"));
                     System.out.println("result....."+result);
                     if(result.contains("anyType{}")){
                         runOnUiThread(new Runnable() {
@@ -231,15 +232,12 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                             HttpTransportSE transport2 = new HttpTransportSE(endPoint2);
                             try {
                                 transport2.call(soapAction2, envelope2);
-                            } catch (IOException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (XmlPullParserException e) {
+                            } catch (IOException | XmlPullParserException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
 
-                            SoapObject object2 = (SoapObject) envelope2.bodyIn;
+                        SoapObject object2 = (SoapObject) envelope2.bodyIn;
                             System.out.println(object2.toString());
                             if (object2.getPropertyCount() >= 1) {
                                 SoapObject shujvsoap = (SoapObject) object2.getProperty(0);

@@ -1,6 +1,7 @@
 package com.lessu.xieshi.login;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -8,8 +9,10 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.BaseActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.construction.ConstructionListActivity;
 import com.lessu.xieshi.dataauditing.DataAuditingActivity;
@@ -62,27 +66,28 @@ public class LoginActivity extends BaseActivity {
 		Intent intent=getIntent();
 		boolean exit = intent.getBooleanExtra("exit", false);
 		boolean jiebang = intent.getBooleanExtra("jiebang", false);
-		if (userpower != null && userpower != ""&& !exit && !jiebang) {
-			System.out.println("走这里直接进入。。。。");
+		if (userpower != null && !userpower.equals("") && !exit && !jiebang) {
+			LogUtil.showLogD("走这里直接进入。。。。");
 			Toboundary(userpower);
 		} else {
 			HashMap<String, Object> updateparams = new HashMap<String, Object>();
 			updateparams.put("PlatformType", "1");//1为安卓
 			updateparams.put("SystemType", "2");//2为内部版
-			System.out.println("updateparams..."+updateparams);
 			EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
 				@Override
 				public void onSuccessJson(JsonElement result) {
 					String versionName = null;
 					try {
 						versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
-						System.out.println("versionName.."+versionName);
+						System.out.println("versionName.." + versionName);
 					} catch (PackageManager.NameNotFoundException e) {
 						e.printStackTrace();
 					}
+					tv_login_version.setText(versionName);
 					JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
 					String serviceVersion = json.get("Version").getAsString();
-					tv_login_version.setText(versionName);
+					//是否强制更新标识
+					final int isMustBeUpdate = json.get("Update_Flag").getAsInt();
 					String[] localVersionArray = versionName.split("\\.");
 					String[] serviceVersionArray = serviceVersion.split("\\.");
 					int localCount = localVersionArray.length;
@@ -91,68 +96,62 @@ public class LoginActivity extends BaseActivity {
 					if (localCount > serviceCount) {
 						count = serviceCount;
 					}
-					Boolean updateFlag = false;
+					boolean updateFlag = false;
 					try {
 						for (int i = 0; i < count; i++) {
 							if (Integer.parseInt(localVersionArray[i]) < Integer.parseInt(serviceVersionArray[i])) {
 								updateFlag = true;
-								AppApplication.isupdate=true;
+								AppApplication.isupdate = true;
 							}
 						}
 					} catch (Exception e) {
 						updateFlag = false;
-						AppApplication.isupdate=false;
+						AppApplication.isupdate = false;
 					}
 					if (updateFlag) {
 						final String urlString = json.get("Update_Url").getAsString();
-						String description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新";
-						LSAlert.showDialog(LoginActivity.this, "检查到新版本", description, "确定", "取消", new LSAlert.DialogCallback() {
-
+						String description="";
+						if(isMustBeUpdate==1){
+							//强制更新
+							description = "更新内容:\r\n" + json.get("Description").getAsString()
+									+"\r\n此更新为强制更新，否则不可用！\r\n"+ "是否立即前往更新？";
+						}else{
+							description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
+						}
+						AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this)
+								.setTitle("检查到新版本")
+								.setMessage(description)
+								.setCancelable(false)
+								.setPositiveButton("确定",null)
+								.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i) {
+										if(isMustBeUpdate==1) {
+											AppApplication.exit();
+										}
+									}
+								});
+						final AlertDialog dialog = builder.create();
+						dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 							@Override
-							public void onConfirm() {
-								// TODO Auto-generated method stub
-								downLoadFile(urlString);
-//								if (updatefile == null){
-//									LSAlert.showAlert(SettingActivity.this, "未成功下载更新软件，请稍后再试");
-//									return;
-//								}
-//								else{
-//									installApk(updatefile);
-//								}
-							}
-
-							@Override
-							public void onCancel() {
-								// TODO Auto-generated method stub
-
+							public void onShow(DialogInterface dialogInterface) {
+								Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+								button.setOnClickListener(new View.OnClickListener() {
+									@Override
+									public void onClick(View view) {
+										downLoadFile(urlString);
+									}
+								});
 							}
 						});
+						dialog.show();
 					}
 				}
 
 			});
 		}
-
-
-		//debug
-		//数据审核，报告批准，今日统计
-//		((EditText)findViewById(R.id.userNameEditText)).setText("T2916");
-//		((EditText)findViewById(R.id.passWordEditText)).setText("1");
-		//今日统计，不合格信息查询
-//		((EditText)findViewById(R.id.userNameEditText)).setText("GLY");
-//		((EditText)findViewById(R.id.passWordEditText)).setText("1319");
-//		//样品查询，图片
-//		((EditText)findViewById(R.id.userNameEditText)).setText("Q13503");
-//		((EditText)findViewById(R.id.passWordEditText)).setText("424777");
-		//数据审核，报告批准，今日统计
-//		((EditText)findViewById(R.id.userNameEditText)).setText("t9990001");
-//		((EditText)findViewById(R.id.passWordEditText)).setText("1");
-		//样品查询
-//		((EditText)findViewById(R.id.userNameEditText)).setText("J20623");
-//		((EditText)findViewById(R.id.passWordEditText)).setText("279162");
-
 	}
-		@OnFocusChange(R.id.userNameEditText)
+	@OnFocusChange(R.id.userNameEditText)
 		public void userNameEditTextFocus (View view,boolean hasFocus){
 			if (hasFocus) {
 				new AsyncTask<Void, Void, Void>() {
@@ -204,96 +203,16 @@ public class LoginActivity extends BaseActivity {
 			userName = ((EditText) findViewById(R.id.userNameEditText)).getText().toString();
 			final String PassWord = ((EditText) findViewById(R.id.passWordEditText)).getText().toString();
 			login(userName,PassWord);
-			/*String deviceId = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-			if (deviceId == null || deviceId.isEmpty()) {
-				WifiManager wifi = (WifiManager) getSystemService(
-						Context.WIFI_SERVICE);
-				WifiInfo info = wifi.getConnectionInfo();
-				deviceId = info.getMacAddress();
-			}
-			final String DeviceId = deviceId;
-			if (userName == null || userName.isEmpty()) {
-				LSAlert.showAlert(LoginActivity.this, "请输入账号");
-				return;
-			}
-			if (PassWord == null || PassWord.isEmpty()) {
-				LSAlert.showAlert(LoginActivity.this, "请输入密码");
-				return;
-			}
-			HashMap<String, Object> params = new HashMap<>();
-			params.put("UserName", userName);
-			params.put("PassWord", PassWord);
-			params.put("DeviceId", DeviceId);
-
-			EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
-				@Override
-				public void onSuccessJson(JsonElement result) {
-
-					System.out.println(result);
-					System.out.println("what happen?");
-					JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
-					boolean isFirstLogin = json.get("IsFirstLogin").getAsBoolean();
-					String userPower = json.get("UserPower").getAsString();
-					//这里是。
-					if(userName.equals("boleyuan")){
-						userPower="000000000111011";
-					}
-					System.out.println("userPower....."+userPower);
-
-					String token = GsonValidate.getStringByKeyPath(json, "Token", "");
-
-					String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
-					LSUtil.setValueStatic("PhoneNumber", PhoneNumber);
-
-					//XieShiSlidingMenuActivity.setUserPower(userPower);
-					LSUtil.setValueStatic("UserName", userName);
-					System.out.println("这里总走了吧111111");
-					if (isFirstLogin) {
-						Bundle bundle = new Bundle();
-						bundle.putString("token", token);
-						bundle.putString("UserName", userName);
-						bundle.putString("PassWord", PassWord);
-						bundle.putString("DeviceId", DeviceId);
-						bundle.putString("UserPower", userPower);
-						Intent intent = new Intent(LoginActivity.this, ValidateActivity.class);
-						intent.putExtras(bundle);
-						//startActivity(intent);
-						startActivityForResult(intent,0x01);
-					} else {
-						LSUtil.setValueStatic("Token", token);
-						Shref.setString(LoginActivity.this, Common.USERNAME, userName);
-						Shref.setString(LoginActivity.this, Common.PASSWORD, PassWord);
-						Shref.setString(LoginActivity.this, Common.DEVICEID, DeviceId);
-						System.out.println("这里总走了吧2222222");
-						Shref.setString(LoginActivity.this, Common.USERPOWER, userPower);
-						System.out.println("这里总走了吧asdasd");
-						Toboundary(userPower);
-					}
-				}
-
-				@Override
-				public String onFailed(ApiError error) {
-
-					LSAlert.showAlert(LoginActivity.this, "用户名或者密码错误");
-
-					return null;
-				}
-			});*/
-
 		}
 	private void Toboundary(String userPower) {
-		System.out.println("Tobundary.................");
-//		int index = -1;
-//		if (userPower.contains("1")){
-//			index = userPower.indexOf("1");
-//		}
+		LogUtil.showLogD("原始权限数据......."+ userPower);
 		//新增的权限“比对审批”多一位 2018-10-19
-		if(userPower.length()==15){
+		if(userPower.length()>=15){
 			shortuserpower = userPower.substring(9,15);
 		}else {
 			shortuserpower = userPower.substring(9, 14);
 		}
-		System.out.println("shortuserpower......."+ shortuserpower);
+		LogUtil.showLogD("shortuserpower......."+ shortuserpower);
 		if(shortuserpower.equals("00000")||shortuserpower.equals("000000")) {
 			ArrayList<Class> classArray = new ArrayList<Class>();
 			classArray.add(UnqualifiedSearchActivity.class);
@@ -305,31 +224,16 @@ public class LoginActivity extends BaseActivity {
 			classArray.add(null);
 			classArray.add(null);
 			classArray.add(null);
-//		if (index>4||index<0){
-//			LSAlert.showAlert(LoginActivity.this, "您没有权限，请联系管理员！");
-//			return;
-//		}
-//		else{
 			Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
-			System.out.println(userName + "更前");
-			System.out.println(Shref.getString(LoginActivity.this, Common.USERNAME, null));
 			if (Shref.getString(LoginActivity.this, Common.USERNAME, null) != null) {
-				System.out.println(userName + "前");
 				userName = Shref.getString(LoginActivity.this, Common.USERNAME, null);
 			}
-			intent.putExtra("userpower", userPower);
+			String unMisPower = userPower.substring(0,15);
+			intent.putExtra("userpower", unMisPower);
 			intent.putExtra("username", userName);
 			System.out.println("这里不可能没走。。。。。");
 			startActivity(intent);
 			finish();
-
-
-			//Intent intent = new Intent (LoginActivity.this, classArray.get(index));
-
-//						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			//startActivity(intent);
-			//finish();
-			//}
 		}else{
 			Intent intent = new Intent(LoginActivity.this, MisguideActivity.class);
 			if (Shref.getString(LoginActivity.this, Common.USERNAME, null) != null) {
@@ -348,27 +252,22 @@ public class LoginActivity extends BaseActivity {
 		((EditText)findViewById(R.id.userNameEditText)).getText().clear();
 		((EditText)findViewById(R.id.passWordEditText)).getText().clear();
 	}
-	//@OnClick(R.id.changePasswordButton)
-	//public void changePasswordButtonDidPress(){
-	//String UserName = ((EditText)findViewById(R.id.userNameEditText)).getText().toString();
-	//if (UserName.isEmpty()){
-	//LSAlert.showAlert(LoginActivity.this, "请输入用户名");
-	//return;
-	//}
-	//LSUtil.setValueStatic("UserName", UserName);
-	//Intent intent = new Intent(LoginActivity.this, PasswordActivity.class);
-	//startActivity(intent);
-	//}
 
+	/**
+	 * 执行登陆请求
+	 * @param name
+	 * @param password
+	 */
 	private void login(final String name, final String password){
 		String deviceId = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
 		if (deviceId == null || deviceId.isEmpty()) {
-			WifiManager wifi = (WifiManager) getSystemService(
-					Context.WIFI_SERVICE);
+			WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 			WifiInfo info = wifi.getConnectionInfo();
 			deviceId = info.getMacAddress();
 		}
-		final String DeviceId = deviceId;
+		//final String DeviceId = deviceId;
+		//测试设备
+		final String DeviceId = "45675121542";
 		if (name == null || name.isEmpty()) {
 			LSAlert.showAlert(LoginActivity.this, "请输入账号");
 			return;
@@ -382,27 +281,20 @@ public class LoginActivity extends BaseActivity {
 		params.put("PassWord", password);
 		params.put("DeviceId", DeviceId);
 
-		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get(".test/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
 			@Override
 			public void onSuccessJson(JsonElement result) {
-
 				System.out.println(result);
-				System.out.println("what happen?");
 				JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
 				boolean isFirstLogin = json.get("IsFirstLogin").getAsBoolean();
 				String userPower = json.get("UserPower").getAsString();
-				//这里是。
-				if(name.equals("boleyuan")){
-					userPower="000000000111011";
-				}
 				System.out.println("userPower....."+userPower);
 
 				String token = GsonValidate.getStringByKeyPath(json, "Token", "");
 
 				String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
+				String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
 				LSUtil.setValueStatic("PhoneNumber", PhoneNumber);
-
-				//XieShiSlidingMenuActivity.setUserPower(userPower);
 				LSUtil.setValueStatic("UserName", name);
 				System.out.println("这里总走了吧111111");
 				if (isFirstLogin) {
@@ -423,6 +315,8 @@ public class LoginActivity extends BaseActivity {
 					Shref.setString(LoginActivity.this, Common.DEVICEID, DeviceId);
 					System.out.println("这里总走了吧2222222");
 					Shref.setString(LoginActivity.this, Common.USERPOWER, userPower);
+					Shref.setString(LoginActivity.this,Common.USERID,userId);
+					Shref.setString(LoginActivity.this,Common.MEMBERINFOSTR,userId);
 					System.out.println("这里总走了吧asdasd");
 					Toboundary(userPower);
 				}

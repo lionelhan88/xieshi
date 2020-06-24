@@ -112,7 +112,6 @@ public class TianqiActivity extends BaseActivity implements ITianqicontract.View
         initView();
         initData();
     }
-
     private void initView() {
         initbackgroubdlist();
         y166height = getResources().getDimensionPixelSize(R.dimen.y166);
@@ -153,7 +152,6 @@ public class TianqiActivity extends BaseActivity implements ITianqicontract.View
             }
         });
         rlWeatherTitle = (RelativeLayout) findViewById(R.id.rl_weather_title);
-        setHeight(rlWeatherTitle);
     }
 
     private void initbackgroubdlist() {
