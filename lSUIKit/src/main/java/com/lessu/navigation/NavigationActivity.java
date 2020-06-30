@@ -41,7 +41,7 @@ public class NavigationActivity extends FragmentActivity {
             backButtonItem.titleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    finish();
+                    leftNavBarClick();
                 }
             });
         }
@@ -50,7 +50,7 @@ public class NavigationActivity extends FragmentActivity {
         handleButtonItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                leftNavBarClick();
             }
         });
         navigationBar.setLeftBarItem(handleButtonItem);
@@ -62,6 +62,9 @@ public class NavigationActivity extends FragmentActivity {
     	isFirstLoad = false;
     }
 
+    protected void leftNavBarClick(){
+        finish();
+    }
     @Override
     public void setContentView(int layoutResID) {
         this.setContentView(View.inflate(this, layoutResID, null));

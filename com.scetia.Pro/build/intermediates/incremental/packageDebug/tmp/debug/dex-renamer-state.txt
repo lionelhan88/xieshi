@@ -1,0 +1,16 @@
+#Tue Jun 30 14:26:27 CST 2020
+path.3=classes_1.dex
+path.2=classes_0.dex
+path.1=classes.dex
+renamed.4=classes5.dex
+path.0=classes.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+base.4=D\:\\xieshi\\com.scetia.Pro\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_2.dex
+renamed.0=classes.dex
+base.3=D\:\\xieshi\\com.scetia.Pro\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_1.dex
+base.2=D\:\\xieshi\\com.scetia.Pro\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_0.dex
+base.1=D\:\\xieshi\\com.scetia.Pro\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex
+base.0=D\:\\xieshi\\com.scetia.Pro\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
+path.4=classes_2.dex

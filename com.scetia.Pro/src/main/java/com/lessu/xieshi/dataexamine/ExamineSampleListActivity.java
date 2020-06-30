@@ -48,7 +48,6 @@ public class ExamineSampleListActivity extends NavigationActivity implements OnI
 	}
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		Bundle bundle = getIntent().getExtras();
 		

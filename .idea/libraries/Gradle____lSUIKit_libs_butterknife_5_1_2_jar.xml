@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./lSUIKit/libs/butterknife-5.1.2.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lSUIKit/libs/butterknife-5.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

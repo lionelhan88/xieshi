@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.scetia.Pro"
+    android:targetSandboxVersion="2"
+    android:versionCode="2"
+    android:versionName="1.027" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="22" />
+    <!--
+         <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+    -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" /> <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- 来电消音 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <application
+        android:name="com.lessu.xieshi.AppApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!--
+         API24以下的apk安装再全面屏手机上时因为默认长宽比比较小，底部会出现黑色间隔，添加此配置，可是界面充满屏幕，24以上
+        默认支持全屏
+        -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+
+        <activity android:name="com.lessu.xieshi.training.LearnDataActivity" />
+        <activity
+            android:name="com.lessu.xieshi.training.OnlineLearnActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:hardwareAccelerated="true" />
+        <activity android:name="com.lessu.xieshi.training.TrainingActivity" /> <!-- BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" />
+
+        <activity
+            android:name="com.lessu.xieshi.login.LoginActivity"
+            android:hardwareAccelerated="true"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lessu.xieshi.construction.SampleListActivity"
+            android:label="@string/title_activity_sample_list" />
+        <activity
+            android:name="com.lessu.xieshi.QRCodeActivity"
+            android:label="@string/title_activity_qrcode" />
+        <activity
+            android:name="com.lessu.xieshi.ReportDetailActivity"
+            android:label="@string/title_activity_report_detail" />
+        <activity
+            android:name="com.lessu.xieshi.construction.SampleDetailActivity"
+            android:label="@string/title_activity_sample_detail" />
+        <activity
+            android:name="com.lessu.xieshi.login.ValidateActivity"
+            android:label="@string/title_activity_validate" />
+        <activity
+            android:name="com.lessu.xieshi.dataauditing.DataAuditingActivity"
+            android:label="@string/title_activity_data_auditing" />
+        <activity
+            android:name="com.lessu.xieshi.construction.ConstructionListActivity"
+            android:label="@string/title_activity_construction_list" />
+        <activity
+            android:name="com.lessu.xieshi.map.ProjectListActivity"
+            android:label="@string/title_activity_project_list" />
+        <activity
+            android:name="com.lessu.xieshi.SlidingMenuActivity"
+            android:label="@string/title_activity_sliding_menu" />
+        <activity
+            android:name="com.lessu.xieshi.dataauditing.DataSearchActivity"
+            android:label="@string/title_activity_data_search" />
+        <activity
+            android:name="com.lessu.xieshi.XieShiSlidingMenuActivity"
+            android:label="@string/title_activity_xie_shi_sliding_menu" />
+        <activity
+            android:name="com.lessu.xieshi.dataauditing.AuditingDetailActivity"
+            android:label="@string/title_activity_auditing_detail" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.DataExamineActivity"
+            android:label="@string/title_activity_data_examine" />
+        <activity
+            android:name="com.lessu.xieshi.todaystatistics.TodayStatisticsActivity"
+            android:label="@string/title_activity_today_statistics" />
+        <activity
+            android:name="com.lessu.xieshi.construction.ConstructionSearchActivity"
+            android:label="@string/title_activity_construction_search" />
+        <activity
+            android:name="com.lessu.xieshi.construction.ConstructionDetailActivity"
+            android:label="@string/title_activity_construction_detail" />
+        <activity
+            android:name="com.lessu.xieshi.unqualified.UnqualifiedSearchActivity"
+            android:label="@string/title_activity_unqualifield_search" />
+        <activity
+            android:name="com.lessu.xieshi.unqualified.TestReportActivity"
+            android:label="@string/title_activity_test_report" />
+        <activity
+            android:name="com.lessu.xieshi.ReportPreviewActivity"
+            android:label="@string/title_activity_report_preview" />
+        <activity
+            android:name="com.lessu.xieshi.RecordPreviewActivity"
+            android:label="@string/title_activity_record_preview" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.ExamineSearchActivity"
+            android:label="@string/title_activity_examine_search" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.ExamineDetailActivity"
+            android:label="@string/title_activity_examine_detail" />
+        <activity
+            android:name="com.lessu.xieshi.construction.TestConstractActivity"
+            android:label="@string/title_activity_test_constract" />
+        <activity
+            android:name="com.lessu.xieshi.construction.SampleSearchActivity"
+            android:label="@string/title_activity_sample_search" />
+        <activity
+            android:name="com.lessu.xieshi.unqualified.ReportContentActivity"
+            android:label="@string/title_activity_report_content" />
+        <activity
+            android:name="com.lessu.xieshi.unqualified.SampleListActivity"
+            android:label="@string/title_activity_report_content" />
+        <activity
+            android:name="com.lessu.xieshi.unqualified.SampleDetailActivity"
+            android:label="@string/title_activity_report_content" />
+        <activity
+            android:name="com.lessu.xieshi.map.ProjectSearchActivity"
+            android:label="" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.lessu.xieshi.uploadpicture.UploadPictureActivity"
+            android:label="@string/title_activity_upload_picture" />
+        <activity
+            android:name="com.lessu.xieshi.uploadpicture.ImageGalleryActivity"
+            android:label="@string/title_activity_image_gallery" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.ExamineReportDetailActivity"
+            android:label="@string/title_activity_examine_report_detail" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.ExamineSampleListActivity"
+            android:label="@string/title_activity_examine_sample_list" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.ExamineSampleDetailActivity"
+            android:label="@string/title_activity_examine_sample_detail" />
+        <activity
+            android:name="com.lessu.xieshi.dataexamine.ExamineParamsActivity"
+            android:label="@string/title_activity_examine_params" />
+        <activity
+            android:name="com.lessu.xieshi.todaystatistics.AdminTodayStatisticsActivity"
+            android:label="@string/title_activity_admin_today_statistics" />
+        <activity
+            android:name="com.lessu.xieshi.todaystatistics.AdminTodayStatisticsSearchActivity"
+            android:label="@string/title_activity_admin_today_statistics_search" />
+        <activity
+            android:name="com.lessu.xieshi.construction.QrcodeDetailActivity"
+            android:label="@string/title_activity_qrcode_detail" />
+        <activity
+            android:name="com.lessu.xieshi.unqualified.ConstructionListActivity"
+            android:label="@string/title_activity_construction_list" />
+        <activity
+            android:name="com.lessu.xieshi.todaystatistics.TodayStatisticsDetailActivity"
+            android:label="@string/title_activity_today_statistics_detail" />
+        <activity
+            android:name="com.lessu.xieshi.SettingActivity"
+            android:label="@string/title_activity_setting" />
+        <activity
+            android:name="com.lessu.xieshi.ServiceActivity"
+            android:label="@string/title_activity_service" />
+        <activity
+            android:name="com.lessu.xieshi.PasswordActivity"
+            android:label="@string/title_activity_password" />
+        <activity
+            android:name="com.lessu.xieshi.PasswordCompleteActivity"
+            android:label="@string/title_activity_password_complete" />
+        <activity
+            android:name="com.lessu.xieshi.login.FirstActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.lessu.xieshi.scan.ScanActivity" />
+        <activity
+            android:name="com.lessu.xieshi.scan.BluetoothActivity"
+            android:label="BluetoothActivity" />
+        <activity
+            android:name="com.lessu.xieshi.scan.PrintDataActivity"
+            android:label="PrintDataActivity" />
+        <activity android:name="com.lessu.xieshi.test.TestActivity" />
+        <activity android:name="com.lessu.xieshi.scan.ConnectblueActivity" />
+        <activity android:name="com.lessu.xieshi.scan.ShebeixinxiActivity" />
+        <activity android:name="com.lessu.xieshi.scan.ShujvjiaohuActivity" />
+        <activity android:name="com.lessu.xieshi.scan.YangpinqverenActivity" />
+        <activity android:name="com.lessu.xieshi.scan.ShenqingshangbaoActivity" />
+        <activity android:name="com.lessu.xieshi.scan.ShenhexiazaiActivity" />
+        <activity android:name="com.lessu.xieshi.scan.RukuchakanActivity" />
+        <activity android:name="com.lessu.xieshi.scan.YangpinshibieActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisguideActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisHysearchActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.HydetailActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisZssearchActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.ZsdetailActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisPinguActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.PgdetailActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MistongzhiActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.TzdetailActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisnianjiaActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisnianjiaspActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisnjsqActivity" />
+        <activity android:name="com.lessu.xieshi.tianqi.activitys.TianqiActivity" >
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
+        </activity>
+        <activity android:name="com.lessu.xieshi.todaystatistics.AdminTodayinfoActivity" />
+        <activity android:name="com.lessu.xieshi.todaystatistics.XianchangActivity" />
+        <activity android:name="com.lessu.xieshi.todaystatistics.XianchangdetailActivity" />
+        <activity android:name="com.lessu.xieshi.todaystatistics.GongchengActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisComparisonAprovalActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisComparionObjActivity" />
+        <activity android:name="com.lessu.activity.WebViewActivity" />
+    </application>
+
+</manifest>

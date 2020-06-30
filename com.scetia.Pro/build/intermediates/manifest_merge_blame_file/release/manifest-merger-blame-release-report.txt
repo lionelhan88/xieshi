@@ -1,0 +1,599 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.scetia.Pro"
+4    android:versionCode="2"
+5    android:versionName="1.027" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="22" />
+9-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml
+10    <!--
+11         <uses-sdk
+12        android:minSdkVersion="11"
+13        android:targetSdkVersion="21" />
+14    -->
+15    <uses-feature android:name="android.hardware.camera" />
+15-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:11:5-60
+15-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:11:19-57
+16    <uses-feature android:name="android.hardware.camera.autofocus" />
+16-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:12:5-70
+16-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:12:19-67
+17
+18    <uses-permission android:name="android.permission.BLUETOOTH" />
+18-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:14:5-68
+18-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:14:22-65
+19    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+19-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:15:5-74
+19-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:15:22-71
+20    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+20-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:16:5-80
+20-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:16:22-77
+21    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+21-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:17:5-84
+21-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:17:22-81
+22    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+22-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:18:5-78
+22-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:18:22-75
+23    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+23-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:19:5-85
+23-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:19:22-82
+24    <uses-permission android:name="android.permission.WAKE_LOCK" />
+24-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:20:5-68
+24-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:20:22-65
+25    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+25-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:21:5-76
+25-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:21:22-73
+26    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+26-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:22:5-76
+26-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:22:22-73
+27    <uses-permission android:name="android.permission.ACCESS_GPS" /> <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+27-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:23:5-69
+27-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:23:22-66
+28    <uses-permission android:name="android.permission.GET_TASKS" />
+28-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:24:5-68
+28-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:24:22-65
+29    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+29-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:25:5-81
+29-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:25:22-78
+30    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+30-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:26:5-75
+30-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:26:22-72
+31    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- 来电消音 -->
+31-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:27:5-73
+31-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:27:22-70
+32    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+32-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:28:5-81
+32-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:28:22-78
+33    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+33-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:29:5-75
+33-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:29:22-72
+34    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+34-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:30:5-80
+34-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:30:22-77
+35    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+35-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:31:5-71
+35-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:31:22-68
+36    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+36-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:29:5-75
+36-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:29:22-72
+37    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+37-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:33:5-81
+37-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:33:22-78
+38    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+38-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:34:5-79
+38-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:34:22-76
+39    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+39-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:35:5-81
+39-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:35:22-78
+40    <uses-permission android:name="android.permission.INTERNET" />
+40-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:36:5-67
+40-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:36:22-64
+41    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+41-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:37:5-79
+41-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:37:22-76
+42    <uses-permission android:name="android.permission.READ_CONTACTS" />
+42-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:38:5-72
+42-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:38:22-69
+43    <uses-permission android:name="android.permission.CALL_PHONE" />
+43-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:39:5-69
+43-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:39:22-66
+44    <uses-permission android:name="android.permission.READ_SMS" />
+44-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:40:5-67
+44-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:40:22-64
+45    <uses-permission android:name="android.permission.SEND_SMS" />
+45-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:41:5-67
+45-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:41:22-64
+46    <uses-permission android:name="android.permission.CAMERA" />
+46-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:42:5-65
+46-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:42:22-62
+47    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+47-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:43:5-81
+47-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:43:22-78
+48
+49    <supports-screens
+49-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:45:5-50:39
+50        android:anyDensity="true"
+50-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:46:9-34
+51        android:largeScreens="true"
+51-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:47:9-36
+52        android:normalScreens="false"
+52-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:48:9-38
+53        android:resizeable="true"
+53-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:49:9-34
+54        android:smallScreens="true" />
+54-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:50:9-36
+55
+56    <uses-permission android:name="android.permission.FLASHLIGHT" />
+56-->[cn.bingoogolapple:bga-qrcode-core:1.3.4] D:\ANDROID\.gradle\caches\transforms-2\files-2.1\d8c8f90df11a70c2090fb2765cea4ddb\bga-qrcode-core-1.3.4\AndroidManifest.xml:10:5-69
+56-->[cn.bingoogolapple:bga-qrcode-core:1.3.4] D:\ANDROID\.gradle\caches\transforms-2\files-2.1\d8c8f90df11a70c2090fb2765cea4ddb\bga-qrcode-core-1.3.4\AndroidManifest.xml:10:22-66
+57
+58    <uses-feature
+58-->[cn.bingoogolapple:bga-qrcode-core:1.3.4] D:\ANDROID\.gradle\caches\transforms-2\files-2.1\d8c8f90df11a70c2090fb2765cea4ddb\bga-qrcode-core-1.3.4\AndroidManifest.xml:15:5-17:36
+59        android:name="android.hardware.camera.flash"
+59-->[cn.bingoogolapple:bga-qrcode-core:1.3.4] D:\ANDROID\.gradle\caches\transforms-2\files-2.1\d8c8f90df11a70c2090fb2765cea4ddb\bga-qrcode-core-1.3.4\AndroidManifest.xml:16:9-53
+60        android:required="false" />
+60-->[cn.bingoogolapple:bga-qrcode-core:1.3.4] D:\ANDROID\.gradle\caches\transforms-2\files-2.1\d8c8f90df11a70c2090fb2765cea4ddb\bga-qrcode-core-1.3.4\AndroidManifest.xml:17:9-33
+61
+62    <application
+62-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:52:5-272:19
+63        android:name="com.lessu.xieshi.AppApplication"
+63-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:53:9-39
+64        android:allowBackup="true"
+64-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:54:9-35
+65        android:hardwareAccelerated="false"
+65-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:55:9-44
+66        android:icon="@drawable/ic_launcher"
+66-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:56:9-45
+67        android:label="@string/app_name"
+67-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:57:9-41
+68        android:theme="@style/AppTheme" >
+68-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:58:9-40
+69
+70        <!--
+71         API24以下的apk安装再全面屏手机上时因为默认长宽比比较小，底部会出现黑色间隔，添加此配置，可是界面充满屏幕，24以上
+72        默认支持全屏
+73        -->
+74        <meta-data
+74-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:64:9-66:35
+75            android:name="android.max_aspect"
+75-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:65:13-46
+76            android:value="2.4" />
+76-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:66:13-32
+77
+78        <activity android:name="com.lessu.xieshi.training.LearnDataActivity" />
+78-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:67:9-63
+78-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:67:19-61
+79        <activity
+79-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:68:9-70:50
+80            android:name="com.lessu.xieshi.training.OnlineLearnActivity"
+80-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:68:19-63
+81            android:configChanges="orientation|screenSize|keyboardHidden"
+81-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:69:13-74
+82            android:hardwareAccelerated="true" />
+82-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:70:13-47
+83        <activity android:name="com.lessu.xieshi.training.TrainingActivity" /> <!-- BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" -->
+83-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:71:9-63
+83-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:71:19-60
+84        <meta-data
+84-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:72:9-74:64
+85            android:name="com.baidu.lbsapi.API_KEY"
+85-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:73:13-52
+86            android:value="BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" />
+86-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:74:13-61
+87
+88        <activity
+88-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:76:9-85:20
+89            android:name="com.lessu.xieshi.login.LoginActivity"
+89-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:77:13-48
+90            android:hardwareAccelerated="true"
+90-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:78:13-47
+91            android:label="@string/app_name" >
+91-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:79:13-45
+92            <intent-filter>
+92-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:80:13-84:29
+93                <action android:name="android.intent.action.MAIN" />
+93-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:81:17-69
+93-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:81:25-66
+94
+95                <category android:name="android.intent.category.LAUNCHER" />
+95-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:83:17-77
+95-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:83:27-74
+96            </intent-filter>
+97        </activity>
+98        <activity
+98-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:86:9-88:66
+99            android:name="com.lessu.xieshi.construction.SampleListActivity"
+99-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:87:13-60
+100            android:label="@string/title_activity_sample_list" />
+100-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:88:13-63
+101        <activity
+101-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:89:9-91:61
+102            android:name="com.lessu.xieshi.QRCodeActivity"
+102-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:90:13-43
+103            android:label="@string/title_activity_qrcode" />
+103-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:91:13-58
+104        <activity
+104-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:92:9-94:68
+105            android:name="com.lessu.xieshi.ReportDetailActivity"
+105-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:93:13-49
+106            android:label="@string/title_activity_report_detail" />
+106-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:94:13-65
+107        <activity
+107-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:95:9-97:68
+108            android:name="com.lessu.xieshi.construction.SampleDetailActivity"
+108-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:96:13-62
+109            android:label="@string/title_activity_sample_detail" />
+109-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:97:13-65
+110        <activity
+110-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:98:9-100:63
+111            android:name="com.lessu.xieshi.login.ValidateActivity"
+111-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:99:13-51
+112            android:label="@string/title_activity_validate" />
+112-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:100:13-60
+113        <activity
+113-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:101:9-103:68
+114            android:name="com.lessu.xieshi.dataauditing.DataAuditingActivity"
+114-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:102:13-62
+115            android:label="@string/title_activity_data_auditing" />
+115-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:103:13-65
+116        <activity
+116-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:104:9-106:72
+117            android:name="com.lessu.xieshi.construction.ConstructionListActivity"
+117-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:105:13-66
+118            android:label="@string/title_activity_construction_list" />
+118-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:106:13-69
+119        <activity
+119-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:107:9-109:67
+120            android:name="com.lessu.xieshi.map.ProjectListActivity"
+120-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:108:13-52
+121            android:label="@string/title_activity_project_list" />
+121-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:109:13-64
+122        <activity
+122-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:110:9-112:67
+123            android:name="com.lessu.xieshi.SlidingMenuActivity"
+123-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:111:13-48
+124            android:label="@string/title_activity_sliding_menu" />
+124-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:112:13-64
+125        <activity
+125-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:113:9-115:66
+126            android:name="com.lessu.xieshi.dataauditing.DataSearchActivity"
+126-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:114:13-60
+127            android:label="@string/title_activity_data_search" />
+127-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:115:13-63
+128        <activity
+128-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:116:9-118:75
+129            android:name="com.lessu.xieshi.XieShiSlidingMenuActivity"
+129-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:117:13-54
+130            android:label="@string/title_activity_xie_shi_sliding_menu" />
+130-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:118:13-72
+131        <activity
+131-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:119:9-121:70
+132            android:name="com.lessu.xieshi.dataauditing.AuditingDetailActivity"
+132-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:120:13-64
+133            android:label="@string/title_activity_auditing_detail" />
+133-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:121:13-67
+134        <activity
+134-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:122:9-124:67
+135            android:name="com.lessu.xieshi.dataexamine.DataExamineActivity"
+135-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:123:13-60
+136            android:label="@string/title_activity_data_examine" />
+136-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:124:13-64
+137        <activity
+137-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:125:9-127:71
+138            android:name="com.lessu.xieshi.todaystatistics.TodayStatisticsActivity"
+138-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:126:13-68
+139            android:label="@string/title_activity_today_statistics" />
+139-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:127:13-68
+140        <activity
+140-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:128:9-130:74
+141            android:name="com.lessu.xieshi.construction.ConstructionSearchActivity"
+141-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:129:13-68
+142            android:label="@string/title_activity_construction_search" />
+142-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:130:13-71
+143        <activity
+143-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:131:9-133:74
+144            android:name="com.lessu.xieshi.construction.ConstructionDetailActivity"
+144-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:132:13-68
+145            android:label="@string/title_activity_construction_detail" />
+145-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:133:13-71
+146        <activity
+146-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:134:9-136:74
+147            android:name="com.lessu.xieshi.unqualified.UnqualifiedSearchActivity"
+147-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:135:13-66
+148            android:label="@string/title_activity_unqualifield_search" />
+148-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:136:13-71
+149        <activity
+149-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:137:9-139:66
+150            android:name="com.lessu.xieshi.unqualified.TestReportActivity"
+150-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:138:13-59
+151            android:label="@string/title_activity_test_report" />
+151-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:139:13-63
+152        <activity
+152-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:140:9-142:69
+153            android:name="com.lessu.xieshi.ReportPreviewActivity"
+153-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:141:13-50
+154            android:label="@string/title_activity_report_preview" />
+154-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:142:13-66
+155        <activity
+155-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:143:9-145:69
+156            android:name="com.lessu.xieshi.RecordPreviewActivity"
+156-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:144:13-50
+157            android:label="@string/title_activity_record_preview" />
+157-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:145:13-66
+158        <activity
+158-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:146:9-148:69
+159            android:name="com.lessu.xieshi.dataexamine.ExamineSearchActivity"
+159-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:147:13-62
+160            android:label="@string/title_activity_examine_search" />
+160-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:148:13-66
+161        <activity
+161-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:149:9-151:69
+162            android:name="com.lessu.xieshi.dataexamine.ExamineDetailActivity"
+162-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:150:13-62
+163            android:label="@string/title_activity_examine_detail" />
+163-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:151:13-66
+164        <activity
+164-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:152:9-154:69
+165            android:name="com.lessu.xieshi.construction.TestConstractActivity"
+165-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:153:13-63
+166            android:label="@string/title_activity_test_constract" />
+166-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:154:13-66
+167        <activity
+167-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:155:9-157:68
+168            android:name="com.lessu.xieshi.construction.SampleSearchActivity"
+168-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:156:13-62
+169            android:label="@string/title_activity_sample_search" />
+169-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:157:13-65
+170        <activity
+170-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:158:9-160:69
+171            android:name="com.lessu.xieshi.unqualified.ReportContentActivity"
+171-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:159:13-62
+172            android:label="@string/title_activity_report_content" />
+172-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:160:13-66
+173        <activity
+173-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:161:9-163:69
+174            android:name="com.lessu.xieshi.unqualified.SampleListActivity"
+174-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:162:13-59
+175            android:label="@string/title_activity_report_content" />
+175-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:163:13-66
+176        <activity
+176-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:164:9-166:69
+177            android:name="com.lessu.xieshi.unqualified.SampleDetailActivity"
+177-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:165:13-61
+178            android:label="@string/title_activity_report_content" />
+178-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:166:13-66
+179        <activity
+179-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:167:9-169:32
+180            android:name="com.lessu.xieshi.map.ProjectSearchActivity"
+180-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:168:13-54
+181            android:label="" />
+181-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:169:13-29
+182
+183        <service
+183-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:171:9-178:19
+184            android:name="com.baidu.location.f"
+184-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:172:13-48
+185            android:enabled="true"
+185-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:173:13-35
+186            android:process=":remote" >
+186-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:174:13-38
+187            <intent-filter>
+187-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:175:13-177:29
+188                <action android:name="com.baidu.location.service_v2.2" />
+188-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:176:17-74
+188-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:176:25-71
+189            </intent-filter>
+190        </service>
+191
+192        <activity
+192-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:180:9-182:69
+193            android:name="com.lessu.xieshi.uploadpicture.UploadPictureActivity"
+193-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:181:13-64
+194            android:label="@string/title_activity_upload_picture" />
+194-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:182:13-66
+195        <activity
+195-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:183:9-185:68
+196            android:name="com.lessu.xieshi.uploadpicture.ImageGalleryActivity"
+196-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:184:13-63
+197            android:label="@string/title_activity_image_gallery" />
+197-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:185:13-65
+198        <activity
+198-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:186:9-188:76
+199            android:name="com.lessu.xieshi.dataexamine.ExamineReportDetailActivity"
+199-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:187:13-68
+200            android:label="@string/title_activity_examine_report_detail" />
+200-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:188:13-73
+201        <activity
+201-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:189:9-191:74
+202            android:name="com.lessu.xieshi.dataexamine.ExamineSampleListActivity"
+202-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:190:13-66
+203            android:label="@string/title_activity_examine_sample_list" />
+203-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:191:13-71
+204        <activity
+204-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:192:9-194:76
+205            android:name="com.lessu.xieshi.dataexamine.ExamineSampleDetailActivity"
+205-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:193:13-68
+206            android:label="@string/title_activity_examine_sample_detail" />
+206-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:194:13-73
+207        <activity
+207-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:195:9-197:69
+208            android:name="com.lessu.xieshi.dataexamine.ExamineParamsActivity"
+208-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:196:13-62
+209            android:label="@string/title_activity_examine_params" />
+209-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:197:13-66
+210        <activity
+210-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:198:9-200:77
+211            android:name="com.lessu.xieshi.todaystatistics.AdminTodayStatisticsActivity"
+211-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:199:13-73
+212            android:label="@string/title_activity_admin_today_statistics" />
+212-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:200:13-74
+213        <activity
+213-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:201:9-203:84
+214            android:name="com.lessu.xieshi.todaystatistics.AdminTodayStatisticsSearchActivity"
+214-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:202:13-79
+215            android:label="@string/title_activity_admin_today_statistics_search" />
+215-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:203:13-81
+216        <activity
+216-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:204:9-206:68
+217            android:name="com.lessu.xieshi.construction.QrcodeDetailActivity"
+217-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:205:13-62
+218            android:label="@string/title_activity_qrcode_detail" />
+218-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:206:13-65
+219        <activity
+219-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:207:9-209:72
+220            android:name="com.lessu.xieshi.unqualified.ConstructionListActivity"
+220-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:208:13-65
+221            android:label="@string/title_activity_construction_list" />
+221-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:209:13-69
+222        <activity
+222-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:210:9-212:78
+223            android:name="com.lessu.xieshi.todaystatistics.TodayStatisticsDetailActivity"
+223-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:211:13-74
+224            android:label="@string/title_activity_today_statistics_detail" />
+224-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:212:13-75
+225        <activity
+225-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:213:9-215:62
+226            android:name="com.lessu.xieshi.SettingActivity"
+226-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:214:13-44
+227            android:label="@string/title_activity_setting" />
+227-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:215:13-59
+228        <activity
+228-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:216:9-218:62
+229            android:name="com.lessu.xieshi.ServiceActivity"
+229-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:217:13-44
+230            android:label="@string/title_activity_service" />
+230-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:218:13-59
+231        <activity
+231-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:219:9-221:63
+232            android:name="com.lessu.xieshi.PasswordActivity"
+232-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:220:13-45
+233            android:label="@string/title_activity_password" />
+233-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:221:13-60
+234        <activity
+234-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:222:9-224:72
+235            android:name="com.lessu.xieshi.PasswordCompleteActivity"
+235-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:223:13-53
+236            android:label="@string/title_activity_password_complete" />
+236-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:224:13-69
+237        <activity
+237-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:225:9-227:52
+238            android:name="com.lessu.xieshi.login.FirstActivity"
+238-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:226:13-48
+239            android:screenOrientation="portrait" />
+239-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:227:13-49
+240        <activity android:name="com.lessu.xieshi.scan.ScanActivity" />
+240-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:228:9-55
+240-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:228:19-52
+241        <activity
+241-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:229:9-231:49
+242            android:name="com.lessu.xieshi.scan.BluetoothActivity"
+242-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:230:13-51
+243            android:label="BluetoothActivity" />
+243-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:231:13-46
+244        <activity
+244-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:232:9-234:49
+245            android:name="com.lessu.xieshi.scan.PrintDataActivity"
+245-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:233:13-51
+246            android:label="PrintDataActivity" />
+246-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:234:13-46
+247        <activity android:name="com.lessu.xieshi.test.TestActivity" />
+247-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:235:9-55
+247-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:235:19-52
+248        <activity android:name="com.lessu.xieshi.scan.ConnectblueActivity" />
+248-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:236:9-62
+248-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:236:19-59
+249        <activity android:name="com.lessu.xieshi.scan.ShebeixinxiActivity" />
+249-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:237:9-62
+249-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:237:19-59
+250        <activity android:name="com.lessu.xieshi.scan.ShujvjiaohuActivity" />
+250-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:238:9-62
+250-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:238:19-59
+251        <activity android:name="com.lessu.xieshi.scan.YangpinqverenActivity" />
+251-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:239:9-64
+251-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:239:19-61
+252        <activity android:name="com.lessu.xieshi.scan.ShenqingshangbaoActivity" />
+252-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:240:9-67
+252-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:240:19-64
+253        <activity android:name="com.lessu.xieshi.scan.ShenhexiazaiActivity" />
+253-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:241:9-63
+253-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:241:19-60
+254        <activity android:name="com.lessu.xieshi.scan.RukuchakanActivity" />
+254-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:242:9-61
+254-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:242:19-58
+255        <activity android:name="com.lessu.xieshi.scan.YangpinshibieActivity" />
+255-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:243:9-64
+255-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:243:19-61
+256        <activity android:name="com.lessu.xieshi.mis.activitys.MisguideActivity" />
+256-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:244:9-68
+256-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:244:19-65
+257        <activity android:name="com.lessu.xieshi.mis.activitys.MisHysearchActivity" />
+257-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:245:9-71
+257-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:245:19-68
+258        <activity android:name="com.lessu.xieshi.mis.activitys.HydetailActivity" />
+258-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:246:9-68
+258-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:246:19-65
+259        <activity android:name="com.lessu.xieshi.mis.activitys.MisZssearchActivity" />
+259-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:247:9-71
+259-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:247:19-68
+260        <activity android:name="com.lessu.xieshi.mis.activitys.ZsdetailActivity" />
+260-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:248:9-68
+260-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:248:19-65
+261        <activity android:name="com.lessu.xieshi.mis.activitys.MisPinguActivity" />
+261-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:249:9-68
+261-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:249:19-65
+262        <activity android:name="com.lessu.xieshi.mis.activitys.PgdetailActivity" />
+262-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:250:9-68
+262-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:250:19-65
+263        <activity android:name="com.lessu.xieshi.mis.activitys.MistongzhiActivity" />
+263-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:251:9-70
+263-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:251:19-67
+264        <activity android:name="com.lessu.xieshi.mis.activitys.TzdetailActivity" />
+264-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:252:9-68
+264-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:252:19-65
+265        <activity android:name="com.lessu.xieshi.mis.activitys.MisnianjiaActivity" />
+265-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:253:9-70
+265-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:253:19-67
+266        <activity android:name="com.lessu.xieshi.mis.activitys.MisnianjiaspActivity" />
+266-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:254:9-72
+266-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:254:19-69
+267        <activity android:name="com.lessu.xieshi.mis.activitys.MisnjsqActivity" />
+267-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:255:9-67
+267-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:255:19-64
+268        <activity android:name="com.lessu.xieshi.tianqi.activitys.TianqiActivity" >
+268-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:256:9-265:20
+268-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:256:19-66
+269
+270            <!-- <intent-filter> -->
+271            <!-- <action android:name="android.intent.action.MAIN" /> -->
+272
+273
+274            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+275            <!-- </intent-filter> -->
+276
+277        </activity>
+278        <activity android:name="com.lessu.xieshi.todaystatistics.AdminTodayinfoActivity" />
+278-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:266:9-76
+278-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:266:19-73
+279        <activity android:name="com.lessu.xieshi.todaystatistics.XianchangActivity" />
+279-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:267:9-71
+279-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:267:19-68
+280        <activity android:name="com.lessu.xieshi.todaystatistics.XianchangdetailActivity" />
+280-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:268:9-77
+280-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:268:19-74
+281        <activity android:name="com.lessu.xieshi.todaystatistics.GongchengActivity" />
+281-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:269:9-71
+281-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:269:19-68
+282        <activity android:name="com.lessu.xieshi.mis.activitys.MisComparisonAprovalActivity" />
+282-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:270:9-80
+282-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:270:19-77
+283        <activity android:name="com.lessu.xieshi.mis.activitys.MisComparionObjActivity" />
+283-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:271:9-75
+283-->D:\xieshi\com.scetia.Pro\src\main\AndroidManifest.xml:271:19-72
+284        <activity android:name="com.lessu.activity.WebViewActivity" />
+284-->[:lSUIKit] D:\xieshi\lSUIKit\build\intermediates\library_manifest\release\AndroidManifest.xml:21:9-71
+284-->[:lSUIKit] D:\xieshi\lSUIKit\build\intermediates\library_manifest\release\AndroidManifest.xml:21:19-68
+285    </application>
+286
+287</manifest>

@@ -267,7 +267,7 @@ public class LoginActivity extends BaseActivity {
 		}
 		//final String DeviceId = deviceId;
 		//测试设备
-		final String DeviceId = "45675121542";
+		final String DeviceId = "13512354";
 		if (name == null || name.isEmpty()) {
 			LSAlert.showAlert(LoginActivity.this, "请输入账号");
 			return;
@@ -294,6 +294,7 @@ public class LoginActivity extends BaseActivity {
 
 				String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
 				String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
+				String MemberInfoStr = json.get("MemberInfoStr").getAsString();
 				LSUtil.setValueStatic("PhoneNumber", PhoneNumber);
 				LSUtil.setValueStatic("UserName", name);
 				System.out.println("这里总走了吧111111");
@@ -313,11 +314,9 @@ public class LoginActivity extends BaseActivity {
 					Shref.setString(LoginActivity.this, Common.USERNAME, name);
 					Shref.setString(LoginActivity.this, Common.PASSWORD, password);
 					Shref.setString(LoginActivity.this, Common.DEVICEID, DeviceId);
-					System.out.println("这里总走了吧2222222");
 					Shref.setString(LoginActivity.this, Common.USERPOWER, userPower);
 					Shref.setString(LoginActivity.this,Common.USERID,userId);
-					Shref.setString(LoginActivity.this,Common.MEMBERINFOSTR,userId);
-					System.out.println("这里总走了吧asdasd");
+					Shref.setString(LoginActivity.this,Common.MEMBERINFOSTR,MemberInfoStr);
 					Toboundary(userPower);
 				}
 			}
