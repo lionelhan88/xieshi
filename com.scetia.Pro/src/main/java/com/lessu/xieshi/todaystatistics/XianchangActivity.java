@@ -55,7 +55,6 @@ public class XianchangActivity extends XieShiSlidingMenuActivity {
     }
 
     private void initView() {
-
         lv_xianchang = (ListView) findViewById(R.id.lv_xianchang);
         lv_xianchang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,19 +93,14 @@ public class XianchangActivity extends XieShiSlidingMenuActivity {
                     XianchangshikuaibBean.DataBean data = xianchangbean.getData();
                     sampleInProjectSumm = data.getSampleInProjectSumm();//总列表
                     sampleInProjectDetailList = data.getSampleInProjectDetailList();//具体列表
-                   // if(madapter==null){
                         madapter=new XianchangAdapter();
                         lv_xianchang.setAdapter(madapter);
-                    //}else{
-                        //madapter.notifyDataSetChanged();
-                   // }
 
                 }
             }
 
             @Override
             public String onFailed(ApiError error) {
-                System.out.println("失败了。。。。。。。。" + error.errorMeesage);
                 MyToast.showShort(error.errorMeesage);
                 return null;
             }
@@ -150,7 +144,7 @@ public class XianchangActivity extends XieShiSlidingMenuActivity {
             return view;
         }
     }
-    class ViewHolder{
+    static class ViewHolder{
         TextView tv_xiangmu,tv_zhuangtai,tv_sum;
     }
 }

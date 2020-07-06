@@ -33,7 +33,7 @@ public class ProjectSearchActivity extends XieShiSlidingMenuActivity {
 		setContentView(R.layout.project_search_activity);
 		this.setTitle("工程查询");
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		
 		getType();
 	}

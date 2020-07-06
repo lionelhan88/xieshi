@@ -73,48 +73,6 @@ public class TodayStatisticsDetailActivity extends NavigationActivity implements
 	}
 
 	private void connectall() {
-//		String token = LSUtil.valueStatic("Token");
-//		String type = "1";
-//		//HashMap<String, Object> params = new HashMap<String, Object>();
-//		projectArea = bundle.getString("ProjectArea");
-//		projectName = bundle.getString("ProjectName");
-//		baogaobianhao = bundle.getString("baogaobianhao");
-//		jianshedanwei = bundle.getString("jianshedanwei");
-//		shigongdanwei = bundle.getString("shigongdanwei");
-//		jianlidanwei = bundle.getString("jianlidanwei");
-//		jiancedanwei = bundle.getString("jiancedanwei");
-//		rangeindex = bundle.getInt("DistanceRange");
-//
-//		System.out.println("最后。。。。。。。。"+rangeindex);
-//		currentLocation = bundle.getString("CurrentLocation");
-
-//		params.put("Token", token);
-//		params.put("Type", 1);
-//		params.put("ProjectName", projectName);
-//		params.put("ProjectArea", projectArea);
-//		params.put("BuildingReportNumber", baogaobianhao);
-//		params.put("BuildUnitName", shigongdanwei);
-//		params.put("ConstructUnitName", jianshedanwei);
-//		params.put("SuperviseUnitName", jianlidanwei);
-//		params.put("DetectionUnitName", jiancedanwei);
-//		params.put("CurrentLocation",currentLocation);
-//		System.out.println("getmyself......"+currentLocation);
-//		params.put("DistanceRange",rangeindex;
-//		params.put("PageSize", 8);
-//		params.put("CurrentPageNo", 1);
-//		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceTS.asmx/ManageUnitTodayStatisProjectDetectInfo"), params, new EasyAPI.ApiFastSuccessCallBack() {
-//			@Override
-//			public void onSuccessJson(JsonElement result) {
-//				JsonObject jsonObject = result.getAsJsonObject().get("Data").getAsJsonObject();
-//				System.out.println(jsonObject);
-//				list = jsonObject.get("ListContent").getAsJsonArray();
-//				if (list==null||list.isJsonNull()||list.size()==0){
-//					LSAlert.showAlert(TodayStatisticsDetailActivity.this, "无相关记录");
-//					return;
-//				}
-//				adapter.notifyDataSetChanged();
-//			}
-//		});
 		wrapper = new ListPageWrapper<View>(TodayStatisticsDetailActivity.this) {
 			@Override
 			protected ApiMethodDescription onPageGetApiMethodDescription() {
@@ -236,6 +194,7 @@ public class TodayStatisticsDetailActivity extends NavigationActivity implements
 				view = View.inflate(TodayStatisticsDetailActivity.this, R.layout.construction_detail_item, null);
 			}
 			EasyUI.setTextViewText(view.findViewById(R.id.ItemNameTextView), (JsonObject)list.get(position), "ItemName", "暂无");
+			EasyUI.setTextViewText(view.findViewById(R.id.KindNameTextView), (JsonObject)list.get(position), "KindName", "暂无");
 			EasyUI.setTextViewText(view.findViewById(R.id.QualifiedRateTextView), (JsonObject)list.get(position), "QualifiedRate", "暂无");
 			EasyUI.setTextViewText(view.findViewById(R.id.DetectedSampleCountTextView), (JsonObject)list.get(position), "DetectedSampleCount", "暂无");
 			EasyUI.setTextViewText(view.findViewById(R.id.UnqualifiedSampleCountTextView), (JsonObject)list.get(position), "UnqualifiedSampleCount", "暂无");

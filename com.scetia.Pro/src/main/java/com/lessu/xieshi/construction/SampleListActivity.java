@@ -48,7 +48,7 @@ public class SampleListActivity extends NavigationActivity implements OnItemClic
 		navigationBar.setRightBarItem(searchButtonitem);
 		this.setTitle("样品信息查询");
 
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	@Override
 	protected void onStart() {
@@ -134,7 +134,7 @@ public class SampleListActivity extends NavigationActivity implements OnItemClic
 
 		listView.setOnItemClickListener(this);
 
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View cell, int position, long id) {

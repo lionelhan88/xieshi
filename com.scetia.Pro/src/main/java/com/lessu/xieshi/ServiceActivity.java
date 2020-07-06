@@ -43,7 +43,7 @@ public class ServiceActivity extends NavigationActivity {
         else{
         	LSAlert.showAlert(this, "当前服务器错误");
         }
-        ButterKnife.inject(this);
+      //  ButterKnife.bind(this);
 	}
 	
 	public void completeButtonDidClick(){

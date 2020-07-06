@@ -10,10 +10,10 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Changezifu;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.bean.Project;
@@ -76,6 +76,17 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
          */
         if(!result.equals("")){
             if(result.contains("chinanetLearning")){
+                //如果用户
+                if(curTrainingInfo==null){
+                    LSAlert.showAlert(this, "提示", "请使用在线培训页面的扫码进行登录！", "确定",
+                            new LSAlert.AlertCallback() {
+                                @Override
+                                public void onConfirm() {
+                                    finish();
+                                }
+                            });
+                    return;
+                }
                 LSAlert.showProgressHud(this,"正在登陆...");
                 String guid = result.substring(result.lastIndexOf(":")+1);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -89,7 +100,7 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
                         pushToDx.getFullName()+"&guid="+guid+"&timestamp="+pushToDx.getTimestamp()+"&userId="
                         +pushToDx.getUserId()+"&secret=Rpa00Wcw9yaI";
                 //对字符串进行md5加密
-                String sign = Changezifu.md5(paramstr).toUpperCase();
+                String sign = LongString.md5(paramstr).toUpperCase();
                 pushToDx.setSign(sign);
                 pushToDx.setGuid(guid);
                 Gson gson = new Gson();

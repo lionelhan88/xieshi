@@ -236,7 +236,8 @@ public class TianqiActivity extends BaseActivity implements ITianqicontract.View
         }
 
         System.out.println("url......"+url);
-        ImageLoader.getInstance().displayImage(url, ll_tq_backfround, ImageloaderUtil.imageconfigtianqi(), new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(url, ll_tq_backfround, ImageloaderUtil.imageconfigtianqi());
+      /*  new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
                 System.out.println("IMAGE--------onLoadingStarted");
@@ -258,9 +259,7 @@ public class TianqiActivity extends BaseActivity implements ITianqicontract.View
             public void onLoadingCancelled(String s, View view) {
                 System.out.println("IMAGE--------onLoadingCancelled");
             }
-        });
-
-
+        });*/
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {

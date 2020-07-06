@@ -48,7 +48,7 @@ public class DataSearchActivity extends XieShiSlidingMenuActivity {
 		setContentView(R.layout.data_search_activity);
 		this.setTitle("记录审核查询");
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		token = LSUtil.valueStatic("Token");
 		Type = "1";
         Bundle bundle = getIntent().getExtras();

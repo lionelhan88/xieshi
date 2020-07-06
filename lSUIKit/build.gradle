@@ -19,11 +19,18 @@ android {
 }
 
 dependencies {
-    compile project(':pullToRefreash')
-    compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.android.support:appcompat-v7:19.1.0'
-    compile files('libs/android-async-http-1.4.5.jar')
-    compile files('libs/butterknife-5.1.2.jar')
-    compile files('libs/universal-image-loader-1.9.5.jar')
-    compile 'com.hyman:flowlayout-lib:1.1.2'
+    api project(':pullToRefreash')
+    api 'com.google.code.gson:gson:2.3.1'
+    api 'com.android.support:appcompat-v7:19.1.0'
+    api files('libs/android-async-http-1.4.5.jar')
+  /*  api files('libs/butterknife-5.1.2.jar')*/
+    api 'com.jakewharton:butterknife:8.0.1'
+    annotationProcessor  'com.jakewharton:butterknife-compiler:8.0.1'
+    api files('libs/universal-image-loader-1.9.5.jar')
+    api 'com.hyman:flowlayout-lib:1.1.2'
+    api 'com.android.support:multidex:1.0.1'
+    //权限申请框架
+    api 'com.hjq:xxpermissions:5.5'
+    //沉浸式状态栏
+    api 'com.gyf.immersionbar:immersionbar:3.0.0'
 }

@@ -3680,6 +3680,10 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shuruyanzhengma.png"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\xml_file_path.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\xml\\file_path.xml"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_shijians.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shijians.png"
     },
@@ -6476,6 +6480,10 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\dabaoyud.png"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\xml_network_security_config.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\xml\\network_security_config.xml"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_dongyux.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\dongyux.png"
     },
@@ -7506,6 +7514,10 @@
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_pingguxinxichaxun.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\pingguxinxichaxun.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\drawable_tag_click_background_red.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable\\tag_click_background_red.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_yuanl.png.flat",

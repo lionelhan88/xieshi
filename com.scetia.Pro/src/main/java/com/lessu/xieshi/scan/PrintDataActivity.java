@@ -30,9 +30,9 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Changezifu;
 import com.lessu.xieshi.Utils.JieMi;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.UriUtils;
 import com.lessu.xieshi.customView.DragLayout;
@@ -531,8 +531,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             }
                             //是芯片
                         } else {
-                            System.out.println("是芯片...." + buffer2);
-                            String s = Changezifu.Bytes2HexString(buffer2);
+                            String s = LongString.Bytes2HexString(buffer2);
                             System.out.println(s);
                             String jiexinpian = JieMi.jiexinpian(s);
                             if (jiexinpian != null) {

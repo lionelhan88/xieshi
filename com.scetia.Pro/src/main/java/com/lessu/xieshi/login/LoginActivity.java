@@ -1,14 +1,19 @@
 package com.lessu.xieshi.login;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -19,7 +24,11 @@ import android.widget.TextView;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.lessu.foundation.LSUtil;
+import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -29,6 +38,7 @@ import com.lessu.xieshi.BaseActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.construction.ConstructionListActivity;
 import com.lessu.xieshi.dataauditing.DataAuditingActivity;
@@ -39,6 +49,7 @@ import com.lessu.xieshi.unqualified.UnqualifiedSearchActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,26 +59,30 @@ import butterknife.OnFocusChange;
 /**
  * 当前页面在android9.0后要开启硬件加速，否则输入密码时不会实时显示
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends NavigationActivity {
 	private TextView tv_login_version;
 	private String userName;
 	private String shortuserpower;
-
+	private final static String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE,
+	Manifest.permission.READ_PHONE_STATE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA};
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
+		navigationBar.setVisibility(View.GONE);
+		ButterKnife.bind(this);
 		((EditText) findViewById(R.id.userNameEditText)).setSelected(false);
 		((EditText) findViewById(R.id.userNameEditText)).clearFocus();
 		tv_login_version = (TextView) findViewById(R.id.tv_login_version);
+		ImmersionBar.with(this).titleBar(tv_login_version).navigationBarColor(android.R.color.white).init();
 		String userpower = Shref.getString(LoginActivity.this, Common.USERPOWER, "");
 		//String userpower = "01101000000000";
 		Intent intent=getIntent();
 		boolean exit = intent.getBooleanExtra("exit", false);
 		boolean jiebang = intent.getBooleanExtra("jiebang", false);
+		//如果之前已经登录，打开程序直接进入主界面
 		if (userpower != null && !userpower.equals("") && !exit && !jiebang) {
-			LogUtil.showLogD("走这里直接进入。。。。");
 			Toboundary(userpower);
 		} else {
 			HashMap<String, Object> updateparams = new HashMap<String, Object>();
@@ -114,7 +129,7 @@ public class LoginActivity extends BaseActivity {
 						if(isMustBeUpdate==1){
 							//强制更新
 							description = "更新内容:\r\n" + json.get("Description").getAsString()
-									+"\r\n此更新为强制更新，否则不可用！\r\n"+ "是否立即前往更新？";
+									+"\r\n此更新为强制更新，必须更新后尚可继续使用，\n如暂时不更新点取消退出程序！\r\n"+ "是否立即前往更新？";
 						}else{
 							description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
 						}
@@ -151,66 +166,29 @@ public class LoginActivity extends BaseActivity {
 			});
 		}
 	}
-	@OnFocusChange(R.id.userNameEditText)
-		public void userNameEditTextFocus (View view,boolean hasFocus){
-			if (hasFocus) {
-				new AsyncTask<Void, Void, Void>() {
 
-					@Override
-					protected Void doInBackground(Void... arg0) {
-						try {
-							Thread.sleep(400);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						return null;
-					}
-					//protected void onPostExecute(Void result) {
-					//int px =DensityUtil.dp2px( LoginActivity.this, 100);
-					//((ScrollView)(findViewById(R.id.scrollView))).scrollTo(0, px);
-					//};
+	@Override
+	protected void initImmersionBar() {
+	}
 
-				}.execute();
-			}
-		}
-		@OnFocusChange(R.id.passWordEditText)
-		public void passWordEditTextTextFocus (View view,boolean hasFocus){
-			if (hasFocus) {
-				new AsyncTask<Void, Void, Void>() {
-
-					@Override
-					protected Void doInBackground(Void... arg0) {
-						try {
-							Thread.sleep(400);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						return null;
-					}
-					//protected void onPostExecute(Void result) {
-					//int px =DensityUtil.dp2px( LoginActivity.this, 100);
-					//((ScrollView)(findViewById(R.id.scrollView))).scrollTo(0, px);
-					//};
-
-				}.execute();
-			}
-		}
-		@OnClick(R.id.loginButton)
-		public void loginButtonDidPress () {
-			//登陆接口访问
-			userName = ((EditText) findViewById(R.id.userNameEditText)).getText().toString();
-			final String PassWord = ((EditText) findViewById(R.id.passWordEditText)).getText().toString();
-			login(userName,PassWord);
-		}
+	@OnClick(R.id.loginButton)
+	public void loginButtonDidPress() {
+		//登陆接口访问
+		userName = ((EditText) findViewById(R.id.userNameEditText)).getText().toString();
+		final String PassWord = ((EditText) findViewById(R.id.passWordEditText)).getText().toString();
+		login(userName, PassWord);
+	}
+		//检查权限
 	private void Toboundary(String userPower) {
 		LogUtil.showLogD("原始权限数据......."+ userPower);
 		//新增的权限“比对审批”多一位 2018-10-19
-		if(userPower.length()>=15){
+		if(userPower.length()==15){
 			shortuserpower = userPower.substring(9,15);
-		}else {
+		}else if(userPower.length()<15) {
 			shortuserpower = userPower.substring(9, 14);
+		}else{
+			//新版本新加了权限
+			shortuserpower = userPower.substring(16);
 		}
 		LogUtil.showLogD("shortuserpower......."+ shortuserpower);
 		if(shortuserpower.equals("00000")||shortuserpower.equals("000000")) {
@@ -231,7 +209,6 @@ public class LoginActivity extends BaseActivity {
 			String unMisPower = userPower.substring(0,15);
 			intent.putExtra("userpower", unMisPower);
 			intent.putExtra("username", userName);
-			System.out.println("这里不可能没走。。。。。");
 			startActivity(intent);
 			finish();
 		}else{
@@ -248,9 +225,21 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		System.out.println("........onstop");
 		((EditText)findViewById(R.id.userNameEditText)).getText().clear();
 		((EditText)findViewById(R.id.passWordEditText)).getText().clear();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		//android版本大于6.0申请动态权限
+		PermissionUtils.requestPermission(this, new PermissionUtils.permissionResult() {
+			@Override
+			public void hasPermission(List<String> granted, boolean isAll) {
+
+			}
+		},permissions);
+
 	}
 
 	/**
@@ -258,8 +247,19 @@ public class LoginActivity extends BaseActivity {
 	 * @param name
 	 * @param password
 	 */
+	@SuppressLint("HardwareIds")
 	private void login(final String name, final String password){
-		String deviceId = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+		String deviceId = null;
+		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		//android9以后获取不到IEMI的编码了，可能会发出异常
+		if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_PHONE_STATE)==PackageManager.PERMISSION_GRANTED){
+			try {
+				deviceId = telephonyManager.getDeviceId();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		//如果获取不到IEMI的编号，则获取wifi的MAC地址
 		if (deviceId == null || deviceId.isEmpty()) {
 			WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 			WifiInfo info = wifi.getConnectionInfo();
@@ -281,7 +281,7 @@ public class LoginActivity extends BaseActivity {
 		params.put("PassWord", password);
 		params.put("DeviceId", DeviceId);
 
-		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get(".test/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
 			@Override
 			public void onSuccessJson(JsonElement result) {
 				System.out.println(result);
@@ -289,9 +289,7 @@ public class LoginActivity extends BaseActivity {
 				boolean isFirstLogin = json.get("IsFirstLogin").getAsBoolean();
 				String userPower = json.get("UserPower").getAsString();
 				System.out.println("userPower....."+userPower);
-
 				String token = GsonValidate.getStringByKeyPath(json, "Token", "");
-
 				String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
 				String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
 				String MemberInfoStr = json.get("MemberInfoStr").getAsString();
@@ -307,7 +305,6 @@ public class LoginActivity extends BaseActivity {
 					bundle.putString("UserPower", userPower);
 					Intent intent = new Intent(LoginActivity.this, ValidateActivity.class);
 					intent.putExtras(bundle);
-					//startActivity(intent);
 					startActivityForResult(intent,0x01);
 				} else {
 					LSUtil.setValueStatic("Token", token);

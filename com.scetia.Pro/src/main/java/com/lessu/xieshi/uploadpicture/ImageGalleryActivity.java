@@ -8,7 +8,6 @@ import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.ButterKnife.Finder;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -270,7 +269,7 @@ public class ImageGalleryActivity extends NavigationActivity{
 				}
 			});
 		}
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 
 	}
 

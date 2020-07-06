@@ -7,39 +7,38 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.net.http.SslError;
 import android.os.Build;
-import android.os.PowerManager;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import android.webkit.WebChromeClient;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Changezifu;
+import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.bean.PushToDx;
 import com.lessu.xieshi.http.RetrofitManager;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -48,16 +47,15 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 public class OnlineLearnActivity extends NavigationActivity {
-    private WebView onlineWebView;
+    private com.tencent.smtt.sdk.WebView onlineWebView;
     private FrameLayout fullScreenView;
     private View customerView;
-    private WebChromeClient.CustomViewCallback mCallBack;
+    private IX5WebChromeClient.CustomViewCallback mCallBack;
     private RelativeLayout rl_web_view_full_title;
     private ImageView imageBack;
-    private PowerManager.WakeLock wakeLock;
+    private ImmersionBar immersionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,15 +75,33 @@ public class OnlineLearnActivity extends NavigationActivity {
         }
     }
 
+    @Override
+    protected void initImmersionBar() {
+        immersionBar = ImmersionBar.with(this);
+        immersionBar.titleBar(navigationBar).init();
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private void initView() {
+
         //禁止屏幕休眠
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        onlineWebView = (WebView) findViewById(R.id.online_web_view);
+        onlineWebView =  findViewById(R.id.online_web_view);
         fullScreenView = (FrameLayout) findViewById(R.id.full_screen_view);
         rl_web_view_full_title = (RelativeLayout) findViewById(R.id.rl_web_view_full_title);
         imageBack = (ImageView) findViewById(R.id.online_web_view_full_back);
-        final WebSettings settings = onlineWebView.getSettings();
+        final com.tencent.smtt.sdk.WebSettings settings = onlineWebView.getSettings();
+        QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+
+            }
+        });
         //支持js事件
         settings.setJavaScriptEnabled(true);
         settings.setAllowFileAccess(true);
@@ -95,11 +111,55 @@ public class OnlineLearnActivity extends NavigationActivity {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
+        onlineWebView.addJavascriptInterface(new WebViewJavaScriptFunction() {
+
+            @Override
+            public void onJsFunctionCalled(String tag) {
+                // TODO Auto-generated method stub
+                disableX5FullscreenFunc();
+            }
+
+            @JavascriptInterface
+            public void onX5ButtonClicked() {
+                disableX5FullscreenFunc();
+            }
+
+            @JavascriptInterface
+            public void onCustomButtonClicked() {
+              disableX5FullscreenFunc();
+            }
+
+            @JavascriptInterface
+            public void onLiteWndButtonClicked() {
+                disableX5FullscreenFunc();
+               // FullScreenActivity.this.enableLiteWndFunc();
+            }
+
+            @JavascriptInterface
+            public void onPageVideoClicked() {
+                disableX5FullscreenFunc();
+               // FullScreenActivity.this.enablePageVideoFunc();
+            }
+        }, "Android");
         onlineWebView.setWebViewClient(new WebViewClient(){
+
+          /*  @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //这里返回false，页面重定向后也会返回上一级页面
                 return false;
+            }*/
+
+            @Override
+            public void onPageStarted(com.tencent.smtt.sdk.WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                if(LSAlert.progressDialog==null){
+                    LSAlert.showProgressHud(OnlineLearnActivity.this,"正在加载...");
+                }
             }
 
             @Override
@@ -119,12 +179,6 @@ public class OnlineLearnActivity extends NavigationActivity {
         });
 
         onlineWebView.setWebChromeClient(new WebChromeClient(){
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                setTitle(title);
-                super.onReceivedTitle(view, title);
-            }
-
             @Nullable
             @Override
             public View getVideoLoadingProgressView() {
@@ -132,7 +186,8 @@ public class OnlineLearnActivity extends NavigationActivity {
             }
 
             @Override
-            public void onShowCustomView(final View view, final CustomViewCallback callback) {
+            public void onShowCustomView(final View view, final IX5WebChromeClient.CustomViewCallback callback) {
+                super.onShowCustomView(view,callback);
                 customerView = view;
                 mCallBack = callback;
                 fullScreenView.setVisibility(View.VISIBLE);
@@ -165,7 +220,21 @@ public class OnlineLearnActivity extends NavigationActivity {
         EventBus.getDefault().removeStickyEvent(pushToDx);
         getGuid2(pushToDx);
     }
+    private void disableX5FullscreenFunc() {
+        if (onlineWebView.getX5WebViewExtension() != null) {
+            Toast.makeText(this, "恢复webkit初始状态", Toast.LENGTH_LONG).show();
+            Bundle data = new Bundle();
 
+            data.putBoolean("standardFullScreen", true);// true表示标准全屏，会调起onShowCustomView()，false表示X5全屏；不设置默认false，
+
+            data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
+
+            data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+
+            onlineWebView.getX5WebViewExtension().invokeMiscMethod("setVideoParams",
+                    data);
+        }
+    }
     /**
      * 不再全屏
      */
@@ -195,7 +264,7 @@ public class OnlineLearnActivity extends NavigationActivity {
                 pushToDx.getFullName()+"&timestamp="+pushToDx.getTimestamp()+"&userId="
                 +pushToDx.getUserId()+"&secret=Rpa00Wcw9yaI";
         //对字符串进行md5加密
-        String sign = Changezifu.md5(paramstr).toUpperCase();
+        String sign = LongString.md5(paramstr).toUpperCase();
         pushToDx.setSign(sign);
         pushToDx.setGuid("");
         Gson gson = new Gson();
@@ -211,9 +280,10 @@ public class OnlineLearnActivity extends NavigationActivity {
                         String userId = pushToDx.getUserId();
                         String date = sdf.format(new Date());
                         String paramstr = "guid="+guid+"&timestamp="+date+"&userId="+userId+"&secret=Rpa00Wcw9yaI";
-                        String sign = Changezifu.md5(paramstr).toUpperCase();
+                        String sign = LongString.md5(paramstr).toUpperCase();
                         String indexUrl ="https://bgtj.o-learn.cn/thirdparty/jzjc/appInterfaceApi/enterCourseList?"
                                 +"guid="+guid+"&userId="+userId+"&timestamp="+date+"&sign="+sign;
+
                         onlineWebView.loadUrl(indexUrl);
                     }
 
@@ -228,56 +298,20 @@ public class OnlineLearnActivity extends NavigationActivity {
      * 全屏显示
      */
     private void fullScreen(){
-        View decorView = getWindow().getDecorView();
         int orientation = getResources().getConfiguration().orientation;
         //如果是竖排则变为横排
         if(orientation== ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            getWindow().setFlags(FLAG_FULLSCREEN,FLAG_FULLSCREEN);
             navigationBar.setVisibility(View.GONE);
-            //横屏时隐藏系统底部导航栏
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
+            //全屏显示并且隐藏状态栏和导航栏
+            immersionBar.fullScreen(true).hideBar(BarHide.FLAG_HIDE_BAR).init();
         }else{
             //如果是横排，则变为竖排
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            getWindow().clearFlags(FLAG_FULLSCREEN);
             navigationBar.setVisibility(View.VISIBLE);
-            //竖屏时显示系统底部导航栏
-            int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-            decorView.setSystemUiVisibility(uiOptions);
+            //退出全屏并且显示导航栏和状态栏
+           immersionBar.fullScreen(false).hideBar(BarHide.FLAG_SHOW_BAR).init();
         }
-    }
-
-    private void alphaAnimation(float start,float end,final Runnable runnable){
-        Animator animator = ObjectAnimator.ofFloat(fullScreenView,"alpha",start,end);
-        animator.setDuration(500);
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                //动画结束
-                runnable.run();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-        animator.start();
     }
     @Override
     protected void onResume() {
@@ -287,12 +321,7 @@ public class OnlineLearnActivity extends NavigationActivity {
          * 就在打开软件时继续隐藏系统导航栏
          */
         if(customerView!=null){
-            View decorView = getWindow().getDecorView();
-            //横屏时隐藏系统底部导航栏
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
+            immersionBar.fullScreen(true).hideBar(BarHide.FLAG_HIDE_BAR).init();
         }
     }
 

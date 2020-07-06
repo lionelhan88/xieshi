@@ -24,7 +24,7 @@ public class SampleSearchActivity extends NavigationActivity {
 		setContentView(R.layout.construction_search_activity);
 		this.setTitle("样品查询");
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		//TextView tv = (TextView)(findViewById(R.id.notFinishedOnlyTextView));
        // tv.setText("否");
 		rg_search = (RadioGroup) findViewById(R.id.rg_search);

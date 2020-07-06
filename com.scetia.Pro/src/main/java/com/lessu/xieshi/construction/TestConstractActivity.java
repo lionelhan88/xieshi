@@ -117,7 +117,7 @@ public class TestConstractActivity extends NavigationActivity implements OnItemC
 			
 		listView.setOnItemClickListener(this);
 		
-        ButterKnife.inject(this);
+       // ButterKnife.bind(this);
 	}
 	
 	@Override

@@ -194,7 +194,7 @@ public class MisPinguActivity extends NavigationActivity implements AdapterView.
         };
         wrapper.wrap(lv_pgsearch);
         lv_pgsearch.setOnItemClickListener(MisPinguActivity.this);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
     @Override

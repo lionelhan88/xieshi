@@ -128,7 +128,7 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 			
 		listView.setOnItemClickListener(this);
 		
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 	}
 
 	@Override

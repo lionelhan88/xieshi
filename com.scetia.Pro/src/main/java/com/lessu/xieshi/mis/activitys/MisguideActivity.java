@@ -13,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
+import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
@@ -25,7 +28,9 @@ import com.lessu.xieshi.QRCodeActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.SettingActivity;
 import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.Utils.Shref;
+import com.lessu.xieshi.login.FirstActivity;
 import com.lessu.xieshi.login.LoginActivity;
 import com.lessu.xieshi.mis.bean.Misguidebean;
 import com.lessu.xieshi.scan.ScanActivity;
@@ -184,6 +189,14 @@ public class MisguideActivity extends NavigationActivity {
     private void initData() {
         Intent intent = getIntent();
         String shortuserpower = intent.getStringExtra("shortuserpower");
+        getLogin();
+    }
+
+    /**
+     * 初始化菜单
+     * @param shortuserpower
+     */
+    private void initMenu(String shortuserpower){
         Misguidebean huiyuanbean = new Misguidebean(R.drawable.huiyuanxinxi, "会员信息查询", MisHysearchActivity.class);
         Misguidebean zhenshubean = new Misguidebean(R.drawable.zhengshuxinxi, "证书信息查询", MisZssearchActivity.class);
         Misguidebean pinguchaxunbean = new Misguidebean(R.drawable.pingguchaxun, "评估信息查询", MisPinguActivity.class);
@@ -194,9 +207,8 @@ public class MisguideActivity extends NavigationActivity {
 
         Misguidebean settingbean = new Misguidebean(R.drawable.shezhimis, "系统设置", SettingActivity.class);
         Misguidebean loginbean = new Misguidebean(R.drawable.chongxindenglu, "重新登陆", LoginActivity.class);
-        //Misguidebean scanBean = new Misguidebean(R.drawable.icon_scan,"扫一扫",ScanActivity.class);
 
-        final ArrayList<Misguidebean> al = new ArrayList();
+        final ArrayList<Misguidebean> al = new ArrayList<>();
         String s1 = shortuserpower.substring(0, 1);
         String s2 = shortuserpower.substring(1, 2);
         String s3 = shortuserpower.substring(2, 3);
@@ -204,12 +216,12 @@ public class MisguideActivity extends NavigationActivity {
         String s5 = shortuserpower.substring(4, 5);
         String s6="";
         if(shortuserpower.length()==6) {
-             s6 = shortuserpower.substring(0, 1);
-             s1 = shortuserpower.substring(1, 2);
-             s2 = shortuserpower.substring(2, 3);
-             s3 = shortuserpower.substring(3, 4);
-             s4 = shortuserpower.substring(4, 5);
-             s5 = shortuserpower.substring(5, 6);
+            s6 = shortuserpower.substring(0, 1);
+            s1 = shortuserpower.substring(1, 2);
+            s2 = shortuserpower.substring(2, 3);
+            s3 = shortuserpower.substring(3, 4);
+            s4 = shortuserpower.substring(4, 5);
+            s5 = shortuserpower.substring(5, 6);
         }
         if (s1.equals("1")) {
             al.add(huiyuanbean);
@@ -255,7 +267,62 @@ public class MisguideActivity extends NavigationActivity {
             ll_addparent.addView(view);
         }
     }
+    /**
+     * 打开软件重新登陆
+     */
+    private void getLogin() {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("UserName", Shref.getString(MisguideActivity.this, Common.USERNAME, ""));
+        params.put("PassWord", Shref.getString(MisguideActivity.this, Common.PASSWORD, ""));
+        params.put("DeviceId", Shref.getString(MisguideActivity.this, Common.DEVICEID, ""));
+        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get(".test/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+            @Override
+            public void onSuccessJson(JsonElement result) {
+                System.out.println(result);
+                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
+                String userPower = json.get("UserPower").getAsString();
+                String token = GsonValidate.getStringByKeyPath(json, "Token", "");
+                String MemberInfoStr = json.get("MemberInfoStr").getAsString();
+                String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
+                String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
+                Shref.setString(MisguideActivity.this, Common.USERPOWER, userPower);
+                Shref.setString(MisguideActivity.this,Common.USERID,userId);
+                Shref.setString(MisguideActivity.this,Common.MEMBERINFOSTR,MemberInfoStr);
+                LSUtil.setValueStatic("Token", token);
+                String shortuserpower = userPower.substring(16);
+                initMenu(shortuserpower);
+            }
 
+            @Override
+            public String onFailed(final ApiError error) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (error.errorCode == 3000) {
+                            LogUtil.showLogE(String.valueOf(error.errorCode));
+                            LogUtil.showLogE(error.errorDomain);
+                            LogUtil.showLogE(error.errorMeesage);
+                            new android.app.AlertDialog.Builder(MisguideActivity.this).setTitle("权限改变").setMessage("请重新登陆").show();
+                            new android.app.AlertDialog.Builder(MisguideActivity.this)
+                                    .setTitle("权限改变")
+                                    .setMessage("您的权限有所改变，请重新登陆")
+                                    .setPositiveButton("重新登陆",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialoginterface, int i) {
+                                                    //按钮事件
+                                                    Shref.setString(MisguideActivity.this, Common.USERPOWER, "");
+                                                    startActivity(new Intent(MisguideActivity.this, LoginActivity.class));
+                                                    finish();
+                                                }
+                                            }).show();
+                        }
+                    }
+                });
+                return null;
+            }
+        });
+
+    }
     /**
      * 退出登录
      */

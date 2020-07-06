@@ -23,6 +23,8 @@ import com.lessu.xieshi.uploadpicture.UploadPictureActivity;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+
 public class XieShiSlidingMenuActivity extends NavigationActivity {
 	//2018-10-24 实现沉浸式状态栏 此时赋值false
 	boolean isFirstStart = false;
@@ -46,7 +48,7 @@ public class XieShiSlidingMenuActivity extends NavigationActivity {
 		// 菜单的布局文件
 		menu.setMenu(R.layout.frame_menu);
 		//setViews();
-
+//		ButterKnife.bind(this);
 	}
 	
 	

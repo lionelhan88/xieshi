@@ -2983,6 +2983,7 @@ drawable sousuojuxinga
 drawable sousuotubiao
 drawable spinner_selector
 drawable tag_click_background
+drawable tag_click_background_red
 drawable tedabaoyud
 drawable tedabaoyux
 drawable tianqi
@@ -3347,6 +3348,9 @@ id image_2
 id image_3
 id image_4
 id image_5
+id immersion_fits_layout_overlap
+id immersion_navigation_bar_view
+id immersion_status_bar_view
 id indexTextView
 id info
 id inside
@@ -3399,6 +3403,7 @@ id learn_data_item_result
 id learn_data_item_sign_date
 id learn_data_list
 id learns_tag_item_name
+id learns_tag_item_over
 id left
 id leftButton
 id line1
@@ -3613,6 +3618,13 @@ id timeTextView
 id title
 id title_template
 id todayStatisticsJumpButton
+id today_info_project_address
+id today_info_project_build
+id today_info_project_construct
+id today_info_project_detection
+id today_info_project_name
+id today_info_project_nature
+id today_info_project_supervior
 id tool_bar
 id top
 id topDl
@@ -4462,6 +4474,8 @@ style Widget_AppCompat_Spinner_Underlined
 style Widget_AppCompat_TextView_SpinnerItem
 style Widget_AppCompat_Toolbar
 style Widget_AppCompat_Toolbar_Button_Navigation
+style admin_today_info_ll_style
+style admin_today_info_text
 style myseekbarstyle
 style spinner_style
 style translucentTheme
@@ -4502,3 +4516,5 @@ styleable Theme android_windowIsFloating android_windowAnimationStyle actionBarD
 styleable Toolbar android_gravity android_minHeight collapseContentDescription collapseIcon contentInsetEnd contentInsetLeft contentInsetRight contentInsetStart maxButtonHeight navigationContentDescription navigationIcon popupTheme subtitle subtitleTextAppearance title titleMarginBottom titleMarginEnd titleMarginStart titleMarginTop titleMargins titleTextAppearance
 styleable View android_theme android_focusable backgroundTint backgroundTintMode paddingEnd paddingStart theme
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml file_path
+xml network_security_config

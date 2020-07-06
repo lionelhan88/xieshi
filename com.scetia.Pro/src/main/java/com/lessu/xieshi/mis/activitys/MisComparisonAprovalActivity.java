@@ -184,7 +184,7 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
         };
         wrapper.wrap(misComparisonApprovalList);
         misComparisonApprovalList.setOnItemClickListener(this);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
     @Override

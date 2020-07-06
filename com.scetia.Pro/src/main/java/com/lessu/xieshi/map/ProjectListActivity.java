@@ -103,7 +103,7 @@ public class ProjectListActivity  extends XieShiSlidingMenuActivity implements O
 		BarButtonItem	searchButtonitem = new BarButtonItem(this , R.drawable.icon_navigation_search );
 		searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");
 		navigationBar.setRightBarItem(searchButtonitem);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		getProjectList();
 	}
 

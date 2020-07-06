@@ -88,7 +88,7 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 		else{
 			getData();
 		}
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 
 	private void getData() {

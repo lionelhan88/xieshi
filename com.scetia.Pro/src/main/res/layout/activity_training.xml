@@ -221,11 +221,20 @@
         android:textSize="@dimen/text_size_large"
         android:layout_marginLeft="@dimen/x15"
         android:text="已报名付费课程"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/y15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="@dimen/y10"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@+id/training_learns_title">
     <com.zhy.view.flowlayout.TagFlowLayout
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/training_learns_title"/>
+        android:layout_height="wrap_content"/>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -214,7 +214,7 @@ public class MisnianjiaActivity extends NavigationActivity implements View.OnCli
             }
         };
         wrapper.wrap(lv_nianjia);
-        ButterKnife.inject(this);
+      //  ButterKnife.bind(this);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class ValidateActivity extends NavigationActivity {
 		this.setTitle("绑定");
 		navigationBar.setBackgroundColor(0xFF3598DC);
 		getValidateButton = (Button) findViewById(R.id.getValidateButton);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 
 		if (LSUtil.valueStatic("PhoneNumber") != null){
 			String phoneNumber = LSUtil.valueStatic("PhoneNumber");

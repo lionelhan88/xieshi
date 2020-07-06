@@ -52,7 +52,7 @@ public final class R {
 
         public static final int bgaqrcode_camera_preview = 0x7f080091;
         public static final int center = 0x7f0800be;
-        public static final int inside = 0x7f080110;
+        public static final int inside = 0x7f080113;
     }
     public static final class mipmap {
         private mipmap() {}

@@ -45,5 +45,4 @@ public class ImageloaderUtil {
                 .build();//构建完成
         return options;
     }
-
 }

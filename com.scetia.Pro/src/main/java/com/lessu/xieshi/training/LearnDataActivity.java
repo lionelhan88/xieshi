@@ -12,8 +12,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Changezifu;
 import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.bean.CourseScore;
 import com.lessu.xieshi.bean.PaidItem;
 import com.lessu.xieshi.bean.Project;
@@ -48,7 +48,6 @@ public class LearnDataActivity extends NavigationActivity {
     private Map<String ,String> paidItemMap = new HashMap<>();
     private LearnDataAdapter adapter;
     private List<CourseScore> noFinishCourse = new ArrayList<>();
-    private List<PaidItem> paidItems;
     /**
      * 没有观看的课程
      */
@@ -74,7 +73,6 @@ public class LearnDataActivity extends NavigationActivity {
         EventBus.getDefault().removeStickyEvent(learnDataEvent);
         PushToDx pushToDx = learnDataEvent.getPushToDx();
         paidItemMap.putAll(learnDataEvent.getPaidItemMap());
-        paidItems = learnDataEvent.getPaidItems();
         getCourseScores(pushToDx);
     }
     private void getCourseScores(PushToDx pushToDx){
@@ -92,7 +90,7 @@ public class LearnDataActivity extends NavigationActivity {
                         for (Project project:projects) {
                             String paramStr = "planNo="+project.getPlanNo()+"&projectCode="+project.getProjectCode()+
                                     "&timestamp="+date+"&userId="+userId+"&secret=Rpa00Wcw9yaI";
-                            String sign = Changezifu.md5(paramStr).toUpperCase();
+                            String sign = LongString.md5(paramStr).toUpperCase();
                             Observable<BaseResponse<List<CourseScore>>> courseScores = RetrofitManager.getInstance().getService().getCourseScores(userId, project.getProjectCode(),
                                     project.getPlanNo(), date, sign);
                             arrs.add(courseScores);
@@ -142,9 +140,7 @@ public class LearnDataActivity extends NavigationActivity {
         final Comparator<CourseScore> comparator = new Comparator<CourseScore>() {
             @Override
             public int compare(CourseScore courseScore, CourseScore t1) {
-                //按照中文的拼音顺序排序
-                Comparator<Object> comparable = Collator.getInstance(Locale.CHINA);
-                return comparable.compare(courseScore.getProjectName(),t1.getProjectName());
+                return courseScore.getProjectName().compareTo(t1.getProjectName());
             }
         };
         //按课程名称排序集合

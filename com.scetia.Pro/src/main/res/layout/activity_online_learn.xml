@@ -6,16 +6,18 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <WebView
+
+    <com.lessu.xieshi.training.X5WebView
         android:id="@+id/online_web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
     <FrameLayout
         android:id="@+id/full_screen_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/x15"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layout_margin="@dimen/x15">
     </FrameLayout>
 
     <RelativeLayout
@@ -34,5 +36,4 @@
             android:layout_margin="@dimen/y15"
             android:src="@drawable/back"/>
     </RelativeLayout>
-
 </android.support.constraint.ConstraintLayout>

@@ -83,8 +83,16 @@ android/support/v7/app/ActionBar$DisplayOptions.class
 android/support/v7/app/ActionBar$NavigationMode.class
 android/support/v7/widget/LinearLayoutCompat$DividerMode.class
 android/support/v7/widget/LinearLayoutCompat$OrientationMode.class
-butterknife/InjectView.class
-butterknife/InjectViews.class
+butterknife/BindArray.class
+butterknife/BindBitmap.class
+butterknife/BindBool.class
+butterknife/BindColor.class
+butterknife/BindDimen.class
+butterknife/BindDrawable.class
+butterknife/BindInt.class
+butterknife/BindString.class
+butterknife/BindView.class
+butterknife/BindViews.class
 butterknife/OnCheckedChanged.class
 butterknife/OnClick.class
 butterknife/OnEditorAction.class
@@ -133,6 +141,8 @@ com/nostra13/universalimageloader/core/ImageLoader.class
 com/nostra13/universalimageloader/core/ImageLoaderConfiguration$Builder.class
 com/nostra13/universalimageloader/core/ImageLoaderConfiguration.class
 com/nostra13/universalimageloader/core/assist/QueueProcessingType.class
+com/tencent/smtt/sdk/QbSdk$PreInitCallback.class
+com/tencent/smtt/sdk/QbSdk.class
 io/reactivex/Completable.class
 io/reactivex/CompletableSource.class
 io/reactivex/Flowable.class

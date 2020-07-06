@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- android9.0以上不进行https证书验证-->
+    <base-config cleartextTrafficPermitted="true"/>
+</network-security-config>

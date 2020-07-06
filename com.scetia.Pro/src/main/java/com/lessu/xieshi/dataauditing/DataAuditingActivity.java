@@ -84,7 +84,7 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
 		}else{
 			getData();
 		}
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	private void getData() {
 		// TODO Auto-generated method stub

@@ -24,7 +24,7 @@ public class ConstructionSearchActivity extends NavigationActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.construction_search_activity);
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		//TextView tv = (TextView)(findViewById(R.id.notFinishedOnlyTextView));
 		rg_search = (RadioGroup) findViewById(R.id.rg_search);
 		rb_yes = (RadioButton) findViewById(R.id.rb_yes);

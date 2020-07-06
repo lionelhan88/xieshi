@@ -27,7 +27,7 @@ public class ExamineSampleDetailActivity extends NavigationActivity {
 		//}
 		this.setTitle("样品详情");
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	@Override
 	protected void onStart() {

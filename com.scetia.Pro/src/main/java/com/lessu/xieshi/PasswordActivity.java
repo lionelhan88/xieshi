@@ -27,7 +27,7 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 		
 		setTitle("密码修改");
 		
-		ButterKnife.inject(PasswordActivity.this);
+		//ButterKnife.inject(PasswordActivity.this);
 	}
 	
 	@OnClick(R.id.commitButton)

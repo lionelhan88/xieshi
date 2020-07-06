@@ -89,11 +89,6 @@ public class AdminTodayStatisticsSearchActivity extends NavigationActivity imple
 
 		cb_xainshi = (CheckBox) findViewById(R.id.cb_xainshi);
 		xianshistage=1;
-		//tv_xianshi = (TextView) findViewById(R.id.tv_xianshi);
-		//rb_xainshitongji = (RadioButton) findViewById(R.id.rb_xainshitongji);
-		//rb_xainshiall = (RadioButton) findViewById(R.id.rb_xainshiall);
-		//RadioGroup rg_tongji = (RadioGroup) findViewById(R.id.rg_tongji);
-
 		if(Shref.getString(AdminTodayStatisticsSearchActivity.this, Common.USERNAME,"").equals("gly")){
 			//xianshistage=2;
 			//tv_xianshi.setText("显示所有工地统计信息");
@@ -113,38 +108,8 @@ public class AdminTodayStatisticsSearchActivity extends NavigationActivity imple
 				}
 			}
 		});
-//		rg_tongji.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//			@Override
-//			public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//				int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-//				if(checkedRadioButtonId==rb_xainshitongji.getId()){
-//					xianshistage=1;
-//				}else if(checkedRadioButtonId==rb_xainshiall.getId()){
-//					xianshistage=2;
-//				}else{
-//					xianshistage=-1;
-//				}
-//			}
-//		});
-
-
-
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
-
-
-//	public void searchButtonDidClick(){
-//		Bundle bundle = new Bundle();
-//		TextView tv1 = (TextView)(findViewById(R.id.projectNameTextView));
-//		projectName = tv1.getText().toString();
-//		bundle.putString("ProjectName", projectName);
-//		TextView tv2 = (TextView)(findViewById(R.id.projectAreaTextView));
-//		projectArea = tv2.getText().toString();
-//		bundle.putString("ProjectArea", projectArea);
-//
-//		setResult(RESULT_OK, this.getIntent().putExtras(bundle));
-//		finish();
-//	}
 
 	@OnClick(R.id.ProjectAreaButton)
 	protected void ProjectAreaButtonDidClick(){

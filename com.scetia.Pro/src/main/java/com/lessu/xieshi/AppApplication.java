@@ -2,6 +2,7 @@ package com.lessu.xieshi;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.lessu.ShareableApplication;
@@ -14,6 +15,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.Stack;
 
@@ -39,7 +41,7 @@ public class AppApplication extends ShareableApplication{
 		ShareableApplication.sharedApplication = this;
 		SDKInitializer.initialize(this);
 
-		config.serviceMap.put("telecom","www.scetia.com/scetia.app.ws");
+		config.serviceMap.put("telecom","www.scetia.com/scetia.app.ws.test");
 		config.serviceMap.put("unicom","www.schetia.com/scetia.app.ws");
 		if (LSUtil.valueStatic("service")== null || LSUtil.valueStatic("service").isEmpty()){
 			LSUtil.setValueStatic("service", "telecom");
@@ -67,6 +69,13 @@ public class AppApplication extends ShareableApplication{
 
 		ImageLoader.getInstance().init(config);//全局初始化此配置
 	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		MultiDex.install(this);
+	}
+
 	public static Context getAppContext(){
 		return mcontext;
 	}

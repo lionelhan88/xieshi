@@ -34,7 +34,7 @@ public class ExamineReportDetailActivity extends NavigationActivity {
 		//}
 		this.setTitle("报告详情");
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	@Override
 	protected void onStart() {

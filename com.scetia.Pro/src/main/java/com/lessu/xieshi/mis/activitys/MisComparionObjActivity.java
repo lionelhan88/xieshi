@@ -122,7 +122,7 @@ public class MisComparionObjActivity extends NavigationActivity  {
             }
         };
         wrapper.wrap(misComparisonObjList);
-        ButterKnife.inject(this);
+       // ButterKnife.bind(this);
     }
 
 }

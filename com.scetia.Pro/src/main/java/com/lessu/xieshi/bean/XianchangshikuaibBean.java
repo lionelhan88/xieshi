@@ -103,6 +103,8 @@ public class XianchangshikuaibBean implements Serializable{
             private String CreateDateTime;
             private String Molding_Date;
             private String GradeName;
+            private String YangHuTiaoJian;
+            private String ShenChanChangJia;
 
             public String getItemName() {
                 return ItemName;
@@ -142,6 +144,22 @@ public class XianchangshikuaibBean implements Serializable{
 
             public void setGradeName(String GradeName) {
                 this.GradeName = GradeName;
+            }
+
+            public String getYangHuTiaoJian() {
+                return YangHuTiaoJian;
+            }
+
+            public void setYangHuTiaoJian(String yangHuTiaoJian) {
+                YangHuTiaoJian = yangHuTiaoJian;
+            }
+
+            public String getShenChanChangJia() {
+                return ShenChanChangJia;
+            }
+
+            public void setShenChanChangJia(String shenChanChangJia) {
+                ShenChanChangJia = shenChanChangJia;
             }
         }
 

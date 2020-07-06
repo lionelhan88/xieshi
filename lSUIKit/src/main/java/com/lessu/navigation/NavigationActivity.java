@@ -1,11 +1,13 @@
 package com.lessu.navigation;
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,9 +18,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.uikit.R;
 
 import java.util.List;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by lessu on 14-7-31.
@@ -37,7 +42,6 @@ public class NavigationActivity extends FragmentActivity {
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (tasks.get(0).numActivities > 1){
             BarButtonItem backButtonItem = BarButtonItem.backBarButtonItem(this);
-            //getNavigationBar().setLeftBarItem(backButtonItem);
             backButtonItem.titleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -55,6 +59,8 @@ public class NavigationActivity extends FragmentActivity {
         });
         navigationBar.setLeftBarItem(handleButtonItem);
         isFirstLoad = true;
+        initImmersionBar();
+
     }
     @Override
     protected void onStart() {
@@ -99,6 +105,13 @@ public class NavigationActivity extends FragmentActivity {
     		getNavigationBar().setTitle(title);
     	}
     }
+
+    /**
+     * 设置沉浸式状态栏
+     */
+    protected void initImmersionBar(){
+        ImmersionBar.with(this).titleBar(navigationBar).navigationBarColor(android.R.color.white).init();
+    }
     public void setTitleView(View view){
     	getNavigationBar().setTitleView(view);
     }
@@ -124,28 +137,6 @@ public class NavigationActivity extends FragmentActivity {
 	public boolean isFirstLoad() {
 		return isFirstLoad;
 	}
-    private void setHeight(View view){
-        //获取actionbar的高度
-        TypedArray actionBarSize  = obtainStyledAttributes(new int[]{R.attr.actionBarSize});
-        float height = actionBarSize.getDimension(0,0);
-        //toolBar的top值
-        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        double statusHeight = getStatusBarHeight(this);
-        lp.height = (int) (statusHeight+height);
-        Log.e("hieght",height+statusHeight+"");
-        view.setPadding(0, (int) statusHeight,0,0);
-        navigationBar.setLayoutParams(lp);
-    }
-    private double getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen",
-                "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
     /**
      * 不允许APP的字体随系统改变
      * @return

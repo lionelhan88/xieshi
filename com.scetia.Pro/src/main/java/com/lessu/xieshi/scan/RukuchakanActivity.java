@@ -15,8 +15,8 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Changezifu;
 import com.lessu.xieshi.Utils.JieMi;
+import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.bean.XalTal;
 import com.lessu.xieshi.customView.DragLayout;
 
@@ -386,7 +386,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                     //是芯片
                 }else{
                     System.out.println("是芯片");
-                    String s = Changezifu.Bytes2HexString(buffer2);
+                    String s = LongString.Bytes2HexString(buffer2);
                     System.out.println(s);
                     final String jiexinpian = JieMi.jiexinpian(s);
                     System.out.println("jiexixinpian..waimian..."+jiexinpian);

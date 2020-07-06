@@ -166,7 +166,7 @@ public class MisnianjiaspActivity extends NavigationActivity implements View.OnC
             }
         };
         wrapper.wrap(lv_nianjiasp);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
 

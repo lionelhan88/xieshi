@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_admin_todayinfo"
     android:layout_width="match_parent"
@@ -8,142 +8,239 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_cailiaojiance"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="18dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+           style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="工程名称："/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cailiaoa" />
+            <TextView
+                android:id="@+id/today_info_project_name"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="工程性质：" />
 
-        <TextView
+            <TextView
+                android:id="@+id/today_info_project_nature"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="工程地址：" />
+
+            <TextView
+                android:id="@+id/today_info_project_address"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="建设单位：" />
+
+            <TextView
+                android:id="@+id/today_info_project_build"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="施工单位：" />
+
+            <TextView
+                android:id="@+id/today_info_project_construct"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="监理单位：" />
+
+            <TextView
+                android:id="@+id/today_info_project_supervior"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666" />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/admin_today_info_ll_style">
+            <TextView
+                style="@style/admin_today_info_text"
+                android:gravity="center"
+                android:text="检测单位：" />
+
+            <TextView
+                android:id="@+id/today_info_project_detection"
+                style="@style/admin_today_info_text"
+                android:layout_weight="3"
+                android:textColor="#666666" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_cailiaojiance"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="材料检测"
-            android:textColor="#666666"
-            android:textSize="17sp" />
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/y20"
+            android:paddingLeft="18dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/nex1t" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cailiaoa" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="材料检测"
+                android:textColor="#666666"
+                android:textSize="17sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ececec" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/nex1t" />
 
-    <LinearLayout
-        android:id="@+id/ll_gongchengjiance"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="18dp">
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gongchenga" />
-
-        <TextView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="工程检测"
-            android:textColor="#666666"
-            android:textSize="17sp" />
+            android:layout_height="1dp"
+            android:background="#ececec" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/nex1t" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ececec" />
-
-    <LinearLayout
-        android:id="@+id/ll_xianchanginfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="18dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/xinxi" />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_gongchengjiance"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="现场试块信息"
-            android:textColor="#666666"
-            android:textSize="17sp" />
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="18dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/nex1t" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gongchenga" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="工程检测"
+                android:textColor="#666666"
+                android:textSize="17sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ececec" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/nex1t" />
 
-    <LinearLayout
-        android:id="@+id/ll_buhegeinfo"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="18dp">
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/chaxuna" />
-
-        <TextView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="不合格信息查询"
-            android:textColor="#666666"
-            android:textSize="17sp" />
+            android:layout_height="1dp"
+            android:background="#ececec" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/nex1t" />
+        <LinearLayout
+            android:id="@+id/ll_xianchanginfo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="18dp">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/xinxi" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="现场试块信息"
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/nex1t" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ececec" />
+
+        <LinearLayout
+            android:id="@+id/ll_buhegeinfo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="18dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chaxuna" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="不合格信息查询"
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/nex1t" />
+
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

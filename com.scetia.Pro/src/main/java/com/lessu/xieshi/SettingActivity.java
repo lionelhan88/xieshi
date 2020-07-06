@@ -1,13 +1,20 @@
 package com.lessu.xieshi;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
@@ -15,12 +22,15 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.login.LoginActivity;
 import com.lessu.xieshi.scan.ScanActivity;
+import com.lessu.xieshi.training.TrainingActivity;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,13 +61,12 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
         	serviceTextView.setText("当前服务器错误");
         }
         
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 	}
 	
 	public void menuButtonDidClick(){
 		menu.toggle();
     }
-
 	@OnClick(R.id.jiechuButton)
 	public void jiechuButtonDidClick(){
 		//解除绑定的操作
@@ -198,8 +207,13 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 						}
 					});
 		}
-		Intent scanIntent = new Intent(SettingActivity.this, ScanActivity.class);
-		startActivity(scanIntent);
+		PermissionUtils.requestPermission(this, new PermissionUtils.permissionResult() {
+			@Override
+			public void hasPermission(List<String> granted, boolean isAll) {
+				Intent scanIntent = new Intent(SettingActivity.this, ScanActivity.class);
+				startActivity(scanIntent);
+			}
+		},Manifest.permission.CAMERA);
 	}
 	protected void downLoadFile(String httpUrl) {
 		final Uri uri = Uri.parse(httpUrl);
@@ -226,5 +240,4 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         startActivity(intent);
     }
-
 }

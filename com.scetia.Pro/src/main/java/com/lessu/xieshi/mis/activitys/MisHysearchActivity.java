@@ -121,7 +121,7 @@ public class MisHysearchActivity extends NavigationActivity implements AdapterVi
         };
         wrapper.wrap(lv_hysearch);
         lv_hysearch.setOnItemClickListener(MisHysearchActivity.this);
-        ButterKnife.inject(this);
+       // ButterKnife.bind(this);
     }
 
     @Override

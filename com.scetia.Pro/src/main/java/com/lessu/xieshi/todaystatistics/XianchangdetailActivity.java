@@ -48,13 +48,9 @@ public class XianchangdetailActivity extends XieShiSlidingMenuActivity {
     private void initData() {
         Intent intent=getIntent();
         newdetaillist = (ArrayList<XianchangshikuaibBean.DataBean.SampleInProjectDetailListBean>) intent.getSerializableExtra("newdetaillist");
-        if(newdetaillist!=null){
-            //if(madapter==null){
-                madapter=new xcdetailAdapter();
-                lv_xianchangdetail.setAdapter(madapter);
-           // }else{
-               // madapter.notifyDataSetChanged();
-           // }
+        if (newdetaillist != null) {
+            madapter = new xcdetailAdapter();
+            lv_xianchangdetail.setAdapter(madapter);
         }
 
 
@@ -87,6 +83,8 @@ public class XianchangdetailActivity extends XieShiSlidingMenuActivity {
                 holder.tv_zhizuoriqi= (TextView) view.findViewById(R.id.tv_zhizuoriqi);
                 holder.tv_grade= (TextView) view.findViewById(R.id.tv_grade);
                 holder.tv_xinpiannum= (TextView) view.findViewById(R.id.tv_xinpiannum);
+                holder.tv_yanghutiaojian= (TextView) view.findViewById(R.id.tv_yanghutiaojian);
+                holder.tv_shengchandanwei= (TextView) view.findViewById(R.id.tv_shengchandanwei);
                 view.setTag(holder);
             }else{
                 holder= (ViewHolder) view.getTag();
@@ -95,12 +93,14 @@ public class XianchangdetailActivity extends XieShiSlidingMenuActivity {
             holder.tv_zhizuoriqi.setText(newdetaillist.get(i).getMolding_Date());
             holder.tv_grade.setText(newdetaillist.get(i).getGradeName());
             holder.tv_xinpiannum.setText(newdetaillist.get(i).getCoreCodeNo());
+            holder.tv_yanghutiaojian.setText(newdetaillist.get(i).getYangHuTiaoJian());
+            holder.tv_shengchandanwei.setText(newdetaillist.get(i).getShenChanChangJia());
             return view;
         }
     }
     class ViewHolder{
         TextView tv_dengjiriqi,tv_zhizuoriqi,tv_grade,tv_xinpiannum;
-
+        TextView tv_yanghutiaojian,tv_shengchandanwei;
 
     }
 }

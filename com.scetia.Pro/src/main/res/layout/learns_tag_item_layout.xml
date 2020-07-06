@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/learns_tag_item_name"
-    android:gravity="center"
-    android:padding="@dimen/y10"
-    android:textSize="@dimen/text_size_large"
-    android:text="砂浆"
-    android:layout_marginLeft="@dimen/x10"
-    android:layout_marginTop="@dimen/x10"
-    android:layout_centerInParent="true"
-    android:textColor="@color/white"
-    android:background="@drawable/tag_click_background">
-</TextView>
+    android:layout_marginBottom="@dimen/x10"
+    android:background="@drawable/tag_click_background"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/learns_tag_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/y10"
+        android:textSize="@dimen/text_size_large"
+        android:text="砂浆"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/learns_tag_item_over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x5"
+        android:paddingRight="@dimen/x5"
+        android:visibility="gone"
+        android:text="当前继续教育已截止"
+        android:textColor="#FFF8DC" />
+</LinearLayout>

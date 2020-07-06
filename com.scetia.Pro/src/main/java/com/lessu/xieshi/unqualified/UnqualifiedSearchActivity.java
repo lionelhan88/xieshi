@@ -134,7 +134,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity impleme
 			((Button)(findViewById(R.id.ProjectAreaButton))).setText(projctArea);
 		}
 
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	/**
 

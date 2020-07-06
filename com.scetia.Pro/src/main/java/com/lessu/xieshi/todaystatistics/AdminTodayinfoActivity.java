@@ -4,10 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.lessu.net.ApiMethodDescription;
+import com.lessu.net.EasyAPI;
+import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.XieShiSlidingMenuActivity;
+import com.lessu.xieshi.bean.TodayInfoProjectBean;
+import com.lessu.xieshi.mis.activitys.Content;
 import com.lessu.xieshi.unqualified.UnqualifiedSearchActivity;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AdminTodayinfoActivity extends XieShiSlidingMenuActivity implements View.OnClickListener {
 
@@ -20,10 +35,25 @@ public class AdminTodayinfoActivity extends XieShiSlidingMenuActivity implements
     private String projectName;
     //工地地址
     private String projectArea;
+    @BindView(R.id.today_info_project_name)
+    TextView tvProjectName;
+    @BindView(R.id.today_info_project_nature)
+    TextView tvProjectNature;
+    @BindView(R.id.today_info_project_address)
+    TextView tvProjectAddress;
+    @BindView(R.id.today_info_project_construct)
+    TextView tvProjectConstruct;
+    @BindView(R.id.today_info_project_build)
+    TextView tvProjectBuild;
+    @BindView(R.id.today_info_project_supervior)
+    TextView tvProjectSupervior;
+    @BindView(R.id.today_info_project_detection)
+    TextView tvProjectDetection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_todayinfo);
+        ButterKnife.bind(this);
         this.setTitle("信息查询");
         initView();
         initData();
@@ -46,8 +76,42 @@ public class AdminTodayinfoActivity extends XieShiSlidingMenuActivity implements
         projectid = getintent.getStringExtra("projectid");
         projectName = getintent.getStringExtra("projectName");
         projectArea = getintent.getStringExtra("projectArea");
+        getProjectInfo(projectid);
     }
 
+    /**
+     * 请求获取工程的详细信息
+     * @param projectId
+     */
+    private void getProjectInfo(String projectId){
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("Type",1);
+        params.put("ProjectId",projectId);
+        params.put("Token", Content.gettoken());
+        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceTS.asmx/GetProjectInfo")
+                , params, new EasyAPI.ApiFastSuccessCallBack() {
+                    @Override
+                    public void onSuccessJson(JsonElement result) {
+                        boolean isSuccess = result.getAsJsonObject().get("Success").getAsBoolean();
+                        if(isSuccess){
+                            //成功获取到数据
+                            //获取数据成功
+                            JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
+                            TodayInfoProjectBean todayInfoProjectBean = new Gson().fromJson(json, TodayInfoProjectBean.class);
+                            tvProjectName.setText(todayInfoProjectBean.getProjectName());
+                            tvProjectNature.setText(todayInfoProjectBean.getProjectNature());
+                            tvProjectAddress.setText(todayInfoProjectBean.getProjectAddress());
+                            tvProjectBuild.setText(todayInfoProjectBean.getBuildUnitName());
+                            tvProjectConstruct.setText(todayInfoProjectBean.getConstructUnitName());
+                            tvProjectSupervior.setText(todayInfoProjectBean.getSuperviorUnitName());
+                            tvProjectDetection.setText(todayInfoProjectBean.getDetectionUnitNames());
+
+                        }else{
+                            LSAlert.showAlert(AdminTodayinfoActivity.this,"获取数据失败！");
+                        }
+                    }
+                });
+    }
 
     @Override
     public void onClick(View view) {

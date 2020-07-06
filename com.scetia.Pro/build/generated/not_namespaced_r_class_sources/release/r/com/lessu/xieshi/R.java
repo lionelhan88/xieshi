@@ -1405,7 +1405,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td></td></tr>
+     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
@@ -1668,6 +1668,7 @@ public final class R {
      */
     public static final int prompt=0x7f0300d0;
     /**
+     * BELOW HERE ARE DEPRECEATED. DO NOT USE.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1678,6 +1679,7 @@ public final class R {
      */
     public static final int ptrAdapterViewBackground=0x7f0300d1;
     /**
+     * Style of Animation should be used displayed when pulling.
      * <p>Must be one or more (separated by '|') of the following constant values.</p>
      * <table>
      * <colgroup align="left" />
@@ -1690,6 +1692,7 @@ public final class R {
      */
     public static final int ptrAnimationStyle=0x7f0300d2;
     /**
+     * Drawable to use as Loading Indicator. Changes both Header and Footer.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1704,6 +1707,7 @@ public final class R {
      */
     public static final int ptrDrawableBottom=0x7f0300d4;
     /**
+     * Drawable to use as Loading Indicator in the Footer View. Overrides value set in ptrDrawable.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1711,6 +1715,7 @@ public final class R {
      */
     public static final int ptrDrawableEnd=0x7f0300d5;
     /**
+     * Drawable to use as Loading Indicator in the Header View. Overrides value set in ptrDrawable.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1725,6 +1730,7 @@ public final class R {
      */
     public static final int ptrDrawableTop=0x7f0300d7;
     /**
+     * A drawable to use as the background of the Header and Footer Loading Views
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1735,6 +1741,7 @@ public final class R {
      */
     public static final int ptrHeaderBackground=0x7f0300d8;
     /**
+     * Text Color of the Header and Footer Loading Views Sub Header
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1745,6 +1752,7 @@ public final class R {
      */
     public static final int ptrHeaderSubTextColor=0x7f0300d9;
     /**
+     * Base text color, typeface, size, and style for Header and Footer Loading Views
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1752,6 +1760,7 @@ public final class R {
      */
     public static final int ptrHeaderTextAppearance=0x7f0300da;
     /**
+     * Text Color of the Header and Footer Loading Views
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1762,6 +1771,9 @@ public final class R {
      */
     public static final int ptrHeaderTextColor=0x7f0300db;
     /**
+     * Whether PullToRefreshListView has it's extras enabled. This allows the user to be
+     * able to scroll while refreshing, and behaves better. It acheives this by adding
+     * Header and/or Footer Views to the ListView.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1771,6 +1783,7 @@ public final class R {
      */
     public static final int ptrListViewExtrasEnabled=0x7f0300dc;
     /**
+     * Mode of Pull-to-Refresh that should be used
      * <p>Must be one or more (separated by '|') of the following constant values.</p>
      * <table>
      * <colgroup align="left" />
@@ -1780,7 +1793,7 @@ public final class R {
      * <tr><td>both</td><td>3</td><td></td></tr>
      * <tr><td>disabled</td><td>0</td><td></td></tr>
      * <tr><td>manualOnly</td><td>4</td><td></td></tr>
-     * <tr><td>pullDownFromTop</td><td>1</td><td></td></tr>
+     * <tr><td>pullDownFromTop</td><td>1</td><td>These last two are depreacted</td></tr>
      * <tr><td>pullFromEnd</td><td>2</td><td></td></tr>
      * <tr><td>pullFromStart</td><td>1</td><td></td></tr>
      * <tr><td>pullUpFromBottom</td><td>2</td><td></td></tr>
@@ -1788,6 +1801,7 @@ public final class R {
      */
     public static final int ptrMode=0x7f0300dd;
     /**
+     * Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1797,6 +1811,7 @@ public final class R {
      */
     public static final int ptrOverScroll=0x7f0300de;
     /**
+     * A drawable to use as the background of the Refreshable View
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1807,6 +1822,8 @@ public final class R {
      */
     public static final int ptrRefreshableViewBackground=0x7f0300df;
     /**
+     * Whether the Drawable should be continually rotated as you pull. This only
+     * takes effect when using the 'Rotate' Animation Style.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1816,6 +1833,7 @@ public final class R {
      */
     public static final int ptrRotateDrawableWhilePulling=0x7f0300e0;
     /**
+     * Whether the user can scroll while the View is Refreshing
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1825,6 +1843,7 @@ public final class R {
      */
     public static final int ptrScrollingWhileRefreshingEnabled=0x7f0300e1;
     /**
+     * Whether the Indicator overlay(s) should be used
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -1834,6 +1853,7 @@ public final class R {
      */
     public static final int ptrShowIndicator=0x7f0300e2;
     /**
+     * Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -5408,100 +5428,101 @@ public final class R {
     public static final int sousuotubiao=0x7f07017d;
     public static final int spinner_selector=0x7f07017e;
     public static final int tag_click_background=0x7f07017f;
-    public static final int tedabaoyud=0x7f070180;
-    public static final int tedabaoyux=0x7f070181;
-    public static final int tianqi=0x7f070182;
-    public static final int tianqibackground=0x7f070183;
-    public static final int tijiao=0x7f070184;
-    public static final int tongzhi=0x7f070185;
-    public static final int touxiang=0x7f070186;
-    public static final int tuceng_7=0x7f070187;
-    public static final int tucengblue=0x7f070188;
-    public static final int tuichu=0x7f070189;
-    public static final int tuoyuan=0x7f07018a;
-    public static final int tuoyuan1=0x7f07018b;
-    public static final int tupianshangchuan=0x7f07018c;
-    public static final int view_border=0x7f07018d;
-    public static final int weixuanzhong=0x7f07018e;
-    public static final int weixuanzhong1=0x7f07018f;
-    public static final int weixuanzhongmis=0x7f070190;
-    public static final int wenbenkuang=0x7f070191;
-    public static final int wud=0x7f070192;
-    public static final int wux=0x7f070193;
-    public static final int xiala=0x7f070194;
-    public static final int xiala1=0x7f070195;
-    public static final int xialaa=0x7f070196;
-    public static final int xialacaidan=0x7f070197;
-    public static final int xialamis=0x7f070198;
-    public static final int xian=0x7f070199;
-    public static final int xianl=0x7f07019a;
-    public static final int xianmis=0x7f07019b;
-    public static final int xiaodaozhongxued=0x7f07019c;
-    public static final int xiaodaozhongxuex=0x7f07019d;
-    public static final int xiaodaozhongyud=0x7f07019e;
-    public static final int xiaodaozhongyux=0x7f07019f;
-    public static final int xiaojuxing=0x7f0701a0;
-    public static final int xiaoxi=0x7f0701a1;
-    public static final int xiaoxii=0x7f0701a2;
-    public static final int xiaoxued=0x7f0701a3;
-    public static final int xiaoxuex=0x7f0701a4;
-    public static final int xiaoyud=0x7f0701a5;
-    public static final int xiaoyux=0x7f0701a6;
-    public static final int xingzhi=0x7f0701a7;
-    public static final int xinxi=0x7f0701a8;
-    public static final int xinxichaxun=0x7f0701a9;
-    public static final int xinxichaxuna=0x7f0701aa;
-    public static final int xinxitongzhi=0x7f0701ab;
-    public static final int xinxixian=0x7f0701ac;
-    public static final int xitongshezhi=0x7f0701ad;
-    public static final int xiugaimima=0x7f0701ae;
-    public static final int xiushi=0x7f0701af;
-    public static final int xuanzhong=0x7f0701b0;
-    public static final int xuanzhongmis=0x7f0701b1;
-    public static final int xuxian=0x7f0701b2;
-    public static final int yang=0x7f0701b3;
-    public static final int yangpinchaxun=0x7f0701b4;
-    public static final int yangpinshibie=0x7f0701b5;
-    public static final int yangpinxinxichaxun=0x7f0701b6;
-    public static final int yangshad=0x7f0701b7;
-    public static final int yangshax=0x7f0701b8;
-    public static final int yanzhengma=0x7f0701b9;
-    public static final int yind=0x7f0701ba;
-    public static final int yinx=0x7f0701bb;
-    public static final int yuan=0x7f0701bc;
-    public static final int yuan1=0x7f0701bd;
-    public static final int yuan2=0x7f0701be;
-    public static final int yuana=0x7f0701bf;
-    public static final int yuanat=0x7f0701c0;
-    public static final int yuanjiaojuxing=0x7f0701c1;
-    public static final int yuanjiaojuxing1=0x7f0701c2;
-    public static final int yuanjiaojuxing2=0x7f0701c3;
-    public static final int yuanjiaojuxingyi=0x7f0701c4;
-    public static final int yuanl=0x7f0701c5;
-    public static final int yuant=0x7f0701c6;
-    public static final int yujiaxued=0x7f0701c7;
-    public static final int yujiaxuex=0x7f0701c8;
-    public static final int zaixianjiaoyu=0x7f0701c9;
-    public static final int zh=0x7f0701ca;
-    public static final int zhengshuxinxi=0x7f0701cb;
-    public static final int zhenxued=0x7f0701cc;
-    public static final int zhenxuex=0x7f0701cd;
-    public static final int zhenyud=0x7f0701ce;
-    public static final int zhenyux=0x7f0701cf;
-    public static final int zhongdaodaxued=0x7f0701d0;
-    public static final int zhongdaodaxuex=0x7f0701d1;
-    public static final int zhongdaodayud=0x7f0701d2;
-    public static final int zhongdaodayux=0x7f0701d3;
-    public static final int zhongxued=0x7f0701d4;
-    public static final int zhongxuex=0x7f0701d5;
-    public static final int zhongyud=0x7f0701d6;
-    public static final int zhongyux=0x7f0701d7;
-    public static final int zhuangtai=0x7f0701d8;
-    public static final int zhuangtai1=0x7f0701d9;
-    public static final int zoom_selector_in=0x7f0701da;
-    public static final int zoom_selector_out=0x7f0701db;
-    public static final int zuijin=0x7f0701dc;
-    public static final int zuijin1=0x7f0701dd;
+    public static final int tag_click_background_red=0x7f070180;
+    public static final int tedabaoyud=0x7f070181;
+    public static final int tedabaoyux=0x7f070182;
+    public static final int tianqi=0x7f070183;
+    public static final int tianqibackground=0x7f070184;
+    public static final int tijiao=0x7f070185;
+    public static final int tongzhi=0x7f070186;
+    public static final int touxiang=0x7f070187;
+    public static final int tuceng_7=0x7f070188;
+    public static final int tucengblue=0x7f070189;
+    public static final int tuichu=0x7f07018a;
+    public static final int tuoyuan=0x7f07018b;
+    public static final int tuoyuan1=0x7f07018c;
+    public static final int tupianshangchuan=0x7f07018d;
+    public static final int view_border=0x7f07018e;
+    public static final int weixuanzhong=0x7f07018f;
+    public static final int weixuanzhong1=0x7f070190;
+    public static final int weixuanzhongmis=0x7f070191;
+    public static final int wenbenkuang=0x7f070192;
+    public static final int wud=0x7f070193;
+    public static final int wux=0x7f070194;
+    public static final int xiala=0x7f070195;
+    public static final int xiala1=0x7f070196;
+    public static final int xialaa=0x7f070197;
+    public static final int xialacaidan=0x7f070198;
+    public static final int xialamis=0x7f070199;
+    public static final int xian=0x7f07019a;
+    public static final int xianl=0x7f07019b;
+    public static final int xianmis=0x7f07019c;
+    public static final int xiaodaozhongxued=0x7f07019d;
+    public static final int xiaodaozhongxuex=0x7f07019e;
+    public static final int xiaodaozhongyud=0x7f07019f;
+    public static final int xiaodaozhongyux=0x7f0701a0;
+    public static final int xiaojuxing=0x7f0701a1;
+    public static final int xiaoxi=0x7f0701a2;
+    public static final int xiaoxii=0x7f0701a3;
+    public static final int xiaoxued=0x7f0701a4;
+    public static final int xiaoxuex=0x7f0701a5;
+    public static final int xiaoyud=0x7f0701a6;
+    public static final int xiaoyux=0x7f0701a7;
+    public static final int xingzhi=0x7f0701a8;
+    public static final int xinxi=0x7f0701a9;
+    public static final int xinxichaxun=0x7f0701aa;
+    public static final int xinxichaxuna=0x7f0701ab;
+    public static final int xinxitongzhi=0x7f0701ac;
+    public static final int xinxixian=0x7f0701ad;
+    public static final int xitongshezhi=0x7f0701ae;
+    public static final int xiugaimima=0x7f0701af;
+    public static final int xiushi=0x7f0701b0;
+    public static final int xuanzhong=0x7f0701b1;
+    public static final int xuanzhongmis=0x7f0701b2;
+    public static final int xuxian=0x7f0701b3;
+    public static final int yang=0x7f0701b4;
+    public static final int yangpinchaxun=0x7f0701b5;
+    public static final int yangpinshibie=0x7f0701b6;
+    public static final int yangpinxinxichaxun=0x7f0701b7;
+    public static final int yangshad=0x7f0701b8;
+    public static final int yangshax=0x7f0701b9;
+    public static final int yanzhengma=0x7f0701ba;
+    public static final int yind=0x7f0701bb;
+    public static final int yinx=0x7f0701bc;
+    public static final int yuan=0x7f0701bd;
+    public static final int yuan1=0x7f0701be;
+    public static final int yuan2=0x7f0701bf;
+    public static final int yuana=0x7f0701c0;
+    public static final int yuanat=0x7f0701c1;
+    public static final int yuanjiaojuxing=0x7f0701c2;
+    public static final int yuanjiaojuxing1=0x7f0701c3;
+    public static final int yuanjiaojuxing2=0x7f0701c4;
+    public static final int yuanjiaojuxingyi=0x7f0701c5;
+    public static final int yuanl=0x7f0701c6;
+    public static final int yuant=0x7f0701c7;
+    public static final int yujiaxued=0x7f0701c8;
+    public static final int yujiaxuex=0x7f0701c9;
+    public static final int zaixianjiaoyu=0x7f0701ca;
+    public static final int zh=0x7f0701cb;
+    public static final int zhengshuxinxi=0x7f0701cc;
+    public static final int zhenxued=0x7f0701cd;
+    public static final int zhenxuex=0x7f0701ce;
+    public static final int zhenyud=0x7f0701cf;
+    public static final int zhenyux=0x7f0701d0;
+    public static final int zhongdaodaxued=0x7f0701d1;
+    public static final int zhongdaodaxuex=0x7f0701d2;
+    public static final int zhongdaodayud=0x7f0701d3;
+    public static final int zhongdaodayux=0x7f0701d4;
+    public static final int zhongxued=0x7f0701d5;
+    public static final int zhongxuex=0x7f0701d6;
+    public static final int zhongyud=0x7f0701d7;
+    public static final int zhongyux=0x7f0701d8;
+    public static final int zhuangtai=0x7f0701d9;
+    public static final int zhuangtai1=0x7f0701da;
+    public static final int zoom_selector_in=0x7f0701db;
+    public static final int zoom_selector_out=0x7f0701dc;
+    public static final int zuijin=0x7f0701dd;
+    public static final int zuijin1=0x7f0701de;
   }
   public static final class id {
     public static final int BtBack1=0x7f080000;
@@ -5774,514 +5795,525 @@ public final class R {
     public static final int image_3=0x7f08010b;
     public static final int image_4=0x7f08010c;
     public static final int image_5=0x7f08010d;
-    public static final int indexTextView=0x7f08010e;
-    public static final int info=0x7f08010f;
-    public static final int inside=0x7f080110;
-    public static final int invisible=0x7f080111;
-    public static final int item_tv1=0x7f080112;
-    public static final int item_tv2=0x7f080113;
-    public static final int iv_additem=0x7f080114;
-    public static final int iv_cailiao=0x7f080115;
-    public static final int iv_daohang=0x7f080116;
-    public static final int iv_dengdai=0x7f080117;
-    public static final int iv_ditu=0x7f080118;
-    public static final int iv_gongcheng=0x7f080119;
-    public static final int iv_itemtz=0x7f08011a;
-    public static final int iv_liebiao=0x7f08011b;
-    public static final int iv_loding=0x7f08011c;
-    public static final int iv_map=0x7f08011d;
-    public static final int iv_project=0x7f08011e;
-    public static final int iv_seccion1=0x7f08011f;
-    public static final int iv_seccion2=0x7f080120;
-    public static final int iv_seccion3=0x7f080121;
-    public static final int iv_seccion4=0x7f080122;
-    public static final int iv_seccion5=0x7f080123;
-    public static final int iv_seccion6=0x7f080124;
-    public static final int iv_shenheloding=0x7f080125;
-    public static final int iv_tianqi=0x7f080126;
-    public static final int iv_touxiang=0x7f080127;
-    public static final int iv_tq_today=0x7f080128;
-    public static final int iv_tq_tomo=0x7f080129;
-    public static final int iv_tqh_pic1=0x7f08012a;
-    public static final int iv_weather_back=0x7f08012b;
-    public static final int iv_xiala=0x7f08012c;
-    public static final int iv_xinxichaxun=0x7f08012d;
-    public static final int jiancedanwei=0x7f08012e;
-    public static final int jianlidanwei=0x7f08012f;
-    public static final int jianshedanwei=0x7f080130;
-    public static final int jiechuButton=0x7f080131;
-    public static final int layout0=0x7f080132;
-    public static final int layout2=0x7f080133;
-    public static final int layout4=0x7f080134;
-    public static final int layoutItem0=0x7f080135;
-    public static final int layoutItem1=0x7f080136;
-    public static final int layoutItem2=0x7f080137;
-    public static final int layoutItem3=0x7f080138;
-    public static final int layoutItem4=0x7f080139;
-    public static final int layoutItem5=0x7f08013a;
-    public static final int layoutItem6=0x7f08013b;
-    public static final int layoutItem7=0x7f08013c;
-    public static final int learn_data_item_name=0x7f08013d;
-    public static final int learn_data_item_result=0x7f08013e;
-    public static final int learn_data_item_sign_date=0x7f08013f;
-    public static final int learn_data_list=0x7f080140;
-    public static final int learns_tag_item_name=0x7f080141;
-    public static final int left=0x7f080142;
-    public static final int leftButton=0x7f080143;
-    public static final int line1=0x7f080144;
-    public static final int line3=0x7f080145;
-    public static final int listMode=0x7f080146;
-    public static final int listView=0x7f080147;
-    public static final int list_item=0x7f080148;
-    public static final int ll_additem=0x7f080149;
-    public static final int ll_addparent=0x7f08014a;
-    public static final int ll_biaoshi=0x7f08014b;
-    public static final int ll_buhegeinfo=0x7f08014c;
-    public static final int ll_cailiao=0x7f08014d;
-    public static final int ll_cailiaojiance=0x7f08014e;
-    public static final int ll_daohang=0x7f08014f;
-    public static final int ll_disanhang=0x7f080150;
-    public static final int ll_ditu=0x7f080151;
-    public static final int ll_gongchen=0x7f080152;
-    public static final int ll_gongchengjiance=0x7f080153;
-    public static final int ll_kuoxiangitem=0x7f080154;
-    public static final int ll_liebiao=0x7f080155;
-    public static final int ll_nj_one=0x7f080156;
-    public static final int ll_nj_two=0x7f080157;
-    public static final int ll_pparent=0x7f080158;
-    public static final int ll_push_message=0x7f080159;
-    public static final int ll_reportcontent=0x7f08015a;
-    public static final int ll_riqi=0x7f08015b;
-    public static final int ll_rukuchakan=0x7f08015c;
-    public static final int ll_seccion1=0x7f08015d;
-    public static final int ll_seccion2=0x7f08015e;
-    public static final int ll_seccion3=0x7f08015f;
-    public static final int ll_seccion4=0x7f080160;
-    public static final int ll_seccion5=0x7f080161;
-    public static final int ll_seccion6=0x7f080162;
-    public static final int ll_shebeixinxi=0x7f080163;
-    public static final int ll_shenhexiazai=0x7f080164;
-    public static final int ll_shenqin=0x7f080165;
-    public static final int ll_shenqingshangbao=0x7f080166;
-    public static final int ll_spinner=0x7f080167;
-    public static final int ll_tianqi=0x7f080168;
-    public static final int ll_today_satictics_title=0x7f080169;
-    public static final int ll_tq_addparent=0x7f08016a;
-    public static final int ll_tq_all=0x7f08016b;
-    public static final int ll_tq_backfround=0x7f08016c;
-    public static final int ll_tq_shenlanse=0x7f08016d;
-    public static final int ll_tq_top=0x7f08016e;
-    public static final int ll_xialaliebiao=0x7f08016f;
-    public static final int ll_xianchanginfo=0x7f080170;
-    public static final int ll_yeshu=0x7f080171;
-    public static final int lllll=0x7f080172;
-    public static final int loginButton=0x7f080173;
-    public static final int lv_ditu=0x7f080174;
-    public static final int lv_hysearch=0x7f080175;
-    public static final int lv_left=0x7f080176;
-    public static final int lv_nianjia=0x7f080177;
-    public static final int lv_nianjiasp=0x7f080178;
-    public static final int lv_pgsearch=0x7f080179;
-    public static final int lv_report_content=0x7f08017a;
-    public static final int lv_right=0x7f08017b;
-    public static final int lv_sample_detail=0x7f08017c;
-    public static final int lv_shenheshujvjiaohu=0x7f08017d;
-    public static final int lv_shujvjiaohu=0x7f08017e;
-    public static final int lv_tiaoma=0x7f08017f;
-    public static final int lv_tongzi=0x7f080180;
-    public static final int lv_xianchang=0x7f080181;
-    public static final int lv_xianchangdetail=0x7f080182;
-    public static final int lv_xinpian=0x7f080183;
-    public static final int lv_yangpinxinxi=0x7f080184;
-    public static final int mainLv=0x7f080185;
-    public static final int manualOnly=0x7f080186;
-    public static final int mapButton=0x7f080187;
-    public static final int map_jinritongji=0x7f080188;
-    public static final int margin=0x7f080189;
-    public static final int markCodeTextView=0x7f08018a;
-    public static final int materialView=0x7f08018b;
-    public static final int media_actions=0x7f08018c;
-    public static final int middle=0x7f08018d;
-    public static final int mis_com_approval_date=0x7f08018e;
-    public static final int mis_com_approval_name=0x7f08018f;
-    public static final int mis_com_approval_num=0x7f080190;
-    public static final int mis_com_approvaled=0x7f080191;
-    public static final int mis_com_is_approval=0x7f080192;
-    public static final int mis_com_obj_list_view=0x7f080193;
-    public static final int mis_comparison_item_name=0x7f080194;
-    public static final int mis_comparison_item_num=0x7f080195;
-    public static final int mis_comparison_item_vip=0x7f080196;
-    public static final int mis_comparison_list_view=0x7f080197;
-    public static final int multiply=0x7f080198;
-    public static final int never=0x7f080199;
-    public static final int newPasswordEditText=0x7f08019a;
-    public static final int none=0x7f08019b;
-    public static final int normal=0x7f08019c;
-    public static final int oldPasswordEditText=0x7f08019d;
-    public static final int online_web_view=0x7f08019e;
-    public static final int online_web_view_full_back=0x7f08019f;
-    public static final int openBluetooth_tb=0x7f0801a0;
-    public static final int packed=0x7f0801a1;
-    public static final int paramNameTextView=0x7f0801a2;
-    public static final int paramsButton=0x7f0801a3;
-    public static final int parent=0x7f0801a4;
-    public static final int parentPanel=0x7f0801a5;
-    public static final int passWordEditText=0x7f0801a6;
-    public static final int passwordButton=0x7f0801a7;
-    public static final int percent=0x7f0801a8;
-    public static final int pg_xian=0x7f0801a9;
-    public static final int phoneNumEditText=0x7f0801aa;
-    public static final int pl_jinritongji=0x7f0801ab;
-    public static final int print_data_view_pager=0x7f0801ac;
-    public static final int progress_circular=0x7f0801ad;
-    public static final int progress_horizontal=0x7f0801ae;
-    public static final int projectAddressTextView=0x7f0801af;
-    public static final int projectAreaTextView=0x7f0801b0;
-    public static final int projectButton=0x7f0801b1;
-    public static final int projectJumpButton=0x7f0801b2;
-    public static final int projectNameEditText=0x7f0801b3;
-    public static final int projectNameTextView=0x7f0801b4;
-    public static final int projectNatureTextView=0x7f0801b5;
-    public static final int projectRegionTextView=0x7f0801b6;
-    public static final int projectStatusTextView=0x7f0801b7;
-    public static final int projectTextView=0x7f0801b8;
-    public static final int projectView=0x7f0801b9;
-    public static final int project_check_list_view=0x7f0801ba;
-    public static final int pullDownFromTop=0x7f0801bb;
-    public static final int pullFromEnd=0x7f0801bc;
-    public static final int pullFromStart=0x7f0801bd;
-    public static final int pullUpFromBottom=0x7f0801be;
-    public static final int pull_to_refresh_image=0x7f0801bf;
-    public static final int pull_to_refresh_progress=0x7f0801c0;
-    public static final int pull_to_refresh_sub_text=0x7f0801c1;
-    public static final int pull_to_refresh_text=0x7f0801c2;
-    public static final int qrcodeScanButton=0x7f0801c3;
-    public static final int queryStrTextView=0x7f0801c4;
-    public static final int radio=0x7f0801c5;
-    public static final int rb_no=0x7f0801c6;
-    public static final int rb_yes=0x7f0801c7;
-    public static final int reportIdTextView=0x7f0801c8;
-    public static final int reportTimeTextView=0x7f0801c9;
-    public static final int report_detail=0x7f0801ca;
-    public static final int rg_search=0x7f0801cb;
-    public static final int right=0x7f0801cc;
-    public static final int rightButton=0x7f0801cd;
-    public static final int rl_daohang=0x7f0801ce;
-    public static final int rl_head=0x7f0801cf;
-    public static final int rl_map=0x7f0801d0;
-    public static final int rl_weather_title=0x7f0801d1;
-    public static final int rl_web_view_full_title=0x7f0801d2;
-    public static final int rl_xinxichaxun=0x7f0801d3;
-    public static final int rotate=0x7f0801d4;
-    public static final int sampleDetailButton=0x7f0801d5;
-    public static final int sampleIdTextView=0x7f0801d6;
-    public static final int sampleNameEditText=0x7f0801d7;
-    public static final int sampleNameTextView=0x7f0801d8;
-    public static final int sample_detail=0x7f0801d9;
-    public static final int sb_scan=0x7f0801da;
-    public static final int sc_tq=0x7f0801db;
-    public static final int scanLogin=0x7f0801dc;
-    public static final int screen=0x7f0801dd;
-    public static final int scrollView=0x7f0801de;
-    public static final int scrollview=0x7f0801df;
-    public static final int searchButton=0x7f0801e0;
-    public static final int search_badge=0x7f0801e1;
-    public static final int search_bar=0x7f0801e2;
-    public static final int search_button=0x7f0801e3;
-    public static final int search_close_btn=0x7f0801e4;
-    public static final int search_edit_frame=0x7f0801e5;
-    public static final int search_go_btn=0x7f0801e6;
-    public static final int search_mag_icon=0x7f0801e7;
-    public static final int search_plate=0x7f0801e8;
-    public static final int search_src_text=0x7f0801e9;
-    public static final int search_voice_btn=0x7f0801ea;
-    public static final int section0=0x7f0801eb;
-    public static final int section1=0x7f0801ec;
-    public static final int section2=0x7f0801ed;
-    public static final int selectIcon=0x7f0801ee;
-    public static final int select_dialog_listview=0x7f0801ef;
-    public static final int selected_view=0x7f0801f0;
-    public static final int serviceButton=0x7f0801f1;
-    public static final int serviceTextView=0x7f0801f2;
-    public static final int settingButton=0x7f0801f3;
-    public static final int shigongdanwei=0x7f0801f4;
-    public static final int shortcut=0x7f0801f5;
-    public static final int showCustom=0x7f0801f6;
-    public static final int showHome=0x7f0801f7;
-    public static final int showTitle=0x7f0801f8;
-    public static final int slidingmenumain=0x7f0801f9;
-    public static final int sp_nj_nianfen=0x7f0801fa;
-    public static final int sp_nj_zt=0x7f0801fb;
-    public static final int split_action_bar=0x7f0801fc;
-    public static final int spread=0x7f0801fd;
-    public static final int spread_inside=0x7f0801fe;
-    public static final int src_atop=0x7f0801ff;
-    public static final int src_in=0x7f080200;
-    public static final int src_over=0x7f080201;
-    public static final int standard=0x7f080202;
-    public static final int standardValueTextView=0x7f080203;
-    public static final int start=0x7f080204;
-    public static final int startTimeTextView=0x7f080205;
-    public static final int status_bar_latest_event_content=0x7f080206;
-    public static final int submit_area=0x7f080207;
-    public static final int tabMode=0x7f080208;
-    public static final int taskNameTextView=0x7f080209;
-    public static final int telecomButton=0x7f08020a;
-    public static final int telecomIcon=0x7f08020b;
-    public static final int testTypeTextView=0x7f08020c;
-    public static final int test_ll_bar=0x7f08020d;
-    public static final int text=0x7f08020e;
-    public static final int text2=0x7f08020f;
-    public static final int textSpacerNoButtons=0x7f080210;
-    public static final int textViewCustom=0x7f080211;
-    public static final int time=0x7f080212;
-    public static final int timeButton=0x7f080213;
-    public static final int timeTextView=0x7f080214;
-    public static final int title=0x7f080215;
-    public static final int title_template=0x7f080216;
-    public static final int todayStatisticsJumpButton=0x7f080217;
-    public static final int tool_bar=0x7f080218;
-    public static final int top=0x7f080219;
-    public static final int topDl=0x7f08021a;
-    public static final int topPanel=0x7f08021b;
-    public static final int training_Customer_Name=0x7f08021c;
-    public static final int training_huiyuanhao=0x7f08021d;
-    public static final int training_learns_online=0x7f08021e;
-    public static final int training_learns_title=0x7f08021f;
-    public static final int training_scan_login=0x7f080220;
-    public static final int training_teach_data=0x7f080221;
-    public static final int training_top_user=0x7f080222;
-    public static final int training_user_name=0x7f080223;
-    public static final int tv=0x7f080224;
-    public static final int tv1=0x7f080225;
-    public static final int tv10=0x7f080226;
-    public static final int tv11=0x7f080227;
-    public static final int tv12=0x7f080228;
-    public static final int tv2=0x7f080229;
-    public static final int tv3=0x7f08022a;
-    public static final int tv4=0x7f08022b;
-    public static final int tv5=0x7f08022c;
-    public static final int tv6=0x7f08022d;
-    public static final int tv7=0x7f08022e;
-    public static final int tv8=0x7f08022f;
-    public static final int tv9=0x7f080230;
-    public static final int tv_1=0x7f080231;
-    public static final int tv_10=0x7f080232;
-    public static final int tv_3=0x7f080233;
-    public static final int tv_5=0x7f080234;
-    public static final int tv_additem=0x7f080235;
-    public static final int tv_alltime=0x7f080236;
-    public static final int tv_baocun=0x7f080237;
-    public static final int tv_baogaobianhao=0x7f080238;
-    public static final int tv_baogaoriqi=0x7f080239;
-    public static final int tv_baojianbianhao=0x7f08023a;
-    public static final int tv_beianzhenghao=0x7f08023b;
-    public static final int tv_beizhu=0x7f08023c;
-    public static final int tv_bianhao=0x7f08023d;
-    public static final int tv_biaoshibianhao=0x7f08023e;
-    public static final int tv_biaoshinum=0x7f08023f;
-    public static final int tv_cailiao=0x7f080240;
-    public static final int tv_chakan=0x7f080241;
-    public static final int tv_chanpinbiaozhun=0x7f080242;
-    public static final int tv_daohangaddress=0x7f080243;
-    public static final int tv_daohangtitle=0x7f080244;
-    public static final int tv_day_date=0x7f080245;
-    public static final int tv_dengjiriqi=0x7f080246;
-    public static final int tv_dengjiyanpin=0x7f080247;
-    public static final int tv_ditu=0x7f080248;
-    public static final int tv_duqv=0x7f080249;
-    public static final int tv_endend=0x7f08024a;
-    public static final int tv_endtime=0x7f08024b;
-    public static final int tv_fangweijiaoyanma=0x7f08024c;
-    public static final int tv_feigcyanshouyp=0x7f08024d;
-    public static final int tv_fujin=0x7f08024e;
-    public static final int tv_gcyanshouyp=0x7f08024f;
-    public static final int tv_gongchenbuwei=0x7f080250;
-    public static final int tv_gongchendizhi=0x7f080251;
-    public static final int tv_gongcheng=0x7f080252;
-    public static final int tv_gongchengdizhi=0x7f080253;
-    public static final int tv_gongchengmingcen=0x7f080254;
-    public static final int tv_gongchenmingchen=0x7f080255;
-    public static final int tv_grade=0x7f080256;
-    public static final int tv_guigemingchen=0x7f080257;
-    public static final int tv_hege=0x7f080258;
-    public static final int tv_hetongdengjihao=0x7f080259;
-    public static final int tv_houyitian=0x7f08025a;
-    public static final int tv_huiyuan_name=0x7f08025b;
-    public static final int tv_huiyuanhao=0x7f08025c;
-    public static final int tv_huiyuanhao_name=0x7f08025d;
-    public static final int tv_hy_search=0x7f08025e;
-    public static final int tv_item1=0x7f08025f;
-    public static final int tv_item2=0x7f080260;
-    public static final int tv_item3=0x7f080261;
-    public static final int tv_item4=0x7f080262;
-    public static final int tv_item5=0x7f080263;
-    public static final int tv_itemtz_bt=0x7f080264;
-    public static final int tv_itemtz_sj=0x7f080265;
-    public static final int tv_jdchoujianyp=0x7f080266;
-    public static final int tv_jiancecanshu=0x7f080267;
-    public static final int tv_jiancedanwei=0x7f080268;
-    public static final int tv_jiancejieguo=0x7f080269;
-    public static final int tv_jianceleibie=0x7f08026a;
-    public static final int tv_jiancexiangmu=0x7f08026b;
-    public static final int tv_jiancezhonglei=0x7f08026c;
-    public static final int tv_jianlidanwei=0x7f08026d;
-    public static final int tv_jianshedanwei=0x7f08026e;
-    public static final int tv_jianzhengren=0x7f08026f;
-    public static final int tv_kuoxiangitem=0x7f080270;
-    public static final int tv_liebiao=0x7f080271;
-    public static final int tv_linqi=0x7f080272;
-    public static final int tv_login_version=0x7f080273;
-    public static final int tv_map=0x7f080274;
-    public static final int tv_max=0x7f080275;
-    public static final int tv_mis_hyname=0x7f080276;
-    public static final int tv_mis_hynum=0x7f080277;
-    public static final int tv_mishy_bianhao=0x7f080278;
-    public static final int tv_mishy_danweiphone=0x7f080279;
-    public static final int tv_mishy_daoqidate=0x7f08027a;
-    public static final int tv_mishy_dizhi=0x7f08027b;
-    public static final int tv_mishy_fuzename=0x7f08027c;
-    public static final int tv_mishy_fuzephone=0x7f08027d;
-    public static final int tv_mishy_huiyuanhao=0x7f08027e;
-    public static final int tv_mishy_name=0x7f08027f;
-    public static final int tv_mishy_ruhuidate=0x7f080280;
-    public static final int tv_mishy_xingzhi=0x7f080281;
-    public static final int tv_mishy_zhuangtai=0x7f080282;
-    public static final int tv_miszsdanweiname=0x7f080283;
-    public static final int tv_miszsidcard=0x7f080284;
-    public static final int tv_miszsmobile=0x7f080285;
-    public static final int tv_miszsname=0x7f080286;
-    public static final int tv_miszsscholl=0x7f080287;
-    public static final int tv_miszssex=0x7f080288;
-    public static final int tv_miszsxiangmu=0x7f080289;
-    public static final int tv_miszsxueli=0x7f08028a;
-    public static final int tv_miszszhichen=0x7f08028b;
-    public static final int tv_miszszhuangtai=0x7f08028c;
-    public static final int tv_miszszhuanye=0x7f08028d;
-    public static final int tv_month_year=0x7f08028e;
-    public static final int tv_nj_bmpz=0x7f08028f;
-    public static final int tv_nj_name=0x7f080290;
-    public static final int tv_nj_pztime=0x7f080291;
-    public static final int tv_nj_qingjia=0x7f080292;
-    public static final int tv_nj_reason=0x7f080293;
-    public static final int tv_nj_shenqing=0x7f080294;
-    public static final int tv_nj_status=0x7f080295;
-    public static final int tv_njsp_name=0x7f080296;
-    public static final int tv_njsp_qingjia=0x7f080297;
-    public static final int tv_njsp_shenqing=0x7f080298;
-    public static final int tv_njsp_status=0x7f080299;
-    public static final int tv_pg3=0x7f08029a;
-    public static final int tv_pg4=0x7f08029b;
-    public static final int tv_pg_bianhao=0x7f08029c;
-    public static final int tv_pg_danwei=0x7f08029d;
-    public static final int tv_pg_danweiname=0x7f08029e;
-    public static final int tv_pg_dqzt=0x7f08029f;
-    public static final int tv_pg_finishdate=0x7f0802a0;
-    public static final int tv_pg_leixin=0x7f0802a1;
-    public static final int tv_pg_num=0x7f0802a2;
-    public static final int tv_pg_pglx=0x7f0802a3;
-    public static final int tv_pg_pszz=0x7f0802a4;
-    public static final int tv_pg_pz=0x7f0802a5;
-    public static final int tv_pg_pzdate=0x7f0802a6;
-    public static final int tv_pg_search=0x7f0802a7;
-    public static final int tv_pg_sh=0x7f0802a8;
-    public static final int tv_pg_shdate=0x7f0802a9;
-    public static final int tv_pg_shenqing=0x7f0802aa;
-    public static final int tv_pg_sldate=0x7f0802ab;
-    public static final int tv_pg_slname=0x7f0802ac;
-    public static final int tv_pg_zhuangtai=0x7f0802ad;
-    public static final int tv_pg_zxdate=0x7f0802ae;
-    public static final int tv_project=0x7f0802af;
-    public static final int tv_project_name=0x7f0802b0;
-    public static final int tv_qiangdudengji=0x7f0802b1;
-    public static final int tv_qiangdumingchen=0x7f0802b2;
-    public static final int tv_qianyitian=0x7f0802b3;
-    public static final int tv_qingchu=0x7f0802b4;
-    public static final int tv_qveren=0x7f0802b5;
-    public static final int tv_qveshishangbao=0x7f0802b6;
-    public static final int tv_qvyangren=0x7f0802b7;
-    public static final int tv_riqi=0x7f0802b8;
-    public static final int tv_rukuchakan=0x7f0802b9;
-    public static final int tv_rukugongchengmingchen=0x7f0802ba;
-    public static final int tv_rukuyangpiningchen=0x7f0802bb;
-    public static final int tv_saomiaobianhao=0x7f0802bc;
-    public static final int tv_scanlistview=0x7f0802bd;
-    public static final int tv_seccion1=0x7f0802be;
-    public static final int tv_seccion2=0x7f0802bf;
-    public static final int tv_seccion3=0x7f0802c0;
-    public static final int tv_seccion4=0x7f0802c1;
-    public static final int tv_seccion5=0x7f0802c2;
-    public static final int tv_seccion6=0x7f0802c3;
-    public static final int tv_sgz=0x7f0802c4;
-    public static final int tv_sgz_name=0x7f0802c5;
-    public static final int tv_shangyitiao=0x7f0802c6;
-    public static final int tv_shebeibianhao=0x7f0802c7;
-    public static final int tv_shengchanchangjia=0x7f0802c8;
-    public static final int tv_shenqinitem=0x7f0802c9;
-    public static final int tv_shigongdanwei=0x7f0802ca;
-    public static final int tv_shouchijishenhe=0x7f0802cb;
-    public static final int tv_shujvjiaohu=0x7f0802cc;
-    public static final int tv_startstart=0x7f0802cd;
-    public static final int tv_starttime=0x7f0802ce;
-    public static final int tv_sum=0x7f0802cf;
-    public static final int tv_suoshuqvxian=0x7f0802d0;
-    public static final int tv_tianqi=0x7f0802d1;
-    public static final int tv_tiaoma_num=0x7f0802d2;
-    public static final int tv_tongjishijian=0x7f0802d3;
-    public static final int tv_tq_city=0x7f0802d4;
-    public static final int tv_tq_shidu=0x7f0802d5;
-    public static final int tv_tq_temp=0x7f0802d6;
-    public static final int tv_tq_today=0x7f0802d7;
-    public static final int tv_tq_today_temp=0x7f0802d8;
-    public static final int tv_tq_today_weather=0x7f0802d9;
-    public static final int tv_tq_tomo=0x7f0802da;
-    public static final int tv_tq_tomo_temp=0x7f0802db;
-    public static final int tv_tq_tomo_weather=0x7f0802dc;
-    public static final int tv_tq_weather=0x7f0802dd;
-    public static final int tv_tq_wind=0x7f0802de;
-    public static final int tv_tqh_temp=0x7f0802df;
-    public static final int tv_tqh_time=0x7f0802e0;
-    public static final int tv_tqh_weather=0x7f0802e1;
-    public static final int tv_tznr=0x7f0802e2;
-    public static final int tv_weituobianhao=0x7f0802e3;
-    public static final int tv_weituodanwei=0x7f0802e4;
-    public static final int tv_weituoriqi=0x7f0802e5;
-    public static final int tv_xiangmu=0x7f0802e6;
-    public static final int tv_xiangmumingchen=0x7f0802e7;
-    public static final int tv_xiayitiao=0x7f0802e8;
-    public static final int tv_xinpian_num=0x7f0802e9;
-    public static final int tv_xinpiannum=0x7f0802ea;
-    public static final int tv_yangpinbianhao=0x7f0802eb;
-    public static final int tv_yangpinmingchen=0x7f0802ec;
-    public static final int tv_yangpinzhuangtai=0x7f0802ed;
-    public static final int tv_yeshuxianshi=0x7f0802ee;
-    public static final int tv_yichu=0x7f0802ef;
-    public static final int tv_yonghuming=0x7f0802f0;
-    public static final int tv_zhaunghao=0x7f0802f1;
-    public static final int tv_zhizuoriqi=0x7f0802f2;
-    public static final int typeButton=0x7f0802f3;
-    public static final int typeTextView=0x7f0802f4;
-    public static final int unbondDevices=0x7f0802f5;
-    public static final int undevice_name=0x7f0802f6;
-    public static final int unicomButton=0x7f0802f7;
-    public static final int unicomIcon=0x7f0802f8;
-    public static final int unqualifiedJumpButton=0x7f0802f9;
-    public static final int up=0x7f0802fa;
-    public static final int updateButton=0x7f0802fb;
-    public static final int uploadButtom=0x7f0802fc;
-    public static final int uploadJumpButton=0x7f0802fd;
-    public static final int useLogo=0x7f0802fe;
-    public static final int userNameEditText=0x7f0802ff;
-    public static final int validateButton=0x7f080300;
-    public static final int validateCodeEditText=0x7f080301;
-    public static final int web_view=0x7f080302;
-    public static final int webview=0x7f080303;
-    public static final int width=0x7f080304;
-    public static final int withText=0x7f080305;
-    public static final int wrap=0x7f080306;
-    public static final int wrap_content=0x7f080307;
-    public static final int zcv_zoom=0x7f080308;
-    public static final int zxingview=0x7f080309;
+    public static final int immersion_fits_layout_overlap=0x7f08010e;
+    public static final int immersion_navigation_bar_view=0x7f08010f;
+    public static final int immersion_status_bar_view=0x7f080110;
+    public static final int indexTextView=0x7f080111;
+    public static final int info=0x7f080112;
+    public static final int inside=0x7f080113;
+    public static final int invisible=0x7f080114;
+    public static final int item_tv1=0x7f080115;
+    public static final int item_tv2=0x7f080116;
+    public static final int iv_additem=0x7f080117;
+    public static final int iv_cailiao=0x7f080118;
+    public static final int iv_daohang=0x7f080119;
+    public static final int iv_dengdai=0x7f08011a;
+    public static final int iv_ditu=0x7f08011b;
+    public static final int iv_gongcheng=0x7f08011c;
+    public static final int iv_itemtz=0x7f08011d;
+    public static final int iv_liebiao=0x7f08011e;
+    public static final int iv_loding=0x7f08011f;
+    public static final int iv_map=0x7f080120;
+    public static final int iv_project=0x7f080121;
+    public static final int iv_seccion1=0x7f080122;
+    public static final int iv_seccion2=0x7f080123;
+    public static final int iv_seccion3=0x7f080124;
+    public static final int iv_seccion4=0x7f080125;
+    public static final int iv_seccion5=0x7f080126;
+    public static final int iv_seccion6=0x7f080127;
+    public static final int iv_shenheloding=0x7f080128;
+    public static final int iv_tianqi=0x7f080129;
+    public static final int iv_touxiang=0x7f08012a;
+    public static final int iv_tq_today=0x7f08012b;
+    public static final int iv_tq_tomo=0x7f08012c;
+    public static final int iv_tqh_pic1=0x7f08012d;
+    public static final int iv_weather_back=0x7f08012e;
+    public static final int iv_xiala=0x7f08012f;
+    public static final int iv_xinxichaxun=0x7f080130;
+    public static final int jiancedanwei=0x7f080131;
+    public static final int jianlidanwei=0x7f080132;
+    public static final int jianshedanwei=0x7f080133;
+    public static final int jiechuButton=0x7f080134;
+    public static final int layout0=0x7f080135;
+    public static final int layout2=0x7f080136;
+    public static final int layout4=0x7f080137;
+    public static final int layoutItem0=0x7f080138;
+    public static final int layoutItem1=0x7f080139;
+    public static final int layoutItem2=0x7f08013a;
+    public static final int layoutItem3=0x7f08013b;
+    public static final int layoutItem4=0x7f08013c;
+    public static final int layoutItem5=0x7f08013d;
+    public static final int layoutItem6=0x7f08013e;
+    public static final int layoutItem7=0x7f08013f;
+    public static final int learn_data_item_name=0x7f080140;
+    public static final int learn_data_item_result=0x7f080141;
+    public static final int learn_data_item_sign_date=0x7f080142;
+    public static final int learn_data_list=0x7f080143;
+    public static final int learns_tag_item_name=0x7f080144;
+    public static final int learns_tag_item_over=0x7f080145;
+    public static final int left=0x7f080146;
+    public static final int leftButton=0x7f080147;
+    public static final int line1=0x7f080148;
+    public static final int line3=0x7f080149;
+    public static final int listMode=0x7f08014a;
+    public static final int listView=0x7f08014b;
+    public static final int list_item=0x7f08014c;
+    public static final int ll_additem=0x7f08014d;
+    public static final int ll_addparent=0x7f08014e;
+    public static final int ll_biaoshi=0x7f08014f;
+    public static final int ll_buhegeinfo=0x7f080150;
+    public static final int ll_cailiao=0x7f080151;
+    public static final int ll_cailiaojiance=0x7f080152;
+    public static final int ll_daohang=0x7f080153;
+    public static final int ll_disanhang=0x7f080154;
+    public static final int ll_ditu=0x7f080155;
+    public static final int ll_gongchen=0x7f080156;
+    public static final int ll_gongchengjiance=0x7f080157;
+    public static final int ll_kuoxiangitem=0x7f080158;
+    public static final int ll_liebiao=0x7f080159;
+    public static final int ll_nj_one=0x7f08015a;
+    public static final int ll_nj_two=0x7f08015b;
+    public static final int ll_pparent=0x7f08015c;
+    public static final int ll_push_message=0x7f08015d;
+    public static final int ll_reportcontent=0x7f08015e;
+    public static final int ll_riqi=0x7f08015f;
+    public static final int ll_rukuchakan=0x7f080160;
+    public static final int ll_seccion1=0x7f080161;
+    public static final int ll_seccion2=0x7f080162;
+    public static final int ll_seccion3=0x7f080163;
+    public static final int ll_seccion4=0x7f080164;
+    public static final int ll_seccion5=0x7f080165;
+    public static final int ll_seccion6=0x7f080166;
+    public static final int ll_shebeixinxi=0x7f080167;
+    public static final int ll_shenhexiazai=0x7f080168;
+    public static final int ll_shenqin=0x7f080169;
+    public static final int ll_shenqingshangbao=0x7f08016a;
+    public static final int ll_spinner=0x7f08016b;
+    public static final int ll_tianqi=0x7f08016c;
+    public static final int ll_today_satictics_title=0x7f08016d;
+    public static final int ll_tq_addparent=0x7f08016e;
+    public static final int ll_tq_all=0x7f08016f;
+    public static final int ll_tq_backfround=0x7f080170;
+    public static final int ll_tq_shenlanse=0x7f080171;
+    public static final int ll_tq_top=0x7f080172;
+    public static final int ll_xialaliebiao=0x7f080173;
+    public static final int ll_xianchanginfo=0x7f080174;
+    public static final int ll_yeshu=0x7f080175;
+    public static final int lllll=0x7f080176;
+    public static final int loginButton=0x7f080177;
+    public static final int lv_ditu=0x7f080178;
+    public static final int lv_hysearch=0x7f080179;
+    public static final int lv_left=0x7f08017a;
+    public static final int lv_nianjia=0x7f08017b;
+    public static final int lv_nianjiasp=0x7f08017c;
+    public static final int lv_pgsearch=0x7f08017d;
+    public static final int lv_report_content=0x7f08017e;
+    public static final int lv_right=0x7f08017f;
+    public static final int lv_sample_detail=0x7f080180;
+    public static final int lv_shenheshujvjiaohu=0x7f080181;
+    public static final int lv_shujvjiaohu=0x7f080182;
+    public static final int lv_tiaoma=0x7f080183;
+    public static final int lv_tongzi=0x7f080184;
+    public static final int lv_xianchang=0x7f080185;
+    public static final int lv_xianchangdetail=0x7f080186;
+    public static final int lv_xinpian=0x7f080187;
+    public static final int lv_yangpinxinxi=0x7f080188;
+    public static final int mainLv=0x7f080189;
+    public static final int manualOnly=0x7f08018a;
+    public static final int mapButton=0x7f08018b;
+    public static final int map_jinritongji=0x7f08018c;
+    public static final int margin=0x7f08018d;
+    public static final int markCodeTextView=0x7f08018e;
+    public static final int materialView=0x7f08018f;
+    public static final int media_actions=0x7f080190;
+    public static final int middle=0x7f080191;
+    public static final int mis_com_approval_date=0x7f080192;
+    public static final int mis_com_approval_name=0x7f080193;
+    public static final int mis_com_approval_num=0x7f080194;
+    public static final int mis_com_approvaled=0x7f080195;
+    public static final int mis_com_is_approval=0x7f080196;
+    public static final int mis_com_obj_list_view=0x7f080197;
+    public static final int mis_comparison_item_name=0x7f080198;
+    public static final int mis_comparison_item_num=0x7f080199;
+    public static final int mis_comparison_item_vip=0x7f08019a;
+    public static final int mis_comparison_list_view=0x7f08019b;
+    public static final int multiply=0x7f08019c;
+    public static final int never=0x7f08019d;
+    public static final int newPasswordEditText=0x7f08019e;
+    public static final int none=0x7f08019f;
+    public static final int normal=0x7f0801a0;
+    public static final int oldPasswordEditText=0x7f0801a1;
+    public static final int online_web_view=0x7f0801a2;
+    public static final int online_web_view_full_back=0x7f0801a3;
+    public static final int openBluetooth_tb=0x7f0801a4;
+    public static final int packed=0x7f0801a5;
+    public static final int paramNameTextView=0x7f0801a6;
+    public static final int paramsButton=0x7f0801a7;
+    public static final int parent=0x7f0801a8;
+    public static final int parentPanel=0x7f0801a9;
+    public static final int passWordEditText=0x7f0801aa;
+    public static final int passwordButton=0x7f0801ab;
+    public static final int percent=0x7f0801ac;
+    public static final int pg_xian=0x7f0801ad;
+    public static final int phoneNumEditText=0x7f0801ae;
+    public static final int pl_jinritongji=0x7f0801af;
+    public static final int print_data_view_pager=0x7f0801b0;
+    public static final int progress_circular=0x7f0801b1;
+    public static final int progress_horizontal=0x7f0801b2;
+    public static final int projectAddressTextView=0x7f0801b3;
+    public static final int projectAreaTextView=0x7f0801b4;
+    public static final int projectButton=0x7f0801b5;
+    public static final int projectJumpButton=0x7f0801b6;
+    public static final int projectNameEditText=0x7f0801b7;
+    public static final int projectNameTextView=0x7f0801b8;
+    public static final int projectNatureTextView=0x7f0801b9;
+    public static final int projectRegionTextView=0x7f0801ba;
+    public static final int projectStatusTextView=0x7f0801bb;
+    public static final int projectTextView=0x7f0801bc;
+    public static final int projectView=0x7f0801bd;
+    public static final int project_check_list_view=0x7f0801be;
+    public static final int pullDownFromTop=0x7f0801bf;
+    public static final int pullFromEnd=0x7f0801c0;
+    public static final int pullFromStart=0x7f0801c1;
+    public static final int pullUpFromBottom=0x7f0801c2;
+    public static final int pull_to_refresh_image=0x7f0801c3;
+    public static final int pull_to_refresh_progress=0x7f0801c4;
+    public static final int pull_to_refresh_sub_text=0x7f0801c5;
+    public static final int pull_to_refresh_text=0x7f0801c6;
+    public static final int qrcodeScanButton=0x7f0801c7;
+    public static final int queryStrTextView=0x7f0801c8;
+    public static final int radio=0x7f0801c9;
+    public static final int rb_no=0x7f0801ca;
+    public static final int rb_yes=0x7f0801cb;
+    public static final int reportIdTextView=0x7f0801cc;
+    public static final int reportTimeTextView=0x7f0801cd;
+    public static final int report_detail=0x7f0801ce;
+    public static final int rg_search=0x7f0801cf;
+    public static final int right=0x7f0801d0;
+    public static final int rightButton=0x7f0801d1;
+    public static final int rl_daohang=0x7f0801d2;
+    public static final int rl_head=0x7f0801d3;
+    public static final int rl_map=0x7f0801d4;
+    public static final int rl_weather_title=0x7f0801d5;
+    public static final int rl_web_view_full_title=0x7f0801d6;
+    public static final int rl_xinxichaxun=0x7f0801d7;
+    public static final int rotate=0x7f0801d8;
+    public static final int sampleDetailButton=0x7f0801d9;
+    public static final int sampleIdTextView=0x7f0801da;
+    public static final int sampleNameEditText=0x7f0801db;
+    public static final int sampleNameTextView=0x7f0801dc;
+    public static final int sample_detail=0x7f0801dd;
+    public static final int sb_scan=0x7f0801de;
+    public static final int sc_tq=0x7f0801df;
+    public static final int scanLogin=0x7f0801e0;
+    public static final int screen=0x7f0801e1;
+    public static final int scrollView=0x7f0801e2;
+    public static final int scrollview=0x7f0801e3;
+    public static final int searchButton=0x7f0801e4;
+    public static final int search_badge=0x7f0801e5;
+    public static final int search_bar=0x7f0801e6;
+    public static final int search_button=0x7f0801e7;
+    public static final int search_close_btn=0x7f0801e8;
+    public static final int search_edit_frame=0x7f0801e9;
+    public static final int search_go_btn=0x7f0801ea;
+    public static final int search_mag_icon=0x7f0801eb;
+    public static final int search_plate=0x7f0801ec;
+    public static final int search_src_text=0x7f0801ed;
+    public static final int search_voice_btn=0x7f0801ee;
+    public static final int section0=0x7f0801ef;
+    public static final int section1=0x7f0801f0;
+    public static final int section2=0x7f0801f1;
+    public static final int selectIcon=0x7f0801f2;
+    public static final int select_dialog_listview=0x7f0801f3;
+    public static final int selected_view=0x7f0801f4;
+    public static final int serviceButton=0x7f0801f5;
+    public static final int serviceTextView=0x7f0801f6;
+    public static final int settingButton=0x7f0801f7;
+    public static final int shigongdanwei=0x7f0801f8;
+    public static final int shortcut=0x7f0801f9;
+    public static final int showCustom=0x7f0801fa;
+    public static final int showHome=0x7f0801fb;
+    public static final int showTitle=0x7f0801fc;
+    public static final int slidingmenumain=0x7f0801fd;
+    public static final int sp_nj_nianfen=0x7f0801fe;
+    public static final int sp_nj_zt=0x7f0801ff;
+    public static final int split_action_bar=0x7f080200;
+    public static final int spread=0x7f080201;
+    public static final int spread_inside=0x7f080202;
+    public static final int src_atop=0x7f080203;
+    public static final int src_in=0x7f080204;
+    public static final int src_over=0x7f080205;
+    public static final int standard=0x7f080206;
+    public static final int standardValueTextView=0x7f080207;
+    public static final int start=0x7f080208;
+    public static final int startTimeTextView=0x7f080209;
+    public static final int status_bar_latest_event_content=0x7f08020a;
+    public static final int submit_area=0x7f08020b;
+    public static final int tabMode=0x7f08020c;
+    public static final int taskNameTextView=0x7f08020d;
+    public static final int telecomButton=0x7f08020e;
+    public static final int telecomIcon=0x7f08020f;
+    public static final int testTypeTextView=0x7f080210;
+    public static final int test_ll_bar=0x7f080211;
+    public static final int text=0x7f080212;
+    public static final int text2=0x7f080213;
+    public static final int textSpacerNoButtons=0x7f080214;
+    public static final int textViewCustom=0x7f080215;
+    public static final int time=0x7f080216;
+    public static final int timeButton=0x7f080217;
+    public static final int timeTextView=0x7f080218;
+    public static final int title=0x7f080219;
+    public static final int title_template=0x7f08021a;
+    public static final int todayStatisticsJumpButton=0x7f08021b;
+    public static final int today_info_project_address=0x7f08021c;
+    public static final int today_info_project_build=0x7f08021d;
+    public static final int today_info_project_construct=0x7f08021e;
+    public static final int today_info_project_detection=0x7f08021f;
+    public static final int today_info_project_name=0x7f080220;
+    public static final int today_info_project_nature=0x7f080221;
+    public static final int today_info_project_supervior=0x7f080222;
+    public static final int tool_bar=0x7f080223;
+    public static final int top=0x7f080224;
+    public static final int topDl=0x7f080225;
+    public static final int topPanel=0x7f080226;
+    public static final int training_Customer_Name=0x7f080227;
+    public static final int training_huiyuanhao=0x7f080228;
+    public static final int training_learns_online=0x7f080229;
+    public static final int training_learns_title=0x7f08022a;
+    public static final int training_scan_login=0x7f08022b;
+    public static final int training_teach_data=0x7f08022c;
+    public static final int training_top_user=0x7f08022d;
+    public static final int training_user_name=0x7f08022e;
+    public static final int tv=0x7f08022f;
+    public static final int tv1=0x7f080230;
+    public static final int tv10=0x7f080231;
+    public static final int tv11=0x7f080232;
+    public static final int tv12=0x7f080233;
+    public static final int tv2=0x7f080234;
+    public static final int tv3=0x7f080235;
+    public static final int tv4=0x7f080236;
+    public static final int tv5=0x7f080237;
+    public static final int tv6=0x7f080238;
+    public static final int tv7=0x7f080239;
+    public static final int tv8=0x7f08023a;
+    public static final int tv9=0x7f08023b;
+    public static final int tv_1=0x7f08023c;
+    public static final int tv_10=0x7f08023d;
+    public static final int tv_3=0x7f08023e;
+    public static final int tv_5=0x7f08023f;
+    public static final int tv_additem=0x7f080240;
+    public static final int tv_alltime=0x7f080241;
+    public static final int tv_baocun=0x7f080242;
+    public static final int tv_baogaobianhao=0x7f080243;
+    public static final int tv_baogaoriqi=0x7f080244;
+    public static final int tv_baojianbianhao=0x7f080245;
+    public static final int tv_beianzhenghao=0x7f080246;
+    public static final int tv_beizhu=0x7f080247;
+    public static final int tv_bianhao=0x7f080248;
+    public static final int tv_biaoshibianhao=0x7f080249;
+    public static final int tv_biaoshinum=0x7f08024a;
+    public static final int tv_cailiao=0x7f08024b;
+    public static final int tv_chakan=0x7f08024c;
+    public static final int tv_chanpinbiaozhun=0x7f08024d;
+    public static final int tv_daohangaddress=0x7f08024e;
+    public static final int tv_daohangtitle=0x7f08024f;
+    public static final int tv_day_date=0x7f080250;
+    public static final int tv_dengjiriqi=0x7f080251;
+    public static final int tv_dengjiyanpin=0x7f080252;
+    public static final int tv_ditu=0x7f080253;
+    public static final int tv_duqv=0x7f080254;
+    public static final int tv_endend=0x7f080255;
+    public static final int tv_endtime=0x7f080256;
+    public static final int tv_fangweijiaoyanma=0x7f080257;
+    public static final int tv_feigcyanshouyp=0x7f080258;
+    public static final int tv_fujin=0x7f080259;
+    public static final int tv_gcyanshouyp=0x7f08025a;
+    public static final int tv_gongchenbuwei=0x7f08025b;
+    public static final int tv_gongchendizhi=0x7f08025c;
+    public static final int tv_gongcheng=0x7f08025d;
+    public static final int tv_gongchengdizhi=0x7f08025e;
+    public static final int tv_gongchengmingcen=0x7f08025f;
+    public static final int tv_gongchenmingchen=0x7f080260;
+    public static final int tv_grade=0x7f080261;
+    public static final int tv_guigemingchen=0x7f080262;
+    public static final int tv_hege=0x7f080263;
+    public static final int tv_hetongdengjihao=0x7f080264;
+    public static final int tv_houyitian=0x7f080265;
+    public static final int tv_huiyuan_name=0x7f080266;
+    public static final int tv_huiyuanhao=0x7f080267;
+    public static final int tv_huiyuanhao_name=0x7f080268;
+    public static final int tv_hy_search=0x7f080269;
+    public static final int tv_item1=0x7f08026a;
+    public static final int tv_item2=0x7f08026b;
+    public static final int tv_item3=0x7f08026c;
+    public static final int tv_item4=0x7f08026d;
+    public static final int tv_item5=0x7f08026e;
+    public static final int tv_itemtz_bt=0x7f08026f;
+    public static final int tv_itemtz_sj=0x7f080270;
+    public static final int tv_jdchoujianyp=0x7f080271;
+    public static final int tv_jiancecanshu=0x7f080272;
+    public static final int tv_jiancedanwei=0x7f080273;
+    public static final int tv_jiancejieguo=0x7f080274;
+    public static final int tv_jianceleibie=0x7f080275;
+    public static final int tv_jiancexiangmu=0x7f080276;
+    public static final int tv_jiancezhonglei=0x7f080277;
+    public static final int tv_jianlidanwei=0x7f080278;
+    public static final int tv_jianshedanwei=0x7f080279;
+    public static final int tv_jianzhengren=0x7f08027a;
+    public static final int tv_kuoxiangitem=0x7f08027b;
+    public static final int tv_liebiao=0x7f08027c;
+    public static final int tv_linqi=0x7f08027d;
+    public static final int tv_login_version=0x7f08027e;
+    public static final int tv_map=0x7f08027f;
+    public static final int tv_max=0x7f080280;
+    public static final int tv_mis_hyname=0x7f080281;
+    public static final int tv_mis_hynum=0x7f080282;
+    public static final int tv_mishy_bianhao=0x7f080283;
+    public static final int tv_mishy_danweiphone=0x7f080284;
+    public static final int tv_mishy_daoqidate=0x7f080285;
+    public static final int tv_mishy_dizhi=0x7f080286;
+    public static final int tv_mishy_fuzename=0x7f080287;
+    public static final int tv_mishy_fuzephone=0x7f080288;
+    public static final int tv_mishy_huiyuanhao=0x7f080289;
+    public static final int tv_mishy_name=0x7f08028a;
+    public static final int tv_mishy_ruhuidate=0x7f08028b;
+    public static final int tv_mishy_xingzhi=0x7f08028c;
+    public static final int tv_mishy_zhuangtai=0x7f08028d;
+    public static final int tv_miszsdanweiname=0x7f08028e;
+    public static final int tv_miszsidcard=0x7f08028f;
+    public static final int tv_miszsmobile=0x7f080290;
+    public static final int tv_miszsname=0x7f080291;
+    public static final int tv_miszsscholl=0x7f080292;
+    public static final int tv_miszssex=0x7f080293;
+    public static final int tv_miszsxiangmu=0x7f080294;
+    public static final int tv_miszsxueli=0x7f080295;
+    public static final int tv_miszszhichen=0x7f080296;
+    public static final int tv_miszszhuangtai=0x7f080297;
+    public static final int tv_miszszhuanye=0x7f080298;
+    public static final int tv_month_year=0x7f080299;
+    public static final int tv_nj_bmpz=0x7f08029a;
+    public static final int tv_nj_name=0x7f08029b;
+    public static final int tv_nj_pztime=0x7f08029c;
+    public static final int tv_nj_qingjia=0x7f08029d;
+    public static final int tv_nj_reason=0x7f08029e;
+    public static final int tv_nj_shenqing=0x7f08029f;
+    public static final int tv_nj_status=0x7f0802a0;
+    public static final int tv_njsp_name=0x7f0802a1;
+    public static final int tv_njsp_qingjia=0x7f0802a2;
+    public static final int tv_njsp_shenqing=0x7f0802a3;
+    public static final int tv_njsp_status=0x7f0802a4;
+    public static final int tv_pg3=0x7f0802a5;
+    public static final int tv_pg4=0x7f0802a6;
+    public static final int tv_pg_bianhao=0x7f0802a7;
+    public static final int tv_pg_danwei=0x7f0802a8;
+    public static final int tv_pg_danweiname=0x7f0802a9;
+    public static final int tv_pg_dqzt=0x7f0802aa;
+    public static final int tv_pg_finishdate=0x7f0802ab;
+    public static final int tv_pg_leixin=0x7f0802ac;
+    public static final int tv_pg_num=0x7f0802ad;
+    public static final int tv_pg_pglx=0x7f0802ae;
+    public static final int tv_pg_pszz=0x7f0802af;
+    public static final int tv_pg_pz=0x7f0802b0;
+    public static final int tv_pg_pzdate=0x7f0802b1;
+    public static final int tv_pg_search=0x7f0802b2;
+    public static final int tv_pg_sh=0x7f0802b3;
+    public static final int tv_pg_shdate=0x7f0802b4;
+    public static final int tv_pg_shenqing=0x7f0802b5;
+    public static final int tv_pg_sldate=0x7f0802b6;
+    public static final int tv_pg_slname=0x7f0802b7;
+    public static final int tv_pg_zhuangtai=0x7f0802b8;
+    public static final int tv_pg_zxdate=0x7f0802b9;
+    public static final int tv_project=0x7f0802ba;
+    public static final int tv_project_name=0x7f0802bb;
+    public static final int tv_qiangdudengji=0x7f0802bc;
+    public static final int tv_qiangdumingchen=0x7f0802bd;
+    public static final int tv_qianyitian=0x7f0802be;
+    public static final int tv_qingchu=0x7f0802bf;
+    public static final int tv_qveren=0x7f0802c0;
+    public static final int tv_qveshishangbao=0x7f0802c1;
+    public static final int tv_qvyangren=0x7f0802c2;
+    public static final int tv_riqi=0x7f0802c3;
+    public static final int tv_rukuchakan=0x7f0802c4;
+    public static final int tv_rukugongchengmingchen=0x7f0802c5;
+    public static final int tv_rukuyangpiningchen=0x7f0802c6;
+    public static final int tv_saomiaobianhao=0x7f0802c7;
+    public static final int tv_scanlistview=0x7f0802c8;
+    public static final int tv_seccion1=0x7f0802c9;
+    public static final int tv_seccion2=0x7f0802ca;
+    public static final int tv_seccion3=0x7f0802cb;
+    public static final int tv_seccion4=0x7f0802cc;
+    public static final int tv_seccion5=0x7f0802cd;
+    public static final int tv_seccion6=0x7f0802ce;
+    public static final int tv_sgz=0x7f0802cf;
+    public static final int tv_sgz_name=0x7f0802d0;
+    public static final int tv_shangyitiao=0x7f0802d1;
+    public static final int tv_shebeibianhao=0x7f0802d2;
+    public static final int tv_shengchanchangjia=0x7f0802d3;
+    public static final int tv_shenqinitem=0x7f0802d4;
+    public static final int tv_shigongdanwei=0x7f0802d5;
+    public static final int tv_shouchijishenhe=0x7f0802d6;
+    public static final int tv_shujvjiaohu=0x7f0802d7;
+    public static final int tv_startstart=0x7f0802d8;
+    public static final int tv_starttime=0x7f0802d9;
+    public static final int tv_sum=0x7f0802da;
+    public static final int tv_suoshuqvxian=0x7f0802db;
+    public static final int tv_tianqi=0x7f0802dc;
+    public static final int tv_tiaoma_num=0x7f0802dd;
+    public static final int tv_tongjishijian=0x7f0802de;
+    public static final int tv_tq_city=0x7f0802df;
+    public static final int tv_tq_shidu=0x7f0802e0;
+    public static final int tv_tq_temp=0x7f0802e1;
+    public static final int tv_tq_today=0x7f0802e2;
+    public static final int tv_tq_today_temp=0x7f0802e3;
+    public static final int tv_tq_today_weather=0x7f0802e4;
+    public static final int tv_tq_tomo=0x7f0802e5;
+    public static final int tv_tq_tomo_temp=0x7f0802e6;
+    public static final int tv_tq_tomo_weather=0x7f0802e7;
+    public static final int tv_tq_weather=0x7f0802e8;
+    public static final int tv_tq_wind=0x7f0802e9;
+    public static final int tv_tqh_temp=0x7f0802ea;
+    public static final int tv_tqh_time=0x7f0802eb;
+    public static final int tv_tqh_weather=0x7f0802ec;
+    public static final int tv_tznr=0x7f0802ed;
+    public static final int tv_weituobianhao=0x7f0802ee;
+    public static final int tv_weituodanwei=0x7f0802ef;
+    public static final int tv_weituoriqi=0x7f0802f0;
+    public static final int tv_xiangmu=0x7f0802f1;
+    public static final int tv_xiangmumingchen=0x7f0802f2;
+    public static final int tv_xiayitiao=0x7f0802f3;
+    public static final int tv_xinpian_num=0x7f0802f4;
+    public static final int tv_xinpiannum=0x7f0802f5;
+    public static final int tv_yangpinbianhao=0x7f0802f6;
+    public static final int tv_yangpinmingchen=0x7f0802f7;
+    public static final int tv_yangpinzhuangtai=0x7f0802f8;
+    public static final int tv_yeshuxianshi=0x7f0802f9;
+    public static final int tv_yichu=0x7f0802fa;
+    public static final int tv_yonghuming=0x7f0802fb;
+    public static final int tv_zhaunghao=0x7f0802fc;
+    public static final int tv_zhizuoriqi=0x7f0802fd;
+    public static final int typeButton=0x7f0802fe;
+    public static final int typeTextView=0x7f0802ff;
+    public static final int unbondDevices=0x7f080300;
+    public static final int undevice_name=0x7f080301;
+    public static final int unicomButton=0x7f080302;
+    public static final int unicomIcon=0x7f080303;
+    public static final int unqualifiedJumpButton=0x7f080304;
+    public static final int up=0x7f080305;
+    public static final int updateButton=0x7f080306;
+    public static final int uploadButtom=0x7f080307;
+    public static final int uploadJumpButton=0x7f080308;
+    public static final int useLogo=0x7f080309;
+    public static final int userNameEditText=0x7f08030a;
+    public static final int validateButton=0x7f08030b;
+    public static final int validateCodeEditText=0x7f08030c;
+    public static final int web_view=0x7f08030d;
+    public static final int webview=0x7f08030e;
+    public static final int width=0x7f08030f;
+    public static final int withText=0x7f080310;
+    public static final int wrap=0x7f080311;
+    public static final int wrap_content=0x7f080312;
+    public static final int zcv_zoom=0x7f080313;
+    public static final int zxingview=0x7f080314;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f090000;
@@ -6903,9 +6935,11 @@ public final class R {
     public static final int Widget_AppCompat_TextView_SpinnerItem=0x7f0f0124;
     public static final int Widget_AppCompat_Toolbar=0x7f0f0125;
     public static final int Widget_AppCompat_Toolbar_Button_Navigation=0x7f0f0126;
-    public static final int myseekbarstyle=0x7f0f0127;
-    public static final int spinner_style=0x7f0f0128;
-    public static final int translucentTheme=0x7f0f0129;
+    public static final int admin_today_info_ll_style=0x7f0f0127;
+    public static final int admin_today_info_text=0x7f0f0128;
+    public static final int myseekbarstyle=0x7f0f0129;
+    public static final int spinner_style=0x7f0f012a;
+    public static final int translucentTheme=0x7f0f012b;
   }
   public static final class styleable {
     /**
@@ -7352,19 +7386,19 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>end</td><td>800005</td><td></td></tr>
-     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>bottom</td><td>50</td><td></td></tr>
      * <tr><td>center</td><td>11</td><td></td></tr>
      * <tr><td>center_horizontal</td><td>1</td><td></td></tr>
      * <tr><td>center_vertical</td><td>10</td><td></td></tr>
      * <tr><td>clip_horizontal</td><td>8</td><td></td></tr>
      * <tr><td>clip_vertical</td><td>80</td><td></td></tr>
+     * <tr><td>end</td><td>800005</td><td></td></tr>
      * <tr><td>fill</td><td>77</td><td></td></tr>
      * <tr><td>fill_horizontal</td><td>7</td><td></td></tr>
      * <tr><td>fill_vertical</td><td>70</td><td></td></tr>
      * <tr><td>left</td><td>3</td><td></td></tr>
      * <tr><td>right</td><td>5</td><td></td></tr>
+     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      *
@@ -8873,7 +8907,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td></td></tr>
+     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
@@ -9180,9 +9214,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * <tr><td>fill_parent</td><td>ffffffff</td><td></td></tr>
      * <tr><td>match_parent</td><td>ffffffff</td><td></td></tr>
+     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * </table>
      *
      * @attr name android:layout_width
@@ -9203,9 +9237,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * <tr><td>fill_parent</td><td>ffffffff</td><td></td></tr>
      * <tr><td>match_parent</td><td>ffffffff</td><td></td></tr>
+     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * </table>
      *
      * @attr name android:layout_height
@@ -10470,19 +10504,19 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>end</td><td>800005</td><td></td></tr>
-     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>bottom</td><td>50</td><td></td></tr>
      * <tr><td>center</td><td>11</td><td></td></tr>
      * <tr><td>center_horizontal</td><td>1</td><td></td></tr>
      * <tr><td>center_vertical</td><td>10</td><td></td></tr>
      * <tr><td>clip_horizontal</td><td>8</td><td></td></tr>
      * <tr><td>clip_vertical</td><td>80</td><td></td></tr>
+     * <tr><td>end</td><td>800005</td><td></td></tr>
      * <tr><td>fill</td><td>77</td><td></td></tr>
      * <tr><td>fill_horizontal</td><td>7</td><td></td></tr>
      * <tr><td>fill_vertical</td><td>70</td><td></td></tr>
      * <tr><td>left</td><td>3</td><td></td></tr>
      * <tr><td>right</td><td>5</td><td></td></tr>
+     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      *
@@ -10618,19 +10652,19 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>end</td><td>800005</td><td></td></tr>
-     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>bottom</td><td>50</td><td></td></tr>
      * <tr><td>center</td><td>11</td><td></td></tr>
      * <tr><td>center_horizontal</td><td>1</td><td></td></tr>
      * <tr><td>center_vertical</td><td>10</td><td></td></tr>
      * <tr><td>clip_horizontal</td><td>8</td><td></td></tr>
      * <tr><td>clip_vertical</td><td>80</td><td></td></tr>
+     * <tr><td>end</td><td>800005</td><td></td></tr>
      * <tr><td>fill</td><td>77</td><td></td></tr>
      * <tr><td>fill_horizontal</td><td>7</td><td></td></tr>
      * <tr><td>fill_vertical</td><td>70</td><td></td></tr>
      * <tr><td>left</td><td>3</td><td></td></tr>
      * <tr><td>right</td><td>5</td><td></td></tr>
+     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      *
@@ -10652,9 +10686,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * <tr><td>fill_parent</td><td>ffffffff</td><td></td></tr>
      * <tr><td>match_parent</td><td>ffffffff</td><td></td></tr>
+     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * </table>
      *
      * @attr name android:layout_width
@@ -10675,9 +10709,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * <tr><td>fill_parent</td><td>ffffffff</td><td></td></tr>
      * <tr><td>match_parent</td><td>ffffffff</td><td></td></tr>
+     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * </table>
      *
      * @attr name android:layout_height
@@ -10829,8 +10863,8 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>all</td><td>1</td><td></td></tr>
+     * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>single</td><td>2</td><td></td></tr>
      * </table>
      *
@@ -11279,25 +11313,25 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground com.scetia.Pro:ptrAdapterViewBackground}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrAnimationStyle com.scetia.Pro:ptrAnimationStyle}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrDrawable com.scetia.Pro:ptrDrawable}</code></td><td></td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground com.scetia.Pro:ptrAdapterViewBackground}</code></td><td>BELOW HERE ARE DEPRECEATED.</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrAnimationStyle com.scetia.Pro:ptrAnimationStyle}</code></td><td>Style of Animation should be used displayed when pulling.</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrDrawable com.scetia.Pro:ptrDrawable}</code></td><td>Drawable to use as Loading Indicator.</td></tr>
      * <tr><td><code>{@link #PullToRefresh_ptrDrawableBottom com.scetia.Pro:ptrDrawableBottom}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrDrawableEnd com.scetia.Pro:ptrDrawableEnd}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrDrawableStart com.scetia.Pro:ptrDrawableStart}</code></td><td></td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrDrawableEnd com.scetia.Pro:ptrDrawableEnd}</code></td><td>Drawable to use as Loading Indicator in the Footer View.</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrDrawableStart com.scetia.Pro:ptrDrawableStart}</code></td><td>Drawable to use as Loading Indicator in the Header View.</td></tr>
      * <tr><td><code>{@link #PullToRefresh_ptrDrawableTop com.scetia.Pro:ptrDrawableTop}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground com.scetia.Pro:ptrHeaderBackground}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor com.scetia.Pro:ptrHeaderSubTextColor}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrHeaderTextAppearance com.scetia.Pro:ptrHeaderTextAppearance}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor com.scetia.Pro:ptrHeaderTextColor}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrListViewExtrasEnabled com.scetia.Pro:ptrListViewExtrasEnabled}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrMode com.scetia.Pro:ptrMode}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrOverScroll com.scetia.Pro:ptrOverScroll}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrRefreshableViewBackground com.scetia.Pro:ptrRefreshableViewBackground}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrRotateDrawableWhilePulling com.scetia.Pro:ptrRotateDrawableWhilePulling}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrScrollingWhileRefreshingEnabled com.scetia.Pro:ptrScrollingWhileRefreshingEnabled}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrShowIndicator com.scetia.Pro:ptrShowIndicator}</code></td><td></td></tr>
-     * <tr><td><code>{@link #PullToRefresh_ptrSubHeaderTextAppearance com.scetia.Pro:ptrSubHeaderTextAppearance}</code></td><td></td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground com.scetia.Pro:ptrHeaderBackground}</code></td><td>A drawable to use as the background of the Header and Footer Loading Views</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor com.scetia.Pro:ptrHeaderSubTextColor}</code></td><td>Text Color of the Header and Footer Loading Views Sub Header</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrHeaderTextAppearance com.scetia.Pro:ptrHeaderTextAppearance}</code></td><td>Base text color, typeface, size, and style for Header and Footer Loading Views</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor com.scetia.Pro:ptrHeaderTextColor}</code></td><td>Text Color of the Header and Footer Loading Views</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrListViewExtrasEnabled com.scetia.Pro:ptrListViewExtrasEnabled}</code></td><td>Whether PullToRefreshListView has it's extras enabled.</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrMode com.scetia.Pro:ptrMode}</code></td><td>Mode of Pull-to-Refresh that should be used</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrOverScroll com.scetia.Pro:ptrOverScroll}</code></td><td>Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrRefreshableViewBackground com.scetia.Pro:ptrRefreshableViewBackground}</code></td><td>A drawable to use as the background of the Refreshable View</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrRotateDrawableWhilePulling com.scetia.Pro:ptrRotateDrawableWhilePulling}</code></td><td>Whether the Drawable should be continually rotated as you pull.</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrScrollingWhileRefreshingEnabled com.scetia.Pro:ptrScrollingWhileRefreshingEnabled}</code></td><td>Whether the user can scroll while the View is Refreshing</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrShowIndicator com.scetia.Pro:ptrShowIndicator}</code></td><td>Whether the Indicator overlay(s) should be used</td></tr>
+     * <tr><td><code>{@link #PullToRefresh_ptrSubHeaderTextAppearance com.scetia.Pro:ptrSubHeaderTextAppearance}</code></td><td>Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header</td></tr>
      * </table>
      * @see #PullToRefresh_ptrAdapterViewBackground
      * @see #PullToRefresh_ptrAnimationStyle
@@ -11327,8 +11361,9 @@ public final class R {
       0x7f0300e1, 0x7f0300e2, 0x7f0300e3
     };
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrAdapterViewBackground}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * BELOW HERE ARE DEPRECEATED. DO NOT USE.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11342,8 +11377,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrAdapterViewBackground=0;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrAnimationStyle}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Style of Animation should be used displayed when pulling.
      *
      * <p>Must be one or more (separated by '|') of the following constant values.</p>
      * <table>
@@ -11359,8 +11395,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrAnimationStyle=1;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrDrawable}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Drawable to use as Loading Indicator. Changes both Header and Footer.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11383,8 +11420,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrDrawableBottom=3;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrDrawableEnd}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Drawable to use as Loading Indicator in the Footer View. Overrides value set in ptrDrawable.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11395,8 +11433,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrDrawableEnd=4;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrDrawableStart}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Drawable to use as Loading Indicator in the Header View. Overrides value set in ptrDrawable.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11419,8 +11458,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrDrawableTop=6;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrHeaderBackground}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * A drawable to use as the background of the Header and Footer Loading Views
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11434,8 +11474,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrHeaderBackground=7;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrHeaderSubTextColor}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Text Color of the Header and Footer Loading Views Sub Header
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11449,8 +11490,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrHeaderSubTextColor=8;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrHeaderTextAppearance}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Base text color, typeface, size, and style for Header and Footer Loading Views
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11461,8 +11503,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrHeaderTextAppearance=9;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrHeaderTextColor}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Text Color of the Header and Footer Loading Views
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11476,8 +11519,11 @@ public final class R {
      */
     public static final int PullToRefresh_ptrHeaderTextColor=10;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrListViewExtrasEnabled}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Whether PullToRefreshListView has it's extras enabled. This allows the user to be
+     * able to scroll while refreshing, and behaves better. It acheives this by adding
+     * Header and/or Footer Views to the ListView.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11490,8 +11536,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrListViewExtrasEnabled=11;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrMode}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Mode of Pull-to-Refresh that should be used
      *
      * <p>Must be one or more (separated by '|') of the following constant values.</p>
      * <table>
@@ -11502,7 +11549,7 @@ public final class R {
      * <tr><td>both</td><td>3</td><td></td></tr>
      * <tr><td>disabled</td><td>0</td><td></td></tr>
      * <tr><td>manualOnly</td><td>4</td><td></td></tr>
-     * <tr><td>pullDownFromTop</td><td>1</td><td></td></tr>
+     * <tr><td>pullDownFromTop</td><td>1</td><td>These last two are depreacted</td></tr>
      * <tr><td>pullFromEnd</td><td>2</td><td></td></tr>
      * <tr><td>pullFromStart</td><td>1</td><td></td></tr>
      * <tr><td>pullUpFromBottom</td><td>2</td><td></td></tr>
@@ -11512,8 +11559,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrMode=12;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrOverScroll}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11526,8 +11574,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrOverScroll=13;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrRefreshableViewBackground}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * A drawable to use as the background of the Refreshable View
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11541,8 +11590,10 @@ public final class R {
      */
     public static final int PullToRefresh_ptrRefreshableViewBackground=14;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrRotateDrawableWhilePulling}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Whether the Drawable should be continually rotated as you pull. This only
+     * takes effect when using the 'Rotate' Animation Style.
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11555,8 +11606,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrRotateDrawableWhilePulling=15;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrScrollingWhileRefreshingEnabled}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Whether the user can scroll while the View is Refreshing
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11569,8 +11621,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrScrollingWhileRefreshingEnabled=16;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrShowIndicator}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Whether the Indicator overlay(s) should be used
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -11583,8 +11636,9 @@ public final class R {
      */
     public static final int PullToRefresh_ptrShowIndicator=17;
     /**
-     * <p>This symbol is the offset where the {@link com.scetia.Pro.R.attr#ptrSubHeaderTextAppearance}
-     * attribute's value can be found in the {@link #PullToRefresh} array.
+     * <p>
+     * @attr description
+     * Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header
      *
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -12244,6 +12298,14 @@ public final class R {
      *
      * <p>May be a boolean value, such as "<code>true</code>" or
      * "<code>false</code>".
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>auto</td><td>10</td><td></td></tr>
+     * </table>
      *
      * @attr name android:focusable
      */
@@ -12271,9 +12333,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>date</td><td>14</td><td></td></tr>
      * <tr><td>datetime</td><td>4</td><td></td></tr>
+     * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>number</td><td>2</td><td></td></tr>
      * <tr><td>numberDecimal</td><td>2002</td><td></td></tr>
      * <tr><td>numberPassword</td><td>12</td><td></td></tr>
@@ -12318,7 +12380,6 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>normal</td><td>0</td><td></td></tr>
      * <tr><td>actionDone</td><td>6</td><td></td></tr>
      * <tr><td>actionGo</td><td>2</td><td></td></tr>
      * <tr><td>actionNext</td><td>5</td><td></td></tr>
@@ -12334,6 +12395,8 @@ public final class R {
      * <tr><td>flagNoEnterAction</td><td>40000000</td><td></td></tr>
      * <tr><td>flagNoExtractUi</td><td>10000000</td><td></td></tr>
      * <tr><td>flagNoFullscreen</td><td>2000000</td><td></td></tr>
+     * <tr><td>flagNoPersonalizedLearning</td><td>1000000</td><td></td></tr>
+     * <tr><td>normal</td><td>0</td><td></td></tr>
      * </table>
      *
      * @attr name android:imeOptions
@@ -12794,19 +12857,19 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>end</td><td>800005</td><td></td></tr>
-     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>bottom</td><td>50</td><td></td></tr>
      * <tr><td>center</td><td>11</td><td></td></tr>
      * <tr><td>center_horizontal</td><td>1</td><td></td></tr>
      * <tr><td>center_vertical</td><td>10</td><td></td></tr>
      * <tr><td>clip_horizontal</td><td>8</td><td></td></tr>
      * <tr><td>clip_vertical</td><td>80</td><td></td></tr>
+     * <tr><td>end</td><td>800005</td><td></td></tr>
      * <tr><td>fill</td><td>77</td><td></td></tr>
      * <tr><td>fill_horizontal</td><td>7</td><td></td></tr>
      * <tr><td>fill_vertical</td><td>70</td><td></td></tr>
      * <tr><td>left</td><td>3</td><td></td></tr>
      * <tr><td>right</td><td>5</td><td></td></tr>
+     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      *
@@ -12873,9 +12936,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * <tr><td>fill_parent</td><td>ffffffff</td><td></td></tr>
      * <tr><td>match_parent</td><td>ffffffff</td><td></td></tr>
+     * <tr><td>wrap_content</td><td>fffffffe</td><td></td></tr>
      * </table>
      *
      * @attr name android:dropDownWidth
@@ -13215,9 +13278,9 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>normal</td><td>0</td><td></td></tr>
      * <tr><td>bold</td><td>1</td><td></td></tr>
      * <tr><td>italic</td><td>2</td><td></td></tr>
+     * <tr><td>normal</td><td>0</td><td></td></tr>
      * </table>
      *
      * @attr name android:textStyle
@@ -14896,19 +14959,19 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-     * <tr><td>end</td><td>800005</td><td></td></tr>
-     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>bottom</td><td>50</td><td></td></tr>
      * <tr><td>center</td><td>11</td><td></td></tr>
      * <tr><td>center_horizontal</td><td>1</td><td></td></tr>
      * <tr><td>center_vertical</td><td>10</td><td></td></tr>
      * <tr><td>clip_horizontal</td><td>8</td><td></td></tr>
      * <tr><td>clip_vertical</td><td>80</td><td></td></tr>
+     * <tr><td>end</td><td>800005</td><td></td></tr>
      * <tr><td>fill</td><td>77</td><td></td></tr>
      * <tr><td>fill_horizontal</td><td>7</td><td></td></tr>
      * <tr><td>fill_vertical</td><td>70</td><td></td></tr>
      * <tr><td>left</td><td>3</td><td></td></tr>
      * <tr><td>right</td><td>5</td><td></td></tr>
+     * <tr><td>start</td><td>800003</td><td></td></tr>
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      *
@@ -15203,6 +15266,14 @@ public final class R {
      *
      * <p>May be a boolean value, such as "<code>true</code>" or
      * "<code>false</code>".
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>auto</td><td>10</td><td></td></tr>
+     * </table>
      *
      * @attr name android:focusable
      */
@@ -15330,5 +15401,9 @@ public final class R {
      * @attr name android:inflatedId
      */
     public static final int ViewStubCompat_android_inflatedId=2;
+  }
+  public static final class xml {
+    public static final int file_path=0x7f110000;
+    public static final int network_security_config=0x7f110001;
   }
 }

@@ -163,8 +163,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		ll_daohang = (LinearLayout) findViewById(R.id.ll_daohang);
 		tv_daohangtitle = (TextView) findViewById(R.id.tv_daohangtitle);
 		tv_daohangaddress = (TextView) findViewById(R.id.tv_daohangaddress);
-		//bt_danghang = (Button) findViewById(R.id.bt_danghang);
-		//bt_qvxiao = (Button) findViewById(R.id.bt_qvxiao);
 		rl_daohang = (RelativeLayout) findViewById(R.id.rl_daohang);
 		rl_xinxichaxun = (RelativeLayout) findViewById(R.id.rl_xinxichaxun);
 
@@ -178,10 +176,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		tv_5 = (TextView) findViewById(R.id.tv_5);
 		tv_10 = (TextView) findViewById(R.id.tv_10);
 		tv_max = (TextView) findViewById(R.id.tv_max);
-		//tv_max.setVisibility(View.GONE);
 		tv_yeshuxianshi = (TextView) findViewById(R.id.tv_yeshuxianshi);
-
-
 		ll_spinner.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -202,10 +197,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");
 
 		navigationBar.setRightBarItem(searchButtonitem);
-
-//		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-//		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
-//		navigationBar.setLeftBarItem(menuButtonitem);
 		map_jinritongji = (MapView) findViewById(R.id.map_jinritongji);
 		map_jinritongji.showZoomControls(false);
 		mBaiduMap = map_jinritongji.getMap();
@@ -235,40 +226,39 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 
 		zcv_zoom = (ZoomControlsView) findViewById(R.id.zcv_zoom);
 		zcv_zoom.setMapView(map_jinritongji);
-		//ConnectNeta(1,3);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 
 	}
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
-		if(jinritongjiditu!=null) {
-			System.out.println("工地信息---"+"111111111");
+	/*	if(jinritongjiditu!=null) {
 			if (sousuo) {
-				if(ismax){
+				ConnectNeta(1, rangeindex);
+				*//*if(ismax){
 					ConnectNetb(1);
 				}else {
 					ConnectNeta(1, rangeindex);
-				}
+				}*//*
 			} else {
-				System.out.println("回来走了这里。。");
-				if(ismax){
+				ConnectNeta(jinritongjiditu.getData().getCurrentPageNo(), rangeindex);
+				*//*if(ismax){
 					ConnectNetb(jinritongjiditu.getData().getCurrentPageNo());
 				}else {
 					ConnectNeta(jinritongjiditu.getData().getCurrentPageNo(), rangeindex);
-				}
+				}*//*
 			}
 		}else{
-			System.out.println("工地信息---"+"22222222222");
 			ConnectNeta(1, 3);
 		}
-		sousuo=false;
-
-		//listView = (PullToRefreshListView) findViewById(R.id.listView);
-
+		sousuo=false;*/
 	}
 
+	/**
+	 * 带有范围的查询
+	 * @param pageindex
+	 * @param range 范围条件
+	 */
 	private void ConnectNeta(final int pageindex, int range) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("Token", token);
@@ -280,10 +270,13 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		params.put("ConstructUnitName", jianshedanwei);
 		params.put("SuperviseUnitName", jianlidanwei);
 		params.put("DetectionUnitName", jiancedanwei);
-		//params.put("CurrentLocation","121.463107,31.192615");
 		params.put("CurrentLocation",getMyself());
-		System.out.println("getmyself......"+getMyself());
-		params.put("DistanceRange",range);
+		//params.put("CurrentLocation","121.4558,31.18644");
+		if(range!=-1){
+			//如果传入有效范围才加入这个参数
+			//如果用户选择了范围不限，则不加入这个参数
+			params.put("DistanceRange", range);
+		}
 		params.put("PageSize", 10);
 		params.put("CurrentPageNo", pageindex);
 		System.out.println("params....."+params);
@@ -309,7 +302,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 							for (int i = 0; i < listContent.size(); i++) {
 								String projectCoordinates = listContent.get(i).getProjectCoordinates();
 
-								if (projectCoordinates != null && projectCoordinates != "") {
+								if (projectCoordinates != null && !projectCoordinates.equals("")) {
 									//这里是服务器未传工地的经纬度信息，保证列表信息可以刷出来，不确定这种写法是否ok,
 									//因为没有经纬度信息，附近几公里的功能失效，用户点了没反应！！加载进去后主界面地图空白！！！
 									System.out.println("mylocation..." + projectCoordinates);
@@ -393,19 +386,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 											startActivity(intenta);
 										}
 									});
-//						LSAlert.showDialog(AdminTodayStatisticsActivity.this, "工程信息", title, "导航", "取消", new LSAlert.DialogCallback() {
-//
-//							@Override
-//							public void onConfirm() {
-//								naviByBaiduMap(i);
-//							}
-//
-//							@Override
-//							public void onCancel() {
-//								// TODO Auto-generated method stub
-//								return;
-//							}
-//						});
 									return false;
 								}
 							});
@@ -449,6 +429,10 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		});
 	}
 
+	/**
+	 * 查询范围不限
+	 * @param pageindex
+	 */
 	private void ConnectNetb(final int pageindex) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("Token", token);
@@ -468,7 +452,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceTS.asmx/ManageUnitTodayStatisProjectList"),params,new EasyAPI.ApiFastSuccessFailedCallBack(){
 			@Override
 			public void onSuccessJson(JsonElement result) {
-
 				jinritongjiditu = GsonUtil.JsonToObject(result.toString(), Jinritongjiditu.class);
 				System.out.println(result);
 
@@ -490,7 +473,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 							for (int i = 0; i < listContent.size(); i++) {
 								String projectCoordinates = listContent.get(i).getProjectCoordinates();
 
-								if (projectCoordinates != null && projectCoordinates != "") {
+								if (projectCoordinates != null && !projectCoordinates.equals("")) {
 									//这里是服务器未传工地的经纬度信息，保证列表信息可以刷出来，不确定这种写法是否ok,
 									//因为没有经纬度信息，附近几公里的功能失效，用户点了没反应！！加载进去后主界面地图空白！！！
 									String[] split = projectCoordinates.split(",");
@@ -499,7 +482,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 									if (i == 0) {
 										//设定中心点坐标
 										LatLng cenpt = new LatLng(x, y);
-
 										//定义地图状态
 										MapStatus mMapStatus = new MapStatus.Builder()
 												.target(cenpt)
@@ -645,22 +627,25 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 				break;
 
 			case R.id.bt_shangyiye:
-				if(ismax){
+				ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() - 1, rangeindex);
+				/*if(ismax){
 					ConnectNetb(jinritongjiditu.getData().getCurrentPageNo() - 1);
 				}else {
 					ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() - 1, rangeindex);
-				}
+				}*/
 				break;
 
 			case R.id.bt_xiayiye:
-				if(ismax){
+				ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() +1, rangeindex);
+				/*if(ismax){
 					ConnectNetb(jinritongjiditu.getData().getCurrentPageNo() + 1);
 				}else {
 					ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() + 1, rangeindex);
-				}
+				}*/
 				break;
 
 			case R.id.bt_sousuo:
+				//点击了地图上的查询按钮，进入查询页面
 				iv_xiala.setBackgroundResource(R.drawable.xialaa);
 				ll_xialaliebiao.setVisibility(View.GONE);
 				isxialaopen=false;
@@ -676,11 +661,11 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 
 				bundle.putInt("range",rangeindex);
 				bundle.putString("CurrentLocation",getMyself());
-				System.out.println("kashi.........."+rangeindex);
 				intent.putExtras(bundle);
 				startActivityForResult(intent, 1);
 				break;
 			case R.id.tv_1:
+				//点击了附近1公里
 				ismax=false;
 				tv_fujin.setText("附近:1公里");
 				iv_xiala.setBackgroundResource(R.drawable.xialaa);
@@ -709,23 +694,15 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 				rangeindex=3;
 				ConnectNeta(1,rangeindex);
 				break;
-			case R.id.tv_10:
-				/*ismax=false;
-				tv_fujin.setText("附近:10公里");
-				iv_xiala.setBackgroundResource(R.drawable.xialaa);
-				ll_xialaliebiao.setVisibility(View.GONE);
-				isxialaopen=false;
-				rangeindex=10;
-				ConnectNeta(1,rangeindex);*/
-				break;
 			case R.id.tv_max:
 				tv_fujin.setText("附近:不限");
 				iv_xiala.setBackgroundResource(R.drawable.xialaa);
 				ll_xialaliebiao.setVisibility(View.GONE);
 				isxialaopen=false;
 				ismax = true;
-				//rangeindex=10;
-				ConnectNetb(1);
+				rangeindex=-1;
+				ConnectNeta(1,rangeindex);
+				//ConnectNetb(1);
 				break;
 		}
 	}
@@ -809,23 +786,33 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		if(currentpage==jinritongjiditu.getData().getPageCount()){
 			currentpage=0;
 		}
-		if(ismax){
+		ConnectNeta(currentpage + 1, rangeindex);
+		//2020-07-03不再用ismax来标识是否是不限范围，用rangeIndex=-1来标识，这样可以统一范围
+		/*if(ismax){
 			ConnectNetb(currentpage + 1);
 		}else {
 			ConnectNeta(currentpage + 1, rangeindex);
-		}
+		}*/
 	}
-
-
-//	public void menuButtonDidClick(){
-//		menu1.toggle();
-//	}
-
-
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(arg0, arg1, arg2);
+	/*	if (arg2 != null){
+			Bundle bundle = arg2.getExtras();
+			projectArea = bundle.getString("ProjectArea");
+			projectName = bundle.getString("ProjectName");
+			baogaobianhao = bundle.getString("baogaobianhao");
+			jianshedanwei = bundle.getString("jianshedanwei");
+			shigongdanwei = bundle.getString("shigongdanwei");
+			jianlidanwei = bundle.getString("jianlidanwei");
+			jiancedanwei = bundle.getString("jiancedanwei");
+			sousuo = bundle.getBoolean("sousuo");
+			tv_fujin.setText("附近:不限");
+			iv_xiala.setBackgroundResource(R.drawable.xialaa);
+			ll_xialaliebiao.setVisibility(View.GONE);
+			isxialaopen=false;
+			ismax = true;
+		}*/
 		if (arg2 != null){
 			Bundle bundle = arg2.getExtras();
 			projectArea = bundle.getString("ProjectArea");
@@ -836,44 +823,13 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 			jianlidanwei = bundle.getString("jianlidanwei");
 			jiancedanwei = bundle.getString("jiancedanwei");
 			sousuo = bundle.getBoolean("sousuo");
-			tv_fujin.setText("附近:所有工地");
+			tv_fujin.setText("附近:不限");
+			rangeindex=-1;
 			iv_xiala.setBackgroundResource(R.drawable.xialaa);
 			ll_xialaliebiao.setVisibility(View.GONE);
-			isxialaopen=false;
-			ismax = true;
+			ConnectNeta(1,rangeindex);
 		}
 	}
-
-	//	@Override
-//	public boolean dispatchKeyEvent(KeyEvent event) {
-//		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//			exitBy2Click();
-//			return false;
-//		} else {
-//			return super.dispatchKeyEvent(event);
-//		}
-//	}
-	private static Boolean isExit = false;
-	private void exitBy2Click() {
-		// TODO Auto-generated method stub
-		Timer tExit = null;
-		if (!isExit) {
-			isExit = true; // 准备退出
-			Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-			tExit = new Timer();
-			tExit.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					isExit = false; // 取消退出
-				}
-			}, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
-
-		} else {
-			finish();
-			System.exit(0);
-		}
-	}
-
 	/**
 	 * 定位SDK监听函数
 	 */
@@ -889,7 +845,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 			myLocation = new LatLng(x, y);
 			System.out.println("我的位置。。。。。"+myLocation+","+location.getLocType());
 			if(isfirstinto){
-				ConnectNeta(1,3);
+				ConnectNeta(1,rangeindex);
 				isfirstinto=false;
 			}
 			MyLocationData locData = new MyLocationData.Builder()
@@ -913,14 +869,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 			System.out.println("hot...i..."+i);
 
 		}
-
-		public void onReceivePoi(BDLocation poiLocation) {
-		}
 	}
-
-
-
-
 
 	@Override
 	protected void onDestroy() {
@@ -971,94 +920,11 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 			if(isfirstinto==false) {
 				Toast.makeText(AdminTodayStatisticsActivity.this, "请点右上方刷新一下。", Toast.LENGTH_SHORT).show();
 			}
-// LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager
-//					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//				Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//				System.out.println("gps定位。。。。。。。" + location);
-//				if (location != null) {
-//					latitude = location.getLatitude();
-//					longitude = location.getLongitude();
-//				} else {
-//					LocationListener locationListener = new LocationListener() {
-//
-//						// Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
-//						@Override
-//						public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//						}
-//
-//						// Provider被enable时触发此函数，比如GPS被打开
-//						@Override
-//						public void onProviderEnabled(String provider) {
-//
-//						}
-//
-//						// Provider被disable时触发此函数，比如GPS被关闭
-//						@Override
-//						public void onProviderDisabled(String provider) {
-//
-//						}
-//
-//						//当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-//						@Override
-//						public void onLocationChanged(Location location) {
-//							if (location != null) {
-//								Log.e("Map", "Location changed : Lat: "
-//										+ location.getLatitude() + " Lng: "
-//										+ location.getLongitude());
-//								latitude = location.getLatitude(); // 经度
-//								longitude = location.getLongitude(); // 纬度
-//							}
-//						}
-//					};
-//
-//					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-//					Location location1 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//					System.out.println("network定位。。。。。。。。。。。。。。。。。。");
-//					if (location1 != null) {
-//						latitude = location1.getLatitude(); //经度
-//						longitude = location1.getLongitude(); //纬度
-//					}
-//				}
-//			} else {
-//				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, new LocationListener() {
-//					@Override
-//					public void onLocationChanged(Location location) {
-//						if (location != null) {
-//							Log.e("Map", "Location changed : Lat: "
-//									+ location.getLatitude() + " Lng: "
-//									+ location.getLongitude());
-//							latitude = location.getLatitude(); // 经度
-//							longitude = location.getLongitude(); // 纬度
-//						}
-//					}
-//
-//					@Override
-//					public void onStatusChanged(String provider, int status, Bundle extras) {
-//					}
-//
-//					@Override
-//					public void onProviderEnabled(String provider) {
-//					}
-//
-//					@Override
-//					public void onProviderDisabled(String provider) {
-//					}
-//				});
-//				Location location2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//				System.out.println("network定位。。。。。。。。。。。。。。。。。。");
-//				if (location2 != null) {
-//					latitude = location2.getLatitude(); //经度
-//					longitude = location2.getLongitude(); //纬度
-//				}
-//			}
 		}
 		DecimalFormat df = new DecimalFormat("#.000000");
 		String dx = df.format(latitude);
 		String dy = df.format(longitude);
 		System.out.println(dy + "," + dx);
-		//return "31.192698,121.463012";//这里是测试！！！！！！！！！！！！！！！！！！！
 		return dy + "," + dx;
 	}
 	private void naviByBaiduMap(int position) {

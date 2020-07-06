@@ -24,10 +24,17 @@
 18        />
 19    -->
 20    <application>
-20-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:14:5-16:19
-21        <activity android:name="com.lessu.activity.WebViewActivity" />
-21-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:9-80
-21-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:19-68
-22    </application>
-23
-24</manifest>
+20-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:14:5-17:19
+21        <uses-library
+21-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:9-87
+22            android:name="org.apache.http.legacy"
+22-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:23-60
+23            android:required="false" />
+23-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:61-85
+24
+25        <activity android:name="com.lessu.activity.WebViewActivity" />
+25-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:16:9-80
+25-->D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:16:19-68
+26    </application>
+27
+28</manifest>

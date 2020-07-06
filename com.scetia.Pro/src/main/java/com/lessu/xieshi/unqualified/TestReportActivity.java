@@ -157,7 +157,7 @@ public class TestReportActivity extends NavigationActivity implements OnItemClic
 
 		listView.setOnItemClickListener(this);
 
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 	}
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View cell, int position, long id) {

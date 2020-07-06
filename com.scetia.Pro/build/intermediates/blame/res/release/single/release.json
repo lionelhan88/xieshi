@@ -12,36 +12,36 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\bg_unqualified_selected.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_icon_navigation_menu.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\icon_navigation_menu.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_cailiao.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\cailiao.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_dayux.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\dayux.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_icon_navigation_menu.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\icon_navigation_menu.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shezhi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shezhi.png"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_dayux.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\dayux.png"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_dadaobaoyud.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\dadaobaoyud.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_chongchengjuxing.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\chongchengjuxing.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_next.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\next.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_service_activity.xml.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\service_activity.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_next.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\next.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_chongchengjuxing.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\chongchengjuxing.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\anim_slide_in_from_top.xml.flat",
@@ -52,12 +52,12 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-mdpi\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_shezhi.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\shezhi.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-ldrtl-xxxhdpi_abc_ic_ab_back_mtrl_am_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-ldrtl-xxxhdpi\\abc_ic_ab_back_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_shezhi.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\shezhi.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_activity_misnjsq.xml.flat",
@@ -96,20 +96,20 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\nextlv.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_dxian.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\dxian.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_qingd.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\qingd.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_book.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\book.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_dxian.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\dxian.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shouchijisaomiao.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shouchijisaomiao.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_book.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\book.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_shineng.png.flat",
@@ -148,12 +148,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\popup_right.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_zuijin1.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\zuijin1.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_ditu1.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\ditu1.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_zuijin1.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\zuijin1.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_yangpinchaxun.png.flat",
@@ -176,16 +176,16 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\xianl.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_nianjia.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\nianjia.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_pinggupizhun.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\pinggupizhun.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_xian.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\xian.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_pinggupizhun.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\pinggupizhun.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_nianjia.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\nianjia.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_huiyuanxinxi.png.flat",
@@ -260,12 +260,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\examine_detail_activity.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_baoyux.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\baoyux.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shebeixinxi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shebeixinxi.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_baoyux.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\baoyux.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_abc_ic_menu_selectall_mtrl_alpha.png.flat",
@@ -372,12 +372,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\back.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_zhenxuex.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\zhenxuex.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_yuanl.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\yuanl.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_zhenxuex.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\zhenxuex.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_nianjiashenpi.png.flat",
@@ -440,20 +440,20 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\icon_left_logout.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_file23.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\file23.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_chongchengjuxing.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\chongchengjuxing.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_anniu.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\anniu.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_file23.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\file23.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_daohang.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\daohang.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_anniu.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\anniu.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_shezhi.png.flat",
@@ -464,12 +464,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\baoxued.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_abc_btn_radio_to_on_mtrl_000.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxxhdpi\\abc_btn_radio_to_on_mtrl_000.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_gongchenga.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\gongchenga.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_abc_btn_radio_to_on_mtrl_000.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxxhdpi\\abc_btn_radio_to_on_mtrl_000.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_dizhi.png.flat",
@@ -524,32 +524,32 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhongxuex.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-ldrtl-xxhdpi_abc_ic_ab_back_mtrl_am_alpha.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-ldrtl-xxhdpi\\abc_ic_ab_back_mtrl_am_alpha.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_qujian.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\qujian.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_shebeixinxi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\shebeixinxi.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_qujian.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\qujian.png"
-    },
-    {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shezhimis.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shezhimis.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-ldrtl-xxhdpi_abc_ic_ab_back_mtrl_am_alpha.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-ldrtl-xxhdpi\\abc_ic_ab_back_mtrl_am_alpha.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_tijiao.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\tijiao.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shape_kongxinblue.xml.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shape_kongxinblue.xml"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shezhimis.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shezhimis.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xinxitongzhi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xinxitongzhi.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shape_kongxinblue.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shape_kongxinblue.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_activity_tianqi.xml.flat",
@@ -580,20 +580,20 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xiugaimima.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_tuichu.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\tuichu.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_activity_data_learn.xml.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\activity_data_learn.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxxhdpi\\abc_btn_switch_to_on_mtrl_00001.9.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_tuichu.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\tuichu.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_rukuchakan.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\rukuchakan.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxxhdpi\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_abc_screen_content_include.xml.flat",
@@ -604,24 +604,24 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\dadaobaoyux.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_abc_textfield_search_material.xml.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_textfield_search_material.xml"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-mdpi\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_abc_textfield_search_material.xml.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_textfield_search_material.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_abc_list_focused_holo.9.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-mdpi\\abc_list_focused_holo.9.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_abc_switch_track_mtrl_alpha.9.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-hdpi\\abc_switch_track_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xhdpi\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_abc_switch_track_mtrl_alpha.9.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-hdpi\\abc_switch_track_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_caidanjuxing.png.flat",
@@ -660,12 +660,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shachenbaox.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4_default_ptr_flip.png.flat",
-        "source": "D:\\xieshi\\pullToRefreash\\build\\intermediates\\packaged_res\\release\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xiaoxuex.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xiaoxuex.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4_default_ptr_flip.png.flat",
+        "source": "D:\\xieshi\\pullToRefreash\\build\\intermediates\\packaged_res\\release\\drawable-mdpi-v4\\default_ptr_flip.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_leizhenyux.png.flat",
@@ -708,12 +708,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\yang.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_qiangshachenbaox.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\qiangshachenbaox.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_abc_btn_check_material.xml.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_qiangshachenbaox.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\qiangshachenbaox.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_chakanyangpin.png.flat",
@@ -732,12 +732,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\yuanjiaojuxing.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_yuanjiaojuxing1.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\yuanjiaojuxing1.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_duoyund.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\duoyund.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_yuanjiaojuxing1.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\yuanjiaojuxing1.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_xiushi.png.flat",
@@ -772,12 +772,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\leiyux.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_zhongyux.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\zhongyux.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_tucengblue.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\tucengblue.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_zhongyux.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\zhongyux.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_xuanzhong.png.flat",
@@ -820,12 +820,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\saomiao.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_xuxian.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\xuxian.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_zhenyud.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\zhenyud.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_xuxian.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\xuxian.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_project_search_activity.xml.flat",
@@ -856,12 +856,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\tongzhi.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shenqingshangbao.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shenqingshangbao.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_dadaobaoxuex.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\dadaobaoxuex.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shenqingshangbao.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shenqingshangbao.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_abc_list_selector_disabled_holo_light.9.png.flat",
@@ -884,12 +884,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\gongchenga.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_sousuojuxing.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\sousuojuxing.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_nextmis.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\nextmis.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_sousuojuxing.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\sousuojuxing.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_buhegexinxi.png.flat",
@@ -928,12 +928,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\xialamis.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_zhuangtai.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhuangtai.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_cailiao.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\cailiao.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_zhuangtai.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhuangtai.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4_qrcode_default_scan_line.png.flat",
@@ -1004,20 +1004,20 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\ditu1a.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_male_user.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\male_user.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_btn_radio_to_on_mtrl_000.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xuanzhong.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xuanzhong.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_male_user.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\male_user.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_abc_btn_rating_star_off_mtrl_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xhdpi\\abc_btn_rating_star_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xuanzhong.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xuanzhong.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_sousuojuxing1.png.flat",
@@ -1072,32 +1072,32 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-hdpi\\abc_ic_clear_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_yuan.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\yuan.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xhdpi\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shineng.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shineng.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_yuan.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\yuan.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_beijinga.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\beijinga.png"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shineng.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shineng.png"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_tuoyuan.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\tuoyuan.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_daxued.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\daxued.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_huoquyanzhengma1.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\huoquyanzhengma1.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_daxued.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\daxued.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_abc_list_menu_item_icon.xml.flat",
@@ -1160,24 +1160,24 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xiaodaozhongyud.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_abc_list_focused_holo.9.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_list_focused_holo.9.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_buhegexinxi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\buhegexinxi.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_abc_list_focused_holo.9.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_list_focused_holo.9.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\menu_sliding_menu.xml.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\menu\\sliding_menu.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\menu_setting.xml.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\menu\\setting.xml"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shijian.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shijian.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\menu_setting.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\menu\\setting.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_ic_launcher.png.flat",
@@ -1196,16 +1196,16 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-mdpi\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shijians.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shijians.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_zhuangtai1.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\zhuangtai1.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xinxichaxuna.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xinxichaxuna.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_zhuangtai1.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\zhuangtai1.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_shijians.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\shijians.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_xianl.png.flat",
@@ -1244,12 +1244,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\caidan2.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_qiangshachenbaod.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\qiangshachenbaod.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_xiaoxi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\xiaoxi.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_qiangshachenbaod.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\qiangshachenbaod.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_jianadianji.png.flat",
@@ -1272,12 +1272,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\jinritongji1.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_notification_template_part_chronometer.xml.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\layout\\notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_gongchenga.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\gongchenga.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_notification_template_part_chronometer.xml.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_baoyud.png.flat",
@@ -1300,20 +1300,20 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\leizhenyud.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_hengxiana.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\hengxiana.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shuaxin.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shuaxin.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_maid.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\maid.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_hengxiana.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\hengxiana.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_denglu.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\denglu.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_maid.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\maid.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_shachenbaod.png.flat",
@@ -1424,12 +1424,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\yujiaxued.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_rili.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\rili.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_book.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\book.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_rili.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\rili.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_daxued.png.flat",
@@ -1448,12 +1448,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\icon_st.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xhdpi\\abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_liebiao.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\liebiao.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xhdpi\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_abc_btn_check_to_on_mtrl_000.png.flat",
@@ -1488,12 +1488,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\kai.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shoujihao.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shoujihao.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_shuxian.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\shuxian.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_shoujihao.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\shoujihao.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_lansedenglan.png.flat",
@@ -1520,12 +1520,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\dizhi.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_nianjiashenqing.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\nianjiashenqing.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_dadaobaoyux.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\dadaobaoyux.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_nianjiashenqing.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\nianjiashenqing.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_admin_today_statistics_search_activity.xml.flat",
@@ -1556,12 +1556,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zh.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_dabaoyudaox.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\dabaoyudaox.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_ic_launcher.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_dabaoyudaox.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\dabaoyudaox.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_activity_mis_comparion_obj.xml.flat",
@@ -1620,12 +1620,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\unbonddevice_item.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_xuanzhong.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\xuanzhong.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_abc_list_selector_background_transition_holo_light.xml.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_xuanzhong.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\xuanzhong.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_liebiao.png.flat",
@@ -1644,20 +1644,20 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_btn_radio_material.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_dyuanjiaojuxing.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\dyuanjiaojuxing.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_abc_ic_voice_search_api_mtrl_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_ic_voice_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_yuanjiaojuxing1.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\yuanjiaojuxing1.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_dyuanjiaojuxing.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\dyuanjiaojuxing.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_report_detail_activity.xml.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\report_detail_activity.xml"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_yuanjiaojuxing1.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\yuanjiaojuxing1.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_abc_list_pressed_holo_dark.9.png.flat",
@@ -1688,12 +1688,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\lansedenglan.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_zhongdaodayud.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhongdaodayud.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-hdpi\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_zhongdaodayud.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhongdaodayud.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_fuchenx.png.flat",
@@ -1704,12 +1704,12 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-mdpi\\abc_ic_go_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_tedabaoyud.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\tedabaoyud.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_icon_set_scan.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\icon_set_scan.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_tedabaoyud.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\tedabaoyud.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_xiaoxued.png.flat",
@@ -1812,20 +1812,20 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\jia.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_nianjiashenqing1.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\nianjiashenqing1.png"
-    },
-    {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_examine_sample_list_item.xml.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\examine_sample_list_item.xml"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_abc_ic_menu_moreoverflow_mtrl_alpha.png.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_ic_menu_moreoverflow_mtrl_alpha.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_nianjiashenpi.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\nianjiashenpi.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_abc_ic_menu_moreoverflow_mtrl_alpha.png.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_ic_menu_moreoverflow_mtrl_alpha.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_examine_sample_list_item.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\examine_sample_list_item.xml"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_nianjiashenqing1.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\nianjiashenqing1.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_abc_ic_menu_selectall_mtrl_alpha.png.flat",
@@ -1844,16 +1844,16 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\wenbenkuang.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xuxian.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xuxian.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_baoyux.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\baoyux.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_fengxiang.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\fengxiang.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_baoyux.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\baoyux.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xuxian.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xuxian.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_bingbaod.png.flat",
@@ -1864,12 +1864,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\yangshad.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_abc_dialog_material_background_light.xml.flat",
-        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_dialog_material_background_light.xml"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_icon_unqualified_project.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\icon_unqualified_project.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_abc_dialog_material_background_light.xml.flat",
+        "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable\\abc_dialog_material_background_light.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_guan.png.flat",
@@ -1892,12 +1892,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\xiaoyux.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_icon_set_scan.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\icon_set_scan.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_nextmis.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\nextmis.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_icon_set_scan.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\icon_set_scan.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_xiaodaozhongxuex.png.flat",
@@ -1920,12 +1920,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\pingguchaxun.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_shujushenhe.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\shujushenhe.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4_view_border.xml.flat",
         "source": "D:\\xieshi\\lSUIKit\\build\\intermediates\\packaged_res\\release\\drawable-mdpi-v4\\view_border.xml"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_shujushenhe.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\shujushenhe.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_yind.png.flat",
@@ -1948,12 +1948,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\zhongxued.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_quxian.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\quxian.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_zhongyux.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhongyux.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_quxian.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\quxian.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_button.png.flat",
@@ -1964,12 +1964,12 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\layout\\abc_list_menu_item_radio.xml"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_zhenyud.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\zhenyud.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_djuxing.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\djuxing.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_zhenyud.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\zhenyud.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_main.xml.flat",
@@ -2012,16 +2012,16 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxhdpi\\abc_btn_rating_star_off_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_yujiaxuex.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\yujiaxuex.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_xinxi.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\xinxi.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_gongcheng2.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\gongcheng2.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_xinxi.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\xinxi.png"
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_yujiaxuex.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\yujiaxuex.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_mingcheng.png.flat",
@@ -2124,12 +2124,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-mdpi\\setting.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\menu_qrcode_detail.xml.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\menu\\qrcode_detail.xml"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_abc_ic_menu_share_mtrl_alpha.png.flat",
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-xxxhdpi\\abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\menu_qrcode_detail.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\menu\\qrcode_detail.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_pingguchaxun.png.flat",
@@ -2724,6 +2724,10 @@
         "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\drawable-mdpi\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\xml_file_path.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\xml\\file_path.xml"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxxhdpi_qiangshachenbaox.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxxhdpi\\qiangshachenbaox.png"
     },
@@ -3296,12 +3300,12 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhenxued.png"
     },
     {
-        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_icon_markh.png.flat",
-        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\icon_markh.png"
-    },
-    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\layout_activity_online_learn.xml.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\layout\\activity_online_learn.xml"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_icon_markh.png.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-hdpi\\icon_markh.png"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_fujinjuxing.png.flat",
@@ -4836,6 +4840,10 @@
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\zhengshuxinxi.png"
     },
     {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable_tag_click_background_red.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable\\tag_click_background_red.xml"
+    },
+    {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_yujiaxuex.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xxhdpi\\yujiaxuex.png"
     },
@@ -6042,6 +6050,10 @@
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_duoyund.png.flat",
         "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\drawable-xhdpi\\duoyund.png"
+    },
+    {
+        "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\xml_network_security_config.xml.flat",
+        "source": "D:\\xieshi\\com.scetia.Pro\\src\\main\\res\\xml\\network_security_config.xml"
     },
     {
         "merged": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_dadaobaoxuex.png.flat",

@@ -1,16 +1,21 @@
 package com.lessu.xieshi.login;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.graphics.ColorUtils;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +32,7 @@ import com.baidu.location.LocationClientOption;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiError;
@@ -41,8 +47,10 @@ import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ImageloaderUtil;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.Utils.SavePic;
 import com.lessu.xieshi.Utils.Shref;
+import com.lessu.xieshi.Utils.UriUtils;
 import com.lessu.xieshi.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.construction.ConstructionListActivity;
 import com.lessu.xieshi.dataauditing.DataAuditingActivity;
@@ -99,26 +107,46 @@ public class FirstActivity extends NavigationActivity {
 
     private LocationClient mLocationClient;
     private BDLocationListener mBDLocationListener;
-
+    private static final String permission =Manifest.permission.ACCESS_FINE_LOCATION;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         navigationBar.setVisibility(View.GONE);
         getUpdate();
+
         initView();
-        gettianqi();
         initData();
+        ImmersionBar.with(this).titleBarMarginTop(ll_tianqi).navigationBarColor(android.R.color.white).init();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        PermissionUtils.requestPermission(this, new PermissionUtils.permissionResult() {
+            @Override
+            public void hasPermission(List<String> granted, boolean isAll) {
+                gettianqi();
+            }
+        },permission);
+    }
+
+    @Override
+    protected void initImmersionBar() {
+
+    }
+
     /**
      * 获取天气数据
      */
     private void gettianqi() {
         //19-5-29更改首页天气数据现实和ios保持统一
-        mLocationClient = new LocationClient(getApplicationContext());
-        mBDLocationListener = new MyBDLocationListener();
-        // 注册监听
-        mLocationClient.registerLocationListener(mBDLocationListener);
+        if(mLocationClient==null) {
+            mLocationClient = new LocationClient(getApplicationContext());
+            mBDLocationListener = new MyBDLocationListener();
+            // 注册监听
+            mLocationClient.registerLocationListener(mBDLocationListener);
+        }
         getLocation();
     }
 
@@ -138,7 +166,6 @@ public class FirstActivity extends NavigationActivity {
         EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceWeather.asmx/GetHour"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
-                // TODO Auto-generated method stub
                 System.out.println(result);
                 Hourbean hourbean = GsonUtil.JsonToObject(result.toString(), Hourbean.class);
                 List<Hourbean.DataBean> data = hourbean.getData();
@@ -155,7 +182,6 @@ public class FirstActivity extends NavigationActivity {
             }
         });
     }
-
     /**
      * 获得所在位置经纬度及详细地址
      */
@@ -173,7 +199,6 @@ public class FirstActivity extends NavigationActivity {
         mLocationClient.start();
 
     }
-
     // 2019-05-29获取地址坐标
     private class MyBDLocationListener implements BDLocationListener {
 
@@ -207,13 +232,15 @@ public class FirstActivity extends NavigationActivity {
         }
     }
 
+    /**
+     * 打开软件重新登陆
+     */
     private void getLogin() {
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("UserName", Shref.getString(FirstActivity.this, Common.USERNAME, ""));
-        // params.put("UserName", "www");
         params.put("PassWord", Shref.getString(FirstActivity.this, Common.PASSWORD, ""));
         params.put("DeviceId", Shref.getString(FirstActivity.this, Common.DEVICEID, ""));
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get(".test/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
                 System.out.println(result);
@@ -261,6 +288,9 @@ public class FirstActivity extends NavigationActivity {
 
     }
 
+    /**
+     * 检查更新
+     */
     private void getUpdate() {
         HashMap<String, Object> updateparams = new HashMap<String, Object>();
         updateparams.put("PlatformType", "1");//1为安卓
@@ -305,7 +335,7 @@ public class FirstActivity extends NavigationActivity {
                     if(isMustBeUpdate==1){
                         //强制更新
                         description = "更新内容:\r\n" + json.get("Description").getAsString()
-                                +"\r\n此更新为强制更新，否则不可用！\r\n"+ "是否立即前往更新？";
+                                +"\r\n此更新为强制更新，必须更新后尚可继续使用，\n如暂时不更新点取消退出程序！\r\n"+ "是否立即前往更新？";
                     }else{
                         description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
                     }
@@ -341,6 +371,7 @@ public class FirstActivity extends NavigationActivity {
 
         });
     }
+
 
     /**
      * 去浏览器下载安装
@@ -384,7 +415,13 @@ public class FirstActivity extends NavigationActivity {
         iv_tianqi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FirstActivity.this, TianqiActivity.class));
+                PermissionUtils.requestPermission(FirstActivity.this, new PermissionUtils.permissionResult() {
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+                        startActivity(new Intent(FirstActivity.this, TianqiActivity.class));
+                    }
+                },permission);
+
             }
         });
         firstSet.setOnClickListener(new View.OnClickListener() {
@@ -406,8 +443,19 @@ public class FirstActivity extends NavigationActivity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (which == 0) {
+
                                             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE"); //"android.media.action.IMAGE_CAPTURE";
-                                            Uri imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "image.jpg"));
+                                            Uri imageUri=null;
+                                            File saveImagePath = new File(Environment.getExternalStorageDirectory(),"image.jpg");
+                                            //android7.0以后，相机拍照不能直接获取uri，需要用fileprovider
+                                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+                                                imageUri = FileProvider.getUriForFile(FirstActivity.this,
+                                                        getPackageName()+".fileprovider",saveImagePath);
+                                                //添加临时权限
+                                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                            }else{
+                                                imageUri = Uri.fromFile(saveImagePath);
+                                            }
                                             //指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
                                             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                                             startActivityForResult(intent, 0);
@@ -621,7 +669,6 @@ public class FirstActivity extends NavigationActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent();
                     if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        //intent.putExtra("deviceAddress", Shref.getString(FirstActivity.this,"deviceaddress",null));
                         System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
                         intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
                     } else {
@@ -758,323 +805,12 @@ public class FirstActivity extends NavigationActivity {
         String username = intent.getStringExtra("username");
         tv_yonghuming.setText(username);
         getLogin();
-      /*  String newPower = intent.getStringExtra("userpower");
-        final String userPower = newPower.substring(0,14);
-         char userPower2 =newPower.charAt(15);
-        String username = intent.getStringExtra("username");
-        tv_yonghuming.setText(username);
-        LogUtil.showLogD("FirstActivity......." + userPower);
-        if (userPower.equals("00010010100000")) {//j20623 279162 见证人
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.INVISIBLE);
-            ll_seccion5.setVisibility(View.INVISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-            iv_seccion1.setImageResource(R.drawable.yangpinchaxun);
-            tv_seccion1.setText("样品查询");
-            iv_seccion2.setImageResource(R.drawable.tupianshangchuan);
-            tv_seccion2.setText("现场图片上传");
-            iv_seccion3.setImageResource(R.drawable.yangpinshibie);
-            tv_seccion3.setText("样品识别");
-            iv_seccion4.setImageResource(R.drawable.xitongshezhi);
-            tv_seccion4.setText("系统设置");
-            iv_seccion5.setImageResource(R.drawable.tuichu);
-            tv_seccion5.setText("重新登录");
-
-
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, ConstructionListActivity.class);
-                    startActivity(intent);
-                }
-            });
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, UploadPictureActivity.class);
-                    startActivity(intent);
-                }
-            });
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
-                        intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
-                    } else {
-                        AppApplication.isGLY = false;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
-                    startActivity(intentXITONG);
-                }
-            });
-            ll_seccion5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentTUICHU = new Intent();
-                    intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
-                    intentTUICHU.putExtra("exit", true);
-                    intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentTUICHU);
-                    finish();
-                }
-            });
-        }
-        if (userPower.equals("00010000100000")) {//Q13503 123456 取样人
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.VISIBLE);
-            ll_seccion5.setVisibility(View.INVISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-            iv_seccion1.setImageResource(R.drawable.yangpinchaxun);
-            tv_seccion1.setText("样品查询");
-            iv_seccion2.setImageResource(R.drawable.yangpinshibie);
-            tv_seccion2.setText("样品识别");
-            iv_seccion3.setImageResource(R.drawable.xitongshezhi);
-            tv_seccion3.setText("系统设置");
-            iv_seccion4.setImageResource(R.drawable.tuichu);
-            tv_seccion4.setText("重新登录");
-
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, ConstructionListActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        //intent.putExtra("deviceAddress", Shref.getString(FirstActivity.this,"deviceaddress",null));
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
-                        intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
-                    } else {
-                        AppApplication.isGLY = false;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
-                    startActivity(intentXITONG);
-                }
-            });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentTUICHU = new Intent();
-                    intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
-                    intentTUICHU.putExtra("exit", true);
-                    intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentTUICHU);
-                    finish();
-                }
-            });
-
-
-        }
-        if (userPower.equals("10001101100000")) {//gly 1319 质监站人员
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.VISIBLE);
-            ll_seccion5.setVisibility(View.INVISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-
-            iv_seccion1.setImageResource(R.drawable.jinritongji1);
-            tv_seccion1.setText("工地查询");
-            iv_seccion2.setImageResource(R.drawable.xinxichaxun);
-            tv_seccion2.setText("不合格信息查询");
-            iv_seccion3.setImageResource(R.drawable.gongchengchaxun1);
-            tv_seccion3.setText("基桩静载");
-            iv_seccion4.setImageResource(R.drawable.yangpinshibie);
-            tv_seccion4.setText("样品识别");
-            iv_seccion5.setImageResource(R.drawable.xitongshezhi);
-            tv_seccion5.setText("系统设置");
-            iv_seccion6.setImageResource(R.drawable.tuichu);
-            tv_seccion6.setText("重新登录");
-
-
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Class tempClass = null;
-                    if (userPower.charAt(0) == '0') {
-                        tempClass = TodayStatisticsActivity.class;
-                        Intent intent = new Intent(FirstActivity.this, tempClass);
-                        startActivity(intent);
-                    } else {
-                        tempClass = AdminTodayStatisticsActivity.class;
-                        Intent intent = new Intent(FirstActivity.this, tempClass);
-                        //intent.putExtra("diyici",true);
-                        startActivity(intent);
-                    }
-                }
-            });
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, UnqualifiedSearchActivity.class);
-                    startActivity(intent);
-                }
-            });
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, ProjectListActivity.class);
-                    startActivity(intent);
-                }
-            });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        //intent.putExtra("deviceAddress", Shref.getString(FirstActivity.this,"deviceaddress",null));
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
-                        intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
-                    } else {
-                        AppApplication.isGLY = false;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-            ll_seccion5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
-                    startActivity(intentXITONG);
-                }
-            });
-            ll_seccion6.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentTUICHU = new Intent();
-                    intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
-                    intentTUICHU.putExtra("exit", true);
-                    intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentTUICHU);
-                    finish();
-                }
-            });
-
-
-        }
-        if (userPower.equals("01101000000000")) {//t9990001 1 检测人员
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.VISIBLE);
-            ll_seccion5.setVisibility(View.VISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-            iv_seccion1.setImageResource(R.drawable.shujushenhe1);
-            tv_seccion1.setText("记录审核");
-            iv_seccion2.setImageResource(R.drawable.baogaopizhun);
-            tv_seccion2.setText("报告批准");
-            iv_seccion3.setImageResource(R.drawable.jinritongji1);
-            tv_seccion3.setText("统计信息");
-            iv_seccion4.setImageResource(R.drawable.shouchijisaomiao);
-            tv_seccion4.setText("手持机扫描");
-            if(userPower2=='1') {
-                iv_seccion5.setImageResource(R.drawable.zaixianjiaoyu);
-            }
-            tv_seccion5.setText("在线培训");
-            iv_seccion6.setImageResource(R.drawable.tuichu);
-            tv_seccion6.setText("重新登录");
-
-
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, DataAuditingActivity.class);
-                    startActivity(intent);
-                }
-            });
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, DataExamineActivity.class);
-                    startActivity(intent);
-                }
-            });
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Class tempClass = null;
-                    if (userPower.charAt(0) == '0') {
-                        tempClass = TodayStatisticsActivity.class;
-                        Intent intent = new Intent(FirstActivity.this, tempClass);
-                        startActivity(intent);
-                    } else {
-                        tempClass = AdminTodayStatisticsActivity.class;
-                        Intent intent = new Intent(FirstActivity.this, tempClass);
-                        intent.putExtra("diyici", true);
-                        startActivity(intent);
-                    }
-                }
-            });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        //intent.putExtra("deviceAddress", Shref.getString(FirstActivity.this,"deviceaddress",null));
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
-                        intent.setClass(FirstActivity.this, PrintDataActivity.class);
-                    } else {
-                        AppApplication.isGLY = true;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-            ll_seccion5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
-                    startActivity(intentXITONG);
-                }
-            });
-            ll_seccion6.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentTUICHU = new Intent();
-                    intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
-                    intentTUICHU.putExtra("exit", true);
-                    intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentTUICHU);
-                    finish();
-                }
-            });
-
-
-        }*/
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
-
         // 用户没有进行有效的设置操作，返回
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(getApplication(), "取消", Toast.LENGTH_LONG).show();
@@ -1105,25 +841,23 @@ public class FirstActivity extends NavigationActivity {
                     Shref.setString(FirstActivity.this, Common.PICNAME, s);
                     break;
                 case 1:
-                    ContentResolver cr = this.getContentResolver();
                     Uri uri = intent.getData();
-                    try {
-                        String decode = URLDecoder.decode(String.valueOf(uri), "UTF-8");
-                        System.out.println(decode);
-                        if (uri != null) {
-                           LogUtil.showLogD("走到这里。。。。。。。。。" + decode);
-                            ImageLoader.getInstance().displayImage(decode, iv_touxiang, ImageloaderUtil.imageconfig());
-                            Shref.setString(FirstActivity.this, Common.PICNAME, decode);
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
+                    String dataColumn = UriUtils.getPath(this, uri);
+                    ImageLoader.getInstance().displayImage("file://"+dataColumn, iv_touxiang, ImageloaderUtil.imageconfig());
+                    Shref.setString(FirstActivity.this, Common.PICNAME, dataColumn);
                     break;
             }
         }
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        if(mLocationClient!=null){
+            mLocationClient.unRegisterLocationListener(mBDLocationListener);
+            mBDLocationListener=null;
+            mLocationClient=null;
+        }
+        super.onDestroy();
+    }
 }

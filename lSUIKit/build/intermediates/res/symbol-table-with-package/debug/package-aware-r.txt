@@ -341,6 +341,9 @@ id homeAsUp
 id icon
 id ifRoom
 id image
+id immersion_fits_layout_overlap
+id immersion_navigation_bar_view
+id immersion_status_bar_view
 id left
 id listMode
 id list_item
