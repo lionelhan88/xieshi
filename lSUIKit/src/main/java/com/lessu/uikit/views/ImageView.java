@@ -63,7 +63,7 @@ public class ImageView extends android.widget.ImageView{
     protected void onDraw(Canvas canvas) {
 
         // 保存当前layer的透明橡树到离屏缓冲区。并新创建一个透明度爲255的新layer
-        int saveCount = canvas.saveLayerAlpha(0.0F, 0.0F, canvas.getWidth(), canvas.getHeight() , 255, Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);
+        int saveCount = canvas.saveLayerAlpha(0.0F, 0.0F, canvas.getWidth(), canvas.getHeight() , 255, Canvas.ALL_SAVE_FLAG);
         super.onDraw(canvas);
         if (this.mMaskPath != null) {
             canvas.drawPath(this.mMaskPath, this.mMaskPaint);

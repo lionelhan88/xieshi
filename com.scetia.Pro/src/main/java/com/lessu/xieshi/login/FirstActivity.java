@@ -17,6 +17,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.graphics.ColorUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,11 +34,13 @@ import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.gyf.immersionbar.ImmersionBar;
+import com.kongzue.kongzueupdatesdk.UpdateUtil;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
+import com.lessu.uikit.MyUpdateUtil;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.BaseActivity;
@@ -47,7 +50,9 @@ import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ImageloaderUtil;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.MyToast;
 import com.lessu.xieshi.Utils.PermissionUtils;
+import com.lessu.xieshi.Utils.PicSize;
 import com.lessu.xieshi.Utils.SavePic;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.UriUtils;
@@ -56,6 +61,7 @@ import com.lessu.xieshi.construction.ConstructionListActivity;
 import com.lessu.xieshi.dataauditing.DataAuditingActivity;
 import com.lessu.xieshi.dataexamine.DataExamineActivity;
 import com.lessu.xieshi.map.ProjectListActivity;
+import com.lessu.xieshi.meet.MeetingListActivity;
 import com.lessu.xieshi.mis.activitys.MisguideActivity;
 import com.lessu.xieshi.scan.BluetoothActivity;
 import com.lessu.xieshi.scan.PrintDataActivity;
@@ -77,6 +83,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class FirstActivity extends NavigationActivity {
     private ImageView iv_touxiang;
@@ -114,10 +127,11 @@ public class FirstActivity extends NavigationActivity {
         setContentView(R.layout.activity_first);
         navigationBar.setVisibility(View.GONE);
         getUpdate();
-
         initView();
         initData();
-        ImmersionBar.with(this).titleBarMarginTop(ll_tianqi).navigationBarColor(android.R.color.white).init();
+        ImmersionBar.with(this).titleBarMarginTop(ll_tianqi)
+              .navigationBarColor(R.color.light_gray)
+                .navigationBarDarkIcon(true).init();
     }
 
     @Override
@@ -163,7 +177,7 @@ public class FirstActivity extends NavigationActivity {
         params.put("JD", longgitude);
         params.put("WD", latiformat);
         System.out.println("params.............." + params);
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceWeather.asmx/GetHour"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+        EasyAPI.apiConnectionAsync(this, false, false, ApiMethodDescription.get("/ServiceWeather.asmx/GetHour"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
                 System.out.println(result);
@@ -244,17 +258,29 @@ public class FirstActivity extends NavigationActivity {
             @Override
             public void onSuccessJson(JsonElement result) {
                 System.out.println(result);
-                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
-                String userPower = json.get("UserPower").getAsString();
-                String token = GsonValidate.getStringByKeyPath(json, "Token", "");
-                String MemberInfoStr = json.get("MemberInfoStr").getAsString();
-                String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
-                String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
-                Shref.setString(FirstActivity.this, Common.USERPOWER, userPower);
-                Shref.setString(FirstActivity.this,Common.USERID,userId);
-                Shref.setString(FirstActivity.this,Common.MEMBERINFOSTR,MemberInfoStr);
-                LSUtil.setValueStatic("Token", token);
-                initMenu(userPower);
+                boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
+                if(success){
+                    JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
+                    String userPower = json.get("UserPower").getAsString();
+                    String token = GsonValidate.getStringByKeyPath(json, "Token", "");
+                    String MemberInfoStr = GsonValidate.getStringByKeyPath(json, "MemberInfoStr", "");
+                    String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
+                    String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
+                    Shref.setString(FirstActivity.this, Common.USERPOWER, userPower);
+                    Shref.setString(FirstActivity.this, Common.USERID, userId);
+                    Shref.setString(FirstActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
+                    LSUtil.setValueStatic("Token", token);
+                    initMenu(userPower);
+                }else{
+                    LSAlert.showAlert(FirstActivity.this, "提示", "当前登录账户用户名或密码错误！\n是否重新登录？"
+                            , "确定", false, new LSAlert.AlertCallback() {
+                                @Override
+                                public void onConfirm() {
+                                    loginOut();
+                                }
+                            });
+                }
+
             }
 
             @Override
@@ -287,88 +313,27 @@ public class FirstActivity extends NavigationActivity {
         });
 
     }
+    /**
+     * 退出登录
+     */
+    private void loginOut(){
+        Intent intentTUICHU = new Intent();
+        intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
+        intentTUICHU.putExtra("exit", true);
+        intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intentTUICHU);
+        finish();
+    }
 
     /**
      * 检查更新
      */
     private void getUpdate() {
-        HashMap<String, Object> updateparams = new HashMap<String, Object>();
-        updateparams.put("PlatformType", "1");//1为安卓
-        updateparams.put("SystemType", "2");//2为内部版
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
+        getUpdate(false,new UpdateAppCallback() {
             @Override
-            public void onSuccessJson(JsonElement result) {
-                String versionName = null;
-                try {
-                    versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
-                    System.out.println("versionName.." + versionName);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
-                String serviceVersion = json.get("Version").getAsString();
-                //是否强制更新标识
-                final int isMustBeUpdate = json.get("Update_Flag").getAsInt();
-                String[] localVersionArray = versionName.split("\\.");
-                String[] serviceVersionArray = serviceVersion.split("\\.");
-                int localCount = localVersionArray.length;
-                int serviceCount = serviceVersionArray.length;
-                int count = localCount;
-                if (localCount > serviceCount) {
-                    count = serviceCount;
-                }
-                boolean updateFlag = false;
-                try {
-                    for (int i = 0; i < count; i++) {
-                        if (Integer.parseInt(localVersionArray[i]) < Integer.parseInt(serviceVersionArray[i])) {
-                            updateFlag = true;
-                            AppApplication.isupdate = true;
-                        }
-                    }
-                } catch (Exception e) {
-                    updateFlag = false;
-                    AppApplication.isupdate = false;
-                }
-                if (updateFlag) {
-                    final String urlString = json.get("Update_Url").getAsString();
-                    String description="";
-                    if(isMustBeUpdate==1){
-                        //强制更新
-                        description = "更新内容:\r\n" + json.get("Description").getAsString()
-                                +"\r\n此更新为强制更新，必须更新后尚可继续使用，\n如暂时不更新点取消退出程序！\r\n"+ "是否立即前往更新？";
-                    }else{
-                        description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
-                    }
-                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(FirstActivity.this)
-                            .setTitle("检查到新版本")
-                            .setMessage(description)
-                            .setCancelable(false)
-                            .setPositiveButton("确定",null)
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(isMustBeUpdate==1) {
-                                        AppApplication.exit();
-                                    }
-                                }
-                            });
-                    final android.support.v7.app.AlertDialog dialog = builder.create();
-                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialogInterface) {
-                            Button button = dialog.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE);
-                            button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    downLoadFile(urlString);
-                                }
-                            });
-                        }
-                    });
-                    dialog.show();
-                }
+            public void updateCancel() {
+                AppApplication.exit();
             }
-
         });
     }
 
@@ -443,14 +408,13 @@ public class FirstActivity extends NavigationActivity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (which == 0) {
-
-                                            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE"); //"android.media.action.IMAGE_CAPTURE";
+                                            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                                             Uri imageUri=null;
                                             File saveImagePath = new File(Environment.getExternalStorageDirectory(),"image.jpg");
                                             //android7.0以后，相机拍照不能直接获取uri，需要用fileprovider
                                             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
                                                 imageUri = FileProvider.getUriForFile(FirstActivity.this,
-                                                        getPackageName()+".fileprovider",saveImagePath);
+                                                        getPackageName()+".fileProvider",saveImagePath);
                                                 //添加临时权限
                                                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                             }else{
@@ -554,8 +518,8 @@ public class FirstActivity extends NavigationActivity {
         if (userPower.equals("00010000100000")) {//Q13503 123456 取样人
             ll_seccion1.setVisibility(View.VISIBLE);
             ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.VISIBLE);
+            ll_seccion3.setVisibility(View.INVISIBLE);
+            ll_seccion4.setVisibility(View.INVISIBLE);
             ll_seccion5.setVisibility(View.INVISIBLE);
             ll_seccion6.setVisibility(View.INVISIBLE);
             iv_seccion1.setImageResource(R.drawable.yangpinchaxun);
@@ -705,7 +669,7 @@ public class FirstActivity extends NavigationActivity {
             ll_seccion3.setVisibility(View.VISIBLE);
             ll_seccion4.setVisibility(View.VISIBLE);
             ll_seccion5.setVisibility(View.VISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
+            ll_seccion6.setVisibility(View.VISIBLE);
             iv_seccion1.setImageResource(R.drawable.shujushenhe1);
             tv_seccion1.setText("记录审核");
             iv_seccion2.setImageResource(R.drawable.baogaopizhun);
@@ -718,8 +682,8 @@ public class FirstActivity extends NavigationActivity {
                 iv_seccion5.setImageResource(R.drawable.zaixianjiaoyu);
             }
             tv_seccion5.setText("在线培训");
-            iv_seccion6.setImageResource(R.drawable.tuichu);
-            tv_seccion6.setText("重新登录");
+            iv_seccion6.setImageResource(R.drawable.home_meeting_bg);
+            tv_seccion6.setText("会议安排");
 
 
             ll_seccion1.setOnClickListener(new View.OnClickListener() {
@@ -776,12 +740,10 @@ public class FirstActivity extends NavigationActivity {
             ll_seccion6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intentTUICHU = new Intent();
-                    intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
-                    intentTUICHU.putExtra("exit", true);
-                    intentTUICHU.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentTUICHU);
-                    finish();
+
+                    Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
+                    intentMeeting.putExtra("type_user",0);
+                    startActivity(intentMeeting);
                 }
             });
         }
@@ -820,30 +782,36 @@ public class FirstActivity extends NavigationActivity {
             switch (requestCode) {
                 case 0:
                     String timename = String.valueOf(System.currentTimeMillis());
-                    BitmapFactory.Options opts = new BitmapFactory.Options();
-                    opts.inTempStorage = new byte[100 * 1024];
-                    opts.inPreferredConfig = Bitmap.Config.RGB_565;
-                    //4.设置图片可以被回收，创建Bitmap用于存储Pixel的内存空间在系统内存不足时可以被回收
-                    opts.inPurgeable = true;
-                    //5.设置位图缩放比例
-                    //width，hight设为原来的四分一（该参数请使用2的整数倍）,这也减小了位图占用的内存大小；
-                    // 例如，一张//分辨率为2048*1536px的图像使用inSampleSize值为4的设置来解码，产生的Bitmap大小约为
-                    // 512*384px。相较于完整图片占用12M的内存，这种方式只需0.75M内存(假设Bitmap配置为//ARGB_8888)。
-                    opts.inSampleSize = 4;
-                    //6.设置解码位图的尺寸信息
-                    opts.inInputShareable = true;
-                    //7.解码位图
-                    Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/image.jpg", opts);
-                    SavePic.savePhotoToSDCard(bitmap, Environment.getExternalStorageDirectory().getAbsolutePath() + "/image", timename);
-                    String s = "file://" + Environment.getExternalStorageDirectory().getAbsolutePath() + "/image/" + timename + ".jpge";
-                    System.out.println(s);
-                    ImageLoader.getInstance().displayImage(s, iv_touxiang, ImageloaderUtil.imageconfig());
-                    Shref.setString(FirstActivity.this, Common.PICNAME, s);
+                    final String srcImagePath = Environment.getExternalStorageDirectory()+"/image.jpg";
+                    final String outImagePath = Environment.getExternalStorageDirectory()+"/image/"+timename+".jpg";
+                    LSAlert.showProgressHud(FirstActivity.this,"正在获取...");
+                    Observable.create(new ObservableOnSubscribe<Boolean>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                            //在子线程中进行图片压缩
+                            PicSize.compressAndOutPath(srcImagePath,outImagePath,1024);
+                            emitter.onNext(true);
+                        }
+                    }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean aBoolean) throws Exception {
+                            String s = "file://" +outImagePath;
+                            System.out.println(s);
+                            ImageLoader.getInstance().displayImage(s, iv_touxiang, ImageloaderUtil.imageconfig());
+                            Shref.setString(FirstActivity.this, Common.PICNAME, s);
+                            LSAlert.dismissProgressHud();
+                        }
+                    });
                     break;
                 case 1:
                     Uri uri = intent.getData();
                     String dataColumn = UriUtils.getPath(this, uri);
-                    ImageLoader.getInstance().displayImage("file://"+dataColumn, iv_touxiang, ImageloaderUtil.imageconfig());
+                    if(!dataColumn.contains("file://")){
+                        dataColumn = "file://"+dataColumn;
+                    }
+                    ImageLoader.getInstance().displayImage(dataColumn, iv_touxiang, ImageloaderUtil.imageconfig());
                     Shref.setString(FirstActivity.this, Common.PICNAME, dataColumn);
                     break;
             }
@@ -859,5 +827,19 @@ public class FirstActivity extends NavigationActivity {
             mLocationClient=null;
         }
         super.onDestroy();
+    }
+    private long time=0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(System.currentTimeMillis()-time>2000){
+                time = System.currentTimeMillis();
+                MyToast.showShort("再次点击退出程序");
+                return true;
+            }else{
+                AppApplication.exit();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

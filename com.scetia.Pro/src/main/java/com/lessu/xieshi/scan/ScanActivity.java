@@ -1,6 +1,8 @@
 package com.lessu.xieshi.scan;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -19,7 +21,9 @@ import com.lessu.xieshi.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.bean.Project;
 import com.lessu.xieshi.bean.PushToDx;
 import com.lessu.xieshi.bean.TrainingUserInfo;
+import com.lessu.xieshi.config;
 import com.lessu.xieshi.http.RetrofitManager;
+import com.lessu.xieshi.meet.event.MeetingScanResult;
 import com.lessu.xieshi.training.ApiObserver;
 import com.lessu.xieshi.training.BaseResponse;
 import com.lessu.xieshi.training.ScanEvent;
@@ -44,15 +48,19 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
 
     private TrainingUserInfo curTrainingInfo;
     private ZXingView zXingView;
+    private String scanType = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        this.setTitle("扫码登录");
-        zXingView = (ZXingView) findViewById(R.id.zxingview);
+        navigationBar.setBackgroundColor(0x80000000);
+        this.setTitle("扫一扫");
+        zXingView =  findViewById(R.id.zxingview);
         zXingView.setDelegate(this);
         EventBus.getDefault().register(this);
+        if(getIntent()!=null){
+            scanType = getIntent().getStringExtra(config.SCAN_TYPE);
+        }
     }
 
     @Override
@@ -60,7 +68,7 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
         super.onStart();
         //打开摄像头预览
         zXingView.startCamera();
-        //显示扫描框，并开始识别
+        //不显示扫描框，全屏识别，并开始识别
         zXingView.startSpotAndShowRect();
     }
 
@@ -71,10 +79,15 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
     }
     @Override
     public void onScanQRCodeSuccess(String result) {
+        startVibrate();
+        if(result.equals("")){
+            LSAlert.showAlert(this,"扫码的内容为空！");
+            zXingView.startSpot();
+            return;
+        }
         /**
          * 接受到扫描返回的数据，开始请求登陆
          */
-        if(!result.equals("")){
             if(result.contains("chinanetLearning")){
                 //如果用户
                 if(curTrainingInfo==null){
@@ -129,14 +142,30 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
                                 LSAlert.showAlert(ScanActivity.this,errorMsg);
                             }
                         });
-            }else {
-                HashMap<String, Object> params = new HashMap<String, Object>();
+            }else if(result.contains("ScetiaMeetingCode")){
+                if(getIntent().getStringExtra(config.SCAN_TYPE)==null){
+                    LSAlert.showAlert(this, "提示", "请在会议详情中，使用右上角扫码签到",
+                            "确定", false, new LSAlert.AlertCallback() {
+                                @Override
+                                public void onConfirm() {
+                                    finish();
+                                }
+                            });
+                    return;
+                }
+                //这是会议签到的扫码内容
+                //当前是会议扫码签到
+                Intent intent = new Intent();
+                intent.putExtra("scanResult",result.substring(result.indexOf(":")+1));
+                setResult(RESULT_OK,intent);
+                finish();
+            } else {
+                HashMap<String, Object> params = new HashMap<>();
                 params.put("s1", result);
                 //传入UserId
                 params.put("s2", Shref.getString(this, Common.USERID, ""));
                 //传入userName
                 params.put("s3", Shref.getString(this, Common.USERNAME, ""));
-                LogUtil.showLogD(params.toString());
                 EasyAPI.apiConnectionAsync(this, true, false,
                         ApiMethodDescription.get("/ServiceMis.asmx/ScanLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                             @Override
@@ -176,7 +205,6 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
                             }
                         });
             }
-        }
     }
 
     @Override
@@ -189,6 +217,14 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
         LSAlert.showAlert(this,"打开相机出错！");
     }
 
+    /**
+     * 开启震动
+     */
+    private void startVibrate(){
+        //开始震动
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
+    }
     @Override
     protected void onStop() {
         super.onStop();

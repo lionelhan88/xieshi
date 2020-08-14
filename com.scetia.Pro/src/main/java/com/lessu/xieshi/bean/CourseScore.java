@@ -26,6 +26,14 @@ public class CourseScore {
      */
     private String homeworkScore;
     /**
+     * 作业总数
+     */
+    private String homeworkTotal;
+    /**
+     * 已提交作业数
+     */
+    private String homeworkSubmit;
+    /**
      * 最终成绩
      */
     private String totalScore;

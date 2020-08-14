@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.scetia.Pro"
     android:versionCode="2"
-    android:versionName="1.027" >
+    android:versionName="1.031" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -37,6 +38,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <supports-screens
         android:anyDensity="true"
@@ -63,7 +65,9 @@
         android:requestLegacyExternalStorage="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-
+        <activity android:name="com.lessu.xieshi.mis.activitys.ReplaceActivity" />
+        <activity android:name="com.lessu.xieshi.mis.activitys.MisMeetingActivity" />
+        <activity android:name="com.lessu.xieshi.meet.MeetingDetailActivity" />
         <!--
          API24以下的apk安装再全面屏手机上时因为默认长宽比比较小，底部会出现黑色间隔，添加此配置，可是界面充满屏幕，24以上
         默认支持全屏
@@ -234,7 +238,6 @@
         <activity
             android:name="com.lessu.xieshi.scan.PrintDataActivity"
             android:label="PrintDataActivity" />
-        <activity android:name="com.lessu.xieshi.test.TestActivity" />
         <activity android:name="com.lessu.xieshi.scan.ConnectblueActivity" />
         <activity android:name="com.lessu.xieshi.scan.ShebeixinxiActivity" />
         <activity android:name="com.lessu.xieshi.scan.ShujvjiaohuActivity" />
@@ -255,8 +258,7 @@
         <activity android:name="com.lessu.xieshi.mis.activitys.MisnianjiaActivity" />
         <activity android:name="com.lessu.xieshi.mis.activitys.MisnianjiaspActivity" />
         <activity android:name="com.lessu.xieshi.mis.activitys.MisnjsqActivity" />
-        <activity android:name="com.lessu.xieshi.tianqi.activitys.TianqiActivity" >
-        </activity>
+        <activity android:name="com.lessu.xieshi.tianqi.activitys.TianqiActivity" />
         <activity android:name="com.lessu.xieshi.todaystatistics.AdminTodayinfoActivity" />
         <activity android:name="com.lessu.xieshi.todaystatistics.XianchangActivity" />
         <activity android:name="com.lessu.xieshi.todaystatistics.XianchangdetailActivity" />
@@ -269,9 +271,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true" />
         <activity android:name="com.lessu.xieshi.training.TrainingActivity" /> <!-- BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" -->
+        <activity android:name="com.lessu.xieshi.meet.MeetingListActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.scetia.Pro.fileprovider"
+            android:authorities="com.scetia.Pro.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data

@@ -1,8 +1,13 @@
 package com.lessu.xieshi.Utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,12 +56,16 @@ public class PicSize {
         }else{
             file = new File(outPath);
         }
-        if(!file.isFile()) throw new FileNotFoundException("不是正确的文件路径");
+        if(!file.getParentFile().exists()){
+            file.mkdirs();
+        }
+       /* if(!file.isFile()) throw new FileNotFoundException("不是正确的文件路径");*/
         try {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(out.toByteArray());
             fos.flush();
             fos.close();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -66,7 +75,49 @@ public class PicSize {
         }
         return file;
     }
+    /**
+     * 获取图片文件的信息，是否旋转了90度，如果是则反转
+     * @param bitmap 需要旋转的图片
+     * @param path   图片的路径
+     */
+    public static Bitmap reviewPicRotate(Bitmap bitmap,String path){
+        int degree = getPicRotate(path);
+        if(degree!=0){
+            Matrix m = new Matrix();
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            m.setRotate(degree); // 旋转angle度
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height,m, true);// 从新生成图片
+        }
+        return bitmap;
+    }
 
+    /**
+     * 读取图片文件旋转的角度
+     * @param path 图片绝对路径
+     * @return 图片旋转的角度
+     */
+    public static int getPicRotate(String path) {
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
     /**
      * 根据图片路径质量压缩图片，并输出到指定的路径
      * @param srcPath
@@ -76,7 +127,7 @@ public class PicSize {
     public static void compressAndOutPath(String srcPath,String outPath,int maxSize){
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath);
         try {
-            compress(bitmap,maxSize,outPath);
+            compress(reviewPicRotate(bitmap, srcPath),maxSize,outPath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -112,5 +163,29 @@ public class PicSize {
         options.inSampleSize = be;
         Bitmap compressBitmap = BitmapFactory.decodeFile(srcPath, options);
         return compressBitmap;
+    }
+
+    /**
+     * 获取当前屏幕的宽度
+     * @param context
+     * @return
+     */
+    public static float screenWidth(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getRealMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
+
+    /**
+     * 获取当前屏幕的高度
+     * @param context
+     * @return
+     */
+    public static float screenHeight(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getRealMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
     }
 }

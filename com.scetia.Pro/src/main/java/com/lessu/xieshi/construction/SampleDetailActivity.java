@@ -64,6 +64,9 @@ public class SampleDetailActivity extends NavigationActivity {
 				System.out.println(result);
 				String jsonString = result.getAsJsonObject().get("Data").toString();
 				System.out.println("样品信息"+jsonString);
+				if(jsonString.equals("null")){
+					return;
+				}
 				sampleDetail = GsonUtil.JsonToObject(jsonString, SampleDetail.class);
 				al.add(new ListSampleDetail("检测项目",sampleDetail.getItemName()));
 				al.add(new ListSampleDetail("样品名称",sampleDetail.getSampleName()));

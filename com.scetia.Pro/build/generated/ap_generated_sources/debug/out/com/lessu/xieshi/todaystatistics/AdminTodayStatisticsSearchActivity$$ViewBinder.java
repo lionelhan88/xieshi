@@ -15,8 +15,8 @@ public class AdminTodayStatisticsSearchActivity$$ViewBinder<T extends AdminToday
   public Unbinder bind(final Finder finder, final T target, Object source) {
     InnerUnbinder unbinder = createUnbinder(target);
     View view;
-    view = finder.findRequiredView(source, 2131230764, "method 'ProjectAreaButtonDidClick'");
-    unbinder.view2131230764 = view;
+    view = finder.findRequiredView(source, 2131230771, "method 'ProjectAreaButtonDidClick'");
+    unbinder.view2131230771 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -33,7 +33,7 @@ public class AdminTodayStatisticsSearchActivity$$ViewBinder<T extends AdminToday
   protected static class InnerUnbinder<T extends AdminTodayStatisticsSearchActivity> implements Unbinder {
     private T target;
 
-    View view2131230764;
+    View view2131230771;
 
     protected InnerUnbinder(T target) {
       this.target = target;
@@ -47,7 +47,7 @@ public class AdminTodayStatisticsSearchActivity$$ViewBinder<T extends AdminToday
     }
 
     protected void unbind(T target) {
-      view2131230764.setOnClickListener(null);
+      view2131230771.setOnClickListener(null);
     }
   }
 }

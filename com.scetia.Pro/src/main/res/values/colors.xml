@@ -7,9 +7,15 @@
 
     <color name="danlan">#3598DC</color>
     <color name="shenlan">#00a00a</color>
+    <color name="Aquamarine1">#7FFFD4</color>
     <color name="light_gray">#F3F3F3</color>
     <color name="light_gray1">#AAA</color>
     <color name="black_transparent">#33000000</color>
-    "#3598dc"
-
+    <color name="black">@android:color/black</color>
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="gold">#FFD700</color>
+    <color name="goldenrod1">#FFC125</color>
+    <color name="orange1">#FFA500</color>
+    <color name="green_dark">@android:color/holo_green_dark</color>
+    <color name="mis_meeting_tab_title_color">#63CFC2</color>
 </resources>

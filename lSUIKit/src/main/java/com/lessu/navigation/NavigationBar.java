@@ -38,14 +38,11 @@ public class NavigationBar extends RelativeLayout {
     }
 
     public void init(){
-//0xFFF0F0F0
         this.barTintColor = 0xFFF0F0F0;
         this.tintColor    = Color.WHITE;
 
-
-//        this.setOrientation(HORIZONTAL);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Utils.dip2px(getContext(), 49));
-        layoutParams.bottomMargin = 4;
+        //layoutParams.bottomMargin = 4;
         this.setLayoutParams(layoutParams);
         this.setBackgroundColor(this.barTintColor);
 

@@ -2,6 +2,7 @@ package com.lessu.xieshi;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -15,6 +16,11 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.Stack;
@@ -24,8 +30,6 @@ public class AppApplication extends ShareableApplication{
 	private static AppApplication mcontext;
 	public static String muidstr;
 	public static boolean isGLY=false;
-	public static boolean isupdate=false;
-	public static Stack<Activity> activityManages = new Stack<Activity>();
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -33,7 +37,26 @@ public class AppApplication extends ShareableApplication{
 		DensityUtil.initInstance(this);
 		//cc_edit
 		LSUtil.setValueStatic("service", "telecom");
+		QbSdk.setDownloadWithoutWifi(true);
+		QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
+			@Override
+			public void onCoreInitFinished() {
 
+			}
+
+			@Override
+			public void onViewInitFinished(boolean b) {
+			}
+		});
+		SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+			@NonNull
+			@Override
+			public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
+				//设置底部加载样式为经典样式
+				ClassicsHeader classicsHeader = new ClassicsHeader(context).setDrawableSize(20f);
+				return classicsHeader;
+			}
+		});
 		ApiConnection.DefaultStandardDataKey 		= "Data";
 		ApiConnection.DefaultStandardErrorCodeKey	= "Code";
 		ApiConnection.DefaultStandardMessageKey 	= "Message";
@@ -41,7 +64,7 @@ public class AppApplication extends ShareableApplication{
 		ShareableApplication.sharedApplication = this;
 		SDKInitializer.initialize(this);
 
-		config.serviceMap.put("telecom","www.scetia.com/scetia.app.ws.test");
+		config.serviceMap.put("telecom","www.scetia.com/scetia.app.ws");
 		config.serviceMap.put("unicom","www.schetia.com/scetia.app.ws");
 		if (LSUtil.valueStatic("service")== null || LSUtil.valueStatic("service").isEmpty()){
 			LSUtil.setValueStatic("service", "telecom");

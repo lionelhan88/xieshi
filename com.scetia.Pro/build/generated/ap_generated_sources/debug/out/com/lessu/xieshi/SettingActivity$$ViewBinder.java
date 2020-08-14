@@ -15,48 +15,48 @@ public class SettingActivity$$ViewBinder<T extends SettingActivity> implements V
   public Unbinder bind(final Finder finder, final T target, Object source) {
     InnerUnbinder unbinder = createUnbinder(target);
     View view;
-    view = finder.findRequiredView(source, 2131231029, "method 'jiechuButtonDidClick'");
-    unbinder.view2131231029 = view;
+    view = finder.findRequiredView(source, 2131231078, "method 'jiechuButtonDidClick'");
+    unbinder.view2131231078 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.jiechuButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131231148, "method 'passwordButtonDidClick'");
-    unbinder.view2131231148 = view;
+    view = finder.findRequiredView(source, 2131231253, "method 'passwordButtonDidClick'");
+    unbinder.view2131231253 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.passwordButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131231222, "method 'serviceButtonDidClick'");
-    unbinder.view2131231222 = view;
+    view = finder.findRequiredView(source, 2131231356, "method 'serviceButtonDidClick'");
+    unbinder.view2131231356 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.serviceButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131230888, "method 'resetLogin'");
-    unbinder.view2131230888 = view;
+    view = finder.findRequiredView(source, 2131230906, "method 'resetLogin'");
+    unbinder.view2131230906 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.resetLogin();
       }
     });
-    view = finder.findRequiredView(source, 2131231497, "method 'updateButtonDidClick'");
-    unbinder.view2131231497 = view;
+    view = finder.findRequiredView(source, 2131231649, "method 'updateButtonDidClick'");
+    unbinder.view2131231649 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.updateButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131231201, "method 'scanLogin'");
-    unbinder.view2131231201 = view;
+    view = finder.findRequiredView(source, 2131231330, "method 'scanLogin'");
+    unbinder.view2131231330 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -73,17 +73,17 @@ public class SettingActivity$$ViewBinder<T extends SettingActivity> implements V
   protected static class InnerUnbinder<T extends SettingActivity> implements Unbinder {
     private T target;
 
-    View view2131231029;
+    View view2131231078;
 
-    View view2131231148;
+    View view2131231253;
 
-    View view2131231222;
+    View view2131231356;
 
-    View view2131230888;
+    View view2131230906;
 
-    View view2131231497;
+    View view2131231649;
 
-    View view2131231201;
+    View view2131231330;
 
     protected InnerUnbinder(T target) {
       this.target = target;
@@ -97,12 +97,12 @@ public class SettingActivity$$ViewBinder<T extends SettingActivity> implements V
     }
 
     protected void unbind(T target) {
-      view2131231029.setOnClickListener(null);
-      view2131231148.setOnClickListener(null);
-      view2131231222.setOnClickListener(null);
-      view2131230888.setOnClickListener(null);
-      view2131231497.setOnClickListener(null);
-      view2131231201.setOnClickListener(null);
+      view2131231078.setOnClickListener(null);
+      view2131231253.setOnClickListener(null);
+      view2131231356.setOnClickListener(null);
+      view2131230906.setOnClickListener(null);
+      view2131231649.setOnClickListener(null);
+      view2131231330.setOnClickListener(null);
     }
   }
 }

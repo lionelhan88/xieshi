@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -77,6 +78,8 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
     private LinearLayout trainingTeachData;
     private TrainingUserInfo curTrainingUserInfo;
     private PushToDx pushToDx;
+    private TextView trainLearningTitle;
+    private ImageView trainScanLogin,trainLearnOnline,trainTeach;
     private Map<String,String> paidItemMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,20 +91,24 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
         initData();
     }
     private void initView(){
-        userName = (TextView) findViewById(R.id.training_user_name);
-        sgz = (TextView) findViewById(R.id.tv_sgz);
-        huiyuanhao = (TextView) findViewById(R.id.training_huiyuanhao);
-        huiyuanName = (TextView) findViewById(R.id.tv_huiyuan_name);
-        trainingCustomName = (TextView) findViewById(R.id.training_Customer_Name);
-        tvDay = (TextView) findViewById(R.id.tv_day_date);
-        tvMonthYear = (TextView) findViewById(R.id.tv_month_year);
-        trainingScanLogin = (LinearLayout) findViewById(R.id.training_scan_login);
-        trainingLearnsOnline = (LinearLayout) findViewById(R.id.training_learns_online);
-        trainingTeachData = (LinearLayout) findViewById(R.id.training_teach_data);
+        userName =  findViewById(R.id.training_user_name);
+        sgz =  findViewById(R.id.tv_sgz);
+        huiyuanhao =  findViewById(R.id.training_huiyuanhao);
+        huiyuanName =  findViewById(R.id.tv_huiyuan_name);
+        trainingCustomName =  findViewById(R.id.training_Customer_Name);
+        tvDay =  findViewById(R.id.tv_day_date);
+        tvMonthYear =  findViewById(R.id.tv_month_year);
+        trainingScanLogin =  findViewById(R.id.training_scan_login);
+        trainingLearnsOnline =  findViewById(R.id.training_learns_online);
+        trainingTeachData =  findViewById(R.id.training_teach_data);
+        trainLearningTitle = findViewById(R.id.training_learns_title);
+        trainScanLogin = findViewById(R.id.iv_train_scan_login);
+        trainLearnOnline = findViewById(R.id.iv_train_learn_online);
+        trainTeach = findViewById(R.id.iv_train_teach);
         trainingScanLogin.setOnClickListener(this);
         trainingLearnsOnline.setOnClickListener(this);
         trainingTeachData.setOnClickListener(this);
-        flowLayout = (TagFlowLayout) findViewById(R.id.flowLayout);
+        flowLayout =  findViewById(R.id.flowLayout);
         //课程标签适配器
         tagAdapter = new TagAdapter<PaidItem>(tags) {
             @Override
@@ -123,12 +130,9 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                 //如果当前日期距离课程结束日期小于等于7天，显示红色,否则显示正常颜色
                 if(betweenDay>=0&&betweenDay<=7){
                     ll.setBackgroundResource(R.drawable.tag_click_background_red);
-                   // v.setTextColor(Color.parseColor("#FFD700"));
-                    //v.setTextColor(Color.parseColor("#FFD700"));
                     v.setText(paidItem.getProjectName()+"(截止时间："+paidItem.getEndDate()+")");
                     return ll;
                 }
-                //if(betweenDay==-1) over.setVisibility(View.VISIBLE);
                 ll.setBackgroundResource(R.drawable.tag_click_background);
                 v.setTextColor(getResources().getColor(android.R.color.white));
                 v.setText(paidItem.getProjectName()+"(截止时间："+paidItem.getEndDate()+")");
@@ -176,6 +180,18 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                             sgz.setText(trainingUserInfo.getCertificateNo());
                             trainingCustomName.setText(trainingUserInfo.getPlanName());
                             projects = (ArrayList<Project>) trainingUserInfo.getPushToDx().getProjects();
+                            List<PaidItem> paidItemNames = trainingUserInfo.getPaidItemNames();
+                            if(paidItemNames.size()<=0){
+                                //没有课程信息
+                                trainingScanLogin.setEnabled(false);
+                                trainingLearnsOnline.setEnabled(false);
+                                trainingTeachData.setEnabled(false);
+                                trainScanLogin.setImageResource(R.drawable.icon_training_scan_disabled);
+                                trainLearnOnline.setImageResource(R.drawable.icon_training_learn_disabled);
+                                trainTeach.setImageResource(R.drawable.icon_training_teach_disabled);
+                                trainLearningTitle.setText("您目前没有任何继续教育报名及付费记录");
+                                return;
+                            }
                             tags.addAll(trainingUserInfo.getPaidItemNames());
                             tagAdapter.notifyDataChanged();
                             for (PaidItem item:trainingUserInfo.getPaidItemNames()){
@@ -193,6 +209,10 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                     }
                 });
     }
+
+    /**
+     * 打开扫码页面
+     */
     private void openScan(){
         EventBus.getDefault().postSticky(new ScanEvent(curTrainingUserInfo));
         Intent scanIntent = new Intent(TrainingActivity.this, ScanActivity.class);

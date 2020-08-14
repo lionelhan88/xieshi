@@ -38,7 +38,7 @@ ADDED from D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:9-87
 	android:name
 		ADDED from D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:15:23-60
 activity#com.lessu.activity.WebViewActivity
-ADDED from D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:16:9-80
+ADDED from D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:16:9-70
 	android:name
 		ADDED from D:\xieshi\lSUIKit\src\main\AndroidManifest.xml:16:19-68
 uses-sdk

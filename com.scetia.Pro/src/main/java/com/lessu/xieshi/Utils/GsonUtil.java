@@ -1,8 +1,13 @@
 package com.lessu.xieshi.Utils;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,13 +27,31 @@ public class GsonUtil {
         return t;
     }
 
-    public static <T> List<T> JsonToList(String jsonString, Class<T> cls) {
+    public static <T> List<T> JsonToList(String jsonString, final Class<T> cls) {
         List<T> list = new ArrayList<T>();
         try {
             Gson gson = new Gson();
-            list = gson.fromJson(jsonString, new TypeToken<List<T>>() {
-            }.getType());
+            list = gson.fromJson(jsonString, new ParameterizedType() {
+                @NonNull
+                @Override
+                public Type[] getActualTypeArguments() {
+                    return new Type[]{cls};
+                }
+
+                @NonNull
+                @Override
+                public Type getRawType() {
+                    return List.class;
+                }
+
+                @Nullable
+                @Override
+                public Type getOwnerType() {
+                    return null;
+                }
+            });
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }

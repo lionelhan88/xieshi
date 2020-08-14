@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/y15"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/mis_meeting_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_xlarge"
+            android:text="理事会"/>
+
+        <TextView
+            android:id="@+id/danwei_sign_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="单位已签到："
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
+        <TextView
+            android:id="@+id/danwei_sign_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/danwei_sign_number_label"
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
+
+        <TextView
+            android:id="@+id/person_sign_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="个人已签到："
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/danwei_sign_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
+        <TextView
+            android:id="@+id/person_sign_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/person_sign_number_label"
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
+
+        <TextView
+            android:id="@+id/daiqian_sign_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="代签记录数："
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
+        <TextView
+            android:id="@+id/daiqian_sign_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/daiqian_sign_number_label"
+            app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
+
+        <TextView
+            android:id="@+id/total_sign_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="总签到人数："
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/danwei_sign_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/person_sign_number"/>
+        <TextView
+            android:id="@+id/total_sign_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/person_sign_number_label"
+            app:layout_constraintTop_toBottomOf="@+id/person_sign_number"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/mis_meeting_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y5"
+        android:background="@color/white"
+        app:tabSelectedTextColor="@color/mis_meeting_tab_title_color"
+        app:tabIndicatorColor="@color/mis_meeting_tab_title_color">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="会议概述" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单位签到" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个人签到" />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="代签记录" />
+    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mis_meeting_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"/>
+
+
+</LinearLayout>

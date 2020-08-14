@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/x5"
+   android:layout_marginRight="@dimen/x10"
+   android:layout_marginLeft="@dimen/x10"
+    android:layout_marginTop="@dimen/y5"
+    android:layout_marginBottom="@dimen/y5"
+    android:background="@drawable/white_round_stroke_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/meeting_list_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_large"
+        android:text="会议标题"/>
+    <TextView
+        android:id="@+id/meeting_list_item_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/text_size_medium"
+        android:padding="@dimen/x5"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/text_orange_stroke_bg"
+        android:visibility="gone"
+        android:text="确认会议"/>
+    <TextView
+        android:id="@+id/meeting_list_item_user_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_list_item_name"
+        android:textSize="@dimen/text_size_large"
+        android:visibility="gone"
+        android:text="发起人："/>
+    <TextView
+        android:id="@+id/meeting_list_item_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_list_item_name"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/black"
+        android:text="张三"
+        app:layout_constraintStart_toEndOf="@+id/meeting_list_item_user_label"/>
+
+    <TextView
+        android:id="@+id/meeting_list_item_start_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_list_item_user"
+        android:textSize="@dimen/text_size_medium"
+        android:text="开始时间"/>
+
+    <TextView
+        android:id="@+id/meeting_list_item_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_list_item_start_date_label"
+        android:textSize="@dimen/text_size_medium"
+        android:text="2020-02-11 19:30:00"/>
+    <TextView
+        android:id="@+id/meeting_list_item_end_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_list_item_user"
+        android:textSize="@dimen/text_size_medium"
+        android:text="结束时间"/>
+
+    <TextView
+        android:id="@+id/meeting_list_item_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_list_item_end_date_label"
+        android:textSize="@dimen/text_size_medium"
+        android:text="2020-02-11 21:30:00"/>
+
+
+</android.support.constraint.ConstraintLayout>

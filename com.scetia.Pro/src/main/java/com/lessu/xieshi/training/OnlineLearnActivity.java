@@ -2,6 +2,7 @@ package com.lessu.xieshi.training;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -10,13 +11,18 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,8 +36,9 @@ import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.bean.PushToDx;
 import com.lessu.xieshi.http.RetrofitManager;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
+import com.tencent.smtt.export.external.interfaces.SslError;
+import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
 import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
@@ -49,13 +56,12 @@ import okhttp3.RequestBody;
 
 
 public class OnlineLearnActivity extends NavigationActivity {
-    private com.tencent.smtt.sdk.WebView onlineWebView;
+    private X5WebView onlineWebView;
     private FrameLayout fullScreenView;
     private View customerView;
     private IX5WebChromeClient.CustomViewCallback mCallBack;
-    private RelativeLayout rl_web_view_full_title;
-    private ImageView imageBack;
     private ImmersionBar immersionBar;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,88 +89,33 @@ public class OnlineLearnActivity extends NavigationActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initView() {
-
         //禁止屏幕休眠
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         onlineWebView =  findViewById(R.id.online_web_view);
-        fullScreenView = (FrameLayout) findViewById(R.id.full_screen_view);
-        rl_web_view_full_title = (RelativeLayout) findViewById(R.id.rl_web_view_full_title);
-        imageBack = (ImageView) findViewById(R.id.online_web_view_full_back);
-        final com.tencent.smtt.sdk.WebSettings settings = onlineWebView.getSettings();
-        QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
-            @Override
-            public void onCoreInitFinished() {
-
-            }
-
-            @Override
-            public void onViewInitFinished(boolean b) {
-
-            }
-        });
-        //支持js事件
-        settings.setJavaScriptEnabled(true);
-        settings.setAllowFileAccess(true);
-        settings.setSupportZoom(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setBlockNetworkImage(false);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        onlineWebView.addJavascriptInterface(new WebViewJavaScriptFunction() {
-
-            @Override
-            public void onJsFunctionCalled(String tag) {
-                // TODO Auto-generated method stub
-                disableX5FullscreenFunc();
-            }
-
-            @JavascriptInterface
-            public void onX5ButtonClicked() {
-                disableX5FullscreenFunc();
-            }
-
-            @JavascriptInterface
-            public void onCustomButtonClicked() {
-              disableX5FullscreenFunc();
-            }
-
-            @JavascriptInterface
-            public void onLiteWndButtonClicked() {
-                disableX5FullscreenFunc();
-               // FullScreenActivity.this.enableLiteWndFunc();
-            }
-
-            @JavascriptInterface
-            public void onPageVideoClicked() {
-                disableX5FullscreenFunc();
-               // FullScreenActivity.this.enablePageVideoFunc();
-            }
-        }, "Android");
+        fullScreenView =  findViewById(R.id.full_screen_view);
+        progressBar = findViewById(R.id.progress);
         onlineWebView.setWebViewClient(new WebViewClient(){
-
-          /*  @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
-            }
-
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
                 //这里返回false，页面重定向后也会返回上一级页面
                 return false;
-            }*/
-
-            @Override
-            public void onPageStarted(com.tencent.smtt.sdk.WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                if(LSAlert.progressDialog==null){
-                    LSAlert.showProgressHud(OnlineLearnActivity.this,"正在加载...");
-                }
             }
 
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageStarted(com.tencent.smtt.sdk.WebView  view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(0);
+                isAnimtor=true;
+            }
+
+            @Override
+            public void onPageFinished(com.tencent.smtt.sdk.WebView  view, String url) {
                 super.onPageFinished(view, url);
+                if(!isAnimtor){
+                    startDismissAnimation(50);
+                }
+                progressBar.setVisibility(View.GONE);
                 //页面加载结束
                 //编写 javaScript方法
                 if(url.contains("enterCourseList")) {
@@ -178,23 +129,30 @@ public class OnlineLearnActivity extends NavigationActivity {
             }
         });
 
-        onlineWebView.setWebChromeClient(new WebChromeClient(){
-            @Nullable
+        onlineWebView.setWebChromeClient(new com.tencent.smtt.sdk.WebChromeClient(){
             @Override
-            public View getVideoLoadingProgressView() {
-                return super.getVideoLoadingProgressView();
+            public void onProgressChanged(WebView webView, int i) {
+                super.onProgressChanged(webView, i);
+                int curProgress = progressBar.getProgress();
+                startProgressAnimation(curProgress,i);
+                progressBar.setProgress(i);
             }
 
             @Override
+            public void onReceivedTitle(WebView webView, String s) {
+                super.onReceivedTitle(webView, s);
+                setTitle(s);
+            }
+            @Override
             public void onShowCustomView(final View view, final IX5WebChromeClient.CustomViewCallback callback) {
                 super.onShowCustomView(view,callback);
+                //如果当前设备不支持x5内核，则执行自定义的全屏模式
                 customerView = view;
                 mCallBack = callback;
                 fullScreenView.setVisibility(View.VISIBLE);
                 onlineWebView.setVisibility(View.GONE);
                 fullScreen();
                 fullScreenView.addView(view);
-
             }
 
             @Override
@@ -204,39 +162,19 @@ public class OnlineLearnActivity extends NavigationActivity {
 
             }
         });
-        imageBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //点击了返回键
-                noFullScreen();
-            }
-        });
     }
     private void initData() {
         EventBus.getDefault().register(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void receiverPushToDx(PushToDx pushToDx){
         EventBus.getDefault().removeStickyEvent(pushToDx);
         getGuid2(pushToDx);
     }
-    private void disableX5FullscreenFunc() {
-        if (onlineWebView.getX5WebViewExtension() != null) {
-            Toast.makeText(this, "恢复webkit初始状态", Toast.LENGTH_LONG).show();
-            Bundle data = new Bundle();
-
-            data.putBoolean("standardFullScreen", true);// true表示标准全屏，会调起onShowCustomView()，false表示X5全屏；不设置默认false，
-
-            data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
-
-            data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
-
-            onlineWebView.getX5WebViewExtension().invokeMiscMethod("setVideoParams",
-                    data);
-        }
-    }
     /**
      * 不再全屏
+     * 如果手机支持x5内核，不需要执行此方法
      */
     private void noFullScreen(){
         if(customerView!=null){
@@ -246,7 +184,6 @@ public class OnlineLearnActivity extends NavigationActivity {
             }
             fullScreen();
             fullScreenView.setVisibility(View.GONE);
-            rl_web_view_full_title.setVisibility(View.GONE);
             onlineWebView.setVisibility(View.VISIBLE);
             customerView = null;
         }
@@ -283,8 +220,8 @@ public class OnlineLearnActivity extends NavigationActivity {
                         String sign = LongString.md5(paramstr).toUpperCase();
                         String indexUrl ="https://bgtj.o-learn.cn/thirdparty/jzjc/appInterfaceApi/enterCourseList?"
                                 +"guid="+guid+"&userId="+userId+"&timestamp="+date+"&sign="+sign;
-
                         onlineWebView.loadUrl(indexUrl);
+                        LSAlert.dismissProgressHud();
                     }
 
                     @Override
@@ -313,6 +250,47 @@ public class OnlineLearnActivity extends NavigationActivity {
            immersionBar.fullScreen(false).hideBar(BarHide.FLAG_SHOW_BAR).init();
         }
     }
+
+    /**
+     * 开启增长动画
+     * @param currentProgress
+     * @param newProgress
+     */
+    private boolean isAnimtor = false;
+    private void startProgressAnimation(int currentProgress,int newProgress){
+        ObjectAnimator startAnimator = ObjectAnimator.ofInt(progressBar,"progress",currentProgress,newProgress);
+        startAnimator.setDuration(500);
+        startAnimator.setInterpolator(new DecelerateInterpolator());
+        startAnimator.start();
+    }
+    private void startDismissAnimation(int currentProgress){
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(progressBar,"alpha",1.0f,0.0f);
+        objectAnimator.setDuration(1500);
+        objectAnimator.setInterpolator(new DecelerateInterpolator());
+        objectAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                progressBar.setVisibility(View.GONE);
+                isAnimtor = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        objectAnimator.start();
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -320,9 +298,16 @@ public class OnlineLearnActivity extends NavigationActivity {
          * 当用户点击home建退出软件再打开时，要判断之前是否是再全屏状态观看视频，如果是
          * 就在打开软件时继续隐藏系统导航栏
          */
+        onlineWebView.onResume();
         if(customerView!=null){
             immersionBar.fullScreen(true).hideBar(BarHide.FLAG_HIDE_BAR).init();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        onlineWebView.onPause();
     }
 
     @Override

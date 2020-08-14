@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kongzue.kongzueupdatesdk:kongzueupdatesdk:1.4.5@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/e95a8c3b9088c2f1a0081358948c325f/kongzueupdatesdk-1.4.5/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/e95a8c3b9088c2f1a0081358948c325f/kongzueupdatesdk-1.4.5/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/modules-2/files-2.1/com.kongzue.kongzueupdatesdk/kongzueupdatesdk/1.4.5/537ad1e45aa99f472403accea43d2104822c7378/kongzueupdatesdk-1.4.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/modules-2/files-2.1/com.kongzue.kongzueupdatesdk/kongzueupdatesdk/1.4.5/e20fcd7cdbffc26f937530ba29134dc7bd775fd4/kongzueupdatesdk-1.4.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

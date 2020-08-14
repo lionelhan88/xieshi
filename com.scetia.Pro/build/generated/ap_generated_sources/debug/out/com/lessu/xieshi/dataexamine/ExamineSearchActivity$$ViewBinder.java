@@ -15,32 +15,32 @@ public class ExamineSearchActivity$$ViewBinder<T extends ExamineSearchActivity> 
   public Unbinder bind(final Finder finder, final T target, Object source) {
     InnerUnbinder unbinder = createUnbinder(target);
     View view;
-    view = finder.findRequiredView(source, 2131231489, "method 'typeButtonDidClick'");
-    unbinder.view2131231489 = view;
+    view = finder.findRequiredView(source, 2131231641, "method 'typeButtonDidClick'");
+    unbinder.view2131231641 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.typeButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131231158, "method 'projectButtonDidClick'");
-    unbinder.view2131231158 = view;
+    view = finder.findRequiredView(source, 2131231267, "method 'projectButtonDidClick'");
+    unbinder.view2131231267 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.projectButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131230858, "method 'auditedButtonDidClick'");
-    unbinder.view2131230858 = view;
+    view = finder.findRequiredView(source, 2131230868, "method 'auditedButtonDidClick'");
+    unbinder.view2131230868 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
         target.auditedButtonDidClick();
       }
     });
-    view = finder.findRequiredView(source, 2131231205, "method 'searchButtonDidClick'");
-    unbinder.view2131231205 = view;
+    view = finder.findRequiredView(source, 2131231338, "method 'searchButtonDidClick'");
+    unbinder.view2131231338 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -57,13 +57,13 @@ public class ExamineSearchActivity$$ViewBinder<T extends ExamineSearchActivity> 
   protected static class InnerUnbinder<T extends ExamineSearchActivity> implements Unbinder {
     private T target;
 
-    View view2131231489;
+    View view2131231641;
 
-    View view2131231158;
+    View view2131231267;
 
-    View view2131230858;
+    View view2131230868;
 
-    View view2131231205;
+    View view2131231338;
 
     protected InnerUnbinder(T target) {
       this.target = target;
@@ -77,10 +77,10 @@ public class ExamineSearchActivity$$ViewBinder<T extends ExamineSearchActivity> 
     }
 
     protected void unbind(T target) {
-      view2131231489.setOnClickListener(null);
-      view2131231158.setOnClickListener(null);
-      view2131230858.setOnClickListener(null);
-      view2131231205.setOnClickListener(null);
+      view2131231641.setOnClickListener(null);
+      view2131231267.setOnClickListener(null);
+      view2131230868.setOnClickListener(null);
+      view2131231338.setOnClickListener(null);
     }
   }
 }

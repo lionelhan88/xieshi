@@ -10,6 +10,9 @@ import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
+import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.Shref;
+import com.lessu.xieshi.login.LoginActivity;
 
 import java.util.HashMap;
 
@@ -27,7 +30,7 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 		
 		setTitle("密码修改");
 		
-		//ButterKnife.inject(PasswordActivity.this);
+		ButterKnife.bind(PasswordActivity.this);
 	}
 	
 	@OnClick(R.id.commitButton)
@@ -35,7 +38,7 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		String userName = LSUtil.valueStatic("UserName");
 		String passWordOld = ((EditText)findViewById(R.id.oldPasswordEditText)).getText().toString();
-		String passWordNew = ((EditText)findViewById(R.id.newPasswordEditText)).getText().toString();
+		final String passWordNew = ((EditText)findViewById(R.id.newPasswordEditText)).getText().toString();
 		String passWordComfirm = ((EditText)findViewById(R.id.comfirmPasswordEditText)).getText().toString();
 		if (!passWordNew.equals(passWordComfirm)){
 			LSAlert.showAlert(PasswordActivity.this, "您输入两次密码不相同！");
@@ -48,10 +51,16 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 			
 			@Override
 			public void onSuccessJson(JsonElement result) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(PasswordActivity.this, PasswordCompleteActivity.class);
-				startActivity(intent);
-				finish();
+				boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
+				if(success) {
+					Shref.setString(PasswordActivity.this, Common.PASSWORD, passWordNew);
+					Intent intent = new Intent(PasswordActivity.this, PasswordCompleteActivity.class);
+					startActivity(intent);
+					finish();
+				}else {
+					//修改密码失败
+					LSAlert.showAlert(PasswordActivity.this,"修改密码失败！");
+				}
 			}
 			
 			@Override

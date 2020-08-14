@@ -24,9 +24,6 @@ public class Common {
     public static final String DX_SCAN_LOGIN = DX_BASE_URL+"/thirdparty/jzjc/appInterfaceApi/scanQRCode";
 
     public static int betweenDate(Date cureDate,Date endDate){
-       /* Calendar curCalendar = Calendar.getInstance();
-        curCalendar.setTime(cureDate);
-        Calendar endCalendar = Calendar.getInstance();*/
        int day = -1;
         if(endDate.getTime()>=cureDate.getTime()){
             long l = endDate.getTime() - cureDate.getTime();

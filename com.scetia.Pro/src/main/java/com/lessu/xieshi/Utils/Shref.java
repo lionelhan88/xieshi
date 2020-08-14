@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  */
 public class Shref {
     public static final String PREF_NAME = "config";
-
+    public static final String testUserId = "c77c3bb0-d0b4-460c-8e89-593b2bbab512";
     public static boolean getBoolean(Context ctx, String key,
                                      boolean defaultValue) {
         SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,

@@ -51,6 +51,8 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 	public static AsyncHttpClient getSharedClient() {
 		if (sharedClient == null){
 			sharedClient = new AsyncHttpClient();
+			//2020-07-23 设置超时时间60s，防止有些接口服务响应时间太长提示“超时”
+			sharedClient.setTimeout(60*1000);
 //            sharedClient.set
 		}
 		return sharedClient;

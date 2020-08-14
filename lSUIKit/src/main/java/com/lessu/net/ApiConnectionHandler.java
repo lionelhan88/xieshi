@@ -5,12 +5,13 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.Header;
 
-class ApiConnectionHandler extends AsyncHttpResponseHandler{
+
+class ApiConnectionHandler extends AsyncHttpResponseHandler {
     @Override
     public void onSuccess(int i, Header[] headers, byte[] bytes) {
         String content = new String(bytes);
         //cc_edit:
-        //协实项目接口返回解析 
+        //协实项目接口返回解析
         //2015年1月13日20:59:37
         	String tempString = RegKit.match(content, ">\\{.+\\}</");
         	if (tempString != null){

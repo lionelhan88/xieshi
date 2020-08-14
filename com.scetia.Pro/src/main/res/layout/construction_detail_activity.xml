@@ -13,17 +13,8 @@
         android:layout_marginRight="10dp"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:footerDividersEnabled="false"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:footerDividersEnabled="false"/>
 
-
-    <!--<ListView-->
-    <!--android:id="@+id/listView"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:footerDividersEnabled="false"-->
-    <!--android:dividerHeight="0dp"-->
-    <!--android:divider="@null"-->
-    <!--&gt;-->
-    <!--</ListView>-->
-
+    <include layout="@layout/project_query_project_testing_item_layout"
+        android:visibility="gone"/>
 </LinearLayout>

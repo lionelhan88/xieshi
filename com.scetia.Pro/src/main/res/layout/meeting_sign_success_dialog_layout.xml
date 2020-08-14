@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/info_show_list_linearLayout">
+
+        <TextView
+            style="@style/info_show_list_left"
+            android:text="会员编号:" />
+
+        <TextView
+            android:id="@+id/meeting_success_dialog_hy_code"
+            style="@style/info_show_list_edittext"
+            android:textSize="@dimen/text_size_medium" />
+    </LinearLayout>
+    <LinearLayout style="@style/info_show_list_linearLayout">
+
+        <TextView
+            style="@style/info_show_list_left"
+            android:text="单位:" />
+
+        <TextView
+            android:id="@+id/meeting_success_dialog_hy_dw"
+            style="@style/info_show_list_edittext"
+            android:textSize="@dimen/text_size_medium" />
+    </LinearLayout>
+    <LinearLayout style="@style/info_show_list_linearLayout">
+
+        <TextView
+            style="@style/info_show_list_left"
+            android:text="用户:" />
+
+        <TextView
+            android:id="@+id/meeting_success_dialog_user"
+            style="@style/info_show_list_edittext"
+            android:textSize="@dimen/text_size_medium" />
+    </LinearLayout>
+</LinearLayout>

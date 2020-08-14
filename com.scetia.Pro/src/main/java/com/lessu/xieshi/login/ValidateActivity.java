@@ -66,7 +66,6 @@ public class ValidateActivity extends NavigationActivity {
 		deviceId = bundle.getString("DeviceId");
 		token = bundle.getString("token");
 		String PhoneNumber = ((EditText)findViewById(R.id.phoneNumEditText)).getText().toString();
-		System.out.println("asdasdas...."+PhoneNumber);
 		if (!ValidateHelper.validatePhone(PhoneNumber)){
 			LSAlert.showAlert(ValidateActivity.this, "手机号输入有误！请重新输入");
 			return;

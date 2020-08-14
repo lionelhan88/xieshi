@@ -1,2 +1,2 @@
-# Referenced at D:\xieshi\com.scetia.Pro\build\intermediates\merged_manifests\debug\AndroidManifest.xml:55
+# Referenced at D:\xieshi\com.scetia.Pro\build\intermediates\merged_manifests\debug\AndroidManifest.xml:57
 -keep class com.lessu.xieshi.AppApplication { <init>(); }

@@ -13,7 +13,7 @@
         />-->
     <application>
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <activity android:name="com.lessu.activity.WebViewActivity"></activity>
+        <activity android:name="com.lessu.activity.WebViewActivity"/>
     </application>
 
 </manifest>

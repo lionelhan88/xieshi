@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/online_web_learn_layout"
     android:background="@android:color/black">
-
 
     <com.lessu.xieshi.training.X5WebView
         android:id="@+id/online_web_view"
@@ -19,21 +19,13 @@
         android:visibility="gone"
         android:layout_margin="@dimen/x15">
     </FrameLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_web_view_full_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
+    <ProgressBar
+        android:id="@+id/progress"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/black_transparent">
-        <ImageView
-            android:id="@+id/online_web_view_full_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/y15"
-            android:src="@drawable/back"/>
-    </RelativeLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/progress_background"
+        style="?android:attr/progressBarStyleHorizontal"/>
 </android.support.constraint.ConstraintLayout>

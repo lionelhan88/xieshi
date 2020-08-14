@@ -22,7 +22,7 @@ public class SavePic {
                 dir.mkdirs();
             }
 
-            File photoFile = new File(path , photoName + ".jpge");
+            File photoFile = new File(path , photoName + ".jpe");
             FileOutputStream fileOutputStream = null;
             try {
                 fileOutputStream = new FileOutputStream(photoFile);

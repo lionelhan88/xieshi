@@ -1,5 +1,6 @@
 package com.lessu.xieshi.todaystatistics;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -53,6 +54,7 @@ import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.bean.Jinritongjiditu;
 import com.lessu.xieshi.customView.ZoomControlsView;
@@ -199,18 +201,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		navigationBar.setRightBarItem(searchButtonitem);
 		map_jinritongji = (MapView) findViewById(R.id.map_jinritongji);
 		map_jinritongji.showZoomControls(false);
-		mBaiduMap = map_jinritongji.getMap();
-		// 开启定位图层
-		mBaiduMap.setMyLocationEnabled(true);
-		// 定位初始化
-		mLocClient = new LocationClient(this);
-		mLocClient.registerLocationListener(myListener);
-		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);// 打开gps
-		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(1000);
-		mLocClient.setLocOption(option);
-		mLocClient.start();
+
 		ll_ditu.setOnClickListener(this);
 		ll_liebiao.setOnClickListener(this);
 		bt_shangyiye.setOnClickListener(this);
@@ -223,37 +214,27 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		tv_max.setOnClickListener(this);
 		lv_ditu.setOnItemClickListener(this);
 		rl_map.setOnClickListener(this);
-
+		mBaiduMap = map_jinritongji.getMap();
+		// 开启定位图层
+		mBaiduMap.setMyLocationEnabled(true);
+		// 定位初始化
+		mLocClient = new LocationClient(this);
+		mLocClient.registerLocationListener(myListener);
+		LocationClientOption option = new LocationClientOption();
+		option.setOpenGps(true);// 打开gps
+		option.setCoorType("bd09ll"); // 设置坐标类型
+		option.setScanSpan(1000);
+		mLocClient.setLocOption(option);
+		PermissionUtils.requestPermission(AdminTodayStatisticsActivity.this, new PermissionUtils.permissionResult() {
+			@Override
+			public void hasPermission(List<String> granted, boolean isAll) {
+				mLocClient.start();
+			}
+		}, Manifest.permission.ACCESS_FINE_LOCATION);
 		zcv_zoom = (ZoomControlsView) findViewById(R.id.zcv_zoom);
 		zcv_zoom.setMapView(map_jinritongji);
 		ButterKnife.bind(this);
-
 	}
-	@Override
-	protected void onStart() {
-		super.onStart();
-	/*	if(jinritongjiditu!=null) {
-			if (sousuo) {
-				ConnectNeta(1, rangeindex);
-				*//*if(ismax){
-					ConnectNetb(1);
-				}else {
-					ConnectNeta(1, rangeindex);
-				}*//*
-			} else {
-				ConnectNeta(jinritongjiditu.getData().getCurrentPageNo(), rangeindex);
-				*//*if(ismax){
-					ConnectNetb(jinritongjiditu.getData().getCurrentPageNo());
-				}else {
-					ConnectNeta(jinritongjiditu.getData().getCurrentPageNo(), rangeindex);
-				}*//*
-			}
-		}else{
-			ConnectNeta(1, 3);
-		}
-		sousuo=false;*/
-	}
-
 	/**
 	 * 带有范围的查询
 	 * @param pageindex
@@ -270,11 +251,10 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		params.put("ConstructUnitName", jianshedanwei);
 		params.put("SuperviseUnitName", jianlidanwei);
 		params.put("DetectionUnitName", jiancedanwei);
-		params.put("CurrentLocation",getMyself());
-		//params.put("CurrentLocation","121.4558,31.18644");
 		if(range!=-1){
 			//如果传入有效范围才加入这个参数
 			//如果用户选择了范围不限，则不加入这个参数
+			params.put("CurrentLocation",getMyself());
 			params.put("DistanceRange", range);
 		}
 		params.put("PageSize", 10);
@@ -339,8 +319,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 							}
 
 							tv_yeshuxianshi.setText(pageindex + "/" + pageCount);
-
-
 							if (jinritongjiditu.getData().getCurrentPageNo() == 1) {
 								bt_shangyiye.setTextColor(0xff8f8f8f);
 								bt_shangyiye.setClickable(false);
@@ -401,6 +379,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
+							notData();
 							Toast.makeText(AdminTodayStatisticsActivity.this,jinritongjiditu.getMessage(),Toast.LENGTH_SHORT).show();
 						}
 					});
@@ -414,13 +393,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						mBaiduMap.clear();
-						lv_ditu.setAdapter(null);
-						tv_yeshuxianshi.setText(0+"/"+0);
-						bt_shangyiye.setTextColor(0xff8f8f8f);
-						bt_shangyiye.setClickable(false);
-						bt_xiayiye.setTextColor(0xff8f8f8f);
-						bt_xiayiye.setClickable(false);
+						notData();
 					}
 				});
 				System.out.println("失败了。。。。。。。。。。。。。。。。。。。"+error.errorMeesage);
@@ -430,176 +403,17 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 	}
 
 	/**
-	 * 查询范围不限
-	 * @param pageindex
+	 * 如果获取不到数据
 	 */
-	private void ConnectNetb(final int pageindex) {
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("Token", token);
-		params.put("Type", 1);
-		params.put("ProjectName", projectName);
-		params.put("ProjectArea", projectArea);
-		params.put("BuildingReportNumber", baogaobianhao);
-		params.put("BuildUnitName", shigongdanwei);
-		params.put("ConstructUnitName", jianshedanwei);
-		params.put("SuperviseUnitName", jianlidanwei);
-		params.put("DetectionUnitName", jiancedanwei);
-		//params.put("CurrentLocation",getMyself());
-		System.out.println("getmyself......"+getMyself());
-		//params.put("DistanceRange",range);
-		params.put("PageSize", 10);
-		params.put("CurrentPageNo", pageindex);
-		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceTS.asmx/ManageUnitTodayStatisProjectList"),params,new EasyAPI.ApiFastSuccessFailedCallBack(){
-			@Override
-			public void onSuccessJson(JsonElement result) {
-				jinritongjiditu = GsonUtil.JsonToObject(result.toString(), Jinritongjiditu.class);
-				System.out.println(result);
-
-				if(jinritongjiditu.isSuccess()) {
-
-					pageCount = jinritongjiditu.getData().getPageCount();
-					listContent = jinritongjiditu.getData().getListContent();
-
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							mBaiduMap.clear();
-							if (markerlist != null) {
-								for (int i = 0; i < markerlist.size(); i++) {
-									markerlist.get(i).remove();
-								}
-							}
-							markerlist.clear();
-							for (int i = 0; i < listContent.size(); i++) {
-								String projectCoordinates = listContent.get(i).getProjectCoordinates();
-
-								if (projectCoordinates != null && !projectCoordinates.equals("")) {
-									//这里是服务器未传工地的经纬度信息，保证列表信息可以刷出来，不确定这种写法是否ok,
-									//因为没有经纬度信息，附近几公里的功能失效，用户点了没反应！！加载进去后主界面地图空白！！！
-									String[] split = projectCoordinates.split(",");
-									double x = Double.parseDouble(split[1]);
-									double y = Double.parseDouble(split[0]);
-									if (i == 0) {
-										//设定中心点坐标
-										LatLng cenpt = new LatLng(x, y);
-										//定义地图状态
-										MapStatus mMapStatus = new MapStatus.Builder()
-												.target(cenpt)
-												.build();
-										//定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-										MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-										//改变地图状态
-										mBaiduMap.setMapStatus(mMapStatusUpdate);
-									}
-									//定义Maker坐标点
-									LatLng point = new LatLng(x, y);
-									//构建Marker图标
-									BitmapDescriptor bitmap = BitmapDescriptorFactory
-											.fromResource(R.drawable.icon_gcoding);
-									//构建MarkerOption，用于在地图上添加Marker
-									OverlayOptions option = new MarkerOptions()
-											.position(point).zIndex(i)
-											.icon(bitmap);
-									//在地图上添加Marker，并显示
-									mBaiduMap.addOverlay(option);
-									Marker marker = (Marker) mBaiduMap.addOverlay(option);
-
-									markerlist.add(marker);
-								}
-							}
-
-							tv_yeshuxianshi.setText(pageindex + "/" + pageCount);
-
-
-							if (jinritongjiditu.getData().getCurrentPageNo() == 1) {
-								bt_shangyiye.setTextColor(0xff8f8f8f);
-								bt_shangyiye.setClickable(false);
-							} else {
-								bt_shangyiye.setTextColor(0xff333333);
-								bt_shangyiye.setClickable(true);
-							}
-							if (jinritongjiditu.getData().getCurrentPageNo() == jinritongjiditu.getData().getPageCount()) {
-								bt_xiayiye.setTextColor(0xff8f8f8f);
-								bt_xiayiye.setClickable(false);
-							} else {
-								bt_xiayiye.setTextColor(0xff333333);
-								bt_xiayiye.setClickable(true);
-							}
-
-							mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-
-								@Override
-								public boolean onMarkerClick(Marker arg0) {
-									// TODO Auto-generated method stub
-									final int i = arg0.getZIndex();
-									String title = listContent.get(i).getProjectName();
-									String address = listContent.get(i).getProjectAddress();
-									ll_daohang.setVisibility(View.VISIBLE);
-									tv_daohangtitle.setText(title);
-									tv_daohangaddress.setText(address);
-									rl_daohang.setOnClickListener(new View.OnClickListener() {
-										@Override
-										public void onClick(View v) {
-											naviByBaiduMap(i);
-										}
-									});
-									rl_xinxichaxun.setOnClickListener(new View.OnClickListener() {
-										@Override
-										public void onClick(View v) {
-											ll_daohang.setVisibility(View.GONE);
-											Intent intentb = new Intent(AdminTodayStatisticsActivity.this, AdminTodayinfoActivity.class);
-											intentb.putExtra("projectid", listContent.get(i).getProjectId());
-											//工地名称
-											intentb.putExtra("projectName",listContent.get(i).getProjectName());
-											//工地区县
-											intentb.putExtra("projectArea",listContent.get(i).getProjectRegion());
-											startActivity(intentb);
-										}
-									});
-									return false;
-								}
-							});
-							if (madapter == null) {
-								madapter = new MyAdapter();
-							} else {
-								madapter.notifyDataSetChanged();
-							}
-							lv_ditu.setAdapter(madapter);
-						}
-					});
-				}else{
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							Toast.makeText(AdminTodayStatisticsActivity.this,jinritongjiditu.getMessage(),Toast.LENGTH_SHORT).show();
-						}
-					});
-				}
-
-			}
-
-			@Override
-			public String onFailed(ApiError error) {
-
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						mBaiduMap.clear();
-						lv_ditu.setAdapter(null);
-						tv_yeshuxianshi.setText(0+"/"+0);
-						bt_shangyiye.setTextColor(0xff8f8f8f);
-						bt_shangyiye.setClickable(false);
-						bt_xiayiye.setTextColor(0xff8f8f8f);
-						bt_xiayiye.setClickable(false);
-					}
-				});
-
-				System.out.println("失败了。。。。。。。。。。。。。。。。。。。"+error.errorMeesage);
-				return error.errorMeesage;
-			}
-		});
+	private void notData(){
+		mBaiduMap.clear();
+		lv_ditu.setAdapter(null);
+		tv_yeshuxianshi.setText(0+"/"+0);
+		bt_shangyiye.setTextColor(0xff8f8f8f);
+		bt_shangyiye.setClickable(false);
+		bt_xiayiye.setTextColor(0xff8f8f8f);
+		bt_xiayiye.setClickable(false);
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
@@ -628,20 +442,10 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 
 			case R.id.bt_shangyiye:
 				ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() - 1, rangeindex);
-				/*if(ismax){
-					ConnectNetb(jinritongjiditu.getData().getCurrentPageNo() - 1);
-				}else {
-					ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() - 1, rangeindex);
-				}*/
 				break;
 
 			case R.id.bt_xiayiye:
 				ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() +1, rangeindex);
-				/*if(ismax){
-					ConnectNetb(jinritongjiditu.getData().getCurrentPageNo() + 1);
-				}else {
-					ConnectNeta(jinritongjiditu.getData().getCurrentPageNo() + 1, rangeindex);
-				}*/
 				break;
 
 			case R.id.bt_sousuo:
@@ -702,7 +506,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 				ismax = true;
 				rangeindex=-1;
 				ConnectNeta(1,rangeindex);
-				//ConnectNetb(1);
 				break;
 		}
 	}
@@ -760,12 +563,7 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View cell, int position, long id) {
-		//List list = wrapper.getPageController().getList();
-		//String jsonString = list.get(position-1).toString();
-		//String projectId = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("ProjectId").getAsString();
-
 		String projectId=listContent.get(position).getProjectId();
-		//Intent intent = new Intent(AdminTodayStatisticsActivity.this, TodayStatisticsDetailActivity.class);
 		Intent intent = new Intent(AdminTodayStatisticsActivity.this, AdminTodayinfoActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putString("projectid", projectId);
@@ -797,22 +595,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
-	/*	if (arg2 != null){
-			Bundle bundle = arg2.getExtras();
-			projectArea = bundle.getString("ProjectArea");
-			projectName = bundle.getString("ProjectName");
-			baogaobianhao = bundle.getString("baogaobianhao");
-			jianshedanwei = bundle.getString("jianshedanwei");
-			shigongdanwei = bundle.getString("shigongdanwei");
-			jianlidanwei = bundle.getString("jianlidanwei");
-			jiancedanwei = bundle.getString("jiancedanwei");
-			sousuo = bundle.getBoolean("sousuo");
-			tv_fujin.setText("附近:不限");
-			iv_xiala.setBackgroundResource(R.drawable.xialaa);
-			ll_xialaliebiao.setVisibility(View.GONE);
-			isxialaopen=false;
-			ismax = true;
-		}*/
 		if (arg2 != null){
 			Bundle bundle = arg2.getExtras();
 			projectArea = bundle.getString("ProjectArea");
@@ -876,7 +658,9 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		super.onDestroy();
 		//在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
 		// 退出时销毁定位
-		mLocClient.stop();
+		if(mLocClient!=null) {
+			mLocClient.stop();
+		}
 		// 关闭定位图层
 		mBaiduMap.setMyLocationEnabled(false);
 		map_jinritongji.onDestroy();
@@ -911,8 +695,12 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 
 	double latitude=0.0;
 	double longitude =0.0;
-	private String getMyself() {
 
+	/**
+	 * 获取当前位置的坐标
+	 * @return
+	 */
+	private String getMyself() {
 		if(myLocation!=null){
 			latitude=myLocation.latitude;
 			longitude=myLocation.longitude;

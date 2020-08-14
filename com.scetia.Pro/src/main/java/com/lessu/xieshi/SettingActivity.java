@@ -1,6 +1,7 @@
 package com.lessu.xieshi;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -19,6 +20,7 @@ import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
+import com.lessu.uikit.MyUpdateUtil;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.Utils.Common;
@@ -44,10 +46,6 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 		setContentView(R.layout.setting_activity);
 		setTitle("设置");
 		navigationBar.setBackgroundColor(0xFF3598DC);
-		/*BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-        menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");	
-        //navigationBar.setLeftBarItem(menuButtonitem);*/
-        
         String serviceString = LSUtil.valueStatic("service");
         TextView serviceTextView = (TextView) findViewById(R.id.serviceTextView);
         HashMap<String, String> serviceTitleMap = new HashMap<String, String>();
@@ -72,7 +70,6 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 		//解除绑定的操作
 		String description="手机号:"+ LSUtil.valueStatic("PhoneNumber")+"\n"+"用户名:"+Shref.getString(SettingActivity.this, Common.USERNAME, "");
 		LSAlert.showDialog(SettingActivity.this, "解除账号绑定",description , "确定", "取消", new DialogCallback() {
-
 			@Override
 			public void onConfirm() {
 				HashMap<String, Object> params = new HashMap<String, Object>();
@@ -83,24 +80,19 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 				EasyAPI.apiConnectionAsync(SettingActivity.this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/User_UnBind "), params, new EasyAPI.ApiFastSuccessCallBack() {
 					@Override
 					public void onSuccessJson(JsonElement result) {
-						// TODO Auto-generated method stub
 						Shref.setString(SettingActivity.this,Common.USERPOWER,"");
 						//LSUtil.setValueStatic("Token", "");
-
 						Intent intent = new Intent();
 						intent.setClass(SettingActivity.this, LoginActivity.class);
 						intent.putExtra("jiebang",true);
 						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(intent);
 						finish();
-
 					}
 				});
 			}
 			@Override
 			public void onCancel() {
-				// TODO Auto-generated method stub
-
 			}
 		});
 	}
@@ -133,60 +125,14 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 	}
 	@OnClick(R.id.updateButton)
 	public void updateButtonDidClick(){
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("PlatformType", "1");//1为安卓
-		params.put("SystemType", "2");//2为内部版
-		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), params, new EasyAPI.ApiFastSuccessCallBack() {
+		/**
+		 * 注意：此回调接口都是 强制更新时回到，不是强制更新不会回调此方法
+		 */
+		getUpdate(true,new UpdateAppCallback() {
 			@Override
-			public void onSuccessJson(JsonElement result) {
-				String versionName = null;
-				try {
-					versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
-				} catch (NameNotFoundException e) {
-					e.printStackTrace();
-				}
-				JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
-				String serviceVersion = json.get("Version").getAsString();
-				String[] localVersionArray = versionName.split("\\.");
-				String[] serviceVersionArray = serviceVersion.split("\\.");
-				int localCount = localVersionArray.length;
-				int serviceCount = serviceVersionArray.length;
-				int count = localCount;
-				if (localCount>serviceCount){
-					count = serviceCount;
-				}
-				boolean updateFlag = false;
-				try{
-				for (int i=0;i<count;i++){
-					if (Integer.parseInt(localVersionArray[i])<Integer.parseInt(serviceVersionArray[i])){
-						updateFlag = true;
-					}
-				}
-				}
-				catch(Exception e){
-					updateFlag = false;
-				}
-				if (!updateFlag){
-					LSAlert.showAlert(SettingActivity.this, "当前已是最新版本！");
-				}
-				else{
-					updateVersion = serviceVersion;
-					final String urlString = json.get("Update_Url").getAsString();
-					String description = "更新内容:\r\n"+json.get("Description").getAsString()+ "是否立即前往更新";
-					LSAlert.showDialog(SettingActivity.this, "检查到新版本",description , "确定", "取消", new DialogCallback() {
-						
-						@Override
-						public void onConfirm() {
-							downLoadFile(urlString);
-						}
-						
-						@Override
-						public void onCancel() {
-						}
-					});
-				}
+			public void updateCancel() {
+				AppApplication.exit();
 			}
-			
 		});
 	}
 	@OnClick(R.id.scanLogin)
@@ -214,11 +160,6 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 				startActivity(scanIntent);
 			}
 		},Manifest.permission.CAMERA);
-	}
-	protected void downLoadFile(String httpUrl) {
-		final Uri uri = Uri.parse(httpUrl);
-		final Intent it = new Intent(Intent.ACTION_VIEW, uri);          
-		startActivity(it);
 	}
 
 	/**

@@ -15,8 +15,8 @@ public class PasswordActivity$$ViewBinder<T extends PasswordActivity> implements
   public Unbinder bind(final Finder finder, final T target, Object source) {
     InnerUnbinder unbinder = createUnbinder(target);
     View view;
-    view = finder.findRequiredView(source, 2131230921, "method 'commitButtonDidClick'");
-    unbinder.view2131230921 = view;
+    view = finder.findRequiredView(source, 2131230945, "method 'commitButtonDidClick'");
+    unbinder.view2131230945 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -33,7 +33,7 @@ public class PasswordActivity$$ViewBinder<T extends PasswordActivity> implements
   protected static class InnerUnbinder<T extends PasswordActivity> implements Unbinder {
     private T target;
 
-    View view2131230921;
+    View view2131230945;
 
     protected InnerUnbinder(T target) {
       this.target = target;
@@ -47,7 +47,7 @@ public class PasswordActivity$$ViewBinder<T extends PasswordActivity> implements
     }
 
     protected void unbind(T target) {
-      view2131230921.setOnClickListener(null);
+      view2131230945.setOnClickListener(null);
     }
   }
 }

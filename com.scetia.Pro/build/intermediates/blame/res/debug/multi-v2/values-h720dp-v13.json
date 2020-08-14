@@ -4,15 +4,8 @@
             "outputFile": "D:\\xieshi\\com.scetia.Pro\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-h720dp-v13\\values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\403b4b8212ff2276bd09820977c55224\\appcompat-v7-22.2.1\\res\\values-h720dp\\values-h720dp.xml",
+                    "source": "D:\\ANDROID\\.gradle\\caches\\transforms-2\\files-2.1\\34541e63fff58e9be0cf430672db61b4\\appcompat-v7-24.0.0\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "4",
-                        "startOffsets": "294",
-                        "endColumns": "66",
-                        "endOffsets": "356"
-                    },
-                    "to": {
                         "startLines": "2",
                         "startColumns": "4",
                         "startOffsets": "55",

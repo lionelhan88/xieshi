@@ -1,5 +1,6 @@
 package com.lessu.xieshi.training;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -175,9 +176,7 @@ public class LearnDataActivity extends NavigationActivity {
         super.onDestroy();
     }
     private class LearnDataAdapter extends BaseAdapter{
-
         List<CourseScore> courseScores;
-
         public LearnDataAdapter(List<CourseScore> courseScores) {
             this.courseScores = courseScores;
         }
@@ -222,6 +221,9 @@ public class LearnDataActivity extends NavigationActivity {
                     viewHolder.learn_data_item_result.setTextColor(getResources().getColor(android.R.color.holo_red_light));
                     viewHolder.learn_data_item_result.setText("未完成在线教育");
                 }
+            }else{
+                viewHolder.learn_data_item_sign_date.setText("");
+                viewHolder.learn_data_item_result.setText("");
             }
             return view;
         }

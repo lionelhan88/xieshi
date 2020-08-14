@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
+import com.lessu.uikit.MyUpdateUtil;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.QRCodeActivity;
@@ -29,9 +31,11 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.SettingActivity;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.Utils.MyToast;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.login.FirstActivity;
 import com.lessu.xieshi.login.LoginActivity;
+import com.lessu.xieshi.meet.MeetingListActivity;
 import com.lessu.xieshi.mis.bean.Misguidebean;
 import com.lessu.xieshi.scan.ScanActivity;
 import com.lessu.xieshi.tianqi.activitys.TianqiActivity;
@@ -61,7 +65,7 @@ public class MisguideActivity extends NavigationActivity {
         handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
         handleButtonItem1.setOnClickMethod(this, "tianqi");
         navigationBar.addRightBarItem(handleButtonItem2);
-        navigationBar.addRightBarItem(handleButtonItem1);
+        navigationBar.setLeftBarItem(handleButtonItem1);
         //检查软件是否需要更新
         getUpdate();
         initView();
@@ -96,84 +100,15 @@ public class MisguideActivity extends NavigationActivity {
         });
     }
 
+    /**
+     * 检查更新
+     */
     private void getUpdate() {
-        HashMap<String, Object> updateparams = new HashMap<String, Object>();
-        updateparams.put("PlatformType", "1");//1为安卓
-        updateparams.put("SystemType", "2");//2为内部版
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
+        getUpdate(false,new UpdateAppCallback() {
             @Override
-            public void onSuccessJson(JsonElement result) {
-                String versionName = null;
-                try {
-                    versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
-                    System.out.println("versionName.." + versionName);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
-                String serviceVersion = json.get("Version").getAsString();
-                //是否强制更新标识
-                final int isMustBeUpdate = json.get("Update_Flag").getAsInt();
-                String[] localVersionArray = versionName.split("\\.");
-                String[] serviceVersionArray = serviceVersion.split("\\.");
-                int localCount = localVersionArray.length;
-                int serviceCount = serviceVersionArray.length;
-                int count = localCount;
-                if (localCount > serviceCount) {
-                    count = serviceCount;
-                }
-                boolean updateFlag = false;
-                try {
-                    for (int i = 0; i < count; i++) {
-                        if (Integer.parseInt(localVersionArray[i]) < Integer.parseInt(serviceVersionArray[i])) {
-                            updateFlag = true;
-                            AppApplication.isupdate = true;
-                        }
-                    }
-                } catch (Exception e) {
-                    updateFlag = false;
-                    AppApplication.isupdate = false;
-                }
-                if (updateFlag) {
-                    final String urlString = json.get("Update_Url").getAsString();
-                    String description="";
-                    if(isMustBeUpdate==1){
-                        //强制更新
-                        description = "更新内容:\r\n" + json.get("Description").getAsString()
-                                +"\r\n此更新为强制更新，否则不可用！\r\n"+ "是否立即前往更新？";
-                    }else{
-                        description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
-                    }
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MisguideActivity.this)
-                            .setTitle("检查到新版本")
-                            .setMessage(description)
-                            .setCancelable(false)
-                            .setPositiveButton("确定",null)
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if(isMustBeUpdate==1) {
-                                AppApplication.exit();
-                            }
-                        }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialogInterface) {
-                            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                            button.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    downLoadFile(urlString);
-                                }
-                            });
-                        }
-                    });
-                    dialog.show();
-                }
+            public void updateCancel() {
+                AppApplication.exit();
             }
-
         });
     }
 
@@ -204,6 +139,7 @@ public class MisguideActivity extends NavigationActivity {
         Misguidebean nianjiashenqinbean = new Misguidebean(R.drawable.nianjiashenqing, "年假管理", MisnianjiaActivity.class);
         //2018-10-16新增功能模块 “比对审批”
         Misguidebean comparisonApproval = new Misguidebean(R.drawable.shujubidui,"比对审批",MisComparisonAprovalActivity.class);
+        Misguidebean meetingManager = new Misguidebean(R.drawable.shujubidui,"会议管理", MeetingListActivity.class);
 
         Misguidebean settingbean = new Misguidebean(R.drawable.shezhimis, "系统设置", SettingActivity.class);
         Misguidebean loginbean = new Misguidebean(R.drawable.chongxindenglu, "重新登陆", LoginActivity.class);
@@ -242,6 +178,7 @@ public class MisguideActivity extends NavigationActivity {
             //新增的权限“比对审批”
             al.add(comparisonApproval);
         }
+        al.add(meetingManager);
         al.add(settingbean);
         al.add(loginbean);
 
@@ -259,7 +196,11 @@ public class MisguideActivity extends NavigationActivity {
                 public void onClick(View view) {
                     if (finalI == al.size() - 1) {
                         loginOut();
-                    } else {
+                    } else if(finalI==al.size()-3) {
+                            Intent meetingIntent = new Intent(MisguideActivity.this, al.get(finalI).clazz);
+                            meetingIntent.putExtra("type_user",1);
+                            startActivity(meetingIntent);
+                    }else{
                         startActivity(new Intent(MisguideActivity.this, al.get(finalI).clazz));
                     }
                 }
@@ -275,22 +216,33 @@ public class MisguideActivity extends NavigationActivity {
         params.put("UserName", Shref.getString(MisguideActivity.this, Common.USERNAME, ""));
         params.put("PassWord", Shref.getString(MisguideActivity.this, Common.PASSWORD, ""));
         params.put("DeviceId", Shref.getString(MisguideActivity.this, Common.DEVICEID, ""));
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get(".test/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
                 System.out.println(result);
-                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
-                String userPower = json.get("UserPower").getAsString();
-                String token = GsonValidate.getStringByKeyPath(json, "Token", "");
-                String MemberInfoStr = json.get("MemberInfoStr").getAsString();
-                String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
-                String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
-                Shref.setString(MisguideActivity.this, Common.USERPOWER, userPower);
-                Shref.setString(MisguideActivity.this,Common.USERID,userId);
-                Shref.setString(MisguideActivity.this,Common.MEMBERINFOSTR,MemberInfoStr);
-                LSUtil.setValueStatic("Token", token);
-                String shortuserpower = userPower.substring(16);
-                initMenu(shortuserpower);
+                boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
+                if(success) {
+                    JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
+                    String userPower = json.get("UserPower").getAsString();
+                    String token = GsonValidate.getStringByKeyPath(json, "Token", "");
+                    String MemberInfoStr = GsonValidate.getStringByKeyPath(json, "MemberInfoStr", "");
+                    String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
+                    String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
+                    Shref.setString(MisguideActivity.this, Common.USERPOWER, userPower);
+                    Shref.setString(MisguideActivity.this, Common.USERID, userId);
+                    Shref.setString(MisguideActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
+                    LSUtil.setValueStatic("Token", token);
+                    String shortuserpower = userPower.substring(16);
+                    initMenu(shortuserpower);
+                }else{
+                    LSAlert.showAlert(MisguideActivity.this, "提示", "当前登录账户用户名或密码错误！\n是否重新登录？"
+                            , "确定", false, new LSAlert.AlertCallback() {
+                                @Override
+                                public void onConfirm() {
+                                    loginOut();
+                                }
+                            });
+                }
             }
 
             @Override
@@ -336,5 +288,19 @@ public class MisguideActivity extends NavigationActivity {
     }
     public void tianqi() {
         startActivity(new Intent(MisguideActivity.this, TianqiActivity.class));
+    }
+    private long time=0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(System.currentTimeMillis()-time>2000){
+                time = System.currentTimeMillis();
+                MyToast.showShort("再次点击退出程序");
+                return true;
+            }else{
+                AppApplication.exit();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
