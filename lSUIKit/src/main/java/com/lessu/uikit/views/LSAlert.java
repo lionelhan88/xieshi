@@ -9,6 +9,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.util.Log;
 import android.view.View;
@@ -161,9 +163,10 @@ public class LSAlert {
      * @param cancelButtonText
      * @param callback
      */
-    public static void showDialog(Context context, String title, ListAdapter adapter, String cancelButtonText, final SelectItemCallback callback){
+    public static void showDialog(Context context, String title, @DrawableRes int iconId, ListAdapter adapter, String cancelButtonText, final SelectItemCallback callback){
         Dialog alertDialog = new AlertDialog.Builder(context).
                 setTitle(title).
+                setIcon(iconId).
                 setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

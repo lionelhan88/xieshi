@@ -91,7 +91,6 @@
             android:layout_height="match_parent"
             android:text="手写签名"
             android:textSize="@dimen/text_size_xlarge"
-            android:gravity="center"
             android:background="@drawable/xuxian_stroke_bg"/>
     </RelativeLayout>
 

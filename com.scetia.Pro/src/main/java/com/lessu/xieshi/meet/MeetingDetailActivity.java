@@ -18,10 +18,10 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.MyToast;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.config;
 import com.lessu.xieshi.meet.bean.MeetingBean;
-import com.lessu.xieshi.meet.event.MeetingScanResult;
 import com.lessu.xieshi.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.meet.event.SendMeetingListToDetail;
 import com.lessu.xieshi.mis.activitys.Content;
@@ -78,12 +78,11 @@ public class MeetingDetailActivity extends NavigationActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         navigationBar.setBackgroundColor(0xFF3598DC);
-        setTitle("会议详情");
+        setTitle("会议现场");
         handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
         navigationBar.addRightBarItem(handleButtonItem2);
         handleButtonItem2.setOnClickMethod(this, "scanSign");
         initView();
-       // initData();
     }
 
     private void initView() {
@@ -134,7 +133,6 @@ public class MeetingDetailActivity extends NavigationActivity {
                 .map(new Function<List<MeetingBean.MeetingUserBean>, MeetingBean.MeetingUserBean>() {
                     MeetingBean.MeetingUserBean bean = new MeetingBean.MeetingUserBean();
 
-                    @SuppressLint("CheckResult")
                     @Override
                     public MeetingBean.MeetingUserBean apply(List<MeetingBean.MeetingUserBean> meetingUserBeans) throws Exception {
                         for (MeetingBean.MeetingUserBean meetingUserBean : meetingBean.getListUserContent()) {
@@ -261,18 +259,13 @@ public class MeetingDetailActivity extends NavigationActivity {
 
                         @Override
                         public void clickOkButton(String base64Str) {
+                            if(base64Str.equals("")){
+                                MyToast.showShort("请手写姓名！");
+                                return;
+                            }
                             requestScanResult(result,curMeetingUserBean.getUserId(),base64Str);
                         }
 
-                        @Override
-                        public void clickCancelButton() {
-
-                        }
-
-                        @Override
-                        public void clickResetSign() {
-
-                        }
                     });
                 }else{
                     requestScanResult(result,curUserId,"");

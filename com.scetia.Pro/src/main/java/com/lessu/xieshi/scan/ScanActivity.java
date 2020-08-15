@@ -23,7 +23,6 @@ import com.lessu.xieshi.bean.PushToDx;
 import com.lessu.xieshi.bean.TrainingUserInfo;
 import com.lessu.xieshi.config;
 import com.lessu.xieshi.http.RetrofitManager;
-import com.lessu.xieshi.meet.event.MeetingScanResult;
 import com.lessu.xieshi.training.ApiObserver;
 import com.lessu.xieshi.training.BaseResponse;
 import com.lessu.xieshi.training.ScanEvent;

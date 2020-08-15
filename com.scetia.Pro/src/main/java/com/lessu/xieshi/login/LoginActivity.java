@@ -213,10 +213,10 @@ public class LoginActivity extends NavigationActivity {
 		if(deviceId==null||deviceId.equals("")) {
 			deviceId = Settings.System.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
 		}
-		/*final String DeviceId = deviceId;
-		LogUtil.showLogE("deviceID="+DeviceId);*/
+		final String DeviceId = deviceId;
+		LogUtil.showLogE("deviceID="+DeviceId);
 		//测试设备
-		final String DeviceId = "02:00:00:00:00:00";
+		//final String DeviceId = "02:00:00:00:00:00";
 		if (name == null || name.isEmpty()) {
 			LSAlert.showAlert(LoginActivity.this, "请输入账号");
 			return;

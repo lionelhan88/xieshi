@@ -139,7 +139,7 @@ public class MisguideActivity extends NavigationActivity {
         Misguidebean nianjiashenqinbean = new Misguidebean(R.drawable.nianjiashenqing, "年假管理", MisnianjiaActivity.class);
         //2018-10-16新增功能模块 “比对审批”
         Misguidebean comparisonApproval = new Misguidebean(R.drawable.shujubidui,"比对审批",MisComparisonAprovalActivity.class);
-        Misguidebean meetingManager = new Misguidebean(R.drawable.shujubidui,"会议管理", MeetingListActivity.class);
+        Misguidebean meetingManager = new Misguidebean(R.drawable.icon_mis_meeting,"会议安排", MeetingListActivity.class);
 
         Misguidebean settingbean = new Misguidebean(R.drawable.shezhimis, "系统设置", SettingActivity.class);
         Misguidebean loginbean = new Misguidebean(R.drawable.chongxindenglu, "重新登陆", LoginActivity.class);

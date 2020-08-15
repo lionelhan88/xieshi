@@ -18,7 +18,7 @@ public  class Content {
         //token ="f1af7a4e-a927-42c7-9b9b-82e1feaa5c21";//肖珍珠token
         //token ="AEE833D2-C56F-4E1B-8248-65E13FCE5F54";//大领导token
         //token ="c51a249e-8c4c-4e52-9ba5-110555e331fc";//领导token
-        token = "2321cbe7-3cfa-4741-b289-89b55b9e8265";
+        //token = "2321cbe7-3cfa-4741-b289-89b55b9e8265";
         return token;
     }
 

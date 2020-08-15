@@ -1,6 +1,7 @@
 package com.lessu.xieshi.mis.activitys;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -25,14 +26,20 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.PicSize;
+import com.lessu.xieshi.config;
+import com.lessu.xieshi.meet.CustomDialog;
+import com.lessu.xieshi.meet.MeetingDetailActivity;
 import com.lessu.xieshi.meet.MeetingListActivity;
 import com.lessu.xieshi.meet.bean.MeetingBean;
+import com.lessu.xieshi.meet.event.MeetingUserBeanToMeetingActivity;
 import com.lessu.xieshi.meet.event.MisMeetingFragmentToMis;
+import com.lessu.xieshi.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.meet.event.SendMeetingListToDetail;
 import com.lessu.xieshi.mis.fragment.CompanySignFragment;
 import com.lessu.xieshi.mis.fragment.MisMeetingDetailFragment;
 import com.lessu.xieshi.mis.fragment.PersonSignFragment;
 import com.lessu.xieshi.mis.fragment.ReplaceSignFragment;
+import com.lessu.xieshi.scan.ScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -70,6 +77,10 @@ public class MisMeetingActivity extends NavigationActivity {
     private List<Fragment> fragments;
     private String[] titles = {"会议概述","单位签到","个人签到","代签记录"};
     private  String meetingID;
+    private  BarButtonItem handleButtonItem2;
+    private MeetingBean curMeetingBean;
+    private MeetingBean.MeetingUserBean curMeetingUserBean;
+    private CustomDialog customDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +88,14 @@ public class MisMeetingActivity extends NavigationActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         navigationBar.setBackgroundColor(0xFF3598DC);
+        handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
+        navigationBar.addRightBarItem(handleButtonItem2);
+        handleButtonItem2.setVisibility(View.GONE);
+        handleButtonItem2.setOnClickMethod(this, "scanSign");
         BarButtonItem qCode = new BarButtonItem(this, R.drawable.icon_q_code);
         navigationBar.addRightBarItem(qCode);
         qCode.setOnClickMethod(this, "showSignQCode");
+
         setTitle("会议现场");
         initFragment();
         initView();
@@ -184,9 +200,94 @@ public class MisMeetingActivity extends NavigationActivity {
                 });
 
     }
+    /**
+     * 点击开启扫码签到
+     */
+    public void scanSign() {
+        Intent scanIntent = new Intent(this, ScanActivity.class);
+        scanIntent.putExtra(config.SCAN_TYPE,config.SCAN_MEETING_SIGNED);
+        startActivityForResult(scanIntent,0x12);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==0x12){
+            if(resultCode==RESULT_OK){
+                final String result =data.getStringExtra("scanResult");
+                if(result==null){
+                    return;
+                }
+                if(curMeetingBean.getMeetingNeedSign().equals("1")){
+                    //需要手写签名
+                    customDialog = CustomDialog.newInstance(curMeetingUserBean.getUnitMemberCode(),
+                            curMeetingUserBean.getMemberName(),curMeetingUserBean.getUserFullName());
+                    customDialog.show(getSupportFragmentManager(),"dialog");
+                    customDialog.setCustomDialogInterface(new CustomDialog.CustomDialogInterface() {
+
+                        @Override
+                        public void clickOkButton(String base64Str) {
+                            requestScanResult(result,curMeetingUserBean.getUserId(),base64Str);
+                        }
+
+                    });
+                }else{
+                    requestScanResult(result,curMeetingUserBean.getUserId(),"");
+                }
+            }
+        }
+    }
+
+    /**
+     * 扫码签到
+     * @param scanResult 扫码返回的meetingid
+     * @param userId 当前用户的 userid
+     */
+    private void requestScanResult(String scanResult,String userId,String signImage){
+        if(userId==null||userId.equals("")){
+            LSAlert.showAlert(this,"不是参会人员，无法签到！");
+            return;
+        }
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("Token", Content.gettoken());
+        params.put("s1", scanResult.toUpperCase());
+        params.put("s2", userId.toUpperCase());
+        params.put("s3",signImage);
+        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post("/ServiceMis.asmx/ScanCode"),
+                params, new EasyAPI.ApiFastSuccessCallBack() {
+                    @Override
+                    public void onSuccessJson(JsonElement result) {
+                        int data = result.getAsJsonObject().get("Data").getAsInt();
+                        if(data==1){
+                            if(customDialog!=null){
+                                customDialog.dismiss();
+                            }
+                            //发送通知列表页面刷新
+                            EventBus.getDefault().post(new SendMeetingDetailToList(true));
+                            //提交成功
+                            LSAlert.showAlert(MisMeetingActivity.this, "签到成功");
+                        }else if(data==2){
+                            if(customDialog!=null){
+                                customDialog.dismiss();
+                            }
+                            LSAlert.showAlert(MisMeetingActivity.this,"已经签过了,不能再签到了");
+
+                        }else{
+                            LSAlert.showAlert(MisMeetingActivity.this,"签到失败");
+                        }
+                    }
+                });
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshMeeting(MisMeetingFragmentToMis event){
+        curMeetingBean = event.getMeetingBean();
         initMeeting(event.getMeetingBean());
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveMeetingUserBean(MeetingUserBeanToMeetingActivity event){
+        curMeetingUserBean = event.getMeetingUserBean();
+        if(curMeetingUserBean.getUserId()!=null){
+            handleButtonItem2.setVisibility(View.VISIBLE);
+        }
     }
     @Override
     protected void onDestroy() {

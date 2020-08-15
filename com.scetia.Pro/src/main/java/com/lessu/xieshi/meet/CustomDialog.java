@@ -44,10 +44,6 @@ public class CustomDialog extends DialogFragment {
 
     public interface CustomDialogInterface {
         void clickOkButton(String base64Str);
-
-        void clickCancelButton();
-
-        void clickResetSign();
     }
 
     private CustomDialogInterface customDialogInterface;
@@ -92,19 +88,18 @@ public class CustomDialog extends DialogFragment {
         switch (view.getId()) {
             case R.id.bt_confirm_sign:
                 if (customDialogInterface != null) {
+                    if(!signView.isHandSign()){
+                        //没有签名动作，就返回""
+                        customDialogInterface.clickOkButton("");
+                        return;
+                    }
                     customDialogInterface.clickOkButton(signView.saveBase64Str());
                 }
                 break;
             case R.id.bt_cancel_sign:
-                if (customDialogInterface != null) {
-                    customDialogInterface.clickCancelButton();
-                }
                 getDialog().dismiss();
                 break;
             case R.id.bt_reset_sign:
-                if (customDialogInterface != null) {
-                    customDialogInterface.clickResetSign();
-                }
                 signView.clear();
                 break;
         }

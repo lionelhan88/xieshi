@@ -23,6 +23,7 @@ import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.meet.bean.MeetingBean;
+import com.lessu.xieshi.meet.event.MeetingUserBeanToMeetingActivity;
 import com.lessu.xieshi.meet.event.MisMeetingFragmentToMis;
 import com.lessu.xieshi.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.mis.activitys.Content;
@@ -31,6 +32,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -74,8 +77,9 @@ public class MisMeetingDetailFragment extends LazyFragment {
     @Override
     protected void initView() {
         //签到信息
-         curUserId = Shref.getString(getActivity(), Common.USERID,"");
+        curUserId = Shref.getString(getActivity(), Common.USERID,"");
         //curUserId = Shref.testUserId;
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -110,12 +114,23 @@ public class MisMeetingDetailFragment extends LazyFragment {
                                             break;
                                         }
                                     }
+                                    //将当前页面发送到activity页面，判断是否显示扫码
+                                    EventBus.getDefault().post(new MeetingUserBeanToMeetingActivity(curMeetingUserBean));
                                 } else {
                                     LSAlert.showAlert(getActivity(), "没有数据了！");
                                 }
                                 initNowData();
                             }
                         });
+            }
+        });
+        btMeetingIsConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //确认会议通知
+                if(curMeetingUserBean.getConfirmNotify()!=null&&!curMeetingUserBean.getConfirmNotify().equals("1")){
+                    requestMeetingConfirm(meetingBean.getMeetingId(),curUserId);
+                }
             }
         });
 
@@ -138,7 +153,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
         meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
         if (curMeetingUserBean.getUserId()==null||curMeetingUserBean.getUserId().equals("")) {
-            //不是参会人员
+            //不是参会人员,隐藏会议通知确认和签到状态
             llMeetingConfirm.setVisibility(View.GONE);
             llMeetingSigned.setVisibility(View.GONE);
             return;
@@ -189,5 +204,20 @@ public class MisMeetingDetailFragment extends LazyFragment {
                         }
                     }
                 });
+    }
+
+    /**
+     * 扫码签到以后，刷新当前状态
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveMeetingDetailRefresh(SendMeetingDetailToList event){
+        initData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

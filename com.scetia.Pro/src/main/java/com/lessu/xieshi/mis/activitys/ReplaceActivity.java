@@ -83,7 +83,7 @@ public class ReplaceActivity extends NavigationActivity {
         replaceSignCompanyName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LSAlert.showDialog(ReplaceActivity.this, "选择单位", listAdapter, "取消", new LSAlert.SelectItemCallback() {
+                LSAlert.showDialog(ReplaceActivity.this, "选择单位",R.drawable.icon_dialog_company, listAdapter, "取消", new LSAlert.SelectItemCallback() {
                     @Override
                     public void selectItem(int position) {
                         MeetingCompanyBean item = (MeetingCompanyBean) listAdapter.getItem(position);
