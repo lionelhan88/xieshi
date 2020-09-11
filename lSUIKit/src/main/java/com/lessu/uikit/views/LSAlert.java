@@ -13,10 +13,13 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
+
+import com.lessu.uikit.R;
 
 /**
  * Created by lessu on 14-7-7.
@@ -110,7 +113,6 @@ public class LSAlert {
                 .create();
         alertDialog.show();
     }
-
     /**
      * 背景透明的dialog
      * @param context

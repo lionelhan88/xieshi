@@ -27,6 +27,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.kongzue.kongzueupdatesdk.BuildConfig;
 import com.kongzue.kongzueupdatesdk.UpdateInfo;
 import com.kongzue.kongzueupdatesdk.UpdateUtil;
+import com.lessu.ShareableApplication;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.MyUpdateUtil;
@@ -47,6 +48,7 @@ public class NavigationActivity extends FragmentActivity {
     private BarButtonItem handleButtonItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ShareableApplication.activities.add(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
@@ -168,7 +170,7 @@ public class NavigationActivity extends FragmentActivity {
         HashMap<String, Object> updateparams = new HashMap<String, Object>();
         updateparams.put("PlatformType", "1");//1为安卓
         updateparams.put("SystemType", "2");//2为内部版
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
+        EasyAPI.apiConnectionAsync(this, isShowDialog, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
                 String versionName = null;

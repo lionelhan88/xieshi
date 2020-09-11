@@ -80,7 +80,6 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 				Gson gson = new Gson();
 				String paramJsonString = gson.toJson(params);
 				xieshiMap.put("param", paramJsonString);
-
 				requestHandle = getSharedClient().get(urlString, new RequestParams(xieshiMap), connectionHandler);
 				Log.d("api_params:",xieshiMap.toString());
 			}else{

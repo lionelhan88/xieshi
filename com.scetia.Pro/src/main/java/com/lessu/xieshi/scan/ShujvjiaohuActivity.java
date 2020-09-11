@@ -22,7 +22,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.bean.XalTal;
 import com.lessu.xieshi.customView.DragLayout;
@@ -313,7 +313,7 @@ public class ShujvjiaohuActivity extends NavigationActivity implements View.OnCl
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            MyToast.showShort("没有上传任何号码");
+                            ToastUtil.showShort("没有上传任何号码");
                         }
                     });
                 }
@@ -391,7 +391,7 @@ public class ShujvjiaohuActivity extends NavigationActivity implements View.OnCl
                 if(qveshi){
                     tishistr= tishistr+"，且部分样品缺失唯一性标识，请确认!";
                 }
-                MyToast.showShort("共下载"+xalTallist.size()+"条数据。"+tishistr);
+                ToastUtil.showShort("共下载"+xalTallist.size()+"条数据。"+tishistr);
             }
 
             return convertView;

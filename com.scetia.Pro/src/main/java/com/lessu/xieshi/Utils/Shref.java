@@ -8,7 +8,8 @@ import android.content.SharedPreferences;
  */
 public class Shref {
     public static final String PREF_NAME = "config";
-    public static final String testUserId = "ab828970-72bd-4574-92a3-84b013c44b3a";
+    public static final String testUserId = "de9374a7-16cb-4a24-862a-c20b0bf07e57";
+    public static final String BLUETOOTH_DEVICE="deviceaddress";
     public static boolean getBoolean(Context ctx, String key,
                                      boolean defaultValue) {
         SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,

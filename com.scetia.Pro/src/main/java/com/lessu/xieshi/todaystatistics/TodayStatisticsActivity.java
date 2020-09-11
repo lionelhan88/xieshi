@@ -23,7 +23,7 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.bean.JinriItem;
 import com.lessu.xieshi.bean.Jinritongji;
 
@@ -158,7 +158,7 @@ public class TodayStatisticsActivity extends NavigationActivity implements OnIte
 
 			@Override
 			public String onFailed(ApiError error) {
-				MyToast.showShort("当前没有内容");
+				ToastUtil.showShort("当前没有内容");
 				return null;
 			}
 		});

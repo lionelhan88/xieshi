@@ -3,6 +3,8 @@ package com.lessu.xieshi.meet.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.meet.bean.MeetingBean;
 import com.lessu.xieshi.mis.base.BaseView;
 
@@ -22,14 +24,24 @@ public class MeetingListAdapter extends BaseQuickAdapter<MeetingBean, BaseViewHo
         //会议结束时间
         helper.setText(R.id.meeting_list_item_end_date,item.getMeetingEndTime());
         helper.addOnClickListener(R.id.meeting_list_item_confirm);
+        String curUserId = Shref.getString(mContext,Common.USERID,"");
+        MeetingBean.MeetingUserBean curBean = null;
+        for (MeetingBean.MeetingUserBean meetingUserBean:item.getListUserContent()){
+            if(meetingUserBean.getUserId().equals(curUserId)){
+                curBean = meetingUserBean;
+                break;
+            }
+        }
         //会议是否确认
-        if(item.getMeetingConfirm().equals("0")){
+        if(curBean==null){
+            helper.setGone(R.id.meeting_list_item_confirm,false);
+        } else if(curBean.getConfirmNotify().equals("0")){
             //会议未确认
-            helper.setBackgroundRes(R.id.meeting_list_item_confirm,R.drawable.text_orange_stroke_bg);
-            helper.setText(R.id.meeting_list_item_confirm,"确认会议");
+            helper.setTextColor(R.id.meeting_list_item_confirm,mContext.getResources().getColor(R.color.orange1));
+            helper.setText(R.id.meeting_list_item_confirm,"未确认");
         }else{
             //会议已确认
-            helper.setBackgroundRes(R.id.meeting_list_item_confirm,R.drawable.text_blue_round_bg);
+            helper.setTextColor(R.id.meeting_list_item_confirm,mContext.getResources().getColor(R.color.black));
             helper.setText(R.id.meeting_list_item_confirm,"已确认");
         }
     }

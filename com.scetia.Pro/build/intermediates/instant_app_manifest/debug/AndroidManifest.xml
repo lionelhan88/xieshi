@@ -3,7 +3,7 @@
     package="com.scetia.Pro"
     android:targetSandboxVersion="2"
     android:versionCode="2"
-    android:versionName="1.031" >
+    android:versionName="1.032" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -66,8 +66,9 @@
         android:requestLegacyExternalStorage="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.lessu.xieshi.mis.activitys.ReplaceActivity" />
-        <activity android:name="com.lessu.xieshi.mis.activitys.MisMeetingActivity" />
+        <activity android:name="com.lessu.xieshi.meet.OtherJoinMeetingActivity" />
+        <activity android:name="com.lessu.xieshi.meet.ReplaceActivity" />
+        <activity android:name="com.lessu.xieshi.meet.MisMeetingActivity" />
         <activity android:name="com.lessu.xieshi.meet.MeetingDetailActivity" />
         <!--
          API24以下的apk安装再全面屏手机上时因为默认长宽比比较小，底部会出现黑色间隔，添加此配置，可是界面充满屏幕，24以上
@@ -239,7 +240,7 @@
         <activity
             android:name="com.lessu.xieshi.scan.PrintDataActivity"
             android:label="PrintDataActivity" />
-        <activity android:name="com.lessu.xieshi.scan.ConnectblueActivity" />
+        <activity android:name="com.lessu.xieshi.scan.PrintDataHomeActivity" />
         <activity android:name="com.lessu.xieshi.scan.ShebeixinxiActivity" />
         <activity android:name="com.lessu.xieshi.scan.ShujvjiaohuActivity" />
         <activity android:name="com.lessu.xieshi.scan.YangpinqverenActivity" />
@@ -267,6 +268,7 @@
         <activity android:name="com.lessu.xieshi.mis.activitys.MisComparisonAprovalActivity" />
         <activity android:name="com.lessu.xieshi.mis.activitys.MisComparionObjActivity" />
         <activity android:name="com.lessu.xieshi.training.LearnDataActivity" />
+        <activity android:name="com.lessu.xieshi.ScalePictureActivity" />
         <activity
             android:name="com.lessu.xieshi.training.OnlineLearnActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

@@ -21,7 +21,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.customView.DragLayout;
 
@@ -223,10 +223,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
         System.out.println("alleft...."+alleft);
         System.out.println("alright...."+alright);
         Shuaxinyemian();
-
-
-
-
     }
 
     private void Shuaxinyemian() {
@@ -471,7 +467,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    MyToast.showShort("服务器未返回任何数据");
+                                    ToastUtil.showShort("服务器未返回任何数据");
                                 }
                             });
                         }else{
@@ -485,14 +481,14 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            MyToast.showShort("您上报的样品中含有未登记的标识，上报终止!");
+                                            ToastUtil.showShort("您上报的样品中含有未登记的标识，上报终止!");
                                         }
                                     });
                                 }else if(retStatus.equals("2")){
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            MyToast.showShort("您上报的样品已确认，上报终止!");
+                                            ToastUtil.showShort("您上报的样品已确认，上报终止!");
                                         }
                                     });
 
@@ -500,7 +496,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            MyToast.showShort("您上报的样品异常，上报终止!");
+                                            ToastUtil.showShort("您上报的样品异常，上报终止!");
                                         }
                                     });
 
@@ -508,7 +504,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            MyToast.showShort("您上报的样品缺" +"" + "件"+"，上报终止!");
+                                            ToastUtil.showShort("您上报的样品缺" +"" + "件"+"，上报终止!");
                                         }
                                     });
                                 }else if(retStatus.equals("0")){
@@ -574,7 +570,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                MyToast.showShort(message.toString());
+                                                ToastUtil.showShort(message.toString());
                                             }
                                         });
 
@@ -582,7 +578,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                MyToast.showShort("上报成功");
+                                                ToastUtil.showShort("上报成功");
                                             }
                                         });
 
@@ -593,7 +589,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        MyToast.showShort("您上报了多条样品的标识数据，请检查后再试");
+                                        ToastUtil.showShort("您上报了多条样品的标识数据，请检查后再试");
                                     }
                                 });
 

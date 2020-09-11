@@ -28,7 +28,7 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.bean.PaidItem;
@@ -118,7 +118,7 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                 try {
                     Date parse = sdf.parse(paidItem.getEndDate());
                     if(parse!=null) {
-                        betweenDay = Common.betweenDate(new Date(), parse);
+                        betweenDay = Common.getGapCount(new Date(), parse);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -127,12 +127,18 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                         .inflate(R.layout.learns_tag_item_layout,flowLayout,false);
                 TextView v = ll.findViewById(R.id.learns_tag_item_name);
                 TextView over = ll.findViewById(R.id.learns_tag_item_over);
-                //如果当前日期距离课程结束日期小于等于7天，显示红色,否则显示正常颜色
+                //如果当前日期距离课程结束日期小于等于7天，显示橘黄色,否则显示正常颜色
                 if(betweenDay>=0&&betweenDay<=7){
                     ll.setBackgroundResource(R.drawable.tag_click_background_red);
                     v.setText(paidItem.getProjectName()+"(截止时间："+paidItem.getEndDate()+")");
                     return ll;
+                }else if(betweenDay<0){
+                    //如果超过截止日期，则显示灰色
+                    ll.setBackgroundResource(R.drawable.tag_click_background_gray);
+                    v.setText(paidItem.getProjectName()+"(截止时间："+paidItem.getEndDate()+")");
+                    return ll;
                 }
+                //其他日期显示蓝色
                 ll.setBackgroundResource(R.drawable.tag_click_background);
                 v.setTextColor(getResources().getColor(android.R.color.white));
                 v.setText(paidItem.getProjectName()+"(截止时间："+paidItem.getEndDate()+")");

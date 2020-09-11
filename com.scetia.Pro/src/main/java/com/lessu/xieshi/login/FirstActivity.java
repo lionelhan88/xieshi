@@ -34,37 +34,32 @@ import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.gyf.immersionbar.ImmersionBar;
-import com.kongzue.kongzueupdatesdk.UpdateUtil;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
-import com.lessu.uikit.MyUpdateUtil;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.AppApplication;
-import com.lessu.xieshi.BaseActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.SettingActivity;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ImageloaderUtil;
 import com.lessu.xieshi.Utils.LogUtil;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.Utils.PicSize;
-import com.lessu.xieshi.Utils.SavePic;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.UriUtils;
-import com.lessu.xieshi.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.construction.ConstructionListActivity;
 import com.lessu.xieshi.dataauditing.DataAuditingActivity;
 import com.lessu.xieshi.dataexamine.DataExamineActivity;
 import com.lessu.xieshi.map.ProjectListActivity;
 import com.lessu.xieshi.meet.MeetingListActivity;
-import com.lessu.xieshi.mis.activitys.MisguideActivity;
 import com.lessu.xieshi.scan.BluetoothActivity;
 import com.lessu.xieshi.scan.PrintDataActivity;
+import com.lessu.xieshi.scan.PrintDataHomeActivity;
 import com.lessu.xieshi.scan.YangpinshibieActivity;
 import com.lessu.xieshi.tianqi.activitys.TianqiActivity;
 import com.lessu.xieshi.tianqi.bean.Hourbean;
@@ -77,8 +72,6 @@ import com.lessu.xieshi.uploadpicture.UploadPictureActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -335,17 +328,6 @@ public class FirstActivity extends NavigationActivity {
                 AppApplication.exit();
             }
         });
-    }
-
-
-    /**
-     * 去浏览器下载安装
-     * @param httpUrl
-     */
-    protected void downLoadFile(String httpUrl) {
-        final Uri uri = Uri.parse(httpUrl);
-        final Intent it = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(it);
     }
 
     private void initView() {
@@ -669,7 +651,7 @@ public class FirstActivity extends NavigationActivity {
             ll_seccion3.setVisibility(View.VISIBLE);
             ll_seccion4.setVisibility(View.VISIBLE);
             ll_seccion5.setVisibility(View.VISIBLE);
-            ll_seccion6.setVisibility(View.VISIBLE);
+            ll_seccion6.setVisibility(View.INVISIBLE);
             iv_seccion1.setImageResource(R.drawable.shujushenhe1);
             tv_seccion1.setText("记录审核");
             iv_seccion2.setImageResource(R.drawable.baogaopizhun);
@@ -742,7 +724,7 @@ public class FirstActivity extends NavigationActivity {
                 public void onClick(View view) {
 
                     Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
-                    intentMeeting.putExtra("type_user",0);
+                    intentMeeting.putExtra("type_user",1);
                     startActivity(intentMeeting);
                 }
             });
@@ -834,7 +816,7 @@ public class FirstActivity extends NavigationActivity {
         if(keyCode==KeyEvent.KEYCODE_BACK){
             if(System.currentTimeMillis()-time>2000){
                 time = System.currentTimeMillis();
-                MyToast.showShort("再次点击退出程序");
+                ToastUtil.showShort("再次点击退出程序");
                 return true;
             }else{
                 AppApplication.exit();

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp">
     <LinearLayout style="@style/info_show_list_linearLayout"
         android:background="@null">
 
@@ -39,59 +41,67 @@
             style="@style/info_show_list_edittext"
             android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/danlan"
-        android:text="请在下方框中手写下姓名作为签到记录，感谢您的配合。"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:paddingTop="@dimen/y5"
-        android:paddingBottom="@dimen/y5"
-        android:textSize="@dimen/text_size_medium" />
-
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/bt_confirm_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_blue_round_bg"
-            android:text="提交"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x10"
-            android:layout_marginBottom="@dimen/y10"/>
-        <Button
-            android:id="@+id/bt_cancel_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_gray_round_bg"
-            android:text="取消"
-            android:textColor="@color/black"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:layout_marginBottom="@dimen/y10"/>
-        <Button
-            android:id="@+id/bt_reset_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_red_round_bg"
-            android:text="重写"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/y10"/>
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/y20">
         <com.lessu.xieshi.SignView
             android:id="@+id/signView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="手写签名"
-            android:textSize="@dimen/text_size_xlarge"
-            android:background="@drawable/xuxian_stroke_bg"/>
-    </RelativeLayout>
-
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/y10"
+            android:gravity="center"
+            android:background="@color/common_background"
+            android:hint="请在方框中手写下姓名作为签到记录，感谢您的配合。"
+            app:layout_constraintBottom_toTopOf="@+id/bt_confirm_sign"/>
+        <TextView
+            android:id="@+id/bt_cancel_sign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.3"
+            android:background="@drawable/text_light_gray_stroke_bg"
+            android:text="退出签到"
+            android:gravity="center"
+            android:textColor="@color/light_gray1"
+            android:textSize="@dimen/text_size_large"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginBottom="@dimen/y10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:padding="@dimen/y5"/>
+        <TextView
+            android:id="@+id/bt_confirm_sign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.3"
+            android:background="@drawable/text_replace_sign_confirm_bg"
+            android:text="提交"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"
+            android:layout_marginBottom="@dimen/y10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/y5"/>
+        <TextView
+            android:id="@+id/bt_reset_sign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.3"
+            android:background="@drawable/text_light_gray_stroke_bg"
+            android:text="重签"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/light_gray1"
+            android:layout_marginBottom="@dimen/y10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="@dimen/y5"/>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

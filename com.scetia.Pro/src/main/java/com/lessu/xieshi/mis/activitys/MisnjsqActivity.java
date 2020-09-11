@@ -18,7 +18,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -139,13 +139,13 @@ public class MisnjsqActivity extends NavigationActivity implements View.OnClickL
                                           int dayOfMonth) {
 //                        // TODO Auto-generated method stub
 //                        if(endyear<year){
-//                            MyToast.showShort("请选择结束以前的日期");
+//                            ToastUtil.showShort("请选择结束以前的日期");
 //                            return;
 //                        }else if(endyear>=year&&endmonth<monthOfYear){
-//                            MyToast.showShort("请选择结束以前的日期");
+//                            ToastUtil.showShort("请选择结束以前的日期");
 //                            return;
 //                        }else if(endyear>=year&&endmonth==monthOfYear&&endday<dayOfMonth){
-//                            MyToast.showShort("请选择结束以前的日期");
+//                            ToastUtil.showShort("请选择结束以前的日期");
 //                            return;
 //                        }else{
                         tv_starttime.setText(year+"年"+(++monthOfYear)+"月"+dayOfMonth+"日");
@@ -184,13 +184,13 @@ public class MisnjsqActivity extends NavigationActivity implements View.OnClickL
                                           int dayOfMonth) {
                         // TODO Auto-generated method stub
 //                        if(year<startyear){
-//                            MyToast.showShort("请选择开始时间以后或者今天以后的的日期");
+//                            ToastUtil.showShort("请选择开始时间以后或者今天以后的的日期");
 //                            return;
 //                        }else if(year>=startyear&&monthOfYear<startmonth){
-//                            MyToast.showShort("请选择开始时间以后或者今天以后的的日期");
+//                            ToastUtil.showShort("请选择开始时间以后或者今天以后的的日期");
 //                            return;
 //                        }else if(year>=startyear&&monthOfYear==startmonth&&dayOfMonth<startday){
-//                            MyToast.showShort("请选择开始时间以后或者今天以后的的日期");
+//                            ToastUtil.showShort("请选择开始时间以后或者今天以后的的日期");
 //                            return;
 //                        }else{
                         tv_endtime.setText(year+"年"+(++monthOfYear)+"月"+dayOfMonth+"日");
@@ -215,7 +215,7 @@ public class MisnjsqActivity extends NavigationActivity implements View.OnClickL
 
             case R.id.bt_njsq_tijiao:
                 if(getbetweendatas<0){
-                    MyToast.showShort("拜托，请假时间不可以这样选好吗");
+                    ToastUtil.showShort("拜托，请假时间不可以这样选好吗");
                 }else {
                     String token = Content.gettoken();
                     HashMap<String, Object> params = new HashMap<String, Object>();
@@ -253,14 +253,14 @@ public class MisnjsqActivity extends NavigationActivity implements View.OnClickL
                             }else{
                                 LSAlert.showAlert(MisnjsqActivity.this,"年假申请成功^_^");
                             }
-                          //  MyToast.showShort("年假申请成功^_^)");
+                          //  ToastUtil.showShort("年假申请成功^_^)");
 
                         }
 
                         @Override
                         public String onFailed(ApiError error) {
                             System.out.println("失败了。。。。。。。。" + error.errorMeesage);
-                            MyToast.showShort(error.errorMeesage);
+                            ToastUtil.showShort(error.errorMeesage);
                             return null;
                         }
                     });

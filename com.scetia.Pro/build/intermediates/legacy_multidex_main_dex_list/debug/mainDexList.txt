@@ -155,10 +155,12 @@ com/lessu/xieshi/AppApplication$2.class
 com/lessu/xieshi/AppApplication.class
 com/lessu/xieshi/XieShiSlidingMenuActivity.class
 com/lessu/xieshi/config.class
+com/lessu/xieshi/login/LoginActivity.class
 com/lessu/xieshi/meet/MeetingDetailActivity.class
 com/lessu/xieshi/meet/MeetingListActivity.class
 com/lessu/xieshi/mis/activitys/MisMeetingActivity.class
 com/lessu/xieshi/mis/activitys/ReplaceActivity.class
+com/lessu/xieshi/mis/fragment/MisMeetingDetailFragment.class
 com/lessu/xieshi/mis/fragment/ReplaceSignFragment.class
 com/lessu/xieshi/scan/ScanActivity.class
 com/lessu/xieshi/training/LearnDataActivity.class

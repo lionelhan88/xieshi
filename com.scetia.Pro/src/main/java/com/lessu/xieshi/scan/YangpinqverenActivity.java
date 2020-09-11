@@ -16,7 +16,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.bean.XalTal;
 import com.lessu.xieshi.customView.DragLayout;
 
@@ -236,7 +236,7 @@ public class YangpinqverenActivity extends NavigationActivity implements View.On
                     current--;
                     Xianshi(current);
                 }else if(current-1<0){
-                    MyToast.showShort("已经是第一条数据了");
+                    ToastUtil.showShort("已经是第一条数据了");
                 }
 
                 break;
@@ -245,7 +245,7 @@ public class YangpinqverenActivity extends NavigationActivity implements View.On
                     current++;
                     Xianshi(current);
                 }else if(current+1>=list.size()){
-                    MyToast.showShort("已经是最后一条数据了");
+                    ToastUtil.showShort("已经是最后一条数据了");
                 }
                 break;
             case R.id.tv_yichu:
@@ -259,7 +259,7 @@ public class YangpinqverenActivity extends NavigationActivity implements View.On
                         Xianshi(current);
                     }
                 }else{
-                    MyToast.showShort("只剩最后一条数据了");
+                    ToastUtil.showShort("只剩最后一条数据了");
                 }
 
                 break;
@@ -333,7 +333,7 @@ public class YangpinqverenActivity extends NavigationActivity implements View.On
                                         });
                                 // 显示
                                 normalDialog.show();
-                             //   MyToast.showShort("共确认(" + list.size() + ")条样品信息,批号为(" + result + ")上传成功!");
+                             //   ToastUtil.showShort("共确认(" + list.size() + ")条样品信息,批号为(" + result + ")上传成功!");
                             }
                         });
                     }

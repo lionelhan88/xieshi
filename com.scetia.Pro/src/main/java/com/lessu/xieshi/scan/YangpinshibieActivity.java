@@ -36,8 +36,7 @@ public class YangpinshibieActivity extends NavigationActivity{
 
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private static BluetoothSocket bluetoothSocket = null;
-    private static final UUID uuid = UUID
-            .fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothDevice device;
     private static  InputStream inputStream;
     private static OutputStream outputStream;
@@ -142,7 +141,7 @@ public class YangpinshibieActivity extends NavigationActivity{
             @Override
             public void run() {
                 boolean flag = connect();
-                if (flag == false) {
+                if (!flag) {
                     // 连接失败
                     runOnUiThread(new Runnable() {
                         @Override
@@ -198,7 +197,6 @@ public class YangpinshibieActivity extends NavigationActivity{
                         Toast.makeText(YangpinshibieActivity.this, "连接失败!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
                 return false;
             }
             runOnUiThread(new Runnable() {
@@ -208,11 +206,8 @@ public class YangpinshibieActivity extends NavigationActivity{
                             Toast.LENGTH_SHORT).show();
                 }
             });
-
-            return true;
-        } else {
-            return true;
         }
+        return true;
     }
 
 
@@ -412,11 +407,7 @@ public class YangpinshibieActivity extends NavigationActivity{
         HttpTransportSE transport1 = new HttpTransportSE(endPoint1);
         try {
             transport1.call(soapAction1, envelope1);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (XmlPullParserException e) {
-            // TODO Auto-generated catch block
+        } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
         }
 

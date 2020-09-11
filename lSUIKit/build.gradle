@@ -36,5 +36,6 @@ dependencies {
     api 'com.gyf.immersionbar:immersionbar:3.0.0'
     api 'com.tencent.tbs.tbssdk:sdk:43903'
     api 'com.kongzue.kongzueupdatesdk:kongzueupdatesdk:1.4.5'
+    //图片加载框架
 
 }

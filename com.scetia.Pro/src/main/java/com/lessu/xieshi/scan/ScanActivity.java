@@ -84,6 +84,16 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
             zXingView.startSpot();
             return;
         }
+        if(getIntent().getStringExtra(config.SCAN_TYPE)!=null&&!result.contains("ScetiaMeetingCode")){
+            LSAlert.showAlert(this, "提示", "无效签到扫描，请联系协会工作人员！",
+                    "确定", false, new LSAlert.AlertCallback() {
+                        @Override
+                        public void onConfirm() {
+                            finish();
+                        }
+                    });
+            return;
+        }
         /**
          * 接受到扫描返回的数据，开始请求登陆
          */
@@ -143,7 +153,7 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
                         });
             }else if(result.contains("ScetiaMeetingCode")){
                 if(getIntent().getStringExtra(config.SCAN_TYPE)==null){
-                    LSAlert.showAlert(this, "提示", "请在会议详情中，使用右上角扫码签到",
+                    LSAlert.showAlert(this, "提示", "请在会议现场页面中，使用右上角扫码签到",
                             "确定", false, new LSAlert.AlertCallback() {
                                 @Override
                                 public void onConfirm() {

@@ -4,9 +4,10 @@ import com.lessu.xieshi.meet.bean.MeetingBean;
 
 public class ReplaceSignAddEvent {
     //通知列表页面是否刷新
-   private boolean refresh = false;
+    private boolean refresh = false;
     private MeetingBean.MeetingUserBean meetingUserBean;
     private String meetingID;
+
     public ReplaceSignAddEvent(boolean refresh) {
         this.refresh = refresh;
     }

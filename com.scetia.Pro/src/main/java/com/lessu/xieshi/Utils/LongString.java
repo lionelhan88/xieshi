@@ -9,8 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by fhm on 2016/11/28.
  */
 public class LongString {
-    //
-        public static String Bytes2HexString( byte[] b) {
+    public static String Bytes2HexString(byte[] b) {
         StringBuffer sb = new StringBuffer(b.length);
         for (int i = 0; i < b.length; i++) {
             String hex = Integer.toHexString(b[i] & 0xFF);
@@ -23,13 +22,11 @@ public class LongString {
     }
 
 
-    public static byte[] HexString2Bytes(String sString)
-    {
+    public static byte[] HexString2Bytes(String sString) {
         byte[] result = new byte[6];
         byte[] temp = sString.getBytes();
-        for(int i=0; i<6; ++i )
-        {
-            result[i] = uniteBytes(temp[i*2], temp[i*2+1]);
+        for (int i = 0; i < 6; ++i) {
+            result[i] = uniteBytes(temp[i * 2], temp[i * 2 + 1]);
         }
         return result;
     }

@@ -2,227 +2,255 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/common_background"
-    tools:context="com.lessu.xieshi.todaystatistics.TodayStatisticsActivity" >
+    android:orientation="vertical"
+    tools:context="com.lessu.xieshi.todaystatistics.TodayStatisticsActivity">
+
     <LinearLayout
         android:id="@+id/ll_today_satictics_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:background="@drawable/riqibeijing"
         android:gravity="center"
-        android:visibility="gone"
-        android:background="@drawable/riqibeijing">
+        android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="今日统计"
-            android:textSize="18sp"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
 
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rl_head"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:background="@drawable/riqibeijing"
-        android:padding="18dp"
-        >
+        android:padding="18dp">
+
         <TextView
             android:id="@+id/tv_qianyitian"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="前一天"
             android:textColor="#ffffff"
-            android:textSize="15sp"
-            android:text="前一天"/>
+            android:textSize="15sp" />
+
         <LinearLayout
             android:id="@+id/ll_riqi"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rili"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rili" />
+
             <TextView
                 android:id="@+id/tv_riqi"
-                android:gravity="center"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:gravity="center"
                 android:text=""
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/xiala"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/xiala" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/tv_houyitian"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="后一天"
             android:textColor="#ffffff"
-            android:textSize="15sp"
-            android:text="后一天"/>
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_margin="9dp"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:orientation="vertical"
+        android:layout_margin="9dp"
+        android:background="@drawable/xiaojuxing"
         android:gravity="center_horizontal"
-        android:background="@drawable/xiaojuxing">
+        android:orientation="vertical">
+
         <TextView
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:layout_marginTop="5dp"
+            android:text="已委托样品数"
             android:textColor="#ffffff"
-            android:text="已委托样品数"/>
+            android:textSize="11sp" />
+
         <LinearLayout
-            android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:orientation="horizontal">
+
             <TextView
-                android:layout_marginLeft="31dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:text="工程验收样品:"
                 android:textColor="#636363"
-                android:textSize="11sp"
-                android:text="工程验收样品:"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/tv_gcyanshouyp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
+                android:text=""
                 android:textColor="#3d9fe1"
-                android:text=""/>
+                android:textSize="11sp" />
+
             <TextView
-                android:layout_marginLeft="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:text="监督抽检样品:"
                 android:textColor="#636363"
-                android:textSize="11sp"
-                android:text="监督抽检样品:"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/tv_jdchoujianyp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
+                android:text=""
                 android:textColor="#3d9fe1"
-                android:text=""/>
+                android:textSize="11sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal">
+
             <TextView
-                android:layout_marginLeft="31dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:text="非工程验收样品:"
                 android:textColor="#636363"
-                android:textSize="11sp"
-                android:text="非工程验收样品:"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/tv_feigcyanshouyp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
+                android:text=""
                 android:textColor="#3d9fe1"
-                android:text=""/>
+                android:textSize="11sp" />
+
             <TextView
-                android:layout_marginLeft="110dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:text="统计时间:"
                 android:textColor="#636363"
-                android:textSize="11sp"
-                android:text="统计时间:"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/tv_tongjishijian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
+                android:text=""
                 android:textColor="#ff6600"
-                android:text=""/>
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_margin="9dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/dajuxing">
+        android:layout_margin="9dp"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="39dp"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/today_statics_list_title_color">
+
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="2.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="#ffffff"
-                android:text="检测项目"
                 android:gravity="center"
-                />
+                android:text="检测项目"
+                android:textColor="#ffffff"
+                android:textSize="11sp" />
+
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="39dp"
-                android:background="#dcdcdc"/>
+                android:background="#dcdcdc" />
+
             <TextView
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="已委托样品"
-                android:gravity="center"/>
+                android:textColor="#ffffff"
+                android:textSize="11sp" />
+
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="39dp"
-                android:background="#dcdcdc"/>
+                android:background="#dcdcdc" />
+
             <TextView
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="已检样品"
-                android:gravity="center"/>
+                android:textColor="#ffffff"
+                android:textSize="11sp" />
+
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="39dp"
-                android:background="#dcdcdc"/>
+                android:background="#dcdcdc" />
+
             <TextView
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="不合格样品"
-                android:gravity="center"/>
+                android:textColor="#ffffff"
+                android:textSize="11sp" />
+
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="39dp"
-                android:background="#dcdcdc"/>
+                android:background="#dcdcdc" />
+
             <TextView
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="未检测量"
-                android:gravity="center"/>
+                android:textColor="#ffffff"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -230,11 +258,9 @@
             android:id="@+id/pl_jinritongji"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:footerDividersEnabled="false"
             android:divider="@null"
             android:dividerHeight="0dp"
-            >
-        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+            android:footerDividersEnabled="false" />
 
     </LinearLayout>
 

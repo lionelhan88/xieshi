@@ -17,7 +17,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.bean.XianchangshikuaibBean;
 
@@ -101,7 +101,7 @@ public class XianchangActivity extends XieShiSlidingMenuActivity {
 
             @Override
             public String onFailed(ApiError error) {
-                MyToast.showShort(error.errorMeesage);
+                ToastUtil.showShort(error.errorMeesage);
                 return null;
             }
         });

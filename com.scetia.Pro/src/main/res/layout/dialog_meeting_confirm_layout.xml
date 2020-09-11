@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/white_round_stroke_bg">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/light_gray1"
+            android:text="会议通知确认"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray1"/>
+
+        <TextView
+            android:id="@+id/user_join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_xlarge"
+            android:textColor="@android:color/holo_red_light"
+            android:text="本人参会"
+            android:padding="15dp"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray1"/>
+        <TextView
+            android:id="@+id/other_join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_xlarge"
+            android:textColor="@color/danlan"
+            android:text="委托他人参会"
+            android:padding="15dp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/dialog_meeting_confirm_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_round_stroke_bg"
+        android:textSize="@dimen/text_size_xlarge"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:text="取消"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_marginBottom="15dp" />
+</LinearLayout>

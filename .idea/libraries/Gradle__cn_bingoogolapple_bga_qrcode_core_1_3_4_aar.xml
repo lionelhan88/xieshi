@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: cn.bingoogolapple:bga-qrcode-core:1.3.4@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/transforms-2/files-2.1/d8c8f90df11a70c2090fb2765cea4ddb/bga-qrcode-core-1.3.4/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../ANDROID/.gradle/caches/transforms-2/files-2.1/d8c8f90df11a70c2090fb2765cea4ddb/bga-qrcode-core-1.3.4/res" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/d8c8f90df11a70c2090fb2765cea4ddb/bga-qrcode-core-1.3.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/d8c8f90df11a70c2090fb2765cea4ddb/bga-qrcode-core-1.3.4/res" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/modules-2/files-2.1/cn.bingoogolapple/bga-qrcode-core/1.3.4/8c298d34c63693bccafa9b76618a05c073488d94/bga-qrcode-core-1.3.4-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/modules-2/files-2.1/cn.bingoogolapple/bga-qrcode-core/1.3.4/8c298d34c63693bccafa9b76618a05c073488d94/bga-qrcode-core-1.3.4-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/modules-2/files-2.1/cn.bingoogolapple/bga-qrcode-core/1.3.4/1b78b1864ba10a6e60f6f7acca9399ad709c025c/bga-qrcode-core-1.3.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/modules-2/files-2.1/cn.bingoogolapple/bga-qrcode-core/1.3.4/1b78b1864ba10a6e60f6f7acca9399ad709c025c/bga-qrcode-core-1.3.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

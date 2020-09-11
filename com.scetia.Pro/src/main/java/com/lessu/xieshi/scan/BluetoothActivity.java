@@ -17,25 +17,26 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.XieShiSlidingMenuActivity;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BluetoothActivity extends XieShiSlidingMenuActivity implements View.OnClickListener {
-    private Button switchBT;
-    //private Button searchDevices;
+public class BluetoothActivity extends XieShiSlidingMenuActivity {
+    private Switch blueSwitch;
     private BluetoothAdapter bluetoothAdapter;
-    private ListView unbondDevices;
+    private ListView unbindDevices;
     private ListView bondDevices;
     private ArrayList<BluetoothDevice> unbondDeviceslist = new ArrayList<BluetoothDevice>();
     private ArrayList<BluetoothDevice> bondDeviceslist = new ArrayList<BluetoothDevice>();
@@ -48,36 +49,48 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
         navigationBar.setBackgroundColor(0xFF3598DC);
         this.setTitle("蓝牙连接");
         handleButtonItem = new BarButtonItem(this , R.drawable.shuaxinl );
-        handleButtonItem.setOnClickMethod(this,"serachlanya");
+        handleButtonItem.setOnClickMethod(this,"searchBlueDevices");
         navigationBar.setRightBarItem(handleButtonItem);
         initView();
         initData();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //Toast.makeText(this,"请连接设备！",Toast.LENGTH_SHORT).show();
-    }
-
+    /**
+     * 初始化按钮
+     */
     private void initView() {
-        switchBT = (Button) this.findViewById(R.id.openBluetooth_tb);
-        unbondDevices = (ListView) this.findViewById(R.id.unbondDevices);
+        blueSwitch = (Switch) this.findViewById(R.id.switch_bluetooth);
+        unbindDevices = (ListView) this.findViewById(R.id.unbondDevices);
         bondDevices = (ListView) this.findViewById(R.id.bondDevices);
-        switchBT.setOnClickListener(this);
+        blueSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!blueSwitch.isPressed()){
+                    return;
+                }
+                if(isChecked){
+                    openBluetooth();
+                }else{
+                    closeBluetooth();
+                }
+            }
+        });
     }
 
-
+    /**
+     * 初始化打开蓝牙
+     */
     private void initData() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         initIntentFilter();
-        if (BlueisOpen()) {
-            System.out.println("蓝牙有开");
-            switchBT.setBackgroundResource(R.drawable.kai);
-            serachlanya();
+        if (BlueIsOpen()) {
+            //蓝牙已经打开了，直接搜索蓝牙设备
+            blueSwitch.setChecked(true);
+            searchBlueDevices();
         }else {
-            System.out.println("蓝牙没开!");
-            switchBT.setBackgroundResource(R.drawable.guan);
+            //如果蓝牙没有打开，提示用户是否打开蓝牙
+            openBluetooth();
+            blueSwitch.setChecked(true);
         }
     }
 
@@ -85,7 +98,7 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
      * 检测蓝牙是否打开
      * @return
      */
-    private boolean BlueisOpen() {
+    private boolean BlueIsOpen() {
         return this.bluetoothAdapter.isEnabled();
     }
     /**
@@ -122,40 +135,36 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent
-                        .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if(device==null) return;
                 if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
                     //发现设备，已经被绑定过的
-                    addBandDevices(device);
+                    addBondDevices(device);
                     addBondDevicesToListView();
                 } else {
                     //发现设备，未被绑定过
-                    addUnbondDevices(device);
+                    addUnbindDevices(device);
                     addUnbondDevicesToListView();
                 }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                startAnima();
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED
-                    .equals(action)) {
-                endAnima();
-                MyToast.showShort("设备搜索完毕");
+                startAnimator();
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                endAnimator();
+                ToastUtil.showShort("设备搜索完毕");
             }
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
                 if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
                     System.out.println("--------打开蓝牙-----------");
-                    switchBT.setBackgroundResource(R.drawable.kai);
-                    //searchDevices.setEnabled(true);
+                    blueSwitch.setChecked(true);
                     bondDevices.setEnabled(true);
-                    unbondDevices.setEnabled(true);
-                    serachlanya();
+                    unbindDevices.setEnabled(true);
+                    searchBlueDevices();
                 } else if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) {
                     System.out.println("--------关闭蓝牙-----------");
                     Toast.makeText(BluetoothActivity.this,"蓝牙断开了",Toast.LENGTH_SHORT).show();
-                    switchBT.setBackgroundResource(R.drawable.guan);
-                    //searchDevices.setEnabled(false);
+                    blueSwitch.setChecked(false);
                     bondDevices.setEnabled(false);
-                    unbondDevices.setEnabled(false);
+                    unbindDevices.setEnabled(false);
                 }
             }
         }
@@ -165,8 +174,7 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
      *
      * @param device
      */
-    public void addUnbondDevices(BluetoothDevice device) {
-        System.out.println("未绑定设备名称" + device.getName());
+    public void addUnbindDevices(BluetoothDevice device) {
         if (device.getName()!=null&&!unbondDeviceslist.contains(device)) {
             unbondDeviceslist.add(device);
         }
@@ -177,8 +185,7 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
      *
      * @param device
      */
-    public void addBandDevices(BluetoothDevice device) {
-        System.out.println("已绑定设备名称" + device.getName());
+    public void addBondDevices(BluetoothDevice device) {
         if (device.getName()!=null&&!bondDeviceslist.contains(device)) {
             bondDeviceslist.add(device);
         }
@@ -210,7 +217,6 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
                                     int arg2, long arg3) {
                 BluetoothDevice device = bondDeviceslist.get(arg2);
                 Intent intent = new Intent();
-                //intent.setClass(BluetoothActivity.this, PrintDataActivity.class);
                 intent.putExtra("deviceAddress", device.getAddress());
                 if(AppApplication.isGLY){
                     intent.setClass(BluetoothActivity.this, PrintDataActivity.class);
@@ -218,6 +224,8 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
                     intent.setClass(BluetoothActivity.this, YangpinshibieActivity.class);
                 }
                 startActivity(intent);
+                bluetoothAdapter.cancelDiscovery();
+
             }
         });
 
@@ -241,19 +249,17 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
                 R.layout.unbonddevice_item, from, to);
 
         //把适配器装载到listView中
-        unbondDevices.setAdapter(simpleAdapter);
+        unbindDevices.setAdapter(simpleAdapter);
 
         // 为每个item绑定监听，用于设备间的配对
-        unbondDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        unbindDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,
                                     int arg2, long arg3) {
                 try {
-                    Method createBondMethod = BluetoothDevice.class
-                            .getMethod("createBond");
-                    createBondMethod
-                            .invoke(unbondDeviceslist.get(arg2));
+                    Method createBondMethod = BluetoothDevice.class.getMethod("createBond");
+                    createBondMethod.invoke(unbondDeviceslist.get(arg2));
                     // 将绑定好的设备添加的已绑定list集合
                     bondDeviceslist.add(unbondDeviceslist.get(arg2));
                     // 将绑定好的设备从未绑定list集合中移除
@@ -261,45 +267,30 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
                     addBondDevicesToListView();
                     addUnbondDevicesToListView();
                 } catch (Exception e) {
-                    System.out.println("配对失败。。。。。。。");
-                    Toast.makeText(BluetoothActivity.this, "配对失败!", Toast.LENGTH_SHORT)
-                            .show();
+                    ToastUtil.showShort("配对失败");
                 }
             }
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.openBluetooth_tb:
-                if (!BlueisOpen()) {
-                    //蓝牙关闭的情况
-                    System.out.println("蓝牙关闭的情况");
-                    openBluetooth();
-                } else {
-                    //蓝牙打开的情况
-                    System.out.println("蓝牙打开的情况");
-                    closeBluetooth();
-                }
-                break;
-        }
-    }
-
-    public void serachlanya(){
-        if(BlueisOpen()) {
+    /**
+     * 开始搜索蓝牙
+     */
+    public void searchBlueDevices(){
+        if(BlueIsOpen()) {
             if(objectAnimator!=null) return;
-            System.out.println("搜索蓝牙开始。。。。。。。。。。。。。。。。。");
-            //initAnima();
             bondDeviceslist.clear();
             unbondDeviceslist.clear();
             bluetoothAdapter.startDiscovery();
+            ToastUtil.showShort("正在搜索蓝牙...");
         }else{
-            Toast.makeText(BluetoothActivity.this,"请打开蓝牙",Toast.LENGTH_SHORT).show();
+            openBluetooth();
         }
     }
-
-    private void initAnima() {
+    /**
+     * 初始化右上角按钮动画
+     */
+    private void initAnimator() {
         Keyframe kf0 = Keyframe.ofFloat(0f, 0f);
         Keyframe kf1 = Keyframe.ofFloat(.5f, 180f);
         Keyframe kf2 = Keyframe.ofFloat(1f, 360f);
@@ -307,28 +298,43 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity implements View
         objectAnimator = ObjectAnimator.ofPropertyValuesHolder(handleButtonItem, pvhRotation);
     }
 
-    public void startAnima(){
-        if(objectAnimator==null){
-            initAnima();
+    /**
+     * 右上角搜索按钮开启旋转动画
+     */
+    public void startAnimator() {
+        if (objectAnimator == null) {
+            initAnimator();
         }
         objectAnimator.setDuration(1000);
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
         objectAnimator.setRepeatCount(-1);
         objectAnimator.setInterpolator(new LinearInterpolator());
         objectAnimator.start();
-
     }
-    public void endAnima(){
+
+    /**
+     * 结束右上角按钮旋转动画
+     */
+    public void endAnimator(){
         if(objectAnimator!=null) {
             objectAnimator.end();
             objectAnimator=null;
         }
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            //拒绝打开蓝牙
+            if(resultCode==RESULT_CANCELED){
+                blueSwitch.setChecked(false);
+            }
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        endAnima();
+        endAnimator();
         if(bluetoothAdapter!=null) {
             bluetoothAdapter.cancelDiscovery();
         }

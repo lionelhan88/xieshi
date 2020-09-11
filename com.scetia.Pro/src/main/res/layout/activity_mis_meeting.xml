@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y10"
-            android:text="个人已签到："
+            android:text="嘉宾已签到："
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/danwei_sign_number"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y10"
-            android:text="代签记录数："
+            android:text="手动签到数："
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
@@ -122,11 +122,11 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个人签到" />
+            android:text="嘉宾签到" />
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="代签记录" />
+            android:text="手动签到" />
     </android.support.design.widget.TabLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/mis_meeting_view_pager"

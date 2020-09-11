@@ -18,7 +18,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,18 +25,12 @@ import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.gyf.immersionbar.ImmersionBar;
-import com.hjq.permissions.OnPermission;
-import com.hjq.permissions.XXPermissions;
-import com.kongzue.kongzueupdatesdk.UpdateUtil;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
-import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
-import com.lessu.uikit.MyUpdateUtil;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.AppApplication;
-import com.lessu.xieshi.BaseActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.LogUtil;
@@ -53,11 +46,9 @@ import com.lessu.xieshi.unqualified.UnqualifiedSearchActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 
 
 /**
@@ -126,6 +117,11 @@ public class LoginActivity extends NavigationActivity {
 	 */
 	private void Toboundary(String userPower) {
 		LogUtil.showLogD("原始权限数据......."+ userPower);
+		//什么都没有的账号登陆，提示角色权限
+		if(userPower.equals("")){
+			LSAlert.showAlert(this,"无角色权限！");
+			return;
+		}
 		//新增的权限“比对审批”多一位 2018-10-19
 		if(userPower.length()==15){
 			shortuserpower = userPower.substring(9,15);

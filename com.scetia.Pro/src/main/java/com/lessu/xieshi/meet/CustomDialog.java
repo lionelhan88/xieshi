@@ -25,11 +25,11 @@ import butterknife.Unbinder;
 public class CustomDialog extends DialogFragment {
 
     @BindView(R.id.bt_confirm_sign)
-    Button btConfirmSign;
+    TextView btConfirmSign;
     @BindView(R.id.bt_cancel_sign)
-    Button btCancelSign;
+    TextView btCancelSign;
     @BindView(R.id.bt_reset_sign)
-    Button btResetSign;
+    TextView btResetSign;
     @BindView(R.id.signView)
     SignView signView;
     @BindView(R.id.meeting_success_dialog_hy_code)
@@ -54,7 +54,6 @@ public class CustomDialog extends DialogFragment {
     }
 
     public static CustomDialog newInstance(String memberCode, String memberName, String userFullName) {
-
         Bundle args = new Bundle();
         args.putString("memberCode", memberCode);
         args.putString("memberName", memberName);

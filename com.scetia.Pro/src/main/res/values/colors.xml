@@ -18,4 +18,7 @@
     <color name="orange1">#FFA500</color>
     <color name="green_dark">@android:color/holo_green_dark</color>
     <color name="mis_meeting_tab_title_color">#63CFC2</color>
+    <color name="today_statics_list_title_color">#73C4ED</color>
+    <color name="replace_sign_confirm_color">#CAD7F8</color>
+
 </resources>

@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -65,7 +63,7 @@
                         android:id="@+id/meeting_detail_start_date"
                         style="@style/info_show_list_edittext"
                         android:layout_weight="1.5"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="2020-08-22 19:55:30" />
 
                     <TextView
@@ -157,7 +155,11 @@
                         android:gravity="left"
                         android:minLines="5" />
                 </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/meeting_detail_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="gone"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

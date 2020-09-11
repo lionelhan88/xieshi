@@ -34,6 +34,7 @@ import com.lessu.xieshi.Utils.JieMi;
 import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.Utils.Shref;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.UriUtils;
 import com.lessu.xieshi.customView.DragLayout;
 import com.raylinks.Function;
@@ -50,13 +51,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Observable;
+
 public class PrintDataActivity extends NavigationActivity implements View.OnClickListener {
 
     ModuleControl moduleControl = new ModuleControl();
+
     Function fun = new Function();
     private static byte flagCrc;
     private boolean isConnection = false;
@@ -181,7 +187,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         tv_tiaoma_num.setText(Tal.size() + "");
                         break;
                 }
-                // false : close the menu; true : not close the menu
                 return false;
             }
         });
@@ -198,7 +203,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
                         break;
                 }
-                // false : close the menu; true : not close the menu
                 return false;
             }
         });
@@ -234,8 +238,10 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             }
         });
         lv_xinpian.setAdapter(madapterxinpian);
-        tv_tiaoma_num.setText(Tal.size() + "");
-        tv_xinpian_num.setText(Xal.size() + "");
+        //已扫条码数
+        tv_tiaoma_num.setText(String.valueOf(Tal.size()));
+        //已读芯片数
+        tv_xinpian_num.setText(String.valueOf(Xal.size()));
 
         ll_shenqingshangbao.setOnClickListener(this);
         ll_shenhexiazai.setOnClickListener(this);
@@ -247,13 +253,12 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         tv_shujvjiaohu.setOnClickListener(this);
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
-        //这里打开对话框如果设备编号为空的话
-        // check(getDeviceAddress());
+        // 一上来就先连接设备
         device = bluetoothAdapter.getRemoteDevice(getDeviceAddress());
-        //设置当前设备名称
-        //deviceName.setText(device.getName());
-        // 一上来就先连接蓝牙设备
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -280,7 +285,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             Toast.makeText(PrintDataActivity.this, "连接失败，检查蓝牙是否打开，请返回重新连接", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    //finish();
                 } else {
                     // 连接成功z
                     runOnUiThread(new Runnable() {
@@ -290,12 +294,10 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         }
                     });
                     read();
-                    //startReceive();
                 }
             }
         }).start();
     }
-
     /**
      * 获取设备编号
      */
@@ -317,12 +319,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                //Toast.makeText(PrintDataActivity.this, "正在获取设备号。。。。。", Toast.LENGTH_LONG).show();
-                                //MyToast.showShort("正在获取设备号。。。。。");
                                 showt("正在获取设备号。。。。。");
                             }
                         });
-                        System.out.println("在断开。。。。。。。。。。。。。。");
                         duankai();
                     }
                 }
@@ -350,34 +349,28 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
      * @return String
      */
     private String getDeviceAddress() {
-        // 直接通过Context类的getIntent()即可获取Intent
         Intent intent = this.getIntent();
         // 判断deviceaddress
-        if (Shref.getString(PrintDataActivity.this, "deviceaddress", null) == null) {
-            Shref.setString(PrintDataActivity.this, "deviceaddress", intent.getStringExtra("deviceAddress"));
-           LogUtil.showLogD("null......" + intent.getStringExtra("deviceAddress"));
-            return intent.getStringExtra("deviceAddress");
-        } else {
-            String deviceaddress = Shref.getString(PrintDataActivity.this, "deviceaddress", null);
-            LogUtil.showLogD("不为null......" + intent.getStringExtra("deviceAddress"));
-            return deviceaddress;
+        String deviceAdd = Shref.getString(PrintDataActivity.this, Shref.BLUETOOTH_DEVICE, null);
+        if (deviceAdd == null) {
+            deviceAdd = intent.getStringExtra("deviceAddress");
+            Shref.setString(PrintDataActivity.this, Shref.BLUETOOTH_DEVICE, deviceAdd);
+            LogUtil.showLogD("deviceAddress为null==" +deviceAdd);
         }
+        return deviceAdd;
     }
 
     /**
      * 连接蓝牙设备
      */
-
     public boolean connect() {
         if (!isConnection) {
             try {
-                System.out.println("111111111111");
                 bluetoothSocket = device.createRfcommSocketToServiceRecord(uuid);
-                System.out.println("222222222222");
                 bluetoothSocket.connect();
                 isConnection = true;
+                //如果在搜寻蓝牙设备就关闭搜寻
                 if (bluetoothAdapter.isDiscovering()) {
-                    System.out.println("关闭适配器!");
                     bluetoothAdapter.isDiscovering();
                 }
             } catch (Exception e) {
@@ -388,23 +381,17 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         Toast.makeText(PrintDataActivity.this, "连接失败!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
                 return false;
             }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(PrintDataActivity.this, PrintDataActivity.this.device.getName() + "连接成功!",
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.showShort(device.getName()+ "连接成功!");
                 }
             });
-
-            return true;
-        } else {
-            return true;
         }
+        return true;
     }
-
 
     @Override
     protected void onDestroy() {
@@ -417,7 +404,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 inputStream.close();
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         super.onDestroy();
@@ -448,30 +434,28 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
                 boolean saolebiedetiaoma = false;
                 byte[] buffer = new byte[1024];
-                byte[] buffer2 = new byte[1024];
+                byte[] buffer2;
 
                 byte[] bLenUii = new byte[1];
                 byte[] bUii = new byte[255];
 
                 //这里会一直等待读取
-                StringBuilder sb = new StringBuilder();
                 while (true) {
                     int bytes;
                     do {
                         bytes = this.inputStream.read(buffer);
                     } while (bytes <= 0);
-
                     buffer2 = (byte[]) buffer.clone();
-                    for (int i = 0; i < buffer.length; ++i) {
-                        buffer[i] = 0;
-                    }
-                    String ceshishujv = new String(buffer2, 0, bytes);
+                    //清空缓存
+                    Arrays.fill(buffer, (byte) 0);
+                    //将缓冲区读取的字节数组转为字符串
+                    String ceshishujv;
+                    ceshishujv = new String(buffer2, 0, bytes);
                     Pattern p = Pattern.compile("\\s*|\t|\r|\n");
                     Matcher m = p.matcher(ceshishujv);
-                    ceshishujv = m.replaceAll("");
-                    Log.e("PrintDataActivity", "是不是二维码" + ceshishujv + ceshishujv.matches("^[0-9]*$"));
+                    ceshishujv = m.replaceAll("").trim();
                     //条形码
-                    if (ceshishujv != null && !ceshishujv.equals("")) {
+                    if (!ceshishujv.equals("")) {
                         if (ceshishujv.matches("^[0-9]*$")) {
                             System.out.println("是二维码");
                             if (ceshishujv.length() > 10) {
@@ -504,6 +488,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                                 tv_tiaoma_num.setText(Tal.size() + "");
                                             }
                                         });
+
                                     } else {
                                         Ts1 = null;
                                         Ts2 = null;
@@ -513,13 +498,17 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
                                 }
                             } else if (ceshishujv.length() == 10) {
-                                Ts = new String(buffer2, 0, 10);
+                                if(!Tal.contains(ceshishujv)) {
+                                    Tal.add(0, ceshishujv);
+                                }
+                                //更改 2020-09-02
+                              /*  Ts = new String(buffer2, 0, 10);
                                 String substring = Ts.substring(0, 1);
                                 if (!Tal.contains(Ts) && substring.equals("1")) {
                                     Tal.add(0,Ts);
                                 }
                                 Ts = null;
-                                System.out.println("Ts...." + Ts);
+                                System.out.println("Ts...." + Ts);*/
                                 Wenjian.baocunauto(Tal, Xal);
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -645,30 +634,24 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 if (moduleControl.UhfReaderDisconnect()) {
                     System.out.println("断开成功");
                 }
-                String s = "";
+                StringBuilder s = new StringBuilder();
                 for (int i = 0; i < Tal.size(); i++) {
-                    s = s + Tal.get(i) + ";";
+                    s.append(Tal.get(i)).append(";");
                 }
                 for (int i = 0; i < Xal.size(); i++) {
-                    s = s + Xal.get(i) + ";";
+                    s.append(Xal.get(i)).append(";");
                 }
-                //uidStr =" 35ffd0054843353230782243";
-                //AppApplication.muidstr=uidStr;
-                //Shref.setString(PrintDataActivity.this, "huiyuanhao", "0000");
                 if (uidStr != null) {
                     Intent intentshujvjiaohu = new Intent();
                     intentshujvjiaohu.putExtra("uidstr", uidStr);
-                    intentshujvjiaohu.putExtra("TALXAL", s);
+                    intentshujvjiaohu.putExtra("TALXAL", s.toString());
                     intentshujvjiaohu.setClass(PrintDataActivity.this, ShujvjiaohuActivity.class);
                     startActivity(intentshujvjiaohu);
                 } else {
                     Toast.makeText(PrintDataActivity.this, "设备编号为空", Toast.LENGTH_SHORT).show();
                 }
-
                 break;
-
         }
-
     }
 
     private void check() {
@@ -703,7 +686,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                 if (moduleControl.UhfReaderDisconnect()) {
                                     device = bluetoothAdapter.getRemoteDevice(getDeviceAddress());
                                     boolean flag = connect();
-                                    if (flag == false) {
+                                    if (!flag) {
                                         // 连接失败
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -734,6 +717,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             return;
                         }
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     if (pd != null) {
                         pd.dismiss();//关闭
@@ -759,11 +743,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             HttpTransportSE transport = new HttpTransportSE(endPoint);
             try {
                 transport.call(soapAction, envelope);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
+            } catch (IOException | XmlPullParserException e) {
                 e.printStackTrace();
             }
             SoapObject object = (SoapObject) envelope.bodyIn;
@@ -803,7 +783,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     }
 
     int i = 1;
-
     /**
      * 获取设备编号
      */
@@ -818,7 +797,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 if (bluetoothSocket != null) {
                     PrintDataActivity.bluetoothSocket.close();
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -828,12 +806,10 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 cuowulianjie = true;
                 System.out.println("ffff连接成功");
                 xunuid();
-
             } else {
                 System.out.println("连接失败");
                 lianjieshibai = true;
                 duankai();
-                return;
             }
         }
     }
@@ -869,11 +845,13 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         }
     }
 
+    /**
+     * 断开蓝牙连接
+     */
     private void duankai() {
         if (moduleControl.UhfReaderDisconnect()) {
             cuowulianjie = false;
             System.out.println("断开成功错误连接。。。。。");
-            return;
         } else {
             duankai();
         }
@@ -1008,7 +986,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     static Toast mToast = null;
 
     public void showt(String msg) {
-
         if (null == mToast) {
             //mToast=new Toast(AppApplication.getAppContext());
             mToast = Toast.makeText(PrintDataActivity.this, msg, Toast.LENGTH_SHORT);
@@ -1021,7 +998,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         while (cuowulianjie) {
             duankai();
         }
@@ -1032,22 +1008,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             System.out.println("else... 返回键");
             return super.onKeyDown(keyCode, event);
         }
-
-
     }
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event)
-//    {
-////        if (keyCode == KeyEvent.KEYCODE_BACK )
-////        {
-////            while (cuowulianjie) {
-////                duankai();
-////            }
-////            return false;
-////        }else{
-////            return false;
-////        }
-//    }
-
 
 }

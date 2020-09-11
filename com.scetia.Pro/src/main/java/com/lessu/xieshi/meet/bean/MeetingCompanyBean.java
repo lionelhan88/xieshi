@@ -10,6 +10,14 @@ public class MeetingCompanyBean {
     private String MemberCode;
     private String MemberName;
 
+    public MeetingCompanyBean() {
+    }
+
+    public MeetingCompanyBean(String memberCode, String memberName) {
+        MemberCode = memberCode;
+        MemberName = memberName;
+    }
+
     public String getMemberCode() {
         return MemberCode;
     }

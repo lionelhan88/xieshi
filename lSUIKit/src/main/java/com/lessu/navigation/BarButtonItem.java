@@ -74,6 +74,7 @@ public class BarButtonItem extends BarItem{
     	
     	LinearLayout.LayoutParams layoutParams = (LayoutParams) titleButton.getLayoutParams();
         layoutParams.width = titleButton.getImageBounds().right;
+        layoutParams.height = LayoutParams.MATCH_PARENT;
         titleButton.setLayoutParams(layoutParams);
     }
     

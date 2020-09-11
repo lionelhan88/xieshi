@@ -31,7 +31,7 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.SettingActivity;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.LogUtil;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.login.FirstActivity;
 import com.lessu.xieshi.login.LoginActivity;
@@ -178,7 +178,8 @@ public class MisguideActivity extends NavigationActivity {
             //新增的权限“比对审批”
             al.add(comparisonApproval);
         }
-        al.add(meetingManager);
+        //会议安排暂时隐藏
+       // al.add(meetingManager);
         al.add(settingbean);
         al.add(loginbean);
 
@@ -198,7 +199,7 @@ public class MisguideActivity extends NavigationActivity {
                         loginOut();
                     } else if(finalI==al.size()-3) {
                             Intent meetingIntent = new Intent(MisguideActivity.this, al.get(finalI).clazz);
-                            meetingIntent.putExtra("type_user",1);
+                            meetingIntent.putExtra("type_user",0);
                             startActivity(meetingIntent);
                     }else{
                         startActivity(new Intent(MisguideActivity.this, al.get(finalI).clazz));
@@ -295,7 +296,7 @@ public class MisguideActivity extends NavigationActivity {
         if(keyCode==KeyEvent.KEYCODE_BACK){
             if(System.currentTimeMillis()-time>2000){
                 time = System.currentTimeMillis();
-                MyToast.showShort("再次点击退出程序");
+                ToastUtil.showShort("再次点击退出程序");
                 return true;
             }else{
                 AppApplication.exit();

@@ -164,7 +164,23 @@ public class PicSize {
         Bitmap compressBitmap = BitmapFactory.decodeFile(srcPath, options);
         return compressBitmap;
     }
+    /**
+     * 按照宽高比例缩放图片
+     * @param pixWidth
+     * @param pixHeight
+     * @return
+     */
+    public static Bitmap scaleCompress(Bitmap bitmap,float pixWidth,float pixHeight){
+        //获取图片的真实宽高
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        float scaleWidth =  pixWidth/w;
+        float scaleHeight =  pixHeight/h;
 
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth,scaleHeight);
+        return Bitmap.createBitmap(bitmap,0,0,w,h,matrix,true);
+    }
     /**
      * 获取当前屏幕的宽度
      * @param context

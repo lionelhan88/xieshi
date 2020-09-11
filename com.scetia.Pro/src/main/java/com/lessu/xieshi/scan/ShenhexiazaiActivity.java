@@ -20,7 +20,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.bean.XalTal;
 import com.lessu.xieshi.customView.DragLayout;
@@ -194,7 +194,7 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                MyToast.showShort("当前无要审核的信息。");
+                                ToastUtil.showShort("当前无要审核的信息。");
                             }
                         });
                     }else {
@@ -291,18 +291,12 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                                         lv_shenheshujvjiaohu.setAdapter(myAdapter);
                                     }
                                 });
-                            } else {
                             }
 
                     }
                 }
             }
         }).start();
-
-
-
-
-
     }
     class MyAdapter extends BaseAdapter{
 
@@ -373,7 +367,7 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                 if(qveshi){
                     tishistr= tishistr+"，且部分样品缺失唯一性标识，请确认!";
                 }
-                MyToast.showShort("共下载"+alll.size()+"条数据。"+tishistr);
+                ToastUtil.showShort("共下载"+alll.size()+"条数据。"+tishistr);
             }
 
             return convertView;
@@ -393,7 +387,6 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
         } else {
             dl.open();
         }
-
     }
 
     @Override
@@ -421,7 +414,6 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                 startActivity(intent);
                 break;
             case R.id.bt_shenhexiazai:
-
                 initData();
                 break;
             case R.id.bt_shenheyaopinqveren:
@@ -431,7 +423,6 @@ public class ShenhexiazaiActivity  extends NavigationActivity implements View.On
                 intentPut.putExtra("shenhe",true);
                 //intentPut.putExtra("talxal", talxal);
                 startActivity(intentPut);
-
                 break;
         }
     }

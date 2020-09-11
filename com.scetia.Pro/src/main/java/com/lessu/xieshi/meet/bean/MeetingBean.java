@@ -1,5 +1,7 @@
 package com.lessu.xieshi.meet.bean;
 
+import android.os.Parcelable;
+
 import java.util.List;
 
 public class MeetingBean {
@@ -37,6 +39,7 @@ public class MeetingBean {
     private String MeetingUnitLimitNumber;
     private String PlaceAddress;
     private String MeetingPlace;
+    private String MeetingDetailPhoto;
     private List<MeetingUserBean> ListUserContent;
 
     public String getMeetingId() {
@@ -159,6 +162,14 @@ public class MeetingBean {
         this.ListUserContent = ListUserContent;
     }
 
+    public String getMeetingDetailPhoto() {
+        return MeetingDetailPhoto;
+    }
+
+    public void setMeetingDetailPhoto(String meetingDetailPhoto) {
+        MeetingDetailPhoto = meetingDetailPhoto;
+    }
+
     public static class MeetingUserBean {
         /**
          * UserId : b9e0ae42-e557-4dc8-b402-e2c7d31e108e
@@ -189,6 +200,12 @@ public class MeetingBean {
         private String SignTime;
         private String ConfirmNotify;
         private String MemberName;
+        // 非本人0； 本人1
+        private String IsSelf;
+        //实际参会人ID；原参会人ID
+        private String SubstituteUser;
+        //被指定的无账号的参会人
+        private String AccountNumber;
 
         public String getUserId() {
             return UserId;
@@ -292,6 +309,30 @@ public class MeetingBean {
 
         public void setMemberName(String MemberName) {
             this.MemberName = MemberName;
+        }
+
+        public String getIsSelf() {
+            return IsSelf;
+        }
+
+        public void setIsSelf(String isSelf) {
+            IsSelf = isSelf;
+        }
+
+        public String getSubstituteUser() {
+            return SubstituteUser;
+        }
+
+        public void setSubstituteUser(String substituteUser) {
+            SubstituteUser = substituteUser;
+        }
+
+        public String getAccountNumber() {
+            return AccountNumber;
+        }
+
+        public void setAccountNumber(String accountNumber) {
+            AccountNumber = accountNumber;
         }
     }
 }

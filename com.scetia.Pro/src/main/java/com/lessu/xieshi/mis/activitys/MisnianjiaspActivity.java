@@ -27,7 +27,7 @@ import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.mis.bean.Misnjbean;
 
@@ -175,7 +175,7 @@ public class MisnianjiaspActivity extends NavigationActivity implements View.OnC
         switch (view.getId()){
             case R.id.bt_njsp_pizhun:
                 if(checkedposition==-1){
-                    MyToast.showShort("请选择批准的条目");
+                    ToastUtil.showShort("请选择批准的条目");
                 }else {
                     List list = wrapper.getPageController().getList();
                     String jsonString = list.get(checkedposition).toString();
@@ -183,7 +183,7 @@ public class MisnianjiaspActivity extends NavigationActivity implements View.OnC
 
                     String name = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("xm").getAsString();
                     if(name.equals(Shref.getString(MisnianjiaspActivity.this, Common.USERNAME,null))){
-                        MyToast.showShort("不能批准自己的");
+                        ToastUtil.showShort("不能批准自己的");
                         return;
                     }
 
@@ -200,15 +200,15 @@ public class MisnianjiaspActivity extends NavigationActivity implements View.OnC
                             Misnjbean misnjbean = GsonUtil.JsonToObject(result.toString(), Misnjbean.class);
                             boolean success = misnjbean.isSuccess();
                             if(success){
-                                MyToast.showShort("批准成功");
+                                ToastUtil.showShort("批准成功");
                                 queryNJ(year+"",0+"");
                             }else{
-                                MyToast.showShort("批准未成功");
+                                ToastUtil.showShort("批准未成功");
                             }
                         }
                         @Override
                         public String onFailed(ApiError error) {
-                            MyToast.showShort("批准未成功");
+                            ToastUtil.showShort("批准未成功");
                             return null;
                         }
                     });

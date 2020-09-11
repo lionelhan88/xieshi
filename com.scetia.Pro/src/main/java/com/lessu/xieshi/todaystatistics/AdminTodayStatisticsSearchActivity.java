@@ -15,7 +15,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
 
 import butterknife.ButterKnife;
@@ -174,7 +174,7 @@ public class AdminTodayStatisticsSearchActivity extends NavigationActivity imple
 			intent.putExtras(bundle);
 			startActivity(intent);
 		}else{
-			MyToast.showShort("请选择显示的内容");
+			ToastUtil.showShort("请选择显示的内容");
 		}
 	}
 }

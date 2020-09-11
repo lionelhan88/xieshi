@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent.tbs.tbssdk:sdk:43903@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/transforms-2/files-2.1/d89edb75824fbe48bba7fe8877a20159/sdk-43903/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../ANDROID/.gradle/caches/transforms-2/files-2.1/d89edb75824fbe48bba7fe8877a20159/sdk-43903/res" />
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/transforms-2/files-2.1/d89edb75824fbe48bba7fe8877a20159/sdk-43903/jars/libs/tbs_sdk_thirdapp_v4.3.0.3_43903_sharewithdownloadwithfile_withoutGame_obfs_20200402_121309.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/d89edb75824fbe48bba7fe8877a20159/sdk-43903/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/d89edb75824fbe48bba7fe8877a20159/sdk-43903/res" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/transforms-2/files-2.1/d89edb75824fbe48bba7fe8877a20159/sdk-43903/jars/libs/tbs_sdk_thirdapp_v4.3.0.3_43903_sharewithdownloadwithfile_withoutGame_obfs_20200402_121309.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/modules-2/files-2.1/com.tencent.tbs.tbssdk/sdk/43903/ec5604a308960a9efda761110874bffd2153628d/sdk-43903-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/modules-2/files-2.1/com.tencent.tbs.tbssdk/sdk/43903/ec5604a308960a9efda761110874bffd2153628d/sdk-43903-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../ANDROID/.gradle/caches/modules-2/files-2.1/com.tencent.tbs.tbssdk/sdk/43903/2e2827b65c8c30c5072609a654650f70002befea/sdk-43903-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../ANDROID/.gradle/caches/modules-2/files-2.1/com.tencent.tbs.tbssdk/sdk/43903/2e2827b65c8c30c5072609a654650f70002befea/sdk-43903-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

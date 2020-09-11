@@ -1,6 +1,5 @@
 package com.lessu.xieshi.tianqi.activitys;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,9 +17,11 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.lessu.xieshi.BaseActivity;
+import com.gyf.immersionbar.ImmersionBar;
+import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ImageloaderUtil;
+import com.lessu.xieshi.Utils.PicSize;
 import com.lessu.xieshi.tianqi.DailyForecast;
 import com.lessu.xieshi.tianqi.DailyForecastView;
 import com.lessu.xieshi.tianqi.bean.Hourbean;
@@ -33,8 +34,6 @@ import com.lessu.xieshi.tianqi.utils.ColorShades;
 import com.lessu.xieshi.tianqi.utils.Contenttianqi;
 import com.lessu.xieshi.tianqi.utils.WeatherUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ import java.util.Random;
 
 import static com.lessu.xieshi.R.dimen.y210;
 
-public class TianqiActivity extends BaseActivity implements ITianqicontract.View{
+public class TianqiActivity extends NavigationActivity implements ITianqicontract.View{
     private ITianqicontract.Presenter presenter;
 
     private DailyForecastView df_tq;
@@ -100,18 +99,26 @@ public class TianqiActivity extends BaseActivity implements ITianqicontract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tianqi);
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
-
+        screenWidth = (int) PicSize.screenWidth(this);
+        screenHeight =(int) PicSize.screenHeight(this);
+        navigationBar.setVisibility(View.GONE);
         mLocationClient = new LocationClient(getApplicationContext());
         mBDLocationListener = new MyBDLocationListener();
         // 注册监听
         mLocationClient.registerLocationListener(mBDLocationListener);
         initView();
         initData();
+        ImmersionBar.with(this).titleBarMarginTop(rlWeatherTitle)
+                .navigationBarColor(com.lessu.uikit.R.color.light_gray)
+                .navigationBarDarkIcon(true)
+                .init();
     }
+
+    @Override
+    protected void initImmersionBar() {
+
+    }
+
     private void initView() {
         initbackgroubdlist();
         y166height = getResources().getDimensionPixelSize(R.dimen.y166);

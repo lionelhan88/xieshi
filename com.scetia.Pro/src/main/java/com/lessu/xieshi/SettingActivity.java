@@ -40,6 +40,8 @@ import butterknife.OnClick;
 public class SettingActivity extends XieShiSlidingMenuActivity {
 	protected String updateVersion;
 	private BarButtonItem handleButtonItem;
+	private TextView settingVersionName;
+	private String versionName;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +50,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 		navigationBar.setBackgroundColor(0xFF3598DC);
         String serviceString = LSUtil.valueStatic("service");
         TextView serviceTextView = (TextView) findViewById(R.id.serviceTextView);
+		settingVersionName = findViewById(R.id.setting_app_version_name);
         HashMap<String, String> serviceTitleMap = new HashMap<String, String>();
         serviceTitleMap.put("telecom", "电信服务器");
         serviceTitleMap.put("unicom", "联通服务器");
@@ -58,7 +61,12 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
         else{
         	serviceTextView.setText("当前服务器错误");
         }
-        
+		try {
+			versionName = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		settingVersionName.setText(versionName);
         ButterKnife.bind(this);
 	}
 	

@@ -70,8 +70,8 @@ public abstract class LazyFragment extends Fragment {
     protected void getMeetingList(String token, String meetingID, final ResultResponse resultResponse) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
-        params.put("s3", "");
-        params.put("s4", "");
+        /*params.put("s3", "");
+        params.put("s4", "");*/
         //传入会议id
         params.put("s1", meetingID);
 

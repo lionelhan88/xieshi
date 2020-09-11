@@ -27,7 +27,7 @@ import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.MyToast;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.mis.bean.ComparisonPlan;
 import com.lessu.xieshi.mis.bean.MisComaprisonResponse;
 
@@ -192,7 +192,7 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
         switch (view.getId()){
             case R.id.mis_com_approvaled:
                 if(checkedposition==-1){
-                    MyToast.showShort("请选择审批的条目");
+                    ToastUtil.showShort("请选择审批的条目");
                 }else{
                     List list = wrapper.getPageController().getList();
                     String jsonString = list.get(checkedposition).toString();
@@ -209,15 +209,15 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
                             MisComaprisonResponse mispingubean = GsonUtil.JsonToObject(result.toString(), MisComaprisonResponse.class);
                             boolean success = mispingubean.isSuccess();
                             if(success){
-                                 MyToast.showShort("批准成功");
+                                 ToastUtil.showShort("批准成功");
                                 queryApprovalData();
                             }else{
-                                MyToast.showShort("批准未成功");
+                                ToastUtil.showShort("批准未成功");
                             }
                         }
                         @Override
                         public String onFailed(ApiError error) {
-                            MyToast.showShort("批准未成功");
+                            ToastUtil.showShort("批准未成功");
                             return null;
                         }
                     });

@@ -32,16 +32,11 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initData();
     protected abstract void initImmersionBar();
     private Unbinder unbinder;
-    public interface ResultResponse{
-        void getResult(JsonElement result);
-    }
-    protected boolean isCreate = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view  =inflater.inflate(getLayoutId(),container,false);
         unbinder=ButterKnife.bind(this,view);
-        isCreate = true;
         return view;
     }
 
@@ -52,56 +47,9 @@ public abstract class BaseFragment extends Fragment {
         initImmersionBar();
         initData();
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(!isCreate){
-            return;
-        }
-        if(isVisibleToUser){
-            initData();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        isCreate = false;
-    }
     @Override
     public void onDestroy() {
-
         super.onDestroy();
         unbinder.unbind();
-    }
-    protected void getMeetingList(String token, String meetingID, final ResultResponse resultResponse) {
-        final HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", token);
-        params.put("s3", "");
-        params.put("s4", "");
-        //传入会议id
-        params.put("s1", meetingID);
-
-        EasyAPI.apiConnectionAsync(getActivity(), false, false, ApiMethodDescription.get("/ServiceMis.asmx/GetMeetingList"),
-                params, new EasyAPI.ApiFastSuccessFailedCallBack() {
-                    @Override
-                    public void onSuccessJson(JsonElement result) {
-                        if(getActivity().isFinishing()){
-                            return;
-                        }
-                        resultResponse.getResult(result);
-                    }
-
-                    @Override
-                    public String onFailed(ApiError error) {
-                        if(getActivity().isFinishing()){
-                            return null;
-                        }
-                        resultResponse.getResult(null);
-                        LSAlert.showAlert(getActivity(), getActivity().getString( R.string.api_connection_failed_error ), error.errorMeesage , "确定", null);
-                        return null;
-                    }
-                });
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/other_meeting_user_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/text_size_medium"
+        android:padding="15dp"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/other_meeting_user_item_tel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/text_size_medium"
+        android:padding="15dp"
+        android:textColor="@color/black"/>
+</LinearLayout>

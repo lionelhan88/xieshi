@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lessu.xieshi"
     android:versionCode="2"
-    android:versionName="1.031">
+    android:versionName="1.032">
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -52,8 +52,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mis.activitys.ReplaceActivity"></activity>
-        <activity android:name=".mis.activitys.MisMeetingActivity" />
+        <activity android:name=".meet.OtherJoinMeetingActivity"/>
+        <activity android:name=".meet.ReplaceActivity" />
+        <activity android:name=".meet.MisMeetingActivity" />
         <activity android:name=".meet.MeetingDetailActivity" />
         <!--
          API24以下的apk安装再全面屏手机上时因为默认长宽比比较小，底部会出现黑色间隔，添加此配置，可是界面充满屏幕，24以上
@@ -225,7 +226,7 @@
         <activity
             android:name=".scan.PrintDataActivity"
             android:label="PrintDataActivity" />
-        <activity android:name=".scan.ConnectblueActivity" />
+        <activity android:name=".scan.PrintDataHomeActivity"/>
         <activity android:name=".scan.ShebeixinxiActivity" />
         <activity android:name=".scan.ShujvjiaohuActivity" />
         <activity android:name=".scan.YangpinqverenActivity" />
@@ -253,6 +254,7 @@
         <activity android:name=".mis.activitys.MisComparisonAprovalActivity" />
         <activity android:name=".mis.activitys.MisComparionObjActivity" />
         <activity android:name=".training.LearnDataActivity" />
+        <activity android:name=".ScalePictureActivity" />
         <activity
             android:name=".training.OnlineLearnActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

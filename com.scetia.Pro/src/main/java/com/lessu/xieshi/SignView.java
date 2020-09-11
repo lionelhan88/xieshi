@@ -13,6 +13,9 @@ import android.util.AttributeSet;
 import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
+import com.lessu.xieshi.Utils.PicSize;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -24,7 +27,7 @@ import java.io.OutputStream;
  * Created by Xia_焱 on 2017/8/9.
  */
 
-public class SignView extends View {
+public class SignView extends android.support.v7.widget.AppCompatTextView {
 
     private Context mContext;
     //起点X
@@ -44,7 +47,7 @@ public class SignView extends View {
     //画笔颜色
     private int mPenColor = Color.BLACK;
     //背景色（指最终签名结果文件的背景颜色，默认为透明色）
-    private int mBackColor=Color.WHITE;
+    private int mBackColor=Color.TRANSPARENT;
     //是否手写了签名
     private boolean isHandSign = false;
     public SignView(Context context) {
@@ -119,9 +122,6 @@ public class SignView extends View {
         invalidate();
         return true;
     }
-
-
-
     // 手指点下屏幕时调用
     private void touchDown(MotionEvent event) {
         // 重置绘制路线
@@ -172,13 +172,26 @@ public class SignView extends View {
             isHandSign = false;
         }
     }
-
+    public  Bitmap drawBg4Bitmap(int color, Bitmap orginBitmap) {
+        Paint paint = new Paint();
+        paint.setColor(color);
+        Bitmap bitmap = Bitmap.createBitmap(orginBitmap.getWidth(),
+                orginBitmap.getHeight(), orginBitmap.getConfig());
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawRect(0, 0, orginBitmap.getWidth(), orginBitmap.getHeight(), paint);
+        canvas.drawBitmap(orginBitmap, 0, 0, paint);
+        return bitmap;
+    }
     /**
      * 将Bimap转为base64字符串
      * @return
      */
     public String saveBase64Str(){
-        Bitmap bitmap=cachebBitmap;
+        //先去除边缘空白
+        Bitmap clearTankBitmap =clearBlank(cachebBitmap,10);
+        Bitmap bitmap=drawBg4Bitmap(Color.WHITE,clearTankBitmap);
+        //压缩尺寸
+        //bitmap = PicSize.scaleCompress(bitmap, 320, 180);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
         return Base64.encodeToString(bos.toByteArray(),Base64.DEFAULT);
