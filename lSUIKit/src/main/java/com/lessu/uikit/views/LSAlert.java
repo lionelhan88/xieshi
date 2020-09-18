@@ -44,18 +44,17 @@ public class LSAlert {
         LSAlert.showAlert(context,title,detail,"确认",null);
     }
     public static void showAlert(Context context,String title,String detail,String confirmButtonTitle, final AlertCallback callback){
-        Dialog alertDialog = new AlertDialog.Builder(context).
-                setTitle(title).
-                setMessage(detail).
-                setPositiveButton(confirmButtonTitle, new DialogInterface.OnClickListener() {
+        Dialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(detail)
+                .setPositiveButton(confirmButtonTitle, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (callback!=null) {
                             callback.onConfirm();
                         }
                     }
-                })
-                .create();
+                }).create();
         alertDialog.show();
     }
     public static void showAlert(Context context,String title,String detail,String confirmButtonTitle,boolean isTouchCancel ,final AlertCallback callback){
