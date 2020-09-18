@@ -90,7 +90,7 @@ public class OtherConfirmActivity extends NavigationActivity {
             ToastUtil.showShort("请输入手机号！");
             return;
         }
-        if(!ValidateHelper.validatePhone(phone)){
+        if(phone.trim().length()!=11){
             ToastUtil.showShort("请输入正确的手机号！");
             return;
         }

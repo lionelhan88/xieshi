@@ -238,6 +238,10 @@ public class MeetingDetailActivity extends NavigationActivity {
         curMeetingUserBean.setConfirmNotify("1");
         btMeetingIsConfirm.setText("已确认");
         btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
+        //更改参会人姓名
+        curMeetingUserBean.setUserFullName(confirmEvent.getUserFullName());
+        //更改参会人手机号
+        curMeetingUserBean.setTel(confirmEvent.getUserPhone());
         meetingDetailJoinUserFullName.setText(confirmEvent.getUserFullName());
         meetingDetailJoinUserPhone.setText(confirmEvent.getUserPhone());
         //发送通知列表页面刷新

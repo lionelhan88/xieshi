@@ -647,7 +647,7 @@ public class FirstActivity extends NavigationActivity {
         }
         if (userPower.equals("01101000000000")) {//t9990001 1 检测人员
             /**
-             * 如果登录的账号中有"Meet_"开头的，才显示会议菜单按钮，其他隐藏
+             * 如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
              */
             if(Shref.getString(this,Common.USERNAME,"").toUpperCase().startsWith("MEET")){
                 ll_seccion1.setVisibility(View.VISIBLE);

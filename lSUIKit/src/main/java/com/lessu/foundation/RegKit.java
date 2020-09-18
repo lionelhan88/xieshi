@@ -11,9 +11,7 @@ public class RegKit {
 		Matcher matcher = pattern.matcher(src);    
 		if (matcher.find()){
 			return matcher.group();
-		}   
-		else
-		{
+		} else {
 			return null;
 		}
 	}
