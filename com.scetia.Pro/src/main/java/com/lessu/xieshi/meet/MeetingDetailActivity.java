@@ -3,6 +3,7 @@ package com.lessu.xieshi.meet;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.lessu.xieshi.BottomMenuDialog;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.ScalePictureActivity;
 import com.lessu.xieshi.Utils.Common;
+import com.lessu.xieshi.Utils.ImageloaderUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.config;
@@ -47,6 +49,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MeetingDetailActivity extends NavigationActivity {
+    private static final String MEETING_DETAIL_IMG="http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)
@@ -77,6 +80,8 @@ public class MeetingDetailActivity extends NavigationActivity {
     TextView meetingDetailJoinUserPhone;
     @BindView(R.id.meeting_detail_join_hy_code)
     TextView meetingDetailJoinHyCode;
+    @BindView(R.id.meeting_detail_content_img)
+    ImageView meetingDetailContentImg;
     private BarButtonItem handleButtonItem2;
     private MeetingBean meetingBean;
     private CustomDialog customDialog;
@@ -143,15 +148,19 @@ public class MeetingDetailActivity extends NavigationActivity {
         meetingDetailEndDate.setText(meetingBean.getMeetingEndTime());
         meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
-
+        //加载图片之前清除缓存
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
+        ImageLoader.getInstance().displayImage(MEETING_DETAIL_IMG,meetingDetailContentImg,
+                ImageloaderUtil.MeetingImageOptions());
         String photoUrl = meetingBean.getMeetingDetailPhoto();
         if (photoUrl == null || photoUrl.equals("")) {
             //隐藏图片显示
             meetingDetailPhoto.setVisibility(View.GONE);
         } else {
             meetingDetailPhoto.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().clearDiskCache();
-            ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto);
+            ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto,
+                    ImageloaderUtil.MeetingImageOptions());
         }
 
         if (curMeetingUserBean.getUserId() == null || curMeetingUserBean.getUserId().equals("")) {
@@ -387,7 +396,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo})
+    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo,R.id.meeting_detail_content_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_meeting_is_confirm:
@@ -435,6 +444,12 @@ public class MeetingDetailActivity extends NavigationActivity {
             case R.id.meeting_detail_photo:
                 Intent scaleIntent = new Intent(this, ScalePictureActivity.class);
                 scaleIntent.putExtra("detail_photo", meetingBean.getMeetingDetailPhoto());
+                startActivity(scaleIntent);
+                this.overridePendingTransition(R.anim.acitvity_zoom_open, 0);
+                break;
+            case R.id.meeting_detail_content_img:
+                scaleIntent = new Intent(this, ScalePictureActivity.class);
+                scaleIntent.putExtra("detail_photo", MEETING_DETAIL_IMG);
                 startActivity(scaleIntent);
                 this.overridePendingTransition(R.anim.acitvity_zoom_open, 0);
                 break;

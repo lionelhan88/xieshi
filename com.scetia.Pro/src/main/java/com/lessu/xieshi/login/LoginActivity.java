@@ -64,6 +64,16 @@ public class LoginActivity extends NavigationActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        //避免每次点击home建后，点击图标会重新创建启动页
+        if (!this.isTaskRoot()) {
+            //如果你就放在launcher Activity中话，这里可以直接return了
+            Intent mainIntent = getIntent();
+            String action = mainIntent.getAction();
+            if (mainIntent.hasCategory(Intent.CATEGORY_LAUNCHER) && action.equals(Intent.ACTION_MAIN)) {
+                finish();
+                return;
+            }
+        }
         ButterKnife.bind(this);
         navigationBar.setVisibility(View.GONE);
         ButterKnife.bind(this);

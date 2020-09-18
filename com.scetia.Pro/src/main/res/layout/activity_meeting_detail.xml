@@ -205,7 +205,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:minLines="5" />
+                    android:minLines="5"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/meeting_detail_content_img"
+                    style="@style/info_show_list_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
 
             <ImageView

@@ -3,6 +3,7 @@ package com.lessu.xieshi;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bm.library.PhotoView;
 import com.lessu.navigation.NavigationActivity;
@@ -22,7 +23,8 @@ import butterknife.OnClick;
 public class ScalePictureActivity extends NavigationActivity {
     @BindView(R.id.scale_picture_image)
     PhotoView scalePictureImage;
-
+    @BindView(R.id.scale_rl)
+    RelativeLayout scaleBackground;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,12 @@ public class ScalePictureActivity extends NavigationActivity {
         //启用放大图片
         scalePictureImage.enable();
         String photoUrl = getIntent().getStringExtra("detail_photo");
-        ImageLoader.getInstance().displayImage(photoUrl,scalePictureImage, ImageloaderUtil.imageconfigtianqi());
+        ImageLoader.getInstance().displayImage(photoUrl,scalePictureImage);
+        if(photoUrl!=null&&photoUrl.contains("Scetia_Meet_Gonggao")){
+            navigationBar.setBackgroundColor(0xFF3598DC);
+            setTitle("会议内容");
+            scaleBackground.setBackgroundColor(getResources().getColor(R.color.white));
+        }
     }
 
     @OnClick(R.id.scale_picture_image)
