@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: ./com.scetia.Pro/libs/BaiduLBS_Android.jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/com.scetia.Pro/libs/BaiduLBS_Android.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
