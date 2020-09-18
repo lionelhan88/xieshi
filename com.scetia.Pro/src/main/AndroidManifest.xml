@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lessu.xieshi"
     android:versionCode="2"
-    android:versionName="1.032">
+    android:versionName="1.036">
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -56,13 +56,6 @@
         <activity android:name=".meet.ReplaceActivity" />
         <activity android:name=".meet.MisMeetingActivity" />
         <activity android:name=".meet.MeetingDetailActivity" />
-        <!--
-         API24以下的apk安装再全面屏手机上时因为默认长宽比比较小，底部会出现黑色间隔，添加此配置，可是界面充满屏幕，24以上
-        默认支持全屏
-        -->
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.4" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" />
@@ -261,7 +254,7 @@
             android:hardwareAccelerated="true" />
         <activity android:name=".training.TrainingActivity" /> <!-- BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" -->
         <activity android:name=".meet.MeetingListActivity" />
-
+        <activity android:name=".meet.OtherConfirmActivity"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"

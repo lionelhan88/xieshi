@@ -69,7 +69,7 @@ public class PersonSignFragment extends LazyFragment {
                                     }
                                     EventBus.getDefault().post(new MisMeetingFragmentToMis(meetingBeans.get(0)));
                                     for (MeetingBean.MeetingUserBean meetingUserBean : meetingBeans.get(0).getListUserContent()) {
-                                        //不是代签，并且是个人签的
+                                        //不是代签，并且是嘉宾签的
                                         if(meetingUserBean.getSubstituteSign().equals("0")&&meetingUserBean.getType().equals("1")) {
                                             //已经签到的排在后面，未签到的排在前面
                                             if(meetingUserBean.getCheckStatus().equals("1")){

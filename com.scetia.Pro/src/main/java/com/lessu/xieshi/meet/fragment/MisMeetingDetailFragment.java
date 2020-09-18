@@ -78,7 +78,6 @@ public class MisMeetingDetailFragment extends LazyFragment {
     protected void initView() {
         //签到信息
         curUserId = Shref.getString(getActivity(), Common.USERID, "");
-        //curUserId = Shref.testUserId;
         EventBus.getDefault().register(this);
     }
 

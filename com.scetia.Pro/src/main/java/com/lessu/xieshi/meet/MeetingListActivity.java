@@ -108,9 +108,9 @@ public class MeetingListActivity extends NavigationActivity {
      */
     private void initData() {
         typeUser = getIntent().getIntExtra("type_user", -1);
-        //默认日期为当前日期和延后一周
+        //默认日期为当前日期和延后10天
         meetingListDateSelectStart.setText(DateUtil.getDate(new Date()));
-        meetingListDateSelectEnd.setText(DateUtil.getDayAgo(20));
+        meetingListDateSelectEnd.setText(DateUtil.getDayAgo(10));
         getMeetingList(true);
     }
 

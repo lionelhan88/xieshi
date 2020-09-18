@@ -646,14 +646,43 @@ public class FirstActivity extends NavigationActivity {
 
         }
         if (userPower.equals("01101000000000")) {//t9990001 1 检测人员
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.VISIBLE);
-            ll_seccion5.setVisibility(View.VISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-            iv_seccion1.setImageResource(R.drawable.shujushenhe1);
-            tv_seccion1.setText("记录审核");
+            /**
+             * 如果登录的账号中有"Meet_"开头的，才显示会议菜单按钮，其他隐藏
+             */
+            if(Shref.getString(this,Common.USERNAME,"").toUpperCase().startsWith("MEET")){
+                ll_seccion1.setVisibility(View.VISIBLE);
+                ll_seccion2.setVisibility(View.INVISIBLE);
+                ll_seccion3.setVisibility(View.INVISIBLE);
+                ll_seccion4.setVisibility(View.INVISIBLE);
+                ll_seccion5.setVisibility(View.INVISIBLE);
+                ll_seccion6.setVisibility(View.INVISIBLE);
+                iv_seccion1.setImageResource(R.drawable.home_meeting_bg);
+                tv_seccion1.setText("会议安排");
+                ll_seccion1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
+                        intentMeeting.putExtra("type_user",1);
+                        startActivity(intentMeeting);
+                    }
+                });
+            }else{
+                ll_seccion1.setVisibility(View.VISIBLE);
+                ll_seccion2.setVisibility(View.VISIBLE);
+                ll_seccion3.setVisibility(View.VISIBLE);
+                ll_seccion4.setVisibility(View.VISIBLE);
+                ll_seccion5.setVisibility(View.VISIBLE);
+                ll_seccion6.setVisibility(View.INVISIBLE);
+                iv_seccion1.setImageResource(R.drawable.shujushenhe1);
+                tv_seccion1.setText("记录审核");
+                ll_seccion1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(FirstActivity.this, DataAuditingActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
             iv_seccion2.setImageResource(R.drawable.baogaopizhun);
             tv_seccion2.setText("报告批准");
             iv_seccion3.setImageResource(R.drawable.jinritongji1);
@@ -668,13 +697,6 @@ public class FirstActivity extends NavigationActivity {
             tv_seccion6.setText("会议安排");
 
 
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, DataAuditingActivity.class);
-                    startActivity(intent);
-                }
-            });
             ll_seccion2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -722,7 +744,6 @@ public class FirstActivity extends NavigationActivity {
             ll_seccion6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
                     intentMeeting.putExtra("type_user",1);
                     startActivity(intentMeeting);

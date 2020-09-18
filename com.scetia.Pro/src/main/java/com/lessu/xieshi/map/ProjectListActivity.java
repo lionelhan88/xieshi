@@ -299,6 +299,10 @@ public class ProjectListActivity  extends XieShiSlidingMenuActivity implements O
 		});
 	}
 
+	/**
+	 * 导航
+	 * @param position
+	 */
 	private void naviByBaiduMap(int position) {
 		if (myLocation != null){
 			LogUtil.showLogD("myLocation....."+myLocation);

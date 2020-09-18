@@ -128,7 +128,7 @@ public class ValidateActivity extends NavigationActivity {
 	@OnClick(R.id.validateButton)
 	public void validateButtonDidPress(){
 		String PhoneNumber = ((EditText)findViewById(R.id.phoneNumEditText)).getText().toString();
-		EditText validateCodeEditText = (EditText)findViewById(R.id.validateCodeEditText);
+		EditText validateCodeEditText = findViewById(R.id.validateCodeEditText);
 		if (!ValidateHelper.validatePhone(PhoneNumber)){
 			LSAlert.showAlert(ValidateActivity.this, "手机号输入有误！请重新输入");
 			return;

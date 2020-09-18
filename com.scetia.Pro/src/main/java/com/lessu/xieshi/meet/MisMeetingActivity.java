@@ -69,7 +69,8 @@ public class MisMeetingActivity extends NavigationActivity {
     @BindView(R.id.mis_meeting_view_pager)
     ViewPager misMeetingViewPager;
     private List<Fragment> fragments;
-    private String[] titles = {"会议概述","单位签到","嘉宾签到","手动签到"};
+    //2020-09-16暂时把 手动签到更名为 嘉宾签到，原嘉宾签到隐藏
+    private String[] titles = {"会议概述","单位签到","嘉宾签到"};
     private  String meetingID;
     private  BarButtonItem handleButtonItem2;
     private MeetingBean curMeetingBean;
@@ -90,7 +91,7 @@ public class MisMeetingActivity extends NavigationActivity {
         navigationBar.addRightBarItem(qCode);
         qCode.setOnClickMethod(this, "showSignQCode");
 
-        setTitle("会议现场");
+        setTitle("会议详情");
         initFragment();
         initView();
     }
@@ -111,7 +112,8 @@ public class MisMeetingActivity extends NavigationActivity {
         replaceSignFragment.setArguments(bundle1);
         fragments.add(misMeetingDetailFragment);
         fragments.add(companySignFragment);
-        fragments.add(personSignFragment);
+        //暂时隐藏嘉宾签到
+        //fragments.add(personSignFragment);
         fragments.add(replaceSignFragment);
         misMeetingViewPager.setOffscreenPageLimit(1);
     }
@@ -147,8 +149,8 @@ public class MisMeetingActivity extends NavigationActivity {
         int personSignedNumber = 0;
         misMeetingName.setText(meetingBean.getMeetingName());
         for (MeetingBean.MeetingUserBean meetingUserBean:meetingBean.getListUserContent()) {
-            // 0为单位性质，1为人员性质, 这里各个性质的签到要汇总
-            /**
+            /*
+             * 0为单位性质，1为人员性质, 这里各个性质的签到要汇总
              * SubstituteSign = 1有两种情况，一种是手动签到，一种是被指派参会，被指派参会人是属于单位签到
              * 这里需要判断 SubstituteSign=1但是SubstituteUser是空，说明不是被指派参会人,是手动签到的人
              */

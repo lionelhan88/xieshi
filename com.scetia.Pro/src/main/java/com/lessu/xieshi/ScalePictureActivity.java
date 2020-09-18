@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.bm.library.PhotoView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.Utils.ImageloaderUtil;
+import com.lessu.xieshi.Utils.PicSize;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -19,7 +21,7 @@ import butterknife.OnClick;
  */
 public class ScalePictureActivity extends NavigationActivity {
     @BindView(R.id.scale_picture_image)
-    ImageView scalePictureImage;
+    PhotoView scalePictureImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class ScalePictureActivity extends NavigationActivity {
         setContentView(R.layout.activity_scale_picture);
         navigationBar.setBackgroundColor(Color.BLACK);
         ButterKnife.bind(this);
+        //启用放大图片
+        scalePictureImage.enable();
         String photoUrl = getIntent().getStringExtra("detail_photo");
         ImageLoader.getInstance().displayImage(photoUrl,scalePictureImage, ImageloaderUtil.imageconfigtianqi());
     }

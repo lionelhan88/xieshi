@@ -179,7 +179,7 @@ public class MisguideActivity extends NavigationActivity {
             al.add(comparisonApproval);
         }
         //会议安排暂时隐藏
-       // al.add(meetingManager);
+        al.add(meetingManager);
         al.add(settingbean);
         al.add(loginbean);
 

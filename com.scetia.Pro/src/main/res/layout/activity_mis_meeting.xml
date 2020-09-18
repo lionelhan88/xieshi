@@ -19,8 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_xlarge"
-            android:text="理事会"/>
+            android:textSize="@dimen/text_size_xlarge"/>
 
         <TextView
             android:id="@+id/danwei_sign_number_label"
@@ -29,6 +28,7 @@
             android:layout_marginTop="@dimen/y10"
             app:layout_constraintStart_toStartOf="parent"
             android:text="单位已签到："
+            android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
         <TextView
@@ -38,6 +38,7 @@
             android:layout_marginTop="@dimen/y10"
             android:text="0"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/danwei_sign_number_label"
             app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
 
@@ -50,12 +51,14 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/danwei_sign_number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"
+            android:visibility="invisible"/>
         <TextView
             android:id="@+id/person_sign_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y10"
+            android:visibility="invisible"
             android:text="0"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/person_sign_number_label"
@@ -66,10 +69,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y10"
-            android:text="手动签到数："
+            android:text="嘉宾已签到："
+            android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
+            app:layout_constraintStart_toStartOf="@+id/danwei_sign_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
         <TextView
             android:id="@+id/daiqian_sign_number"
             android:layout_width="wrap_content"
@@ -77,8 +82,9 @@
             android:layout_marginTop="@dimen/y10"
             android:text="0"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/daiqian_sign_number_label"
-            app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
+            app:layout_constraintTop_toBottomOf="@+id/mis_meeting_name"/>
 
         <TextView
             android:id="@+id/total_sign_number_label"
@@ -86,9 +92,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y10"
             android:text="总签到人数："
+            android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/danwei_sign_number"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/person_sign_number"/>
         <TextView
             android:id="@+id/total_sign_number"
@@ -97,8 +103,9 @@
             android:layout_marginTop="@dimen/y10"
             android:text="0"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/person_sign_number_label"
-            app:layout_constraintTop_toBottomOf="@+id/person_sign_number"/>
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/total_sign_number_label"
+            app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
     </android.support.constraint.ConstraintLayout>
     <android.support.design.widget.TabLayout
         android:id="@+id/mis_meeting_tab_layout"

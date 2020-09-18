@@ -23,6 +23,7 @@ import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.config;
 import com.lessu.xieshi.meet.bean.MeetingBean;
 import com.lessu.xieshi.meet.bean.OtherMeetingBean;
+import com.lessu.xieshi.meet.event.OtherConfirmEvent;
 import com.lessu.xieshi.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.meet.event.SendMeetingListToDetail;
 import com.lessu.xieshi.mis.activitys.Content;
@@ -70,6 +71,12 @@ public class MeetingDetailActivity extends NavigationActivity {
     LinearLayout llMeetingSigned;
     @BindView(R.id.meeting_detail_photo)
     ImageView meetingDetailPhoto;
+    @BindView(R.id.meeting_detail_join_user_full_name)
+    TextView meetingDetailJoinUserFullName;
+    @BindView(R.id.meeting_detail_join_user_phone)
+    TextView meetingDetailJoinUserPhone;
+    @BindView(R.id.meeting_detail_join_hy_code)
+    TextView meetingDetailJoinHyCode;
     private BarButtonItem handleButtonItem2;
     private MeetingBean meetingBean;
     private CustomDialog customDialog;
@@ -83,19 +90,19 @@ public class MeetingDetailActivity extends NavigationActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         navigationBar.setBackgroundColor(0xFF3598DC);
-        setTitle("会议现场");
+        setTitle("会议详情");
         handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
         navigationBar.addRightBarItem(handleButtonItem2);
         handleButtonItem2.setOnClickMethod(this, "scanSign");
         initView();
     }
+
     @SuppressLint("CheckResult")
     private void initView() {
         //签到信息
         curUserId = Shref.getString(this, Common.USERID, "");
-        //curUserId = Shref.testUserId;
         //此处要循环比较,如果当前登录的用户也是参与人员，则也显示签到信息
-        if(meetingBean==null){
+        if (meetingBean == null) {
             finish();
             return;
         }
@@ -117,7 +124,6 @@ public class MeetingDetailActivity extends NavigationActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MeetingBean.MeetingUserBean>() {
-                    @SuppressLint("CheckResult")
                     @Override
                     public void accept(MeetingBean.MeetingUserBean meetingUserBean) throws Exception {
                         curMeetingUserBean = meetingUserBean;
@@ -139,12 +145,13 @@ public class MeetingDetailActivity extends NavigationActivity {
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
 
         String photoUrl = meetingBean.getMeetingDetailPhoto();
-        if(photoUrl==null||photoUrl.equals("")){
+        if (photoUrl == null || photoUrl.equals("")) {
             //隐藏图片显示
             meetingDetailPhoto.setVisibility(View.GONE);
-        }else{
+        } else {
             meetingDetailPhoto.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(photoUrl,meetingDetailPhoto);
+            ImageLoader.getInstance().clearDiskCache();
+            ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto);
         }
 
         if (curMeetingUserBean.getUserId() == null || curMeetingUserBean.getUserId().equals("")) {
@@ -162,13 +169,26 @@ public class MeetingDetailActivity extends NavigationActivity {
             meetingUserIsSigned.setText("未签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.orange1));
         }
+        if (curMeetingUserBean.getConfirmNotify().equals("1")) {
+            btMeetingIsConfirm.setText("已确认");
+            btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
+        } else {
+            btMeetingIsConfirm.setText("请确认会议通知");
+            btMeetingIsConfirm.setBackgroundResource(R.drawable.text_orange_stroke_bg);
+        }
+        meetingDetailJoinUserFullName.setText(curMeetingUserBean.getUserFullName());
+        meetingDetailJoinUserPhone.setText(curMeetingUserBean.getTel());
+        if(curMeetingUserBean.getUnitMemberCode()!=null) {
+            meetingDetailJoinHyCode.setText(curMeetingUserBean.getUnitMemberCode());
+        }
         /**
+         * 2020-09-19 暂时去除此功能，直接显示是否确认通知了
          * 请注意如IsSelf=1，ConfirmNotify=0，SubstituteUser<>'' 说明当前账号是已经被选为替代账号了，
          * 不可再选择替代操作，直接只有一个按钮确认会议即可。如IsSelf=1，ConfirmNotify=1，SubstituteUser=''，
          * 说明当前用户已经确认本人参加了，显示已确认即可，如IsSelf=0，ConfirmNotify=1，SubstituteUser<>''
          * ,说明是已选他人参加，显示已确认他人替代参会，参会人（XXX）
          */
-        if(curMeetingUserBean.getIsSelf().equals("1")){
+      /*  if(curMeetingUserBean.getIsSelf().equals("1")){
             if(curMeetingUserBean.getConfirmNotify().equals("1")) {
                 btMeetingIsConfirm.setText("已确认");
                 btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
@@ -185,7 +205,7 @@ public class MeetingDetailActivity extends NavigationActivity {
                 llMeetingSigned.setVisibility(View.GONE);
                 handleButtonItem2.setVisibility(View.GONE);
             }
-        }
+        }*/
 
     }
 
@@ -196,8 +216,9 @@ public class MeetingDetailActivity extends NavigationActivity {
         meetingBean = event.getMeetingBean();
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiveOtherJoinMeeting(OtherMeetingBean otherMeetingBean){
+    public void receiveOtherJoinMeeting(OtherMeetingBean otherMeetingBean) {
         //指派别人代替参会，右上角扫码隐藏，签到状态隐藏
         curMeetingUserBean.setIsSelf("0");
         curMeetingUserBean.setConfirmNotify("1");
@@ -205,10 +226,24 @@ public class MeetingDetailActivity extends NavigationActivity {
         //已经选择他人参加,同时不再显示签到状态
         btMeetingIsConfirm.setBackgroundResource(R.color.white);
         btMeetingIsConfirm.setTextColor(getResources().getColor(R.color.black));
-        btMeetingIsConfirm.setText("已确认他人替代参会，参会人("+curMeetingUserBean.getSubstituteUser()+")");
+        btMeetingIsConfirm.setText("已确认他人替代参会，参会人(" + curMeetingUserBean.getSubstituteUser() + ")");
         llMeetingSigned.setVisibility(View.GONE);
         handleButtonItem2.setVisibility(View.GONE);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveOtherConfirmMeeting(OtherConfirmEvent confirmEvent) {
+        //他人用此账号点击了确认会议通知
+        //确认成功,更改确认状态
+        curMeetingUserBean.setConfirmNotify("1");
+        btMeetingIsConfirm.setText("已确认");
+        btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
+        meetingDetailJoinUserFullName.setText(confirmEvent.getUserFullName());
+        meetingDetailJoinUserPhone.setText(confirmEvent.getUserPhone());
+        //发送通知列表页面刷新
+        EventBus.getDefault().post(new SendMeetingDetailToList(true));
+    }
+
     /**
      * 扫码签到
      *
@@ -348,17 +383,25 @@ public class MeetingDetailActivity extends NavigationActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.bt_meeting_is_confirm,R.id.meeting_detail_photo})
+    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_meeting_is_confirm:
+                //2020-09-18 直接进入参会人和手机号页面，不再弹出是否选择本人或其他人
+                if (curMeetingUserBean.getConfirmNotify().equals("0")) {
+                    //指定他人参加
+                    Intent intent = new Intent(MeetingDetailActivity.this, OtherConfirmActivity.class);
+                    intent.putExtra("meeting_id", meetingBean.getMeetingId());
+                    intent.putExtra("user_id", curUserId);
+                    startActivity(intent);
+                }
                 /**
                  * 请注意如IsSelf=1，ConfirmNotify=0，SubstituteUser<>'' 说明当前账号是已经被选为替代账号了，
                  * 不可再选择替代操作，直接只有一个按钮确认会议即可。如IsSelf=1，ConfirmNotify=1，SubstituteUser=''，
                  * 说明当前用户已经确认本人参加了，显示已确认即可，如IsSelf=0，ConfirmNotify=1，SubstituteUser<>''
                  * ,说明是已选他人参加，显示已确认他人替代参会，参会人（XXX）
                  */
-                if(curMeetingUserBean.getIsSelf().equals("1")&&curMeetingUserBean.getConfirmNotify().equals("0")
+              /*  if(curMeetingUserBean.getIsSelf().equals("1")&&curMeetingUserBean.getConfirmNotify().equals("0")
                 &&!curMeetingUserBean.getSubstituteUser().equals("")){
                     //当前账号为替代账号,直接确认会议
                     requestMeetingConfirm(meetingBean.getMeetingId(), curUserId);
@@ -383,13 +426,13 @@ public class MeetingDetailActivity extends NavigationActivity {
                             startActivity(intent);
                         }
                     });
-                }
+                }*/
                 break;
             case R.id.meeting_detail_photo:
                 Intent scaleIntent = new Intent(this, ScalePictureActivity.class);
-                scaleIntent.putExtra("detail_photo",meetingBean.getMeetingDetailPhoto());
+                scaleIntent.putExtra("detail_photo", meetingBean.getMeetingDetailPhoto());
                 startActivity(scaleIntent);
-                this.overridePendingTransition(R.anim.acitvity_zoom_open,0);
+                this.overridePendingTransition(R.anim.acitvity_zoom_open, 0);
                 break;
         }
     }

@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_xlarge"
             android:textColor="@color/danlan"
-            android:text="委托他人参会"
+            android:text="本单位其他人员参会"
             android:padding="15dp"
             android:gravity="center"/>
     </LinearLayout>
