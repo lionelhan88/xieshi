@@ -17,7 +17,9 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.ScalePictureActivity;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.Utils.ImageloaderUtil;
 import com.lessu.xieshi.Utils.Shref;
+import com.lessu.xieshi.meet.MeetingDetailActivity;
 import com.lessu.xieshi.meet.bean.MeetingBean;
 import com.lessu.xieshi.meet.event.MeetingUserBeanToMeetingActivity;
 import com.lessu.xieshi.meet.event.MisMeetingFragmentToMis;
@@ -36,6 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.lessu.xieshi.meet.MeetingDetailActivity.MEETING_DETAIL_IMG;
 
 public class MisMeetingDetailFragment extends LazyFragment {
 
@@ -65,6 +69,8 @@ public class MisMeetingDetailFragment extends LazyFragment {
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.meeting_detail_photo)
     ImageView meetingDetailPhoto;
+    @BindView(R.id.meeting_detail_content_img)
+    ImageView meetingDetailContentImg;
     private MeetingBean meetingBean;
     private MeetingBean.MeetingUserBean curMeetingUserBean = new MeetingBean.MeetingUserBean();
     private String curUserId = "";
@@ -140,6 +146,15 @@ public class MisMeetingDetailFragment extends LazyFragment {
                 startActivity(scaleIntent);
             }
         });
+        meetingDetailContentImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scaleIntent = new Intent(getActivity(), ScalePictureActivity.class);
+                scaleIntent.putExtra("detail_photo", MEETING_DETAIL_IMG);
+                startActivity(scaleIntent);
+                getActivity().overridePendingTransition(R.anim.acitvity_zoom_open, 0);
+            }
+        });
 
     }
 
@@ -160,13 +175,19 @@ public class MisMeetingDetailFragment extends LazyFragment {
         meetingDetailEndDate.setText(meetingBean.getMeetingEndTime());
         meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
+        //加载图片之前清除缓存
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
+        ImageLoader.getInstance().displayImage(MEETING_DETAIL_IMG,meetingDetailContentImg,
+                ImageloaderUtil.MeetingImageOptions());
         String photoUrl = meetingBean.getMeetingDetailPhoto();
         if (photoUrl == null || photoUrl.equals("")) {
             //隐藏图片显示
             meetingDetailPhoto.setVisibility(View.GONE);
         } else {
             meetingDetailPhoto.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto);
+            ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto,
+                    ImageloaderUtil.MeetingImageOptions());
         }
         if (curMeetingUserBean.getUserId() == null || curMeetingUserBean.getUserId().equals("")) {
             //不是参会人员,隐藏会议通知确认和签到状态

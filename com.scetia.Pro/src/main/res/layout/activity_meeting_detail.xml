@@ -17,7 +17,8 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/x5"
             android:paddingTop="@dimen/y5"
-            android:paddingRight="@dimen/x5">
+            android:paddingRight="@dimen/x5"
+            android:paddingBottom="10dp">
 
             <LinearLayout style="@style/info_show_list_linearLayout">
 

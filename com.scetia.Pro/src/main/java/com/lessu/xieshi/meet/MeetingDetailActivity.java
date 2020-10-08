@@ -49,7 +49,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MeetingDetailActivity extends NavigationActivity {
-    private static final String MEETING_DETAIL_IMG="http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
+    public static final String MEETING_DETAIL_IMG="http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)

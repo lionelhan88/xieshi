@@ -21,7 +21,8 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/x5"
             android:paddingTop="@dimen/y5"
-            android:paddingRight="@dimen/x5">
+            android:paddingRight="@dimen/x5"
+            android:paddingBottom="10dp">
 
             <LinearLayout style="@style/info_show_list_linearLayout">
 
@@ -144,19 +145,25 @@
                     android:text="会议内容"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_small" />
-
+                <ImageView
+                    android:id="@+id/meeting_detail_content_img"
+                    style="@style/info_show_list_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"/>
                 <TextView
                     android:id="@+id/meeting_detail_content"
                     style="@style/info_show_list_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:minLines="5" />
+                    android:minLines="5"
+                    android:visibility="gone"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/meeting_detail_photo"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y300"
+                android:layout_height="200dp"
                 android:visibility="gone"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
