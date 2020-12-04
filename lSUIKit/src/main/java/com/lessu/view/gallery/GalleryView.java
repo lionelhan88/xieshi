@@ -3,10 +3,9 @@ package com.lessu.view.gallery;
 import android.content.Context;
 
 import android.os.Handler;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 /**
  * Created by lessu on 14-7-2.
  */

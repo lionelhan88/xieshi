@@ -4,7 +4,7 @@
     android:id="@+id/activity_tzdetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lessu.xieshi.mis.activitys.TzdetailActivity">
+    tools:context=".module.mis.activitys.NoticeDetailActivity">
     <TextView
         android:id="@+id/tv_tznr"
         android:textSize="16sp"

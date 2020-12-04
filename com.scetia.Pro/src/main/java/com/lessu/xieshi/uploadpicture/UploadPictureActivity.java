@@ -27,8 +27,8 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.PicSize;
-import com.lessu.xieshi.XieShiSlidingMenuActivity;
+import com.lessu.xieshi.Utils.ImageUtil;
+import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -188,8 +188,6 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-//            Uri uri = data.getData(); 
-//            if (uri !=null){
 			Bundle bitmapBundle = data.getExtras();
 			Bitmap bitmap =null;
 			if (bitmapBundle!=null){
@@ -202,22 +200,16 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 				if (uri !=null){
 					try {
 						bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-						double getpicsize = PicSize.getpicsize(bitmap.getWidth(), bitmap.getHeight());
-						if(bitmap.getWidth()<1024&&bitmap.getWidth()<1024){
-
-						}else{
+						double getpicsize = ImageUtil.getpicsize(bitmap.getWidth(), bitmap.getHeight());
+						if(bitmap.getWidth()>=1024||bitmap.getHeight()>=1024){
 							BitmapFactory.Options opts=new BitmapFactory.Options();
-							System.out.println( "be.........."+(int) getpicsize);
 							opts.inTempStorage = new byte[100 * 1024];
 							opts.inPreferredConfig = Bitmap.Config.RGB_565;
 							opts.inPurgeable = true;
 							opts.inSampleSize = (int) getpicsize;
-							System.out.println("长。。。"+bitmap.getHeight());
-							System.out.println("宽。。。"+bitmap.getWidth());
 							bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri),null,opts);
 						}
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -225,7 +217,6 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 			if (bitmap!=null){
 				try {
 					if (nowUploadIndex>=0){
-//                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));  
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

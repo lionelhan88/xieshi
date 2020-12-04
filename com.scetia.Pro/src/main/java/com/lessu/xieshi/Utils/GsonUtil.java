@@ -1,7 +1,7 @@
 package com.lessu.xieshi.Utils;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,22 +16,28 @@ import java.util.Map;
  * Created by fhm on 2016/7/15.
  */
 public class GsonUtil {
+    private static Gson mGson = new Gson();
+    /**
+     * json转换为类对象
+     * @param jsonString
+     * @param cls
+     * @return
+     */
     public static <T> T JsonToObject(String jsonString, Class<T> cls) {
-        T t = null;
-        try {
-            Gson gson = new Gson();
-            t = gson.fromJson(jsonString, cls);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        return t;
+        return mGson.fromJson(jsonString,cls);
     }
 
+    /**
+     * json字符串转换为list集合
+     * @param jsonString
+     * @param cls
+     * @param <T>
+     * @return
+     */
     public static <T> List<T> JsonToList(String jsonString, final Class<T> cls) {
         List<T> list = new ArrayList<T>();
         try {
-            Gson gson = new Gson();
-            list = gson.fromJson(jsonString, new ParameterizedType() {
+            list = mGson.fromJson(jsonString, new ParameterizedType() {
                 @NonNull
                 @Override
                 public Type[] getActualTypeArguments() {
@@ -55,17 +61,14 @@ public class GsonUtil {
         }
         return list;
     }
-    public static List<Map<String, Object>> JsonToMap(String jsonString) {
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        try {
-            Gson gson = new Gson();
-            list = gson.fromJson(jsonString,
-                    new TypeToken<List<Map<String, Object>>>() {
-                    }.getType());
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        return list;
+
+    /**
+     * 将对象转换为json字符串
+     * @param o
+     * @return
+     */
+    public static String toJsonStr(Object o){
+        return new Gson().toJson(o);
     }
 
 }

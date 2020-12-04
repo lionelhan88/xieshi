@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="top_bar_background">@color/blue_normal2</color>
+    <color name="common_background">#e5e5e5</color>
+    <color name="textcolor">@color/blue_normal2</color>
+    <color name="white">#ffffff</color>
+    <color name="danlan">@color/blue_normal2</color>
+    <color name="shenlan">#00a00a</color>
+    <color name="mis_meeting_tab_title_color">#63CFC2</color>
+    <color name="today_statics_list_title_color">#73C4ED</color>
+    <color name="replace_sign_confirm_color">#CAD7F8</color>
+    //用砂管理信息查询菜单背景色
+    <color name="sand_info_maintain_menu_provider_color">@color/blue_normal1</color>
+    <color name="sand_info_maintain_menu_sales_target_color">@color/blue_light1</color>
+    <color name="sand_info_maintain_menu_testing_manage_color">@color/yellow_light1</color>
+    <color name="sand_result_query_detail_background_color">@color/blue_dark</color>
 
-    <color name="hight_light_color">#FF348CEA</color>
+    <color name="blue_normal1">#5D9CEC</color>
+    <color name="blue_normal2">#3598DC</color>
+    <color name="blue_normal3">#268BEB</color>
+    <color name="blue_light1">#4FC0E8</color>
+
+    <color name="blue_dark">#435796</color>
+    <color name="yellow_light1">#F4C97B</color>
+    <color name="Aquamarine1">#7FFFD4</color>
     <color name="light_gray">#F3F3F3</color>
     <color name="light_gray1">#AAA</color>
+    <color name="grey_dim">#696969</color>
+    <color name="grey_11">#1C1C1C</color>
+    <color name="black">#000000</color>
+    <color name="black_transparent">#33000000</color>
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="gold">#FFD700</color>
+    <color name="goldenrod1">#FFC125</color>
+    <color name="orange1">#FFA500</color>
+    <color name="green_dark">@android:color/holo_green_dark</color>
+    <color name="red_dark">@android:color/holo_red_dark</color>
 </resources>

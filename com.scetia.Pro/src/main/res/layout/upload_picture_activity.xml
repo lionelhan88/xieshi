@@ -2,17 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:background="@color/common_background"
-    tools:context="com.lessu.xieshi.uploadpicture.UploadPictureActivity" >
-    <ListView
+    android:background="@color/common_background"
+    tools:context="com.lessu.xieshi.uploadpicture.UploadPictureActivity">
 
-            android:id="@+id/listView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:footerDividersEnabled="false"
-            android:dividerHeight="0dp"
-             >
-        </ListView
->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="0dp"
+        android:footerDividersEnabled="false"/>
 
 </LinearLayout>

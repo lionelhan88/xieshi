@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lessu.xieshi.unqualified.ReportContentActivity" >
+    tools:context=".module.unqualified.ReportContentActivity" >
     <LinearLayout
         android:id="@+id/ll_reportcontent"
         android:layout_width="match_parent"

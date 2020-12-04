@@ -13,7 +13,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.XieShiSlidingMenuActivity;
+import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,12 +34,10 @@ public class ProjectSearchActivity extends XieShiSlidingMenuActivity {
 		this.setTitle("工程查询");
 		navigationBar.setBackgroundColor(0xFF3598DC);
 		ButterKnife.bind(this);
-		
 		getType();
 	}
 
 	private void getType() {
-		// TODO Auto-generated method stub
 		token = LSUtil.valueStatic("Token");
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("Token", token);
@@ -47,7 +45,6 @@ public class ProjectSearchActivity extends XieShiSlidingMenuActivity {
 			
 			@Override
 			public void onSuccessJson(JsonElement result) {
-				// TODO Auto-generated method stub
 				JsonArray json = result.getAsJsonObject().get("Data").getAsJsonArray();
 				projectJson = json;
 			}

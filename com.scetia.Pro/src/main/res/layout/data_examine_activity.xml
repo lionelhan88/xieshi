@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_background"
-    tools:context="com.lessu.xieshi.dataexamine.DataExamineActivity">
+    tools:context=".module.dataexamine.DataExamineActivity">
 
     <AbsoluteLayout
         android:layout_width="fill_parent"

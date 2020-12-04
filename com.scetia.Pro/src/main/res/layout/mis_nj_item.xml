@@ -1,146 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:background="#ffffff">
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-		<LinearLayout
-			android:layout_marginLeft="21dp"
-			android:layout_width="0dp"
-			android:layout_weight="18"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
-			<TextView
-				android:id="@+id/tv_nj_name"
-				android:layout_marginTop="6dp"
-				android:textSize="17sp"
-				android:textColor="#333333"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" />
-			<LinearLayout
-				android:layout_marginTop="6dp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-				<TextView
-					android:text="请假时间: "
-					android:textSize="13sp"
-					android:textColor="#666666"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
-				<TextView
-					android:id="@+id/tv_nj_qingjia"
-					android:textSize="13sp"
-					android:textColor="#333333"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
-			</LinearLayout>
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-			<LinearLayout
-				android:layout_marginTop="6dp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-				<TextView
-					android:text="请假理由: "
-					android:textSize="13sp"
-					android:textColor="#666666"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
-				<TextView
-					android:id="@+id/tv_nj_reason"
-					android:textSize="13sp"
-					android:textColor="#333333"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
-			</LinearLayout>
-			<LinearLayout
-				android:layout_marginBottom="6dp"
-				android:layout_marginTop="6dp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-				<TextView
-					android:text="申请时间: "
-					android:textSize="13sp"
-					android:textColor="#666666"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
-				<TextView
-					android:id="@+id/tv_nj_shenqing"
-					android:textSize="13sp"
-					android:textColor="#666666"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
-			</LinearLayout>
-			<!--控制是否显示3行的第三行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="18"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_nj_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="#333333"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请假时间: "
+                    android:textColor="#666666"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_nj_qingjia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请假理由: "
+                    android:textColor="#666666"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_nj_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="申请时间: "
+                    android:textColor="#666666"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_nj_shenqing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#666666"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <!--控制是否显示3行的第三行-->
 
 
-			<LinearLayout
-				android:id="@+id/ll_disanhang"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-				<LinearLayout
-					android:layout_marginBottom="6dp"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:text="批准时间: "
-						android:textSize="13sp"
-						android:textColor="#666666"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content" />
-					<TextView
-						android:id="@+id/tv_nj_pztime"
-						android:textSize="13sp"
-						android:textColor="#666666"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content" />
-				</LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_disanhang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-				<LinearLayout
-					android:layout_marginBottom="6dp"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:text="部门批准: "
-						android:textSize="13sp"
-						android:textColor="#666666"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content" />
-					<TextView
-						android:id="@+id/tv_nj_bmpz"
-						android:textSize="13sp"
-						android:textColor="#666666"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content" />
-				</LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-			</LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="批准时间: "
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
 
-		</LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_nj_pztime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
-		<TextView
-			android:id="@+id/tv_nj_status"
-			android:textSize="17sp"
-			android:textColor="#268beb"
-			android:layout_gravity="center_vertical"
-			android:layout_width="0dp"
-			android:layout_weight="5"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="13dp"
-		android:background="#efefef"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="部门批准: "
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_nj_bmpz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_nj_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:textColor="#268beb"
+            android:textSize="17sp" />
+    </LinearLayout>
 
 </LinearLayout>

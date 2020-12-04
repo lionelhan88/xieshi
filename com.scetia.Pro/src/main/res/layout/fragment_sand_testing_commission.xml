@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="委托单位:" />
+
+            <TextView
+                android:id="@+id/testing_commission_company_name"
+                style="@style/info_show_list_edittext"
+                android:drawableEnd="@drawable/xialamis"
+                android:paddingEnd="5dp"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="检测单位:" />
+
+            <TextView
+                android:id="@+id/testing_commission_testing_company"
+                style="@style/info_show_list_edittext"
+                android:drawableEnd="@drawable/xialamis"
+                android:hint="请选择检测单位名称"
+                android:paddingEnd="5dp"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="取样单位:" />
+
+            <RadioGroup
+                android:id="@+id/sand_manage_sampling_company_rg"
+                style="@style/info_show_list_edittext"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_sand_manage_supplier"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@drawable/radio_button_bg"
+                    android:checked="true"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/sand_testing_commission_supplier_text" />
+
+                <RadioButton
+                    android:id="@+id/rb_sand_manage_testing_company"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@drawable/radio_button_bg"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/sand_testing_commission_testing_commission_text" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sand_manage_sampling_order_time_ll"
+            style="@style/info_show_list_linearLayout"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="取样时间:" />
+
+            <TextView
+                android:id="@+id/sand_manage_sampling_order_time"
+                style="@style/info_show_list_edittext"
+                android:textSize="@dimen/text_size_medium"
+                tools:text="2020-10-27 11:00" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="取样地点:" />
+
+            <TextView
+                android:id="@+id/sand_manage_sampling_place"
+                style="@style/info_show_list_edittext"
+                android:drawableEnd="@drawable/xialamis"
+                android:hint="请选择取样地点"
+                android:paddingEnd="5dp"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="检测参数:" />
+
+            <TextView
+                android:id="@+id/sand_manage_testing_parameters"
+                style="@style/info_show_list_edittext"
+                android:drawableEnd="@drawable/xialamis"
+                android:hint="请选择检测参数"
+                android:paddingEnd="5dp"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sand_manage_sampling_process_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/stroke_bottom_line"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/info_show_list_linearLayout"
+                android:background="@null">
+
+                <TextView
+                    style="@style/info_show_list_left"
+                    android:text="取样过程记录" />
+
+                <TextView
+                    style="@style/info_show_list_edittext"
+                    android:text="（最少上传6张照片不多于10张）"
+                    android:textColor="@color/red_dark"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sand_manage_take_photos_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="取样人员:" />
+
+            <TextView
+                android:id="@+id/sand_manage_sampling_user"
+                style="@style/info_show_list_edittext"
+                tools:text="张三" />
+
+            <TextView
+                android:id="@+id/sand_manage_sampling_user_list"
+                style="@style/info_show_list_edittext"
+                android:drawableEnd="@drawable/xialamis"
+                android:paddingEnd="5dp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="唯一性标识号:" />
+
+            <EditText
+                android:id="@+id/sand_manage_identification"
+                style="@style/info_show_list_edittext" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="取样日期:" />
+
+            <TextView
+                android:id="@+id/sand_manage_sampling_time"
+                style="@style/info_show_list_edittext"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/info_show_list_linearLayout"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="样品编号:" />
+
+            <TextView
+                android:id="@+id/sand_manage_sampling_number"
+                style="@style/info_show_list_edittext"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/info_show_list_linearLayout"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="委托编号:" />
+
+            <TextView
+                android:id="@+id/sand_manage_commission_number"
+                style="@style/info_show_list_edittext"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="委托人:" />
+
+            <TextView
+                android:id="@+id/sand_manage_commission_user"
+                style="@style/info_show_list_edittext"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/info_show_list_linearLayout">
+
+            <TextView
+                style="@style/info_show_list_left"
+                android:text="委托日期:" />
+
+            <TextView
+                android:id="@+id/sand_manage_commission_date"
+                style="@style/info_show_list_edittext"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/text_blue_round_bg"
+            android:text="委托"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

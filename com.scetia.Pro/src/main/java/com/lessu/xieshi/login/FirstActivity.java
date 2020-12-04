@@ -1,141 +1,129 @@
 package com.lessu.xieshi.login;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v4.graphics.ColorUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.google.gson.GsonValidate;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.good.permission.annotation.PermissionDenied;
+import com.good.permission.annotation.PermissionNeed;
+import com.good.permission.util.PermissionSettingPage;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
-import com.lessu.net.ApiError;
-import com.lessu.net.ApiMethodDescription;
-import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.SettingActivity;
 import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.ImageloaderUtil;
+import com.lessu.xieshi.Utils.GlideUtil;
 import com.lessu.xieshi.Utils.LogUtil;
-import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.PermissionUtils;
-import com.lessu.xieshi.Utils.PicSize;
 import com.lessu.xieshi.Utils.Shref;
-import com.lessu.xieshi.Utils.UriUtils;
-import com.lessu.xieshi.construction.ConstructionListActivity;
-import com.lessu.xieshi.dataauditing.DataAuditingActivity;
-import com.lessu.xieshi.dataexamine.DataExamineActivity;
+import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.http.ExceptionHandle;
+import com.lessu.xieshi.login.bean.LoginUserBean;
+import com.lessu.xieshi.login.viewmodel.FirstViewModelFactory;
+import com.lessu.xieshi.photo.XXPhotoUtil;
+import com.lessu.xieshi.base.AppApplication;
+import com.lessu.xieshi.bean.LoadState;
+import com.lessu.xieshi.login.viewmodel.FirstViewModel;
 import com.lessu.xieshi.map.ProjectListActivity;
-import com.lessu.xieshi.meet.MeetingListActivity;
-import com.lessu.xieshi.scan.BluetoothActivity;
-import com.lessu.xieshi.scan.PrintDataActivity;
-import com.lessu.xieshi.scan.PrintDataHomeActivity;
-import com.lessu.xieshi.scan.YangpinshibieActivity;
-import com.lessu.xieshi.tianqi.activitys.TianqiActivity;
-import com.lessu.xieshi.tianqi.bean.Hourbean;
-import com.lessu.xieshi.tianqi.utils.Contenttianqi;
-import com.lessu.xieshi.todaystatistics.AdminTodayStatisticsActivity;
-import com.lessu.xieshi.todaystatistics.TodayStatisticsActivity;
-import com.lessu.xieshi.training.TrainingActivity;
-import com.lessu.xieshi.unqualified.UnqualifiedSearchActivity;
+import com.lessu.xieshi.module.construction.ConstructionListActivity;
+import com.lessu.xieshi.module.dataauditing.DataAuditingActivity;
+import com.lessu.xieshi.module.dataexamine.DataExamineActivity;
+import com.lessu.xieshi.module.meet.activity.MeetingListActivity;
+import com.lessu.xieshi.module.sand.SandHomeActivity;
+import com.lessu.xieshi.module.scan.BluetoothActivity;
+import com.lessu.xieshi.module.scan.PrintDataActivity;
+import com.lessu.xieshi.module.scan.YangpinshibieActivity;
+import com.lessu.xieshi.module.todaystatistics.AdminTodayStatisticsActivity;
+import com.lessu.xieshi.module.todaystatistics.TodayStatisticsActivity;
+import com.lessu.xieshi.module.training.TrainingActivity;
+import com.lessu.xieshi.module.unqualified.UnqualifiedSearchActivity;
+import com.lessu.xieshi.module.weather.WeatherDetailActivity;
+import com.lessu.xieshi.module.weather.bean.Hourbean;
+import com.lessu.xieshi.set.SettingActivity;
+import com.lessu.xieshi.Utils.UpdateAppUtil;
 import com.lessu.xieshi.uploadpicture.UploadPictureActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FirstActivity extends NavigationActivity {
-    private ImageView iv_touxiang;
-    private TextView tv_yonghuming;
-    private LinearLayout ll_seccion1;
-    private LinearLayout ll_seccion2;
-    private LinearLayout ll_seccion3;
-    private LinearLayout ll_seccion4;
-    private LinearLayout ll_seccion5;
-    private TextView tv_seccion1;
-    private ImageView iv_seccion1;
-    private TextView tv_seccion2;
-    private ImageView iv_seccion2;
-    private TextView tv_seccion3;
-    private ImageView iv_seccion3;
-    private TextView tv_seccion4;
-    private ImageView iv_seccion4;
-    private TextView tv_seccion5;
-    private ImageView iv_seccion5;
-    private LinearLayout ll_seccion6;
-    private ImageView iv_seccion6;
-    private TextView tv_seccion6;
-    private ImageView iv_tianqi;
-    private TextView tv_tianqi;
-    private TextView tv_temp;
-    private RelativeLayout ll_tianqi;
-    private ImageView firstSet;
+    @BindView(R.id.iv_tianqi)
+    ImageView ivTianqi;
+    @BindView(R.id.tv_tianqi)
+    TextView tvTianqi;
+    @BindView(R.id.first_tv_tmp)
+    TextView firstTvTmp;
+    @BindView(R.id.first_set)
+    ImageView firstSet;
+    @BindView(R.id.ll_tianqi)
+    RelativeLayout llTianqi;
+    @BindView(R.id.iv_touxiang)
+    ImageView ivTouxiang;
+    @BindView(R.id.tv_yonghuming)
+    TextView tvYonghuming;
+    @BindView(R.id.iv_seccion1)
+    ImageView ivSeccion1;
+    @BindView(R.id.tv_seccion1)
+    TextView tvSeccion1;
+    @BindView(R.id.ll_seccion1)
+    LinearLayout llSeccion1;
+    @BindView(R.id.iv_seccion2)
+    ImageView ivSeccion2;
+    @BindView(R.id.tv_seccion2)
+    TextView tvSeccion2;
+    @BindView(R.id.ll_seccion2)
+    LinearLayout llSeccion2;
+    @BindView(R.id.iv_seccion3)
+    ImageView ivSeccion3;
+    @BindView(R.id.tv_seccion3)
+    TextView tvSeccion3;
+    @BindView(R.id.ll_seccion3)
+    LinearLayout llSeccion3;
+    @BindView(R.id.iv_seccion4)
+    ImageView ivSeccion4;
+    @BindView(R.id.tv_seccion4)
+    TextView tvSeccion4;
+    @BindView(R.id.ll_seccion4)
+    LinearLayout llSeccion4;
+    @BindView(R.id.iv_seccion5)
+    ImageView ivSeccion5;
+    @BindView(R.id.tv_seccion5)
+    TextView tvSeccion5;
+    @BindView(R.id.ll_seccion5)
+    LinearLayout llSeccion5;
+    @BindView(R.id.iv_seccion6)
+    ImageView ivSeccion6;
+    @BindView(R.id.tv_seccion6)
+    TextView tvSeccion6;
+    @BindView(R.id.ll_seccion6)
+    LinearLayout llSeccion6;
+    private FirstViewModel firstViewModel;
+    private static final String permission = Manifest.permission.ACCESS_FINE_LOCATION;
 
-    private LocationClient mLocationClient;
-    private BDLocationListener mBDLocationListener;
-    private static final String permission =Manifest.permission.ACCESS_FINE_LOCATION;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        ButterKnife.bind(this);
         navigationBar.setVisibility(View.GONE);
-        getUpdate();
-        initView();
+        //该功能还未开放！！！！！！
+        llSeccion6.setVisibility(View.INVISIBLE);
+        initDataListener();
+        UpdateAppUtil.checkUpdateApp(this,false);
         initData();
-        ImmersionBar.with(this).titleBarMarginTop(ll_tianqi)
-              .navigationBarColor(R.color.light_gray)
+        ImmersionBar.with(this).titleBarMarginTop(llTianqi)
+                .navigationBarColor(R.color.light_gray)
                 .navigationBarDarkIcon(true).init();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        PermissionUtils.requestPermission(this, new PermissionUtils.permissionResult() {
-            @Override
-            public void hasPermission(List<String> granted, boolean isAll) {
-                gettianqi();
-            }
-        },permission);
     }
 
     @Override
@@ -144,172 +132,89 @@ public class FirstActivity extends NavigationActivity {
     }
 
     /**
-     * 获取天气数据
+     * 初始化数据
      */
-    private void gettianqi() {
-        //19-5-29更改首页天气数据现实和ios保持统一
-        if(mLocationClient==null) {
-            mLocationClient = new LocationClient(getApplicationContext());
-            mBDLocationListener = new MyBDLocationListener();
-            // 注册监听
-            mLocationClient.registerLocationListener(mBDLocationListener);
+    private void initData() {
+        //TODO:加载头像
+        String headImg = Shref.getString(FirstActivity.this, Common.PICNAME, "");
+        GlideUtil.showImageViewNoCacheCircle(this, R.drawable.touxiang, headImg, ivTouxiang);
+
+        String userName = Shref.getString(this, Common.USERNAME, "");
+        String password =Shref.getString(FirstActivity.this, Common.PASSWORD, "");
+        String deviceId = Shref.getString(FirstActivity.this, Common.DEVICEID, "");
+        tvYonghuming.setText(userName);
+        //每次进入主界面要重新登陆获取数据，可能更新权限
+        if(Shref.getBoolean(this,Shref.AUTO_LOGIN_KEY,false)){
+            //如果开启自动登录，进入页面需要自动登录
+            firstViewModel.login(userName,password,deviceId);
+        }else{
+            String userPower = Shref.getString(this, Common.USERPOWER, null);
+            if(userPower!=null) initMenu(userPower);
         }
-        getLocation();
+
     }
 
     /**
-     * 获取当前时间点的天气情况
-     *
-     * @param token
-     * @param longgitude
-     * @param latiformat
+     * 监听数据变化，更新UI界面
      */
-    private void getHourWeather(final String cityName, String token, String longgitude, String latiformat) {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("Token", token);
-        params.put("JD", longgitude);
-        params.put("WD", latiformat);
-        System.out.println("params.............." + params);
-        EasyAPI.apiConnectionAsync(this, false, false, ApiMethodDescription.get("/ServiceWeather.asmx/GetHour"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+    private void initDataListener() {
+        firstViewModel =new ViewModelProvider(this,new FirstViewModelFactory(this.getApplication(),this))
+                .get(FirstViewModel.class);
+        firstViewModel.getUserBeanData().observe(this, new Observer<LoginUserBean>() {
             @Override
-            public void onSuccessJson(JsonElement result) {
-                System.out.println(result);
-                Hourbean hourbean = GsonUtil.JsonToObject(result.toString(), Hourbean.class);
-                List<Hourbean.DataBean> data = hourbean.getData();
-                Hourbean.DataBean dataBean = data.get(0);
+            public void onChanged(LoginUserBean userBean) {
+                String userPower = userBean.getUserPower();
+                String userId = userBean.getUserId();
+                String MemberInfoStr = userBean.getMemberInfoStr();
+                String token = userBean.getToken();
+                Shref.setString(FirstActivity.this, Common.USERPOWER, userPower);
+                Shref.setString(FirstActivity.this, Common.USERID, userId);
+                Shref.setString(FirstActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
+                LSUtil.setValueStatic("Token", token);
+                initMenu(userPower);
+            }
+        });
+        firstViewModel.getHourBeanData().observe(this, new Observer<Hourbean.DataBean>() {
+            @Override
+            public void onChanged(Hourbean.DataBean dataBean) {
+                String cityName = dataBean.getCityName();
                 String wthr = dataBean.getWthr();
-                tv_tianqi.setText(cityName + " > " + wthr);
-                tv_temp.setText(dataBean.getTemp() + "℃");
-            }
-
-            @Override
-            public String onFailed(ApiError error) {
-               LogUtil.showLogE("获取天气数据失败：" + error.errorMeesage);
-                return null;
+                tvTianqi.setText(cityName + " > " + wthr);
+                firstTvTmp.setText(dataBean.getTemp() + "℃");
             }
         });
-    }
-    /**
-     * 获得所在位置经纬度及详细地址
-     */
-    public void getLocation() {
-        // 声明定位参数
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式 高精度
-        option.setCoorType("bd09ll");// 设置返回定位结果是百度经纬度 默认gcj02
-        option.setScanSpan(5000);// 设置发起定位请求的时间间隔 单位ms
-        option.setIsNeedAddress(true);// 设置定位结果包含地址信息
-        option.setNeedDeviceDirect(true);// 设置定位结果包含手机机头 的方向
-        // 设置定位参数
-        mLocationClient.setLocOption(option);
-        // 启动定位
-        mLocationClient.start();
-
-    }
-    // 2019-05-29获取地址坐标
-    private class MyBDLocationListener implements BDLocationListener {
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // 非空判断
-            if (location != null) {
-                DecimalFormat df = new DecimalFormat("######0.00");
-                // 根据BDLocation 对象获得经纬度以及详细地址信息
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                final String latiformat = df.format(latitude);
-                final String longformat = df.format(longitude);
-                final String city = location.getCity().substring(0, location.getCity().length() - 1);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getHourWeather(city, Contenttianqi.gettoken(), longformat, latiformat);
-                    }
-                });
-                if (mLocationClient.isStarted()) {
-                    // 获得位置之后停止定位
-                    mLocationClient.stop();
-                }
-            }
-        }
-
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
-        }
-    }
-
-    /**
-     * 打开软件重新登陆
-     */
-    private void getLogin() {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("UserName", Shref.getString(FirstActivity.this, Common.USERNAME, ""));
-        params.put("PassWord", Shref.getString(FirstActivity.this, Common.PASSWORD, ""));
-        params.put("DeviceId", Shref.getString(FirstActivity.this, Common.DEVICEID, ""));
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
+        firstViewModel.getLoadState().observe(this, new Observer<LoadState>() {
             @Override
-            public void onSuccessJson(JsonElement result) {
-                System.out.println(result);
-                boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
-                if(success){
-                    JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
-                    String userPower = json.get("UserPower").getAsString();
-                    String token = GsonValidate.getStringByKeyPath(json, "Token", "");
-                    String MemberInfoStr = GsonValidate.getStringByKeyPath(json, "MemberInfoStr", "");
-                    String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
-                    String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
-                    Shref.setString(FirstActivity.this, Common.USERPOWER, userPower);
-                    Shref.setString(FirstActivity.this, Common.USERID, userId);
-                    Shref.setString(FirstActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
-                    LSUtil.setValueStatic("Token", token);
-                    initMenu(userPower);
+            public void onChanged(LoadState loadState) {
+                if (loadState==LoadState.LOADING){
+                    LSAlert.showProgressHud(FirstActivity.this, "正在登陆...");
                 }else{
-                    LSAlert.showAlert(FirstActivity.this, "提示", "当前登录账户用户名或密码错误！\n是否重新登录？"
-                            , "确定", false, new LSAlert.AlertCallback() {
-                                @Override
-                                public void onConfirm() {
-                                    loginOut();
-                                }
-                            });
-                }
-
-            }
-
-            @Override
-            public String onFailed(final ApiError error) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (error.errorCode == 3000) {
-                            LogUtil.showLogE(String.valueOf(error.errorCode));
-                            LogUtil.showLogE(error.errorDomain);
-                            LogUtil.showLogE(error.errorMeesage);
-                            new AlertDialog.Builder(FirstActivity.this).setTitle("权限改变").setMessage("请重新登陆").show();
-                            new AlertDialog.Builder(FirstActivity.this)
-                                    .setTitle("权限改变")
-                                    .setMessage("您的权限有所改变，请重新登陆")
-                                    .setPositiveButton("重新登陆",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialoginterface, int i) {
-                                                    //按钮事件
-                                                    Shref.setString(FirstActivity.this, Common.USERPOWER, "");
-                                                    startActivity(new Intent(FirstActivity.this, LoginActivity.class));
-                                                    finish();
-                                                }
-                                            }).show();
+                    tvTianqi.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //加载弹窗消失的太快，会造成闪一下的效果，给用户体验不好，所以使用延迟消失
+                            LSAlert.dismissProgressHud();
                         }
-                    }
-                });
-                return null;
+                    },300);
+                }
             }
         });
-
+        firstViewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
+            @Override
+            public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
+                if(throwable.code==3000){
+                    LSAlert.showAlert(FirstActivity.this, "提示", throwable.message+"\n需要重新登录"
+                            , "确定", false, () -> loginOut());
+                }else {
+                    LSAlert.showAlert(FirstActivity.this, "提示", throwable.message);
+                }
+            }
+        });
     }
     /**
      * 退出登录
      */
-    private void loginOut(){
+    private void loginOut() {
         Intent intentTUICHU = new Intent();
         intentTUICHU.setClass(FirstActivity.this, LoginActivity.class);
         intentTUICHU.putExtra("exit", true);
@@ -319,152 +224,45 @@ public class FirstActivity extends NavigationActivity {
     }
 
     /**
-     * 检查更新
-     */
-    private void getUpdate() {
-        getUpdate(false,new UpdateAppCallback() {
-            @Override
-            public void updateCancel() {
-                AppApplication.exit();
-            }
-        });
-    }
-
-    private void initView() {
-        ll_tianqi = (RelativeLayout) findViewById(R.id.ll_tianqi);
-        tv_tianqi = (TextView) findViewById(R.id.tv_tianqi);
-        iv_tianqi = (ImageView) findViewById(R.id.iv_tianqi);
-        firstSet = (ImageView)findViewById(R.id.first_set);
-        tv_temp = (TextView) findViewById(R.id.first_tv_tmp);
-        iv_touxiang = (ImageView) findViewById(R.id.iv_touxiang);
-        tv_yonghuming = (TextView) findViewById(R.id.tv_yonghuming);
-        ll_seccion1 = (LinearLayout) findViewById(R.id.ll_seccion1);
-        tv_seccion1 = (TextView) findViewById(R.id.tv_seccion1);
-        iv_seccion1 = (ImageView) findViewById(R.id.iv_seccion1);
-        ll_seccion2 = (LinearLayout) findViewById(R.id.ll_seccion2);
-        tv_seccion2 = (TextView) findViewById(R.id.tv_seccion2);
-        iv_seccion2 = (ImageView) findViewById(R.id.iv_seccion2);
-        ll_seccion3 = (LinearLayout) findViewById(R.id.ll_seccion3);
-        iv_seccion3 = (ImageView) findViewById(R.id.iv_seccion3);
-        tv_seccion3 = (TextView) findViewById(R.id.tv_seccion3);
-        ll_seccion4 = (LinearLayout) findViewById(R.id.ll_seccion4);
-        iv_seccion4 = (ImageView) findViewById(R.id.iv_seccion4);
-        tv_seccion4 = (TextView) findViewById(R.id.tv_seccion4);
-        ll_seccion5 = (LinearLayout) findViewById(R.id.ll_seccion5);
-        iv_seccion5 = (ImageView) findViewById(R.id.iv_seccion5);
-        tv_seccion5 = (TextView) findViewById(R.id.tv_seccion5);
-
-        ll_seccion6 = (LinearLayout) findViewById(R.id.ll_seccion6);
-        iv_seccion6 = (ImageView) findViewById(R.id.iv_seccion6);
-        tv_seccion6 = (TextView) findViewById(R.id.tv_seccion6);
-        //该功能还未开放！！！！！！
-        ll_seccion6.setVisibility(View.GONE);
-        iv_tianqi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PermissionUtils.requestPermission(FirstActivity.this, new PermissionUtils.permissionResult() {
-                    @Override
-                    public void hasPermission(List<String> granted, boolean isAll) {
-                        startActivity(new Intent(FirstActivity.this, TianqiActivity.class));
-                    }
-                },permission);
-
-            }
-        });
-        firstSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //跳转到设置页面
-                Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
-                startActivity(intentXITONG);
-            }
-        });
-
-        iv_touxiang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(FirstActivity.this)
-                        .setTitle("图片选择")
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .setSingleChoiceItems(new String[]{"拍照", "相册"}, 0,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        if (which == 0) {
-                                            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                                            Uri imageUri=null;
-                                            File saveImagePath = new File(Environment.getExternalStorageDirectory(),"image.jpg");
-                                            //android7.0以后，相机拍照不能直接获取uri，需要用fileprovider
-                                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-                                                imageUri = FileProvider.getUriForFile(FirstActivity.this,
-                                                        getPackageName()+".fileProvider",saveImagePath);
-                                                //添加临时权限
-                                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                            }else{
-                                                imageUri = Uri.fromFile(saveImagePath);
-                                            }
-                                            //指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
-                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                                            startActivityForResult(intent, 0);
-                                        } else {
-                                            Intent intent = new Intent();
-                                           /* Pictures画面Type设定为image */
-                                            intent.setType("image/*");
-                                           /* 使用Intent.ACTION_GET_CONTENT这个Action */
-                                            intent.setAction(Intent.ACTION_GET_CONTENT);
-                                               /* 取得相片后返回本画面 */
-                                            startActivityForResult(intent, 1);
-                                        }
-                                        dialog.dismiss();
-                                    }
-                                })
-                        .setNegativeButton("取消", null)
-                        .show();
-            }
-        });
-    }
-
-    /**
      * 初始化菜单
      * @param newPower
      */
-    private void initMenu(String newPower){
-        final String userPower = newPower.substring(0,14);
-        char userPower2 =newPower.charAt(15);
+    private void initMenu(String newPower) {
+        final String userPower = newPower.substring(0, 14);
+        char userPower2 = newPower.charAt(15);
         LogUtil.showLogD("FirstActivity......." + userPower);
         if (userPower.equals("00010010100000")) {//j20623 279162 见证人
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.INVISIBLE);
-            ll_seccion5.setVisibility(View.INVISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-            iv_seccion1.setImageResource(R.drawable.yangpinchaxun);
-            tv_seccion1.setText("样品查询");
-            iv_seccion2.setImageResource(R.drawable.tupianshangchuan);
-            tv_seccion2.setText("现场图片上传");
-            iv_seccion3.setImageResource(R.drawable.yangpinshibie);
-            tv_seccion3.setText("样品识别");
-            iv_seccion4.setImageResource(R.drawable.xitongshezhi);
-            tv_seccion4.setText("系统设置");
-            iv_seccion5.setImageResource(R.drawable.tuichu);
-            tv_seccion5.setText("重新登录");
-
-
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
+            llSeccion1.setVisibility(View.VISIBLE);
+            llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.VISIBLE);
+            llSeccion4.setVisibility(View.INVISIBLE);
+            llSeccion5.setVisibility(View.INVISIBLE);
+            llSeccion6.setVisibility(View.INVISIBLE);
+            ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
+            tvSeccion1.setText("样品查询");
+            ivSeccion2.setImageResource(R.drawable.tupianshangchuan);
+            tvSeccion2.setText("现场图片上传");
+            ivSeccion3.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion3.setText("样品识别");
+            ivSeccion4.setImageResource(R.drawable.xitongshezhi);
+            tvSeccion4.setText("系统设置");
+            ivSeccion5.setImageResource(R.drawable.tuichu);
+            tvSeccion5.setText("重新登录");
+            llSeccion1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FirstActivity.this, ConstructionListActivity.class);
                     startActivity(intent);
                 }
             });
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
+            llSeccion2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FirstActivity.this, UploadPictureActivity.class);
                     startActivity(intent);
                 }
             });
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
+            llSeccion3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
@@ -478,14 +276,14 @@ public class FirstActivity extends NavigationActivity {
                     startActivity(intent);
                 }
             });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
+            llSeccion4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
                     startActivity(intentXITONG);
                 }
             });
-            ll_seccion5.setOnClickListener(new View.OnClickListener() {
+            llSeccion5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentTUICHU = new Intent();
@@ -498,22 +296,22 @@ public class FirstActivity extends NavigationActivity {
             });
         }
         if (userPower.equals("00010000100000")) {//Q13503 123456 取样人
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.INVISIBLE);
-            ll_seccion4.setVisibility(View.INVISIBLE);
-            ll_seccion5.setVisibility(View.INVISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
-            iv_seccion1.setImageResource(R.drawable.yangpinchaxun);
-            tv_seccion1.setText("样品查询");
-            iv_seccion2.setImageResource(R.drawable.yangpinshibie);
-            tv_seccion2.setText("样品识别");
-            iv_seccion3.setImageResource(R.drawable.xitongshezhi);
-            tv_seccion3.setText("系统设置");
-            iv_seccion4.setImageResource(R.drawable.tuichu);
-            tv_seccion4.setText("重新登录");
+            llSeccion1.setVisibility(View.VISIBLE);
+            llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.INVISIBLE);
+            llSeccion4.setVisibility(View.INVISIBLE);
+            llSeccion5.setVisibility(View.INVISIBLE);
+            llSeccion6.setVisibility(View.INVISIBLE);
+            ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
+            tvSeccion1.setText("样品查询");
+            ivSeccion2.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion2.setText("样品识别");
+            ivSeccion3.setImageResource(R.drawable.xitongshezhi);
+            tvSeccion3.setText("系统设置");
+            ivSeccion4.setImageResource(R.drawable.tuichu);
+            tvSeccion4.setText("重新登录");
 
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
+            llSeccion1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FirstActivity.this, ConstructionListActivity.class);
@@ -521,7 +319,7 @@ public class FirstActivity extends NavigationActivity {
                 }
             });
 
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
+            llSeccion2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
@@ -537,14 +335,14 @@ public class FirstActivity extends NavigationActivity {
                 }
             });
 
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
+            llSeccion3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
                     startActivity(intentXITONG);
                 }
             });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
+            llSeccion4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentTUICHU = new Intent();
@@ -559,28 +357,28 @@ public class FirstActivity extends NavigationActivity {
 
         }
         if (userPower.equals("10001101100000")) {//gly 1319 质监站人员
-            ll_seccion1.setVisibility(View.VISIBLE);
-            ll_seccion2.setVisibility(View.VISIBLE);
-            ll_seccion3.setVisibility(View.VISIBLE);
-            ll_seccion4.setVisibility(View.VISIBLE);
-            ll_seccion5.setVisibility(View.INVISIBLE);
-            ll_seccion6.setVisibility(View.INVISIBLE);
+            llSeccion1.setVisibility(View.VISIBLE);
+            llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.VISIBLE);
+            llSeccion4.setVisibility(View.VISIBLE);
+            llSeccion5.setVisibility(View.INVISIBLE);
+            llSeccion6.setVisibility(View.INVISIBLE);
 
-            iv_seccion1.setImageResource(R.drawable.jinritongji1);
-            tv_seccion1.setText("工地查询");
-            iv_seccion2.setImageResource(R.drawable.xinxichaxun);
-            tv_seccion2.setText("不合格信息查询");
-            iv_seccion3.setImageResource(R.drawable.gongchengchaxun1);
-            tv_seccion3.setText("基桩静载");
-            iv_seccion4.setImageResource(R.drawable.yangpinshibie);
-            tv_seccion4.setText("样品识别");
-            iv_seccion5.setImageResource(R.drawable.xitongshezhi);
-            tv_seccion5.setText("系统设置");
-            iv_seccion6.setImageResource(R.drawable.tuichu);
-            tv_seccion6.setText("重新登录");
+            ivSeccion1.setImageResource(R.drawable.jinritongji1);
+            tvSeccion1.setText("工地查询");
+            ivSeccion2.setImageResource(R.drawable.xinxichaxun);
+            tvSeccion2.setText("不合格信息查询");
+            ivSeccion3.setImageResource(R.drawable.gongchengchaxun1);
+            tvSeccion3.setText("基桩静载");
+            ivSeccion4.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion4.setText("样品识别");
+            ivSeccion5.setImageResource(R.drawable.xitongshezhi);
+            tvSeccion5.setText("系统设置");
+            ivSeccion6.setImageResource(R.drawable.tuichu);
+            tvSeccion6.setText("重新登录");
 
 
-            ll_seccion1.setOnClickListener(new View.OnClickListener() {
+            llSeccion1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Class tempClass = null;
@@ -591,26 +389,25 @@ public class FirstActivity extends NavigationActivity {
                     } else {
                         tempClass = AdminTodayStatisticsActivity.class;
                         Intent intent = new Intent(FirstActivity.this, tempClass);
-                        //intent.putExtra("diyici",true);
                         startActivity(intent);
                     }
                 }
             });
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
+            llSeccion2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FirstActivity.this, UnqualifiedSearchActivity.class);
                     startActivity(intent);
                 }
             });
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
+            llSeccion3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FirstActivity.this, ProjectListActivity.class);
                     startActivity(intent);
                 }
             });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
+            llSeccion4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
@@ -624,14 +421,14 @@ public class FirstActivity extends NavigationActivity {
                     startActivity(intent);
                 }
             });
-            ll_seccion5.setOnClickListener(new View.OnClickListener() {
+            llSeccion5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentXITONG = new Intent(FirstActivity.this, SettingActivity.class);
                     startActivity(intentXITONG);
                 }
             });
-            ll_seccion6.setOnClickListener(new View.OnClickListener() {
+            llSeccion6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentTUICHU = new Intent();
@@ -642,40 +439,39 @@ public class FirstActivity extends NavigationActivity {
                     finish();
                 }
             });
-
-
         }
         if (userPower.equals("01101000000000")) {//t9990001 1 检测人员
-            /**
+            /*
              * 如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
              */
-            if(Shref.getString(this,Common.USERNAME,"").toUpperCase().startsWith("MEET")){
-                ll_seccion1.setVisibility(View.VISIBLE);
-                ll_seccion2.setVisibility(View.INVISIBLE);
-                ll_seccion3.setVisibility(View.INVISIBLE);
-                ll_seccion4.setVisibility(View.INVISIBLE);
-                ll_seccion5.setVisibility(View.INVISIBLE);
-                ll_seccion6.setVisibility(View.INVISIBLE);
-                iv_seccion1.setImageResource(R.drawable.home_meeting_bg);
-                tv_seccion1.setText("会议安排");
-                ll_seccion1.setOnClickListener(new View.OnClickListener() {
+            if (Shref.getString(this, Common.USERNAME, "").toUpperCase().startsWith("MEET")) {
+                llSeccion1.setVisibility(View.VISIBLE);
+                llSeccion2.setVisibility(View.INVISIBLE);
+                llSeccion3.setVisibility(View.INVISIBLE);
+                llSeccion4.setVisibility(View.INVISIBLE);
+                llSeccion5.setVisibility(View.INVISIBLE);
+                llSeccion6.setVisibility(View.INVISIBLE);
+                ivSeccion1.setImageResource(R.drawable.home_meeting_bg);
+                tvSeccion1.setText("会议安排");
+                llSeccion1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
-                        intentMeeting.putExtra("type_user",1);
+                        intentMeeting.putExtra("type_user", 1);
                         startActivity(intentMeeting);
                     }
                 });
-            }else{
-                ll_seccion1.setVisibility(View.VISIBLE);
-                ll_seccion2.setVisibility(View.VISIBLE);
-                ll_seccion3.setVisibility(View.VISIBLE);
-                ll_seccion4.setVisibility(View.VISIBLE);
-                ll_seccion5.setVisibility(View.VISIBLE);
-                ll_seccion6.setVisibility(View.INVISIBLE);
-                iv_seccion1.setImageResource(R.drawable.shujushenhe1);
-                tv_seccion1.setText("记录审核");
-                ll_seccion1.setOnClickListener(new View.OnClickListener() {
+            } else {
+                llSeccion1.setVisibility(View.VISIBLE);
+                llSeccion2.setVisibility(View.VISIBLE);
+                llSeccion3.setVisibility(View.VISIBLE);
+                llSeccion4.setVisibility(View.VISIBLE);
+                llSeccion5.setVisibility(View.VISIBLE);
+                //暂时定位 用砂管理
+                llSeccion6.setVisibility(View.VISIBLE);
+                ivSeccion1.setImageResource(R.drawable.shujushenhe1);
+                tvSeccion1.setText("记录审核");
+                llSeccion1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(FirstActivity.this, DataAuditingActivity.class);
@@ -683,28 +479,28 @@ public class FirstActivity extends NavigationActivity {
                     }
                 });
             }
-            iv_seccion2.setImageResource(R.drawable.baogaopizhun);
-            tv_seccion2.setText("报告批准");
-            iv_seccion3.setImageResource(R.drawable.jinritongji1);
-            tv_seccion3.setText("统计信息");
-            iv_seccion4.setImageResource(R.drawable.shouchijisaomiao);
-            tv_seccion4.setText("手持机扫描");
+            ivSeccion2.setImageResource(R.drawable.baogaopizhun);
+            tvSeccion2.setText("报告批准");
+            ivSeccion3.setImageResource(R.drawable.jinritongji1);
+            tvSeccion3.setText("统计信息");
+            ivSeccion4.setImageResource(R.drawable.shouchijisaomiao);
+            tvSeccion4.setText("手持机扫描");
             if (userPower2 == '1') {
-                iv_seccion5.setImageResource(R.drawable.zaixianjiaoyu);
+                ivSeccion5.setImageResource(R.drawable.zaixianjiaoyu);
             }
-            tv_seccion5.setText("在线培训");
-            iv_seccion6.setImageResource(R.drawable.home_meeting_bg);
-            tv_seccion6.setText("会议安排");
+            tvSeccion5.setText("在线培训");
+            ivSeccion6.setImageResource(R.drawable.home_meeting_bg);
+            tvSeccion6.setText("用砂管理");
 
 
-            ll_seccion2.setOnClickListener(new View.OnClickListener() {
+            llSeccion2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(FirstActivity.this, DataExamineActivity.class);
                     startActivity(intent);
                 }
             });
-            ll_seccion3.setOnClickListener(new View.OnClickListener() {
+            llSeccion3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Class tempClass = null;
@@ -720,7 +516,7 @@ public class FirstActivity extends NavigationActivity {
                     }
                 }
             });
-            ll_seccion4.setOnClickListener(new View.OnClickListener() {
+            llSeccion4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
@@ -734,115 +530,86 @@ public class FirstActivity extends NavigationActivity {
                     startActivity(intent);
                 }
             });
-            ll_seccion5.setOnClickListener(new View.OnClickListener() {
+            llSeccion5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intentXITONG = new Intent(FirstActivity.this, TrainingActivity.class);
                     startActivity(intentXITONG);
                 }
             });
-            ll_seccion6.setOnClickListener(new View.OnClickListener() {
+            llSeccion6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
-                    intentMeeting.putExtra("type_user",1);
+                    Intent intentMeeting = new Intent(FirstActivity.this, SandHomeActivity.class);
                     startActivity(intentMeeting);
                 }
             });
         }
+        //界面初始化完成，开启自动登录
+        Shref.setBoolean(this,Shref.AUTO_LOGIN_KEY,true);
     }
 
     /**
-     * 初始化数据
+     * 打开天气页面
      */
-    private void initData() {
-        String picname = Shref.getString(FirstActivity.this, Common.PICNAME, null);
-        if ( picname == null||picname.equals("")) {
-            iv_touxiang.setImageResource(R.drawable.touxiang);
-        } else {
-            ImageLoader.getInstance().displayImage(picname, iv_touxiang, ImageloaderUtil.imageconfig());
-        }
-        ArrayList<LinearLayout> llal = new ArrayList<LinearLayout>();
-        llal.add(ll_seccion1);
-        llal.add(ll_seccion2);
-        llal.add(ll_seccion3);
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        tv_yonghuming.setText(username);
-        getLogin();
+    @PermissionNeed(value = permission, requestCode = 1)
+    private void openWeatherPage() {
+        startOtherActivity(WeatherDetailActivity.class);
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent intent) {
-        // 用户没有进行有效的设置操作，返回
-        if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(getApplication(), "取消", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 0:
-                    String timename = String.valueOf(System.currentTimeMillis());
-                    final String srcImagePath = Environment.getExternalStorageDirectory()+"/image.jpg";
-                    final String outImagePath = Environment.getExternalStorageDirectory()+"/image/"+timename+".jpg";
-                    LSAlert.showProgressHud(FirstActivity.this,"正在获取...");
-                    Observable.create(new ObservableOnSubscribe<Boolean>() {
+    /**
+     * 如果用户永久拒绝了，就要打开
+     */
+    @PermissionDenied
+    private void shouldOpenLocation(int requestCode) {
+        if (requestCode == 1) {
+            LSAlert.showDialog(this, "提示", "天气功能需要定位权限，请在系统设置中打开权限！", "去设置", "不设置",
+                    new LSAlert.DialogCallback() {
                         @Override
-                        public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
-                            //在子线程中进行图片压缩
-                            PicSize.compressAndOutPath(srcImagePath,outImagePath,1024);
-                            emitter.onNext(true);
+                        public void onConfirm() {
+                            PermissionSettingPage.start(FirstActivity.this, true);
                         }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Boolean>() {
+
                         @Override
-                        public void accept(Boolean aBoolean) throws Exception {
-                            String s = "file://" +outImagePath;
-                            System.out.println(s);
-                            ImageLoader.getInstance().displayImage(s, iv_touxiang, ImageloaderUtil.imageconfig());
-                            Shref.setString(FirstActivity.this, Common.PICNAME, s);
-                            LSAlert.dismissProgressHud();
+                        public void onCancel() {
+
                         }
                     });
-                    break;
-                case 1:
-                    Uri uri = intent.getData();
-                    String dataColumn = UriUtils.getPath(this, uri);
-                    if(!dataColumn.contains("file://")){
-                        dataColumn = "file://"+dataColumn;
-                    }
-                    ImageLoader.getInstance().displayImage(dataColumn, iv_touxiang, ImageloaderUtil.imageconfig());
-                    Shref.setString(FirstActivity.this, Common.PICNAME, dataColumn);
-                    break;
-            }
         }
-
     }
 
-    @Override
-    protected void onDestroy() {
-        if(mLocationClient!=null){
-            mLocationClient.unRegisterLocationListener(mBDLocationListener);
-            mBDLocationListener=null;
-            mLocationClient=null;
-        }
-        super.onDestroy();
-    }
-    private long time=0;
+    private long time = 0;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK){
-            if(System.currentTimeMillis()-time>2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - time > 2000) {
                 time = System.currentTimeMillis();
                 ToastUtil.showShort("再次点击退出程序");
                 return true;
-            }else{
+            } else {
                 AppApplication.exit();
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @OnClick({R.id.iv_tianqi, R.id.first_set, R.id.iv_touxiang})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_tianqi:
+                openWeatherPage();
+                break;
+            case R.id.first_set:
+                //跳转到设置页面
+                startOtherActivity(SettingActivity.class);
+                break;
+            case R.id.iv_touxiang:
+                XXPhotoUtil.with(this).setPhotoName("header").setListener((photoPath, photoUri) -> {
+                    GlideUtil.showImageViewNoCacheCircle(FirstActivity.this,R.drawable.touxiang,photoPath,ivTouxiang);
+                    //保存头像目录
+                    Shref.setString(FirstActivity.this, Common.PICNAME, photoPath);
+                }).start();
+                break;
+        }
     }
 }

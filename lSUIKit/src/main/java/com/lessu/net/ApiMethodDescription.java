@@ -10,8 +10,6 @@ public class ApiMethodDescription {
         Soap
     }
 
-    ;
-
     public enum ResultType {
         Plain,
         Json,

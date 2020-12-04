@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.lessu.uikit.Utils;
 import com.lessu.uikit.easy.EasyUI;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GalleryCell extends RelativeLayout{
 
@@ -137,7 +137,8 @@ public class GalleryCell extends RelativeLayout{
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-        ImageLoader.getInstance().displayImage(imageUrl,imageView);
+        Glide.with(this).load(imageUrl).into(imageView);
+        //ImageLoader.getInstance().displayImage(imageUrl,imageView);
     }
 
     public void setOnClickListener(GalleryCellOnClickListener galleryCellOnClickListener) {

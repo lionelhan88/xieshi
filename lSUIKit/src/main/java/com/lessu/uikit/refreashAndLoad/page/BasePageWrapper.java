@@ -20,22 +20,26 @@ import java.util.List;
 /**
  * Created by lessu on 14-7-3.
  */
-public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMoreBase implements PageController.PageControllerDelegate{
+public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMoreBase implements PageController.PageControllerDelegate {
 
-    protected   PageController                pageController;
-    protected   BaseAdapter                   adapter;
+    protected PageController pageController;
+    protected BaseAdapter adapter;
 
-    protected abstract ApiMethodDescription onPageGetApiMethodDescription   ();
-    protected abstract void                 onPageToInit                    (PageController pageController);
-    protected abstract T                    onPageCreateCell                (int position);
-    protected abstract void                 onPageCellSetData               (int position, T cell, Object data);
+    protected abstract ApiMethodDescription onPageGetApiMethodDescription();
+
+    protected abstract void onPageToInit(PageController pageController);
+
+    protected abstract T onPageCreateCell(int position);
+
+    protected abstract void onPageCellSetData(int position, T cell, Object data);
 
 
-    protected boolean testMode  = false;
-    protected int testCount     = 10;
+    protected boolean testMode = false;
+    protected int testCount = 10;
     protected Context context;
 
-    protected String testJson   = "{}";
+    protected String testJson = "{}";
+
     public BasePageWrapper(Context incontext) {
         super();
         context = incontext;
@@ -44,11 +48,11 @@ public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMore
 
         final BasePageWrapper<T> self = this;
 
-        adapter = new SimpleClassListAdapter<T>(){
+        adapter = new SimpleClassListAdapter<T>() {
 
             @Override
             public int getCount() {
-                if (testMode){
+                if (testMode) {
                     return testCount;
                 }
                 return pageController.getList().size();
@@ -61,9 +65,9 @@ public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMore
 
             @Override
             public void setData(int position, T cell) {
-                if (testMode){
+                if (testMode) {
                     self.onPageCellSetData(position, cell, new JsonParser().parse(testJson));
-                }else {
+                } else {
                     self.onPageCellSetData(position, cell, pageController.getList().get(position));
                 }
             }
@@ -106,11 +110,10 @@ public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMore
     public void onLoadMore() {
         super.onLoadMore();
         LSAlert.showProgressHud(context, "加载中");
-
         pageController.nextPage();
     }
 
-    public void shuaxin(){
+    public void shuaxin() {
         adapter.notifyDataSetChanged();
         finishRefresh();
         setCanLoadMore(pageController.hasMore());
@@ -135,13 +138,13 @@ public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMore
     }
 
     @Override
-    public void onRefreshFailed(ApiError error){
+    public void onRefreshFailed(ApiError error) {
         LSAlert.dismissProgressHud();
         finishRefresh();
     }
 
     @Override
-    public void onNextFailed(ApiError error){
+    public void onNextFailed(ApiError error) {
         LSAlert.dismissProgressHud();
         finishLoad();
         setCanLoadMore(pageController.hasMore());
@@ -156,19 +159,6 @@ public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMore
     public boolean beforeRefreshRequest(ApiConnection refreshConnection) {
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public String getTestJson() {
@@ -194,6 +184,7 @@ public abstract class BasePageWrapper<T extends View> extends RefreshAndLoadMore
     public void setTestMode(boolean testMode) {
         this.testMode = testMode;
     }
+
     public PageController getPageController() {
         return pageController;
     }

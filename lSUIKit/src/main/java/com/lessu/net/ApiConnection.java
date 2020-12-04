@@ -53,7 +53,6 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 			sharedClient = new AsyncHttpClient();
 			//2020-07-23 设置超时时间60s，防止有些接口服务响应时间太长提示“超时”
 			sharedClient.setTimeout(60*1000);
-//            sharedClient.set
 		}
 		return sharedClient;
 	}
@@ -61,7 +60,6 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 	public ApiConnection(String urlString){
 		super();
 		this.urlString = urlString;
-//		httpClient = new DefaultHttpClient();
 		connectionHandler = new ApiConnectionHandler();
 		connectionHandler.setCallback(this);
 		params = new HashMap<String, String>();
@@ -88,12 +86,10 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 
 		}else if (requestMethod.equalsIgnoreCase("POST") ) {
 			if(Validate.mapNotEmpty(params)){
-				//cc_edit  xieshi
 				Map<String, String> xieshiMap = new HashMap<String, String>();
 				Gson gson = new Gson();
 				String paramJsonString = gson.toJson(params);
 				xieshiMap.put("param", paramJsonString);
-
 				requestHandle = getSharedClient().post(urlString, new RequestParams(xieshiMap), connectionHandler);
 				Log.d("api_params:"     ,xieshiMap.toString());
 			}else{
@@ -105,10 +101,7 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 						new BasicHeader("SOAPAction"  , soapUrl+"/"+soapAction),
 				};
 				StringEntity entity;
-
-
 				String soapBody = "<${action} xmlns=\"${url}\">${params}</${action}>";
-				//<Report_id>string</Report_id><Checksum>string</Checksum>
 				soapBody = soapBody.replace("${action}" , soapAction).replace("${url}", soapUrl);
 				final StringBuffer soapParams = new StringBuffer();
 				if(Validate.mapNotEmpty(params)){
@@ -137,13 +130,9 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-
-//			}
 		}
 
 	}
-
-
 
 	private Object proccessResult(String responseString) {
 		if(requestMethod.equalsIgnoreCase("SOAP")){
@@ -188,32 +177,11 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 			System.out.println("responseString................."+responseString);
 			JsonObject result = (JsonObject) processedResult;
 			System.out.println("result................."+result);
-			//  if (result.get(StandardSuccessKey).getAsBoolean()) {
-//	            if (_isCacheLoading) {
-//	                if (self.onCacheSuccess) {
-//	                    self.onCacheSuccess(result);
-//	                }else if(self->_onSuccess) {
-//	                    self->_onSuccess(result);
-//	                }
-//	                if ([_cacheSuccessTarget respondsToSelector:_cacheSuccessSelector]) {
-//	                    [_cacheSuccessTarget performSelector:_cacheSuccessSelector withObject:result];
-//	                }else if ([_successTarget respondsToSelector:_successSelector]) {
-//	                    [_successTarget performSelector:_successSelector withObject:result];
-//	                }
-//	            }else{
 			try{
 				if ( callbacks != null){
 					callbacks.onSuccess(result);
 					callbacks.onSuccessJson(result);
 				}
-
-//	                if (_addCache) {
-//	                    if ([self.requestMethod isEqualToString:@"POST"]) {
-//	                        [APIConnection addCache:responseString forPostWithUrl:_requestUrl andParams:self.params];
-//	                    }else{
-//	                        [APIConnection addCache:responseString forGetWithUrl:_requestUrl  andParams:self.params];
-//	                    }
-//	                }
 				if ( callbacks != null){
 					callbacks.onFinal();
 				}
@@ -231,29 +199,7 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 				}
 
 			}
-//	            }
-			//  }else{
-//	            int code = 0;
-//	            if (result.has(StandardErrorCodeKey)){
-//	                code= result.get(StandardErrorCodeKey).getAsInt();
-//	            }
-//	            ApiError error = new ApiError();
-//	            error.errorDomain = ApiError.ApiResponseNotSuccessErrorDomain;
-//	            error.errorCode   = code;
-//	            error.errorMeesage= result.get(StandardMessageKey).getAsString();
-//
-//	            if ( callbacks != null){
-//        			callbacks.onFailed(error);
-//        			callbacks.onFinal();
-//        		}
-			// }
-		}
-		else{
-//	        if (_isCacheLoading) {
-//	            if (self.onCacheSuccess) {
-//	                self.onCacheSuccess(result);
-//	            }
-//	        }else{
+		} else{
 			if ( callbacks != null){
 				this.onSuccess(responseString);
 				callbacks.onFinal();
@@ -263,52 +209,13 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 
 	@Override
 	public void onSuccess(String responseString) {
-		System.out.println("你好啊啊啊嗄。。。。。。。"+responseString);
 		Object result = null;
 		try{
 			result = this.proccessResult(responseString);
 		}catch(Exception e){
 			Log.e("ApiConnection", "can not process result" + responseString);
 		}
-//	    if (result == null) {
-//	        if (responseString != null) {
-//
-//	        	ApiError error = new ApiError();
-//	            error.errorDomain = ApiError.ApiServerResponseErrorDomain;
-//	            error.errorCode   = 0;
-//	            error.errorMeesage= "服务器发生错误，请稍后再试";
-//
-//	            if ( callbacks != null){
-//                    try {
-//                        callbacks.onFailed(error);
-//                        callbacks.onFinal();
-//                    }catch (Exception e){
-//                        Log.e("ApiConnection","callback Exception");
-//                    }
-//
-//
-//        		}
-//	        }else{
-//	        	ApiError error = new ApiError();
-//	            error.errorDomain = ApiError.ApiServerResponseErrorDomain;
-//	            error.errorCode   = 0;
-//	            error.errorMeesage= "服务器发生错误，请稍后再试";
-//
-//	            if ( callbacks != null){
-//                    try {
-//                        callbacks.onFailed(error);
-//                        callbacks.onFinal();
-//                    }catch (Exception e) {
-//                        Log.e("ApiConnection","callback Exception");
-//                    }
-//
-//        		}
-//	        }
-//	    }else{
-//	    	this.connectionComplete(responseString, result);
-//	    }
 		if (responseString == null) {
-
 			ApiError error = new ApiError();
 			error.errorDomain = ApiError.ApiServerResponseErrorDomain;
 			error.errorCode   = 0;

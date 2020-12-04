@@ -1,14 +1,13 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'android-aspectjx'
 android {
-    compileSdkVersion 29
-    buildToolsVersion '24.0.0'
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 29
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
-
     }
 
     buildTypes {
@@ -17,26 +16,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     api project(':pullToRefreash')
-    api files('libs/universal-image-loader-1.9.5.jar')
-    implementation 'com.android.support:appcompat-v7:22.2.1'
-    api 'com.google.code.gson:gson:2.3.1'
-    api 'com.android.support:appcompat-v7:19.1.0'
     api files('libs/android-async-http-1.4.5.jar')
-    api 'com.jakewharton:butterknife:8.0.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
-    api 'com.hyman:flowlayout-lib:1.1.2'
-    api 'com.android.support:multidex:1.0.1'
-    //权限申请框架
-    api 'com.hjq:xxpermissions:5.5'
+    api project(path: ':permissionGood')
+//    api project(path:':updateapputils')
+    api rootProject.ext.dependencies.gson
+    api rootProject.ext.dependencies.butterknife
+    annotationProcessor rootProject.ext.dependencies.butterknifAnnationProcess
     //沉浸式状态栏
-    api 'com.gyf.immersionbar:immersionbar:3.0.0'
-    api 'com.tencent.tbs.tbssdk:sdk:43903'
-    api 'com.kongzue.kongzueupdatesdk:kongzueupdatesdk:1.4.5'
-
-    //图片加载框架
+    api rootProject.ext.dependencies.immersionbar
+    api rootProject.ext.dependencies.flowlayout
+    api rootProject.ext.dependencies.multidex
+    api rootProject.ext.dependencies.tbs
+    api rootProject.ext.dependencies.glide
+    implementation rootProject.ext.dependencies.publish
 
 }

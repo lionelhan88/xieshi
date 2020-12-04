@@ -1,12 +1,13 @@
 package com.lessu;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.JsonElement;
+import com.lessu.net.ApiConnection;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -23,59 +24,81 @@ public abstract class LazyFragment extends Fragment {
     protected abstract int getLayoutId();
     protected abstract void initView();
     protected abstract void initData();
+    protected abstract void stopData();
     protected abstract void initImmersionBar();
     private Unbinder unbinder;
+    private ApiConnection apiConnection;
+
+    public ApiConnection getApiConnection() {
+        return apiConnection;
+    }
+
+    /**
+     * 当前页面的是否可见
+     */
+    private boolean currentVisibleState;
     public interface ResultResponse{
         void getResult(boolean success,JsonElement result,String errorMsg);
     }
-    protected boolean isCreate = false;
+    protected boolean isViewCreated = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view  =inflater.inflate(getLayoutId(),container,false);
         unbinder=ButterKnife.bind(this,view);
-        isCreate = true;
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
         initView();
         initImmersionBar();
+        //页面第一次创建出来加载数据
         if(getUserVisibleHint()) {
-            initData();
+            dispatchUserVisibleHint(true);
         }
+        return view;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(!isCreate){
+        if(!isViewCreated){
             return;
         }
-        if(getUserVisibleHint()){
-            initData();
-        }else{
-
+        //由不可见状态变为可见状态 需要加载数据
+        if(!currentVisibleState&&isVisibleToUser){
+            dispatchUserVisibleHint(true);
+        }else if(currentVisibleState&&!isVisibleToUser){
+            //有可见状态变为不可见状态取消加载数据
+            dispatchUserVisibleHint(false);
         }
     }
 
+    /**
+     * 分发加载事件
+     * @param isVisible 是否加载数据
+     */
+    private void dispatchUserVisibleHint(boolean isVisible){
+        if(isVisible==currentVisibleState){
+            return;
+        }
+        currentVisibleState = isVisible;
+        if(isVisible){
+            initData();
+        }else{
+            stopData();
+        }
+    }
     @Override
     public void onDestroy() {
-        isCreate = false;
+        isViewCreated = false;
         super.onDestroy();
         unbinder.unbind();
     }
     protected void getMeetingList(String token, String meetingID, final ResultResponse resultResponse) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
-        /*params.put("s3", "");
-        params.put("s4", "");*/
         //传入会议id
         params.put("s1", meetingID);
 
-        EasyAPI.apiConnectionAsync(getActivity(), false, false, ApiMethodDescription.get("/ServiceMis.asmx/GetMeetingList"),
+       apiConnection= EasyAPI.apiConnectionAsync(getActivity(), false, false, ApiMethodDescription.get("/ServiceMis.asmx/GetMeetingList"),
                 params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                     @Override
                     public void onSuccessJson(JsonElement result) {
@@ -83,8 +106,11 @@ public abstract class LazyFragment extends Fragment {
                         if(isSuccess){
                             resultResponse.getResult(true,result,"");
                         }else{
-                           String message= result.getAsJsonObject().get("Message").getAsString();
+                            String message= result.getAsJsonObject().get("Message").getAsString();
                             resultResponse.getResult(false,result,message);
+                            LSAlert.showAlert(requireActivity(),
+                                   getResources().getString(R.string.api_connection_failed_failure),
+                                    message, "确定", null);
                         }
 
                     }

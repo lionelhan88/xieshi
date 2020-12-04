@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgration"
+    app:startDestination="@id/sandManageHomeFragment">
+    <fragment
+        android:id="@+id/sandManageHomeFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandManageHomeFragment"
+        android:label="SandManageHomeFragment"
+        tools:layout="@layout/fragment_sand_manage">
+        <action
+            android:id="@+id/actionManageToProviderList"
+            app:destination="@id/SandInfoMaintainProviderFragment" />
+        <action
+            android:id="@+id/actionManageToSalesManage"
+            app:destination="@id/SandInfoMaintainSalesFragment" />
+        <action
+            android:id="@+id/actionManageToTestingManage"
+            app:destination="@id/SandInfoMaintainTestingManageFragment" />
+        <action
+            android:id="@+id/actionManageToTestingCommission"
+            app:destination="@id/TestingCommissionListFragment" />
+        <action
+            android:id="@+id/actionManageToSMFlowDeclaration"
+            app:destination="@id/SMFlowDeclarationListFragment" />
+        <action
+            android:id="@+id/actionManageToTestingQuery"
+            app:destination="@id/TestingInfoQueryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SandInfoMaintainProviderFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandInfoMaintainProviderFragment"
+        android:label="SandInfoMaintainProviderFragment"
+        tools:layout="@layout/fragment_sand_info_maintain" />
+    <fragment
+        android:id="@+id/SandInfoMaintainSalesFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandInfoMaintainSalesFragment"
+        android:label="SMFlowDeclarationDetailFragment"
+        tools:layout="@layout/fragment_sand_info_maintain_sales">
+        <action
+            android:id="@+id/actionSalesFragmentToCompanyResult"
+            app:destination="@id/SupplierQueryResultFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/SandInfoMaintainTestingManageFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandInfoMaintainTestingManageFragment"
+        android:label="SandInfoMaintainTestingManageFragment"
+        tools:layout="@layout/fragment_testing_company_manage">
+        <action
+            android:id="@+id/actionTestingMangeToTestingQueryResult"
+            app:destination="@id/TestingCompanyQueryResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/TestingCommissionListFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.TestingCommissionListFragment"
+        android:label="TestingCommissionListFragment"
+        tools:layout="@layout/fragment_sand_info_maintain_sales">
+        <action
+            android:id="@+id/actionCommissionListToDetail"
+            app:destination="@+id/sandTestingCommissionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sandTestingCommissionFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandTestingCommissionFragment"
+        android:label="SandTestingCommissionFragment"
+        tools:layout="@layout/fragment_sand_testing_commission" />
+
+    <fragment
+        android:id="@+id/SMFlowDeclarationListFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SMFlowDeclarationListFragment"
+        android:label="SMFlowDeclarationListFragment"
+        tools:layout="@layout/fragment_sm_flow_declaration_list">
+        <action
+            android:id="@+id/actionSMFlowDeclarationListToDetail"
+            app:destination="@id/SMFlowDeclarationDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SMFlowDeclarationDetailFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SMFlowDeclarationDetailFragment"
+        android:label="SMFlowDeclarationDetailFragment"
+        tools:layout="@layout/fragment_sm_flow_declaration_detail" />
+
+    <fragment
+        android:id="@+id/TestingInfoQueryFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.TestingInfoQueryListFragment"
+        android:label="TestingInfoQueryFragment"
+        tools:layout="@layout/fragment_testing_info_query_list">
+        <action
+            android:id="@+id/actionTestingQueryListToDetail"
+            app:destination="@id/TestingInfoQueryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/TestingInfoQueryDetailFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.TestingInfoQueryDetailFragment"
+        android:label="TestingInfoQueryDetailFragment"
+        tools:layout="@layout/fragment_testing_info_query_details" />
+    <fragment
+        android:id="@+id/SupplierQueryResultFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SupplierQueryResultFragment"
+        android:label="SupplierQueryResultFragment"
+        tools:layout="@layout/fragment_company_query_result" />
+    <fragment
+        android:id="@+id/TestingCompanyQueryResultFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.TestingCompanyQueryResultFragment"
+        android:label="TestingCompanyQueryResultFragment"
+        tools:layout="@layout/fragment_testing_company_query_result" />
+</navigation>

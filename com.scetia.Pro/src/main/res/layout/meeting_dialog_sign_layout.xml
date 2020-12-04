@@ -41,13 +41,13 @@
             style="@style/info_show_list_edittext"
             android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_marginBottom="@dimen/y20">
-        <com.lessu.xieshi.SignView
+        <com.lessu.xieshi.view.SignView
             android:id="@+id/signView"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -103,5 +103,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/y5"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

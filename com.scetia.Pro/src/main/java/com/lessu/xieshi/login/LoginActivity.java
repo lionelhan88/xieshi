@@ -1,44 +1,39 @@
 package com.lessu.xieshi.login;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.gson.GsonValidate;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.good.permission.annotation.PermissionDenied;
+import com.good.permission.annotation.PermissionNeed;
+import com.good.permission.util.PermissionSettingPage;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
-import com.lessu.net.ApiMethodDescription;
-import com.lessu.net.EasyAPI;
-import com.lessu.uikit.Buttons.Button;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.LogUtil;
-import com.lessu.xieshi.Utils.PermissionUtils;
 import com.lessu.xieshi.Utils.Shref;
-import com.lessu.xieshi.construction.ConstructionListActivity;
-import com.lessu.xieshi.dataauditing.DataAuditingActivity;
-import com.lessu.xieshi.dataexamine.ExamineDetailActivity;
-import com.lessu.xieshi.mis.activitys.MisguideActivity;
-import com.lessu.xieshi.todaystatistics.TodayStatisticsActivity;
-import com.lessu.xieshi.unqualified.UnqualifiedSearchActivity;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.base.AppApplication;
+import com.lessu.xieshi.bean.LoadState;
+import com.lessu.xieshi.http.ExceptionHandle;
+import com.lessu.xieshi.login.bean.LoginUserBean;
+import com.lessu.xieshi.login.viewmodel.LoginViewModel;
+import com.lessu.xieshi.module.mis.activitys.MisGuideActivity;
+import com.lessu.xieshi.Utils.UpdateAppUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,40 +44,51 @@ import butterknife.OnClick;
  * 当前页面在android9.0后要开启硬件加速，否则输入密码时不会实时显示
  */
 public class LoginActivity extends NavigationActivity {
+    private static final int REQUEST_READ_PHONE_STATE = 2;
     @BindView(R.id.tv_login_version)
     TextView tvLoginVersion;
     @BindView(R.id.userNameEditText)
     EditText userNameEditText;
     @BindView(R.id.passWordEditText)
     EditText passWordEditText;
-    private String userName;
-    private String shortUserPower;
-    private final static String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA};
-
+    private LoginViewModel loginViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        //避免每次点击home建后，点击图标会重新创建启动页
-        if (!this.isTaskRoot()) {
-            //如果你就放在launcher Activity中话，这里可以直接return了
-            Intent mainIntent = getIntent();
-            String action = mainIntent.getAction();
-            if (mainIntent.hasCategory(Intent.CATEGORY_LAUNCHER) && action.equals(Intent.ACTION_MAIN)) {
-                finish();
-                return;
-            }
-        }
         ButterKnife.bind(this);
         navigationBar.setVisibility(View.GONE);
-        ButterKnife.bind(this);
-        initView();
         ImmersionBar.with(this).titleBar(tvLoginVersion)
                 .navigationBarColor(R.color.light_gray)
                 .navigationBarDarkIcon(true)
                 .init();
         initData();
+        initDataListener();
+        initRequestAllPermission();
+    }
+    /**
+     * 申请所有需要的权限
+     */
+    @PermissionNeed({Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA,
+    Manifest.permission.REQUEST_INSTALL_PACKAGES})
+    private void initRequestAllPermission(){
+        //申请权限
+        UpdateAppUtil.checkUpdateApp(this,false);
+    }
+
+
+    @PermissionDenied
+    private void readPhoneStateDenied(int requestCode){
+        if(requestCode==REQUEST_READ_PHONE_STATE){
+            LSAlert.showAlert(this, "提示", "此应用需要授权电话管理权限，请授权！", "授权", new LSAlert.AlertCallback() {
+                @Override
+                public void onConfirm() {
+                    //TODO:跳转到系统设置页面去授予权限
+                    PermissionSettingPage.start(LoginActivity.this,true);
+                }
+            });
+        }
     }
 
     @Override
@@ -90,214 +96,173 @@ public class LoginActivity extends NavigationActivity {
     }
 
     /**
-     * 初始化控件
-     */
-    private void initView() {
-		userNameEditText.setSelected(false);
-		userNameEditText.clearFocus();
-    }
-
-    /**
      * 初始化数据
      */
     private void initData() {
+        //显示出版本号
+        String versionName = Common.getVersionName(this);
+        tvLoginVersion.setText(versionName);
         //拿到本地存储的权限
-        String userPower = Shref.getString(LoginActivity.this, Common.USERPOWER, "");
+        String userPower = Shref.getString(this, Common.USERPOWER, "");
         Intent intent = getIntent();
-        boolean exit = intent.getBooleanExtra("exit", false);
-        boolean jiebang = intent.getBooleanExtra("jiebang", false);
+        boolean isExit = intent.getBooleanExtra("exit", false);
+        boolean unBind = intent.getBooleanExtra("jiebang", false);
         //如果之前已经登录，打开程序直接进入主界面
-        if (userPower != null && !userPower.equals("") && !exit && !jiebang) {
-            Toboundary(userPower);
-        } else {
-            try {
-                String versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
-				tvLoginVersion.setText(versionName);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-            getUpdate(false, new UpdateAppCallback() {
-                @Override
-                public void updateCancel() {
-                    AppApplication.exit();
-                }
-            });
+        if (userPower != null && !userPower.equals("") && !isExit && !unBind) {
+            checkUserPower(userPower);
         }
     }
 
+    /**
+     * 监听数据变化，更新UI界面
+    */
+    private void initDataListener(){
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        loginViewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
+            @Override
+            public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
+                LSAlert.showAlert(LoginActivity.this,"提示",throwable.message);
+            }
+        });
+        loginViewModel.getUserBeanData().observe(this, new Observer<LoginUserBean>() {
+            @Override
+            public void onChanged(LoginUserBean userBean) {
+                dispatchActivity(userBean);
+            }
+        });
+        loginViewModel.getLoadState().observe(this, new Observer<LoadState>() {
+            @Override
+            public void onChanged(LoadState loadState) {
+                switch (loadState){
+                    case LOADING:
+                        LSAlert.showProgressHud(LoginActivity.this,"正在登陆...");
+                        break;
+                    case FAILURE:
+                    case SUCCESS:
+                        LSAlert.dismissProgressHud();
+                        break;
+                }
+            }
+        });
+    }
     @OnClick(R.id.loginButton)
     public void loginButtonDidPress() {
         //登陆接口访问
-        userName = userNameEditText.getText().toString();
-        final String PassWord = passWordEditText.getText().toString();
-        login(userName, PassWord);
+        final String userName = userNameEditText.getText().toString();
+        final String password = passWordEditText.getText().toString();
+        login(userName, password);
+    }
+
+    /**
+     * 执行登陆请求
+     * @param name 用户名
+     * @param password 密码
+     */
+    @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE,requestCode = REQUEST_READ_PHONE_STATE)
+    private void login(final String name, final String password) {
+        final String deviceId = getDeviceId();
+        loginViewModel.login(name,password,deviceId);
+    }
+
+    /**
+     * 解析用户 权限，跳转对应的菜单界面
+     */
+    private void dispatchActivity(LoginUserBean loginUser){
+        String userPower = loginUser.getUserPower();
+        String userName = loginUser.getUserName();
+        String token = loginUser.getToken();
+        String PhoneNumber = loginUser.getPhoneNumber();
+        String userId = loginUser.getUserId();
+        String MemberInfoStr = loginUser.getMemberInfoStr();
+        boolean isFirstLogin = loginUser.isIsFirstLogin();
+        String deviceId = getDeviceId();
+        String password = passWordEditText.getText().toString();
+        LSUtil.setValueStatic("PhoneNumber", PhoneNumber);
+        LSUtil.setValueStatic("UserName", userName);
+
+        //TODO:判断是否是第一次登陆，如果是第一次登陆就进入手机验证界面
+        if (isFirstLogin) {
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            bundle.putString("UserName", userName);
+            bundle.putString("PassWord", password);
+            bundle.putString("DeviceId", deviceId);
+            bundle.putString("UserPower", userPower);
+            Intent intent = new Intent(LoginActivity.this, ValidateActivity.class);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, 0x01);
+        } else {
+            LSUtil.setValueStatic("Token", token);
+            Shref.setString(LoginActivity.this, Common.USERNAME, userName);
+            Shref.setString(LoginActivity.this, Common.PASSWORD, password);
+            Shref.setString(LoginActivity.this, Common.DEVICEID, deviceId);
+            Shref.setString(LoginActivity.this, Common.USERPOWER, userPower);
+            Shref.setString(LoginActivity.this, Common.USERID, userId);
+            Shref.setString(LoginActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
+            //TODO:去跳转界面
+            checkUserPower(userPower);
+            //这里将自动登录取消，避免用户从登录页面进入后，再次在主菜单界面登录一次
+            Shref.setBoolean(this,Shref.AUTO_LOGIN_KEY,false);
+        }
     }
 
     /**
      * 检查权限，根据不同的权限跳转不同的页面
-     *
      * @param userPower
      */
-    private void Toboundary(String userPower) {
-        LogUtil.showLogD("原始权限数据......." + userPower);
-        //什么都没有的账号登陆，提示角色权限
+    private void checkUserPower(String userPower) {
+        LogUtil.showLogD("用户权限===" + userPower);
         if (userPower.equals("")) {
             LSAlert.showAlert(this, "无角色权限！");
             return;
         }
         //新增的权限“比对审批”多一位 2018-10-19
+        String shortUserPower;
         if (userPower.length() == 15) {
-			shortUserPower = userPower.substring(9, 15);
+            shortUserPower = userPower.substring(9, 15);
         } else if (userPower.length() < 15) {
-			shortUserPower = userPower.substring(9, 14);
+            shortUserPower = userPower.substring(9, 14);
         } else {
             //新版本新加了权限
-			shortUserPower = userPower.substring(16);
+            shortUserPower = userPower.substring(16);
         }
-        LogUtil.showLogD("shortuserpower......." + shortUserPower);
+        final String userName = Shref.getString(this, Common.USERNAME, null);
+        Intent intent;
         if (shortUserPower.equals("00000") || shortUserPower.equals("000000")) {
-            ArrayList<Class> classArray = new ArrayList<Class>();
-            classArray.add(UnqualifiedSearchActivity.class);
-            classArray.add(DataAuditingActivity.class);
-            classArray.add(ExamineDetailActivity.class);
-            classArray.add(ConstructionListActivity.class);
-            classArray.add(TodayStatisticsActivity.class);
-            // version1
-            classArray.add(null);
-            classArray.add(null);
-            classArray.add(null);
-            Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
-            if (Shref.getString(LoginActivity.this, Common.USERNAME, null) != null) {
-                userName = Shref.getString(LoginActivity.this, Common.USERNAME, null);
-            }
-            String unMisPower = "";
-            if (userPower.length() < 15) {
-                unMisPower = userPower.substring(userPower.length());
-            } else {
-                unMisPower = userPower.substring(0, 15);
-            }
+            intent = new Intent(this, FirstActivity.class);
+            String unMisPower = userPower.length()<15 ? userPower.substring(userPower.length()):userPower.substring(0, 15);
             intent.putExtra("userpower", unMisPower);
-            intent.putExtra("username", userName);
-            startActivity(intent);
-            finish();
         } else {
-            Intent intent = new Intent(LoginActivity.this, MisguideActivity.class);
-            if (Shref.getString(LoginActivity.this, Common.USERNAME, null) != null) {
-                userName = Shref.getString(LoginActivity.this, Common.USERNAME, null);
-            }
+            intent = new Intent(this, MisGuideActivity.class);
             intent.putExtra("shortuserpower", shortUserPower);
-            intent.putExtra("username", userName);
-            startActivity(intent);
-            finish();
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-		userNameEditText.getText().clear();
-		passWordEditText.getText().clear();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //android版本大于6.0申请动态权限
-        PermissionUtils.requestPermission(this, new PermissionUtils.permissionResult() {
-            @Override
-            public void hasPermission(List<String> granted, boolean isAll) {
-
-            }
-        }, permissions);
+        intent.putExtra("username", userName);
+        startActivity(intent);
+        finish();
     }
 
     /**
-     * 执行登陆请求
-     *
-     * @param name
-     * @param password
+     * 获取设备的uid号
      */
-    @SuppressLint("HardwareIds")
-    private void login(final String name, final String password) {
+    private String getDeviceId(){
         //获取存在本地的deviceID
         String deviceId = Shref.getString(this, Common.DEVICEID, "");
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        //android9以后获取不到IEMI的编码了，可能会发出异常
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+        /*如果本地已经存在deviceID，则使用本地的deviceID*/
+        if (deviceId.equals("")) {
+           //如果没有取到本地存储的device_id,就获取系统的IEMI
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            //android9以后获取不到IEMI的编码了，可能会发出异常
             try {
                 deviceId = telephonyManager.getDeviceId();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        //如果前一种方法娶不到deviceID,则用android_id的方式获取,如果本地已经存在deviceID，则使用本地的deviceID
-        if (deviceId == null || deviceId.equals("")) {
-            deviceId = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        }
-        final String DeviceId = deviceId;
-        LogUtil.showLogE("deviceID=" + DeviceId);
-        //测试设备
-        //final String DeviceId = "02:00:00:00:00:00";
-        if (name == null || name.isEmpty()) {
-            LSAlert.showAlert(LoginActivity.this, "请输入账号");
-            return;
-        }
-        if (password == null || password.isEmpty()) {
-            LSAlert.showAlert(LoginActivity.this, "请输入密码");
-            return;
-        }
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("UserName", name);
-        params.put("PassWord", password);
-        params.put("DeviceId", DeviceId);
-
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/UserLogin"), params, new EasyAPI.ApiFastSuccessCallBack() {
-            @Override
-            public void onSuccessJson(JsonElement result) {
-                System.out.println(result);
-                //是否登录成功
-                boolean isSuccess = result.getAsJsonObject().get("Success").getAsBoolean();
-                if (!isSuccess) {
-                    //登录失败，并提示用户
-                    String message = GsonValidate.getStringByKeyPath(result.getAsJsonObject(), "Message", "");
-                    LSAlert.showAlert(LoginActivity.this, message);
-                    return;
-                }
-                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonObject();
-                boolean isFirstLogin = json.get("IsFirstLogin").getAsBoolean();
-                String userPower = json.get("UserPower").getAsString();
-                System.out.println("userPower....." + userPower);
-                String token = GsonValidate.getStringByKeyPath(json, "Token", "");
-                String PhoneNumber = GsonValidate.getStringByKeyPath(json, "PhoneNumber", "");
-                String userId = GsonValidate.getStringByKeyPath(json, "UserId", "");
-                String MemberInfoStr = GsonValidate.getStringByKeyPath(json, "MemberInfoStr", "");
-                ;
-                LSUtil.setValueStatic("PhoneNumber", PhoneNumber);
-                LSUtil.setValueStatic("UserName", name);
-                System.out.println("这里总走了吧111111");
-                if (isFirstLogin) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("token", token);
-                    bundle.putString("UserName", name);
-                    bundle.putString("PassWord", password);
-                    bundle.putString("DeviceId", DeviceId);
-                    bundle.putString("UserPower", userPower);
-                    Intent intent = new Intent(LoginActivity.this, ValidateActivity.class);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, 0x01);
-                } else {
-                    LSUtil.setValueStatic("Token", token);
-                    Shref.setString(LoginActivity.this, Common.USERNAME, name);
-                    Shref.setString(LoginActivity.this, Common.PASSWORD, password);
-                    Shref.setString(LoginActivity.this, Common.DEVICEID, DeviceId);
-                    Shref.setString(LoginActivity.this, Common.USERPOWER, userPower);
-                    Shref.setString(LoginActivity.this, Common.USERID, userId);
-                    Shref.setString(LoginActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
-                    Toboundary(userPower);
-                }
+            if(deviceId==null||deviceId.equals("")){
+                deviceId = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
             }
-        });
+        }
+        return deviceId;
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -308,5 +273,19 @@ public class LoginActivity extends NavigationActivity {
                 login(userName1, password1);
             }
         }
+    }
+    private long time=0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(System.currentTimeMillis()-time>2000){
+                time = System.currentTimeMillis();
+                ToastUtil.showShort("再次点击退出程序");
+                return true;
+            }else{
+                AppApplication.exit();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

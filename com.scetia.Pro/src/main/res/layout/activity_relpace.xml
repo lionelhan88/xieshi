@@ -157,7 +157,7 @@
             android:paddingLeft="2dp"/>
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -176,7 +176,7 @@
             android:padding="2dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@+id/bt_replace_confirm"/>
-        <com.lessu.xieshi.SignView
+        <com.lessu.xieshi.view.SignView
             android:id="@+id/replace_sign_hand_sign_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -232,8 +232,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/y5"/>
-    </android.support.constraint.ConstraintLayout>
-    <android.support.constraint.ConstraintLayout
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"

@@ -3,255 +3,297 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context="com.lessu.xieshi.mis.activitys.HydetailActivity"
-    >
+    android:background="@color/white"
+    android:paddingStart="10dp"
+    tools:context=".module.mis.activitys.HyDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="21dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="会员号:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_huiyuanhao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="单位名称:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="会员性质:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_xingzhi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="会员状态:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_zhuangtai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="入会日期:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_ruhuidate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="评估证书编号:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_bianhao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="到期日期:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_daoqidate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:orientation="horizontal">
+
             <LinearLayout
-                android:gravity="center_vertical"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="56dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="负责人:   "
-                    android:textSize="17sp"
-                    android:textColor="#666666"/>
+                    android:textColor="#666666"
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/tv_mishy_fuzename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#333333"/>
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:gravity="center_vertical"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="56dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="电话:   "
-                    android:textSize="17sp"
-                    android:textColor="#666666"/>
+                    android:textColor="#666666"
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/tv_mishy_fuzephone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#333333"/>
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="单位电话:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_danweiphone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/xianmis"/>
+            android:background="@drawable/xianmis" />
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系地址:   "
-                android:textSize="17sp"
-                android:textColor="#666666"/>
+                android:textColor="#666666"
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_mishy_dizhi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="#333333"/>
+                android:textColor="#333333"
+                android:textSize="17sp" />
         </LinearLayout>
     </LinearLayout>
 

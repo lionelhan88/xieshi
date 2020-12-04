@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.lessu.xieshi.mis.activitys.ZsdetailActivity">
+    tools:context=".module.mis.activitys.CertificateDetailActivity">
     <LinearLayout
         android:id="@+id/activity_zsdetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.lessu.xieshi.mis.activitys.ZsdetailActivity">
+        tools:context=".module.mis.activitys.CertificateDetailActivity">
         <LinearLayout
             android:gravity="center_vertical"
             android:layout_width="match_parent"

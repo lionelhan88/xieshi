@@ -1,40 +1,34 @@
 package com.lessu.navigation;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import android.os.IBinder;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.gyf.immersionbar.ImmersionBar;
-import com.kongzue.kongzueupdatesdk.BuildConfig;
-import com.kongzue.kongzueupdatesdk.UpdateInfo;
-import com.kongzue.kongzueupdatesdk.UpdateUtil;
 import com.lessu.ShareableApplication;
-import com.lessu.net.ApiMethodDescription;
-import com.lessu.net.EasyAPI;
-import com.lessu.uikit.MyUpdateUtil;
 import com.lessu.uikit.R;
-import com.lessu.uikit.views.LSAlert;
-
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -44,17 +38,22 @@ import butterknife.ButterKnife;
  */
 public class NavigationActivity extends FragmentActivity {
     public NavigationBar navigationBar;
-    private boolean isFirstLoad = true;
-    private BarButtonItem handleButtonItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ShareableApplication.activities.add(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        super.onCreate(savedInstanceState);
         setNavigationBar(new NavigationBar(this));
-        ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
+        addTitleBarHandle();
+        super.onCreate(savedInstanceState);
+        initImmersionBar();
+    }
 
+    /**
+     * 添加顶部标题栏菜单按钮
+     */
+    private void addTitleBarHandle(){
+        ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (tasks.get(0).numActivities > 1){
             BarButtonItem backButtonItem = BarButtonItem.backBarButtonItem(this);
@@ -66,7 +65,7 @@ public class NavigationActivity extends FragmentActivity {
             });
         }
         //为页面添加返回按钮
-        handleButtonItem = new BarButtonItem(this,R.drawable.back);
+        BarButtonItem handleButtonItem = new BarButtonItem(this, R.drawable.back);
         handleButtonItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,18 +73,13 @@ public class NavigationActivity extends FragmentActivity {
             }
         });
         navigationBar.setLeftBarItem(handleButtonItem);
-        isFirstLoad = true;
-        initImmersionBar();
-    }
-    @Override
-    protected void onStart() {
-    	super.onStart();
-    	isFirstLoad = false;
+        navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
     }
 
     protected void leftNavBarClick(){
         finish();
     }
+
     @Override
     public void setContentView(int layoutResID) {
         this.setContentView(View.inflate(this, layoutResID, null));
@@ -98,7 +92,6 @@ public class NavigationActivity extends FragmentActivity {
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-
         LinearLayout layoutView = new LinearLayout(this);
         layoutView.setOrientation(LinearLayout.VERTICAL);
         layoutView.addView(getNavigationBar());
@@ -152,125 +145,10 @@ public class NavigationActivity extends FragmentActivity {
 		this.navigationBar = navigationBar;
 	}
 
-	public boolean isFirstLoad() {
-		return isFirstLoad;
-	}
-
-    /**
-     * 更新app回调接口
-     */
-	public interface UpdateAppCallback{
-        //不去下载
-        void updateCancel();
+    protected void startOtherActivity(Class<? extends Activity> cls){
+        Intent intent = new Intent(this,cls);
+        startActivity(intent);
     }
-    /**
-     * 检查更新
-     */
-    protected void getUpdate(final boolean isShowDialog, final UpdateAppCallback updateAppCallback) {
-        HashMap<String, Object> updateparams = new HashMap<String, Object>();
-        updateparams.put("PlatformType", "1");//1为安卓
-        updateparams.put("SystemType", "2");//2为内部版
-        EasyAPI.apiConnectionAsync(this, isShowDialog, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams, new EasyAPI.ApiFastSuccessCallBack() {
-            @Override
-            public void onSuccessJson(JsonElement result) {
-                String versionName = null;
-                try {
-                    versionName = getPackageManager().getPackageInfo("com.scetia.Pro", 0).versionName;
-                    System.out.println("versionName.." + versionName);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-                JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
-                String serviceVersion = json.get("Version").getAsString();
-                //是否强制更新标识
-                final int isMustBeUpdate = json.get("Update_Flag").getAsInt();
-                String[] localVersionArray = versionName.split("\\.");
-                String[] serviceVersionArray = serviceVersion.split("\\.");
-                int localCount = localVersionArray.length;
-                int serviceCount = serviceVersionArray.length;
-                int count = localCount;
-                if (localCount > serviceCount) {
-                    count = serviceCount;
-                }
-                boolean updateFlag = false;
-                try {
-                    for (int i = 0; i < count; i++) {
-                        if (Integer.parseInt(localVersionArray[i]) < Integer.parseInt(serviceVersionArray[i])) {
-                            updateFlag = true;
-                        }
-                    }
-                } catch (Exception e) {
-                    updateFlag = false;
-                }
-                if (updateFlag) {
-                    final String urlString = json.get("Update_Url").getAsString();
-                    String description="";
-                    if(isMustBeUpdate==1){
-                        //强制更新
-                        description = "更新内容:\r\n" + json.get("Description").getAsString()
-                                +"\r\n此更新为强制更新，必须更新后尚可继续使用，如暂时不更新点取消退出程序！\r\n"+ "是否立即前往更新？";
-                    }else{
-                        description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
-                    }
-                    isShowUpdate(serviceVersion, description, urlString, isMustBeUpdate == 1, new MyUpdateUtil.OnDownloadListener() {
-                        @Override
-                        public void onStart(long downloadId) {
-
-                        }
-
-                        @Override
-                        public void onDownloading(long downloadId, int progress) {
-
-                        }
-
-                        @Override
-                        public void onSuccess(long downloadId) {
-
-                        }
-
-                        @Override
-                        public void onCancel(long downloadId) {
-                            if (isMustBeUpdate == 1) {
-                                updateAppCallback.updateCancel();
-                            }
-                        }
-                    }, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (isMustBeUpdate == 1) {
-                                updateAppCallback.updateCancel();
-                            }
-                        }
-                    });
-                }else{
-                    if (isShowDialog)
-                    LSAlert.showAlert(NavigationActivity.this,"已经是最新版本了");
-                }
-            }
-
-        });
-    }
-    /**
-     * 是否显示更新提示框
-     * @param version
-     * @param description
-     * @param apkUrl
-     * @param isMustBeUpdate
-     */
-	public void isShowUpdate(String version, String description, String apkUrl, boolean isMustBeUpdate, MyUpdateUtil.OnDownloadListener downloadListener,
-                             DialogInterface.OnClickListener listener){
-	    UpdateInfo info =new  UpdateInfo();
-	    info.setInfo(description)
-                .setVer(version)
-                .setDownloadUrl(apkUrl);
-        MyUpdateUtil updateUtil = new MyUpdateUtil(this);
-        updateUtil.showNormalUpdateDialog(info,"检查到更新"+info.getVer(),null,"下载","取消",isMustBeUpdate,listener);
-        MyUpdateUtil.updateTitle = "发现更新";
-        MyUpdateUtil.progressDialogTitle ="建设检测";
-        MyUpdateUtil.progressDescription = "正在更新...";
-        updateUtil.setOnDownloadListener(downloadListener);
-    }
-
     /**
      * 不允许APP的字体随系统改变
      * @return
@@ -281,16 +159,61 @@ public class NavigationActivity extends FragmentActivity {
         Configuration newConfig = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
 
-        if (resources != null && newConfig.fontScale != 1) {
+        if (newConfig.fontScale != 1) {
             newConfig.fontScale = 1;
-            if (Build.VERSION.SDK_INT >= 17) {
-                Context configurationContext = createConfigurationContext(newConfig);
-                resources = configurationContext.getResources();
-                displayMetrics.scaledDensity = displayMetrics.density * newConfig.fontScale;
-            } else {
-                resources.updateConfiguration(newConfig, displayMetrics);
-            }
+            Context configurationContext = createConfigurationContext(newConfig);
+            resources = configurationContext.getResources();
+            displayMetrics.scaledDensity = displayMetrics.density * newConfig.fontScale;
         }
         return resources;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            // 获得当前得到焦点的View，一般情况下就是EditText（特殊情况就是轨迹求或者实体案件会移动焦点）
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                hideSoftInput(v.getWindowToken());
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘，因为当用户点击EditText时没必要隐藏
+     *
+     * @param v
+     * @param event
+     * @return
+     */
+    private boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = { 0, 0 };
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
+                    + v.getWidth();
+            if (event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom) {
+                // 点击EditText的事件，忽略它。
+                return false;
+            } else {
+                v.clearFocus();
+                return true;
+            }
+        }
+        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
+        return false;
+    }
+    /**
+     * 多种隐藏软件盘方法的其中一种
+     *
+     * @param token
+     */
+    private void hideSoftInput(IBinder token) {
+        if (token != null) {
+            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

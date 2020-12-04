@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/common_background"
     android:orientation="vertical"
-    tools:context="com.lessu.xieshi.todaystatistics.TodayStatisticsActivity">
+    tools:context=".module.todaystatistics.TodayStatisticsActivity">
 
     <LinearLayout
         android:id="@+id/ll_today_satictics_title"

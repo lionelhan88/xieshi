@@ -7,7 +7,7 @@
     android:background="@color/white_smoke"
     android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/y15"
@@ -106,8 +106,8 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/total_sign_number_label"
             app:layout_constraintTop_toBottomOf="@+id/danwei_sign_number"/>
-    </android.support.constraint.ConstraintLayout>
-    <android.support.design.widget.TabLayout
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/mis_meeting_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,26 +116,26 @@
         app:tabSelectedTextColor="@color/mis_meeting_tab_title_color"
         app:tabIndicatorColor="@color/mis_meeting_tab_title_color">
 
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="会议概述" />
 
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="单位签到" />
 
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="嘉宾签到" />
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="手动签到" />
-    </android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/mis_meeting_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -12,7 +12,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        >
-			<com.lessu.xieshi.HorizontalScrollViewEx 
+			<com.lessu.xieshi.view.HorizontalScrollViewEx
 			    android:id="@+id/ScrollView" 
 			    android:layout_width="fill_parent"  
 			    android:layout_height="fill_parent" 
@@ -23,7 +23,7 @@
 			        android:layout_width="wrap_content" 
 			        android:layout_height="match_parent">  
 			    </LinearLayout>  
-			</com.lessu.xieshi.HorizontalScrollViewEx>  
+			</com.lessu.xieshi.view.HorizontalScrollViewEx>
 			<LinearLayout 
 			    android:layout_width="match_parent"
 			    android:layout_height="match_parent"

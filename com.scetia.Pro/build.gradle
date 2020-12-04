@@ -1,13 +1,21 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'android-aspectjx'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+aspectjx {
+    enabled true
+    exclude 'com.google','com.taobao'
+}
 android {
-    compileSdkVersion 29
-    buildToolsVersion "24.0.0"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.scetia.Pro"
-        minSdkVersion 19
-        targetSdkVersion 29
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         multiDexEnabled true
         //添加这个配置，不然编译会报错
         //添加如下配置就OK了
@@ -23,7 +31,6 @@ android {
                 keyPassword "xieshi123"
                 v1SigningEnabled true
                 v2SigningEnabled true
-
             } catch (ex) {
                 throw new Exception("签名用户名或密码错误${ex.message}")
             }
@@ -40,18 +47,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
     }
-    applicationVariants.all{ variant->
+    applicationVariants.all { variant ->
         def buildType = variant.buildType.name
         //只对release起作用
-        if(buildType=="release"){
+        if (buildType == "release") {
             variant.getPackageApplication().outputDirectory = new File("D:\\APP签名和打包\\xieshi path\\Scetia_Pro_v$versionName")
         }
-        variant.outputs.each{ mm ->
-            if (buildType=="release"){
+        variant.outputs.each { mm ->
+            if (buildType == "release") {
                 def fileName = "Scetia_Pro.apk"
-                println "文件名--------${fileName}"
-                mm.outputFileName=fileName
+                mm.outputFileName = fileName
             }
         }
     }
@@ -60,39 +72,37 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 
 dependencies {
+    implementation rootProject.ext.dependencies.rxJava
+    implementation rootProject.ext.dependencies.retrofit
+    implementation rootProject.ext.dependencies.publish
+    implementation rootProject.ext.dependencies.baseRecyclerView
+    implementation rootProject.ext.dependencies.navigation
+    implementation rootProject.ext.dependencies.eventBus
+    annotationProcessor rootProject.ext.dependencies.glideAnnationProcess
+    implementation rootProject.ext.dependencies.refreshlayout
+    implementation rootProject.ext.dependencies.pickerView
+    implementation rootProject.ext.dependencies.photoview
+    implementation rootProject.ext.dependencies.qrcode
+    implementation rootProject.ext.dependencies.okhttp
+    implementation rootProject.ext.dependencies.supportV4
+    implementation rootProject.ext.dependencies.easySwipeMenuLayout
+    implementation rootProject.ext.dependencies.updateUtilsSDK2
+    annotationProcessor rootProject.ext.dependencies.butterknifAnnationProcess
     implementation project(':lSUIKit')
     implementation project(':pullToRefreash')
-    implementation 'com.android.support:appcompat-v7:22.2.1'
+    implementation project(':library')
     implementation files('libs/zbar.jar')
     implementation files('libs/uhfreaderapi.jar')
-    implementation project(':library')
-    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:recyclerview-v7:22.0.0'
-    implementation 'com.android.support:design:24.0.0'
-    implementation files('libs\\rfidImpl_class.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
     compile files('libs/BaiduLBS_Android.jar')
-    implementation'cn.bingoogolapple:bga-qrcode-zxing:1.3.4'
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    //rxjava依赖
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    //retrofit依赖
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-    //recylerview adapter 框架
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    annotationProcessor  'com.jakewharton:butterknife-compiler:8.0.1'
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
-    implementation 'com.bm.photoview:library:1.4.1'
-    //上拉加载，下拉刷新框架
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'android.arch.paging:runtime:1.0.1'
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

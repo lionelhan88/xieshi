@@ -7,9 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.AppApplication;
+import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.meet.MeetingDetailActivity;
 
 /**
  * Created by fhm on 2017/2/14.
@@ -18,7 +17,6 @@ import com.lessu.xieshi.meet.MeetingDetailActivity;
 public class ToastUtil {
     static Toast mToast = null;
     public static void showShort( String msg) {
-
         if (null == mToast) {
             mToast = Toast.makeText(AppApplication.getAppContext(), msg, Toast.LENGTH_SHORT);
         } else {

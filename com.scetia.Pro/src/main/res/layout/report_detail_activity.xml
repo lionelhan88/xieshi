@@ -2,13 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lessu.xieshi.ReportDetailActivity" >
+    tools:context="com.lessu.xieshi.module.web.ReportDetailActivity">
 
-    <WebView 
+    <WebView
         android:id="@+id/report_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        
-        />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

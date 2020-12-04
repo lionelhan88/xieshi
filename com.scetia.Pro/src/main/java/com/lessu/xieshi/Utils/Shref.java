@@ -8,24 +8,19 @@ import android.content.SharedPreferences;
  */
 public class Shref {
     public static final String PREF_NAME = "config";
-    public static final String testUserId = "de9374a7-16cb-4a24-862a-c20b0bf07e57";
     public static final String BLUETOOTH_DEVICE="deviceaddress";
-    public static boolean getBoolean(Context ctx, String key,
-                                     boolean defaultValue) {
-        SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
+    public static final String AUTO_LOGIN_KEY="auto_login_key";
+    public static boolean getBoolean(Context ctx, String key, boolean defaultValue) {
+        SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return sp.getBoolean(key, defaultValue);
     }
 
     public static void setBoolean(Context ctx, String key, boolean value) {
-        SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         sp.edit().putBoolean(key, value).commit();
     }
-    public static String getString(Context ctx, String key,
-                                     String defaultValue) {
-        SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
+    public static String getString(Context ctx, String key, String defaultValue) {
+        SharedPreferences sp = ctx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return sp.getString(key, defaultValue);
     }
 

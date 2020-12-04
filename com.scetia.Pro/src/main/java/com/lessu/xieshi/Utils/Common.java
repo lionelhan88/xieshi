@@ -1,12 +1,21 @@
 package com.lessu.xieshi.Utils;
 
-import java.util.Calendar;
-import java.util.Date;
+import android.content.Context;
+import android.content.pm.PackageManager;
+
+import com.lessu.xieshi.base.BaseRetrofitManage;
+
+import java.util.HashMap;
 
 /**
  * Created by fhm on 2016/7/21.
  */
 public class Common {
+    public static HashMap<String, String> serviceMap = new HashMap<String, String>();
+    private static HashMap<Integer, BaseRetrofitManage> retrofitManageMap = new HashMap<>();
+    public static String SCAN_TYPE = "";
+    /**在扫码入口 需要识别具体的扫码动作*/
+    public static final String SCAN_MEETING_SIGNED = "scan_meeting_signed";
     public static final String USERPOWER="USERPOWER";
     public static final String USERNAME="USERNAME";
     public static final String PASSWORD="PASSWORD";
@@ -15,29 +24,16 @@ public class Common {
     public static final String PICNAME="PICNAME";
     //2020-06-01 存入userid，为了扫码登录
     public static final String USERID="user_id";
-    /**
-     * 用户单位信息
-     */
+    /**用户单位信息*/
     public static final String MEMBERINFOSTR="MemberInfoStr";
 
-    public static final String DX_BASE_URL = "https://bgtj.o-learn.cn";
-    public static final String DX_SCAN_LOGIN = DX_BASE_URL+"/thirdparty/jzjc/appInterfaceApi/scanQRCode";
 
-
-    public static int getGapCount(Date startDate, Date endDate) {
-        Calendar fromCalendar = Calendar.getInstance();
-        fromCalendar.setTime(startDate);
-        fromCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        fromCalendar.set(Calendar.MINUTE, 0);
-        fromCalendar.set(Calendar.SECOND, 0);
-        fromCalendar.set(Calendar.MILLISECOND, 0);
-
-        Calendar toCalendar = Calendar.getInstance();
-        toCalendar.setTime(endDate);
-        toCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        toCalendar.set(Calendar.MINUTE, 0);
-        toCalendar.set(Calendar.SECOND, 0);
-        toCalendar.set(Calendar.MILLISECOND, 0);
-        return (int) ((toCalendar.getTime().getTime() - fromCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24));
+    public static String getVersionName(Context context){
+        try {
+             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

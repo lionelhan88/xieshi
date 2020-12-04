@@ -1,99 +1,110 @@
-<com.lessu.xieshi.customView.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lessu.xieshi.view.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="#3598DC">
+
         <LinearLayout
-            android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:clickable="true"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/sekector_scanitem"
                 android:id="@+id/ll_shenqingshangbao"
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/sekector_scanitem"
+                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:background="@drawable/shenqingshangbao"/>
+                    android:background="@drawable/shenqingshangbao" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#ffffff"
                     android:layout_marginLeft="16dp"
-                    android:text="申请上报"/>
+                    android:text="申请上报"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:background="@drawable/sekector_scanitem"
                 android:id="@+id/ll_shenhexiazai"
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
+                android:background="@drawable/sekector_scanitem"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:background="@drawable/shenhexiazai"/>
+                    android:background="@drawable/shenhexiazai" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#ffffff"
                     android:layout_marginLeft="16dp"
-                    android:text="审核下载"/>
+                    android:text="审核下载"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:background="@drawable/sekector_scanitem"
                 android:id="@+id/ll_rukuchakan"
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
+                android:background="@drawable/sekector_scanitem"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:background="@drawable/rukuchakan"/>
+                    android:background="@drawable/rukuchakan" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#ffffff"
                     android:layout_marginLeft="16dp"
-                    android:text="入库查看"/>
+                    android:text="入库查看"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:background="@drawable/sekector_scanitem"
                 android:id="@+id/ll_shebeixinxi"
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
+                android:background="@drawable/sekector_scanitem"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:background="@drawable/shebeixinxi"/>
+                    android:background="@drawable/shebeixinxi" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#ffffff"
                     android:layout_marginLeft="16dp"
-                    android:text="设备信息"/>
+                    android:text="设备信息"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,846 +112,983 @@
                 android:layout_height="94dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#ffffff"
-                    android:layout_marginLeft="32dp"
-                    android:text="功率扫描设置"/>
-                <SeekBar
-                    android:layout_margin="14dp"
-                    android:id="@+id/sb_scan"
-                    android:layout_width="165dp"
-                    android:layout_height="wrap_content"
-                    android:max="25"
-                    android:progress="1"
-                    style="@style/myseekbarstyle"
-                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#ffffff"
                     android:layout_marginLeft="32dp"
-                    android:text="弱                        强"/>
+                    android:text="功率扫描设置"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
+
+                <SeekBar
+                    android:id="@+id/sb_scan"
+                    style="@style/myseekbarstyle"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="14dp"
+                    android:max="25"
+                    android:progress="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:text="弱                        强"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp" />
             </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>
 
 
-    <com.lessu.xieshi.customView.MyRelativeLayout
+    <com.lessu.xieshi.view.MyRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eeeeee"
-        >
+        android:background="#eeeeee">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
-                android:gravity="center_vertical"
-                android:paddingLeft="18dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
+                android:minHeight="35dp"
                 android:background="#ffffff"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
-                    android:paddingLeft="10dp"
                     android:id="@+id/tv_rukuchakan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shurukuang"/>
+                    android:gravity="center_vertical"
+                    android:background="@drawable/shurukuang"
+                    android:paddingLeft="10dp" />
+
                 <TextView
                     android:id="@+id/tv_chakan"
-                    android:textSize="15sp"
-                    android:textColor="#3598dc"
-                    android:paddingLeft="32dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="查看"/>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="查看"
+                    android:textColor="#3598dc"
+                    android:textSize="15sp" />
             </LinearLayout>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
                     <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="扫描编号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_saomiaobianhao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="合同登记号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_hetongdengjihao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="委托编号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_weituobianhao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="样品编号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_yangpinbianhao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="标识编号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_biaoshibianhao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="报告编号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_baogaobianhao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="报建编号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_baojianbianhao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="样品状态："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_yangpinzhuangtai"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="检测结果："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jiancejieguo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="工程名称："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_rukugongchengmingchen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="工程部位："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_gongchenbuwei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="工程地址："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_gongchendizhi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="所属区县："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_suoshuqvxian"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="检测种类："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jiancezhonglei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="检测项目："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jiancexiangmu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="样品名称："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_rukuyangpiningchen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="产品标准："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_chanpinbiaozhun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="检测参数："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jiancecanshu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="规格名称："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_guigemingchen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="强度等级："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_qiangdudengji"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="施工单位："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_shigongdanwei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="建设单位："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jianshedanwei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="监理单位："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jianlidanwei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="检测单位："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_jiancedanwei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="备案证号："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_beianzhenghao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="生产厂家："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_shengchanchangjia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="制作日期："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_zhizuoriqi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="龄期："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_linqi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="登记日期："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_dengjiriqi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="委托日期："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_weituoriqi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="报告日期："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_baogaoriqi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="18dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="备注："
-                            android:textSize="14sp"
-                            android:textColor="#666666"/>
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/tv_beizhu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:textColor="#333333"/>
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/xianl"/>
+                        android:background="@drawable/xianl" />
                 </LinearLayout>
             </ScrollView>
 
         </LinearLayout>
-    </com.lessu.xieshi.customView.MyRelativeLayout>
-</com.lessu.xieshi.customView.DragLayout>
+    </com.lessu.xieshi.view.MyRelativeLayout>
+</com.lessu.xieshi.view.DragLayout>

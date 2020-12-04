@@ -1,6 +1,6 @@
 package com.lessu.uikit.tabbar;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 public class TabbarItem extends Object {
 	public int imageUnselectedResourceId;

@@ -90,12 +90,12 @@ public class NavigationBar extends RelativeLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        paint.setColor(0xFFAAAAAA);
+       /* paint.setColor(0xFFAAAAAA);
         paint.setStrokeWidth(1);
         canvas.drawLine(0,canvas.getHeight() -1 ,canvas.getWidth(),canvas.getHeight() - 1,paint);
         paint.setColor(0xFFFFFFFF);
         paint.setStrokeWidth(1);
-        canvas.drawLine(0,canvas.getHeight() -2 ,canvas.getWidth(),canvas.getHeight() - 2,paint);
+        canvas.drawLine(0,canvas.getHeight() -2 ,canvas.getWidth(),canvas.getHeight() - 2,paint);*/
     }
 
     CharSequence        title;
@@ -128,7 +128,14 @@ public class NavigationBar extends RelativeLayout {
 	        item.setTintColor(tintColor);
     	}
     }
-
+    public void setMidBarItem(View item){
+        if(item == null){
+            middleBarLayout.removeAllViews();
+        }else{
+            middleBarLayout.removeAllViews();
+            middleBarLayout.addView(item);
+        }
+    }
 	public void setRightBarItem(BarButtonItem item){
 		if(item == null){
 			rightBarLayout.removeAllViews();

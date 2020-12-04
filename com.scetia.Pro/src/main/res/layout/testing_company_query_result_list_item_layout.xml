@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/company_manage_swipe_menLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/x10"
+    android:layout_marginTop="@dimen/y5"
+    android:layout_marginRight="@dimen/x10"
+    android:layout_marginBottom="@dimen/y5"
+    android:background="@drawable/white_round_stroke_bg"
+    app:contentView="@id/company_manage_item_content"
+    app:rightMenuView="@id/right">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/company_manage_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/testing_company_manage_item_company_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="张三" />
+
+        <TextView
+            android:id="@+id/testing_company_manage_item_company_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toEndOf="@+id/testing_company_manage_item_company_user"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="18300704684" />
+
+        <TextView
+            android:id="@+id/testing_company_manage_item_company_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintEnd_toStartOf="@+id/testing_company_manage_item_select_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="静安区" />
+
+        <TextView
+            android:id="@+id/testing_company_manage_item_company_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@+id/testing_company_manage_item_select_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testing_company_manage_item_company_user"
+            tools:text="上海检测技术有限公司上海检测技术有有限公司上海检测技术有限公司上海检测技术有有限公司" />
+
+        <TextView
+            android:id="@+id/testing_company_manage_item_company_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/dizhia"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintEnd_toStartOf="@+id/testing_company_manage_item_select_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testing_company_manage_item_company_name"
+            tools:text="上海市中山南二路上海市中山南二路上海市中山南二路上海市中山南二路" />
+
+        <ImageView
+            android:id="@+id/testing_company_manage_item_select_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/right"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="@color/red_dark"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

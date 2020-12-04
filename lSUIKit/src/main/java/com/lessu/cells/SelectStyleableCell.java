@@ -21,7 +21,7 @@ public class SelectStyleableCell extends LinearLayout{
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SelectStyleableCell);
 
         normalStatusColor = array.getColor(R.styleable.SelectStyleableCell_normal_background, Color.TRANSPARENT);
-        highLightStatusColor = array.getColor(R.styleable.SelectStyleableCell_hightlight_background,R.color.hight_light_color);
+        highLightStatusColor = array.getColor(R.styleable.SelectStyleableCell_hightlight_background,R.color.blue_normal2);
 
         this.setBackgroundColor(normalStatusColor);
 

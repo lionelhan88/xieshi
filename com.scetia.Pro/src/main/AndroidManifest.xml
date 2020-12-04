@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lessu.xieshi"
-    android:versionCode="3"
-    android:versionName="1.038">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.lessu.xieshi">
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -11,7 +10,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -24,7 +25,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -44,22 +45,21 @@
         android:smallScreens="true" />
 
     <application
-        android:name=".AppApplication"
+        android:name=".base.AppApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppBaseTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" />
 
         <activity
-            android:name=".login.LoginActivity"
-            android:hardwareAccelerated="true"
-            android:label="@string/app_name">
+            android:name=".login.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,95 +67,101 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.FirstActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".mis.activitys.MisguideActivity" />
-
-        <activity android:name=".meet.OtherJoinMeetingActivity" />
-        <activity android:name=".meet.ReplaceActivity" />
-        <activity android:name=".meet.MisMeetingActivity" />
-        <activity android:name=".meet.MeetingDetailActivity" />
+            android:name=".login.LoginActivity"
+            android:hardwareAccelerated="true"
+            android:label="@string/app_name"/>
         <activity
-            android:name=".construction.SampleListActivity"
+            android:name=".login.FirstActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.mis.activitys.MisGuideActivity"
+            android:launchMode="singleTask" />
+
+        <activity android:name=".module.meet.activity.OtherJoinMeetingActivity" />
+        <activity android:name=".module.meet.activity.ReplaceActivity" />
+        <activity android:name=".module.meet.activity.MisMeetingActivity" />
+        <activity android:name=".module.meet.activity.MeetingDetailActivity" />
+        <activity
+            android:name=".module.construction.SampleListActivity"
             android:label="@string/title_activity_sample_list" />
         <activity
-            android:name=".QRCodeActivity"
+            android:name=".base.QRCodeActivity"
             android:label="@string/title_activity_qrcode" />
         <activity
-            android:name=".ReportDetailActivity"
+            android:name=".module.web.ReportDetailActivity"
             android:label="@string/title_activity_report_detail" />
         <activity
-            android:name=".construction.SampleDetailActivity"
+            android:name=".module.construction.SampleDetailActivity"
             android:label="@string/title_activity_sample_detail" />
         <activity
             android:name=".login.ValidateActivity"
             android:label="@string/title_activity_validate" />
         <activity
-            android:name=".dataauditing.DataAuditingActivity"
+            android:name=".module.dataauditing.DataAuditingActivity"
             android:label="@string/title_activity_data_auditing" />
         <activity
-            android:name=".construction.ConstructionListActivity"
+            android:name=".module.construction.ConstructionListActivity"
             android:label="@string/title_activity_construction_list" />
         <activity
             android:name=".map.ProjectListActivity"
             android:label="@string/title_activity_project_list" />
         <activity
-            android:name=".SlidingMenuActivity"
+            android:name=".base.SlidingMenuActivity"
             android:label="@string/title_activity_sliding_menu" />
         <activity
-            android:name=".dataauditing.DataSearchActivity"
+            android:name=".module.dataauditing.DataSearchActivity"
             android:label="@string/title_activity_data_search" />
         <activity
-            android:name=".XieShiSlidingMenuActivity"
+            android:name=".base.XieShiSlidingMenuActivity"
             android:label="@string/title_activity_xie_shi_sliding_menu" />
         <activity
-            android:name=".dataauditing.AuditingDetailActivity"
+            android:name=".module.dataauditing.AuditingDetailActivity"
             android:label="@string/title_activity_auditing_detail" />
         <activity
-            android:name=".dataexamine.DataExamineActivity"
+            android:name=".module.dataexamine.DataExamineActivity"
             android:label="@string/title_activity_data_examine" />
         <activity
-            android:name=".todaystatistics.TodayStatisticsActivity"
+            android:name=".module.todaystatistics.TodayStatisticsActivity"
             android:label="@string/title_activity_today_statistics" />
         <activity
-            android:name=".construction.ConstructionSearchActivity"
+            android:name=".module.construction.ConstructionSearchActivity"
             android:label="@string/title_activity_construction_search" />
         <activity
-            android:name=".construction.ConstructionDetailActivity"
+            android:name=".module.construction.ConstructionDetailActivity"
             android:label="@string/title_activity_construction_detail" />
         <activity
-            android:name=".unqualified.UnqualifiedSearchActivity"
+            android:name=".module.unqualified.UnqualifiedSearchActivity"
             android:label="@string/title_activity_unqualifield_search" />
         <activity
-            android:name=".unqualified.TestReportActivity"
+            android:name=".module.unqualified.TestReportActivity"
             android:label="@string/title_activity_test_report" />
         <activity
-            android:name=".ReportPreviewActivity"
+            android:name=".module.web.ReportPreviewActivity"
             android:label="@string/title_activity_report_preview" />
         <activity
-            android:name=".RecordPreviewActivity"
+            android:name=".module.web.RecordPreviewActivity"
             android:label="@string/title_activity_record_preview" />
         <activity
-            android:name=".dataexamine.ExamineSearchActivity"
+            android:name=".module.dataexamine.ExamineSearchActivity"
             android:label="@string/title_activity_examine_search" />
         <activity
-            android:name=".dataexamine.ExamineDetailActivity"
+            android:name=".module.dataexamine.ExamineDetailActivity"
             android:label="@string/title_activity_examine_detail" />
         <activity
-            android:name=".construction.TestConstractActivity"
+            android:name=".module.construction.TestConstractActivity"
             android:label="@string/title_activity_test_constract" />
         <activity
-            android:name=".construction.SampleSearchActivity"
+            android:name=".module.construction.SampleSearchActivity"
             android:label="@string/title_activity_sample_search" />
         <activity
-            android:name=".unqualified.ReportContentActivity"
+            android:name=".module.unqualified.ReportContentActivity"
             android:label="@string/title_activity_report_content" />
         <activity
-            android:name=".unqualified.SampleListActivity"
+            android:name=".module.unqualified.SampleListActivity"
             android:label="@string/title_activity_report_content" />
         <activity
-            android:name=".unqualified.SampleDetailActivity"
+            android:name=".module.unqualified.SampleDetailActivity"
             android:label="@string/title_activity_report_content" />
         <activity
             android:name=".map.ProjectSearchActivity"
@@ -167,88 +173,88 @@
             android:name=".uploadpicture.ImageGalleryActivity"
             android:label="@string/title_activity_image_gallery" />
         <activity
-            android:name=".dataexamine.ExamineReportDetailActivity"
+            android:name=".module.dataexamine.ExamineReportDetailActivity"
             android:label="@string/title_activity_examine_report_detail" />
         <activity
-            android:name=".dataexamine.ExamineSampleListActivity"
+            android:name=".module.dataexamine.ExamineSampleListActivity"
             android:label="@string/title_activity_examine_sample_list" />
         <activity
-            android:name=".dataexamine.ExamineSampleDetailActivity"
+            android:name=".module.dataexamine.ExamineSampleDetailActivity"
             android:label="@string/title_activity_examine_sample_detail" />
         <activity
-            android:name=".dataexamine.ExamineParamsActivity"
+            android:name=".module.dataexamine.ExamineParamsActivity"
             android:label="@string/title_activity_examine_params" />
         <activity
-            android:name=".todaystatistics.AdminTodayStatisticsActivity"
+            android:name=".module.todaystatistics.AdminTodayStatisticsActivity"
             android:label="@string/title_activity_admin_today_statistics" />
         <activity
-            android:name=".todaystatistics.AdminTodayStatisticsSearchActivity"
+            android:name=".module.todaystatistics.AdminTodayStatisticsSearchActivity"
             android:label="@string/title_activity_admin_today_statistics_search" />
         <activity
-            android:name=".construction.QrcodeDetailActivity"
+            android:name=".module.construction.QrcodeDetailActivity"
             android:label="@string/title_activity_qrcode_detail" />
         <activity
-            android:name=".unqualified.ConstructionListActivity"
+            android:name=".module.unqualified.ConstructionListActivity"
             android:label="@string/title_activity_construction_list" />
         <activity
-            android:name=".todaystatistics.TodayStatisticsDetailActivity"
+            android:name=".module.todaystatistics.TodayStatisticsDetailActivity"
             android:label="@string/title_activity_today_statistics_detail" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".set.SettingActivity"
             android:label="@string/title_activity_setting" />
         <activity
-            android:name=".ServiceActivity"
+            android:name=".set.ServiceActivity"
             android:label="@string/title_activity_service" />
         <activity
-            android:name=".PasswordActivity"
+            android:name=".set.PasswordActivity"
             android:label="@string/title_activity_password" />
         <activity
-            android:name=".PasswordCompleteActivity"
+            android:name=".set.PasswordCompleteActivity"
             android:label="@string/title_activity_password_complete" />
 
-        <activity android:name=".scan.ScanActivity" />
+        <activity android:name=".module.scan.ScanActivity" />
         <activity
-            android:name=".scan.BluetoothActivity"
+            android:name=".module.scan.BluetoothActivity"
             android:label="BluetoothActivity" />
         <activity
-            android:name=".scan.PrintDataActivity"
+            android:name=".module.scan.PrintDataActivity"
             android:label="PrintDataActivity" />
-        <activity android:name=".scan.PrintDataHomeActivity" />
-        <activity android:name=".scan.ShebeixinxiActivity" />
-        <activity android:name=".scan.ShujvjiaohuActivity" />
-        <activity android:name=".scan.YangpinqverenActivity" />
-        <activity android:name=".scan.ShenqingshangbaoActivity" />
-        <activity android:name=".scan.ShenhexiazaiActivity" />
-        <activity android:name=".scan.RukuchakanActivity" />
-        <activity android:name=".scan.YangpinshibieActivity" />
+        <activity android:name=".module.scan.ShebeixinxiActivity" />
+        <activity android:name=".module.scan.ShujvjiaohuActivity" />
+        <activity android:name=".module.scan.YangpinqverenActivity" />
+        <activity android:name=".module.scan.ShenqingshangbaoActivity" />
+        <activity android:name=".module.scan.ShenhexiazaiActivity" />
+        <activity android:name=".module.scan.RukuchakanActivity" />
+        <activity android:name=".module.scan.YangpinshibieActivity" />
 
-        <activity android:name=".mis.activitys.MisHysearchActivity" />
-        <activity android:name=".mis.activitys.HydetailActivity" />
-        <activity android:name=".mis.activitys.MisZssearchActivity" />
-        <activity android:name=".mis.activitys.ZsdetailActivity" />
-        <activity android:name=".mis.activitys.MisPinguActivity" />
-        <activity android:name=".mis.activitys.PgdetailActivity" />
-        <activity android:name=".mis.activitys.MistongzhiActivity" />
-        <activity android:name=".mis.activitys.TzdetailActivity" />
-        <activity android:name=".mis.activitys.MisnianjiaActivity" />
-        <activity android:name=".mis.activitys.MisnianjiaspActivity" />
-        <activity android:name=".mis.activitys.MisnjsqActivity" />
-        <activity android:name=".tianqi.activitys.TianqiActivity" />
-        <activity android:name=".todaystatistics.AdminTodayinfoActivity" />
-        <activity android:name=".todaystatistics.XianchangActivity" />
-        <activity android:name=".todaystatistics.XianchangdetailActivity" />
-        <activity android:name=".todaystatistics.GongchengActivity" />
-        <activity android:name=".mis.activitys.MisComparisonAprovalActivity" />
-        <activity android:name=".mis.activitys.MisComparionObjActivity" />
-        <activity android:name=".training.LearnDataActivity" />
-        <activity android:name=".ScalePictureActivity" />
+        <activity android:name=".module.mis.activitys.MisMemberSearchActivity" />
+        <activity android:name=".module.mis.activitys.HyDetailActivity" />
+        <activity android:name=".module.mis.activitys.MisCertificateSearchActivity" />
+        <activity android:name=".module.mis.activitys.CertificateDetailActivity" />
+        <activity android:name=".module.mis.activitys.MisPingGuActivity" />
+        <activity android:name=".module.mis.activitys.PingGuDetailActivity" />
+        <activity android:name=".module.mis.activitys.MisNoticesActivity" />
+        <activity android:name=".module.mis.activitys.NoticeDetailActivity" />
+        <activity android:name=".module.mis.activitys.MisAnnualLeaveManageActivity" />
+        <activity android:name=".module.mis.activitys.MisAnnualLeaveApprovalActivity" />
+        <activity android:name=".module.mis.activitys.MisAnnualLeaveApplyActivity" />
+        <activity android:name=".module.weather.WeatherDetailActivity" />
+        <activity android:name=".module.todaystatistics.AdminTodayinfoActivity" />
+        <activity android:name=".module.todaystatistics.XianchangActivity" />
+        <activity android:name=".module.todaystatistics.XianchangdetailActivity" />
+        <activity android:name=".module.todaystatistics.GongchengActivity" />
+        <activity android:name=".module.mis.activitys.MisComparisonAprovalActivity" />
+        <activity android:name=".module.mis.activitys.MisComparionObjActivity" />
+        <activity android:name=".module.training.LearnDataActivity" />
+        <activity android:name=".module.meet.activity.ScalePictureActivity" />
         <activity
-            android:name=".training.OnlineLearnActivity"
+            android:name=".module.training.OnlineLearnActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true" />
-        <activity android:name=".training.TrainingActivity" />
-        <activity android:name=".meet.MeetingListActivity" />
-        <activity android:name=".meet.OtherConfirmActivity" />
+        <activity android:name=".module.training.TrainingActivity" />
+        <activity android:name=".module.meet.activity.MeetingListActivity" />
+        <activity android:name=".module.meet.activity.OtherConfirmActivity" />
+        <activity android:name=".module.sand.SandHomeActivity" />
 
         <service
             android:name="com.baidu.location.f"
@@ -260,7 +266,7 @@
         </service>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

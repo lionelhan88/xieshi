@@ -45,7 +45,7 @@ import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LogUtil;
-import com.lessu.xieshi.XieShiSlidingMenuActivity;
+import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,9 +81,6 @@ public class ProjectListActivity  extends XieShiSlidingMenuActivity implements O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.project_list_activity);
 		listView = (ListView) findViewById(R.id.listView);
-
-		//listView.setAdapter(adapter);
-
 		listView.setOnItemClickListener(this);
 		this.setTitle("基桩静载");
 		navigationBar.setBackgroundColor(0xFF3598DC);
@@ -95,10 +92,6 @@ public class ProjectListActivity  extends XieShiSlidingMenuActivity implements O
 			}
 		});
 		navigationBar.setLeftBarItem(handleButtonItem);
-		//BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-		// menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
-		//navigationBar.setLeftBarItem(menuButtonitem);
-
 		initBaiduMap();
 		BarButtonItem	searchButtonitem = new BarButtonItem(this , R.drawable.icon_navigation_search );
 		searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");

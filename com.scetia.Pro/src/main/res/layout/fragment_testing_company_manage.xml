@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/testing_company_manage_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_smoke" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/testing_company_manage_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:src="@drawable/icon_add"
+        app:backgroundTint="@color/fab_click_bg"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:layout_behavior="com.lessu.xieshi.view.FabScrollBehavior"
+        app:rippleColor="@color/blue_normal1" />
+
+    <LinearLayout
+        android:id="@+id/testing_company_manage_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_smoke"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/yuanjiaojuxing2"
+            android:gravity="center_vertical"
+            android:minHeight="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="检测单位"
+                android:textColor="#ababab"
+                android:textSize="@dimen/text_size_medium" />
+
+            <EditText
+                android:id="@+id/testing_search_layout_company_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="请输入查询关键字（非必填）"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/yuanjiaojuxing2"
+            android:gravity="center_vertical"
+            android:minHeight="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="所属区"
+                android:textColor="#ababab"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/testing_company_manage_search_layout_area"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:drawableEnd="@drawable/xialacaidan"
+                android:gravity="center"
+                android:hint="请选择区县（非必选）"
+                android:paddingEnd="5dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/testing_search_layout_button"
+            android:layout_width="260dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/yuanjiaojuxing1"
+            android:text="查  询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_xlarge" />
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

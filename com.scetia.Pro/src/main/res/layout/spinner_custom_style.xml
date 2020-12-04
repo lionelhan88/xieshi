@@ -11,5 +11,5 @@
     android:ellipsize="marquee"
     android:singleLine="true"
     android:textAlignment="inherit"
-    android:textColor="#268beb"
+    android:textColor="#268BEB"
     android:textSize="18sp" />

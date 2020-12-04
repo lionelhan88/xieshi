@@ -19,7 +19,7 @@ import java.util.List;
 
 
 /**
-  Created by lessu on 14-6-25.
+ * Created by lessu on 14-6-25.
  */
 public class PageController {
     public String PageControllerErrorDomain = "PageControllerErrorDomain";
@@ -27,16 +27,14 @@ public class PageController {
     /**
      * default keys
      */
-    public String pageName                              = "page";
-    public String stepName                              = "step";
-    public int    step                                  = 10;
-    public String successKey                            = "success";
-    public String listKey                               = "list";
-    public String messageKey                            = "message";
-    public String pageInfoKey                           = "pageinfo";
-    public String pageInfoTotalKey                      = "total_page";
-
-
+    public String pageName = "page";
+    public String stepName = "step";
+    public int step = 10;
+    public String successKey = "success";
+    public String listKey = "list";
+    public String messageKey = "message";
+    public String pageInfoKey = "pageinfo";
+    public String pageInfoTotalKey = "total_page";
 
 
     public String keyName = "id";
@@ -51,8 +49,6 @@ public class PageController {
     private boolean isRefreashing;
 
 
-
-
     /**
      * set next fields
      */
@@ -61,7 +57,7 @@ public class PageController {
 
 
     protected ApiMethodDescription apiMethod;
-    protected HashMap<String,Object> apiParams;
+    protected HashMap<String, Object> apiParams;
 
 
     /**
@@ -74,8 +70,7 @@ public class PageController {
     private PageInfoAdapterInterface pageinfoAdapter;
 
 
-    public enum MergeDirection
-    {
+    public enum MergeDirection {
         Front,
         Tail
     }
@@ -91,34 +86,35 @@ public class PageController {
 //        _step       = kLSPageControllerStep;
         setCurrentPage(1);
         keyName = "id";
-        apiParams = new HashMap<String ,Object>();
-        list      = new ArrayList<Object>();
+        apiParams = new HashMap<String, Object>();
+        list = new ArrayList<Object>();
 
     }
-    public void nextPage(){
+
+    public void nextPage() {
         if (!hasMore()) {
-            if (delegate!=null) {
+            if (delegate != null) {
                 ApiError error = new ApiError();
                 error.errorCode = 002;
                 error.errorDomain = PageControllerErrorDomain;
                 error.errorMeesage = "没有更多啦";
 //                delegate.onNextFailedBlock(error);
-                if (delegate!=null){
+                if (delegate != null) {
                     delegate.onNextFailed(error);
                 }
             }
-            return ;
+            return;
         }
         setCurrentPage(getCurrentPage() + 1);
 
-        HashMap<String,Object> params = (HashMap<String, Object>) apiParams.clone();
+        HashMap<String, Object> params = (HashMap<String, Object>) apiParams.clone();
 
         params.put(stepName, Validate.stringFromInt(step));
         params.put(pageName, Validate.stringFromInt(getCurrentPage()));
 
 
         nextPageConnection = ApiBase.sharedInstance().getConnectionWithApiMethod(apiMethod, params);
-        nextPageConnection .setCallbacks(new ApiConnection .ApiConnectionCallback() {
+        nextPageConnection.setCallbacks(new ApiConnection.ApiConnectionCallback() {
 
             @Override
             public void onSuccessJson(JsonElement result) {
@@ -129,9 +125,10 @@ public class PageController {
             @Override
             public void onFailed(ApiError error) {
                 super.onFailed(error);
-                if (delegate!=null){
+                if (delegate != null) {
                     delegate.onNextFailed(error);
-                };
+                }
+                ;
             }
 
             @Override
@@ -152,20 +149,21 @@ public class PageController {
     }
 
 
-    public void refresh(){
-        refresh(false);
-    }
-    public void refreshNoMerge(){
+    public void refresh() {
         refresh(false);
     }
 
-    public void refresh(boolean shoudMerge){
+    public void refreshNoMerge() {
+        refresh(false);
+    }
+
+    public void refresh(boolean shoudMerge) {
 
         cancelRefreashing();
-        HashMap<String ,Object> params = (HashMap<String, Object>) apiParams.clone();
+        HashMap<String, Object> params = (HashMap<String, Object>) apiParams.clone();
 
-        params.put(stepName,Validate.stringFromInt(step));
-        params.put(pageName,Validate.stringFromInt(1));
+        params.put(stepName, Validate.stringFromInt(step));
+        params.put(pageName, Validate.stringFromInt(1));
 
 
         if (shoudMerge == false) {
@@ -189,12 +187,12 @@ public class PageController {
             @Override
             public void onFailed(ApiError error) {
                 super.onFailed(error);
-                if (delegate!=null){
+                if (delegate != null) {
                     delegate.onRefreshFailed(error);
                 }
-                System.out.println("刷新onFailed了"+error.errorMeesage);
-                System.out.println("刷新onFailed了"+error.errorDomain);
-                System.out.println("刷新onFailed了"+error.errorCode);
+                System.out.println("刷新onFailed了" + error.errorMeesage);
+                System.out.println("刷新onFailed了" + error.errorDomain);
+                System.out.println("刷新onFailed了" + error.errorCode);
 
 
             }
@@ -209,7 +207,7 @@ public class PageController {
 
 //        [_refreashConnection loadFromCache];
         boolean validatePass = true;
-        if(delegate!=null){
+        if (delegate != null) {
             validatePass = delegate.beforeRefreshRequest(refreashConnection);
         }
         if (validatePass) {
@@ -218,11 +216,11 @@ public class PageController {
         }
     }
 
-    public void clearList(){
+    public void clearList() {
         list.clear();
     }
 
-    public void cancelLoading(){
+    public void cancelLoading() {
         if (isLoading) {
 
             nextPageConnection.cancel(true);
@@ -230,15 +228,16 @@ public class PageController {
 
         }
     }
-    public void cancelRefreashing(){
+
+    public void cancelRefreashing() {
         if (isRefreashing) {
             refreashConnection.cancel(true);
             isRefreashing = false;
         }
     }
 
-    public void refreshRequestDidSuccess(JsonElement result){
-        if (getPageinfoAdapter() == null){
+    public void refreshRequestDidSuccess(JsonElement result) {
+        if (getPageinfoAdapter() == null) {
             setPageinfoAdapter(getDefaultPageAdapter());
         }
 
@@ -248,9 +247,9 @@ public class PageController {
             List newlistElement = pageInfo.listData;
             totalPage = pageInfo.totalPage;
             if (shouldMerge) {
-                mergeArray(list,newlistElement,keyName,MergeDirection.Front);
+                mergeArray(list, newlistElement, keyName, MergeDirection.Front);
 
-            }else{
+            } else {
                 list = newlistElement;
             }
 //            if (_refreashConnection.isCacheLoading) {
@@ -260,25 +259,26 @@ public class PageController {
 //            }
 //            else
 //            {
-                if (delegate!=null) {
-                    delegate.onRefreshSuccess(list, result);
-                }
+            if (delegate != null) {
+                delegate.onRefreshSuccess(list, result);
+            }
 //                _refreashConnection.addCache = true;
 //            }
-        }else{
+        } else {
             ApiError error = new ApiError();
             error.errorDomain = PageControllerErrorDomain;
             error.errorCode = 001;
             error.errorMeesage = Validate.stringEmptyIfNot(pageInfo.errorMessage);
 
-            if (delegate!=null) {
+            if (delegate != null) {
                 delegate.onRefreshFailed(error);
             }
 
         }
     }
-    public void nextRequestDidSuccess(JsonElement result){
-        if (getPageinfoAdapter() == null){
+
+    public void nextRequestDidSuccess(JsonElement result) {
+        if (getPageinfoAdapter() == null) {
             setPageinfoAdapter(getDefaultPageAdapter());
         }
 
@@ -288,7 +288,7 @@ public class PageController {
         if (pageInfo.isSuccess) {
             List newListElement = pageInfo.listData;
             totalPage = pageInfo.totalPage;
-            mergeArray(list,newListElement,keyName,MergeDirection.Tail);
+            mergeArray(list, newListElement, keyName, MergeDirection.Tail);
 
 //            if (_nextPageConnection.isCacheLoading) {
 //                if (_onCacheNextBlock) {
@@ -299,44 +299,45 @@ public class PageController {
 //                    _onNextSuccessBlock(_list,result);
 //                }
 //            }
-            if (delegate!=null) {
+            if (delegate != null) {
                 delegate.onNextSuccess(list, result);
             }
-        }else{
+        } else {
             ApiError error = new ApiError();
             error.errorDomain = PageControllerErrorDomain;
             error.errorCode = 001;
             error.errorMeesage = Validate.stringEmptyIfNot(pageInfo.errorMessage);
 
-            if (delegate!=null) {
+            if (delegate != null) {
                 delegate.onNextFailed(error);
             }
         }
 
     }
-    private void mergeArray(List<JsonElement> destination ,List<JsonElement> src ,String keyName ,MergeDirection direction){
+
+    private void mergeArray(List<JsonElement> destination, List<JsonElement> src, String keyName, MergeDirection direction) {
         switch (direction) {
-            case Front:{
+            case Front: {
 
                 List<JsonElement> source = new ArrayList<JsonElement>(src);
                 int count = source.size();
                 int[] shouldRemoveIndexs = new int[count];
                 int shouldRemoveIndexsCount = 0;
 
-                for(int i = 0 ; i < count ;i ++){
+                for (int i = 0; i < count; i++) {
                     JsonObject data = source.get(i).getAsJsonObject();
-                    String key = GsonValidate.getStringByKeyPath(data, keyName , null);
-                    if (key != null){
+                    String key = GsonValidate.getStringByKeyPath(data, keyName, null);
+                    if (key != null) {
                         int index = 0;
-                        index = indexOfObject(data,keyName,destination);
+                        index = indexOfObject(data, keyName, destination);
                         if (index >= 0) {
-                            destination.set(index , data);
+                            destination.set(index, data);
                             shouldRemoveIndexs[shouldRemoveIndexsCount] = i;
                             shouldRemoveIndexsCount++;
                         }
                     }
                 }
-                for (int i = shouldRemoveIndexsCount -1 ; i >=0; i--) {
+                for (int i = shouldRemoveIndexsCount - 1; i >= 0; i--) {
                     source.remove(shouldRemoveIndexs[i]);
                 }
 
@@ -346,26 +347,26 @@ public class PageController {
 
                 break;
             }
-            case Tail:{
+            case Tail: {
                 List<JsonElement> source = new ArrayList<JsonElement>(src);
                 int count = source.size();
-                int[] shouldRemoveIndexs =  new int[count];
+                int[] shouldRemoveIndexs = new int[count];
                 int shouldRemoveIndexsCount = 0;
-                for(int i = 0 ; i < count ;i ++){
+                for (int i = 0; i < count; i++) {
                     JsonObject data = source.get(i).getAsJsonObject();
 
-                    String key = GsonValidate.getStringByKeyPath(data, keyName ,null);
+                    String key = GsonValidate.getStringByKeyPath(data, keyName, null);
                     if (key != null) {
                         int index = 0;
-                        index = indexOfObject(data,keyName,destination);
+                        index = indexOfObject(data, keyName, destination);
                         if (index >= 0) {
-                            destination.set(index , data);
+                            destination.set(index, data);
                             shouldRemoveIndexs[shouldRemoveIndexsCount] = i;
                             shouldRemoveIndexsCount++;
                         }
                     }
                 }
-                for (int i = shouldRemoveIndexsCount -1 ; i >=0; i--) {
+                for (int i = shouldRemoveIndexsCount - 1; i >= 0; i--) {
                     source.remove(shouldRemoveIndexs[i]);
                 }
 
@@ -376,29 +377,30 @@ public class PageController {
                 break;
         }
     }
-    public PageInfoAdapterInterface getDefaultPageAdapter(){
+
+    public PageInfoAdapterInterface getDefaultPageAdapter() {
         return new PageInfoAdapterInterface() {
             @Override
             public PageInfo adapter(JsonElement input) {
                 PageInfo pageInfo = new PageInfo();
                 try {
                     JsonObject result = input.getAsJsonObject();
-                    if ( result!=null ){
-                        if(result.get(successKey).getAsBoolean()){
-                            JsonObject pageInfoObjecy =result.get(pageInfoKey).getAsJsonObject();
-                            JsonArray  resultList     = result.get(listKey).getAsJsonArray();
+                    if (result != null) {
+                        if (result.get(successKey).getAsBoolean()) {
+                            JsonObject pageInfoObjecy = result.get(pageInfoKey).getAsJsonObject();
+                            JsonArray resultList = result.get(listKey).getAsJsonArray();
 
-                            pageInfo.totalPage  = pageInfoObjecy.get(pageInfoTotalKey).getAsInt();
+                            pageInfo.totalPage = pageInfoObjecy.get(pageInfoTotalKey).getAsInt();
 
-                            pageInfo.listData   = EasyGson.jsonArrayToList(resultList);
+                            pageInfo.listData = EasyGson.jsonArrayToList(resultList);
                             pageInfo.isSuccess = true;
-                        }else {
+                        } else {
                             pageInfo.isSuccess = false;
                             pageInfo.errorMessage = result.get(messageKey).getAsString();
                         }
                     }
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     pageInfo.isSuccess = false;
                     pageInfo.errorMessage = "网络访问类型不为DH标准的分页格式";
                 }
@@ -406,52 +408,56 @@ public class PageController {
             }
         };
     }
-    public interface PageControllerDelegate{
+
+    public interface PageControllerDelegate {
 
         public boolean beforeNextPageRequest(ApiConnection nextPageConnection);
+
         public boolean beforeRefreshRequest(ApiConnection refreshConnection);
 
 
         public abstract void onRefreshSuccess(List list, JsonElement result);
+
         public abstract void onNextSuccess(List list, JsonElement result);
 
         public void onRefreshFailed(ApiError error);
+
         public void onNextFailed(ApiError error);
     }
 
-    public int indexOfObject(JsonObject object ,String key ,List<JsonElement> src){
+    public int indexOfObject(JsonObject object, String key, List<JsonElement> src) {
         if (!object.isJsonObject()) {
-            return  -1;
-        }
-        String objectId = GsonValidate.getStringByKeyPath(object, key ,null);
-        if (objectId == null){
             return -1;
         }
-        for (int i =  0; i<src.size(); i ++ ) {
+        String objectId = GsonValidate.getStringByKeyPath(object, key, null);
+        if (objectId == null) {
+            return -1;
+        }
+        for (int i = 0; i < src.size(); i++) {
             JsonElement jsonElement = src.get(i);
             if (jsonElement.isJsonObject()) {
-                String keyId = GsonValidate.getStringByKeyPath(jsonElement , key , null);
-                if (keyId .equals(objectId)) {
+                String keyId = GsonValidate.getStringByKeyPath(jsonElement, key, null);
+                if (keyId.equals(objectId)) {
                     return i;
                 }
             }
         }
-        return  -1;
+        return -1;
     }
 
 
-
-    public boolean isBusy(){
-        return isLoading||isRefreashing;
+    public boolean isBusy() {
+        return isLoading || isRefreashing;
     }
 
-    public boolean hasMore(){
-        return getCurrentPage()< totalPage;
+    public boolean hasMore() {
+        return getCurrentPage() < totalPage;
     }
 
 
     /**
      * setter and getter
+     *
      * @return
      */
     public PageControllerDelegate getDelegate() {
@@ -487,30 +493,29 @@ public class PageController {
     }
 
 
-
     public List getList() {
         return list;
     }
 
 
-	public PageInfoAdapterInterface getPageinfoAdapter() {
-		return pageinfoAdapter;
-	}
+    public PageInfoAdapterInterface getPageinfoAdapter() {
+        return pageinfoAdapter;
+    }
 
 
-	public void setPageinfoAdapter(PageInfoAdapterInterface pageinfoAdapter) {
-		this.pageinfoAdapter = pageinfoAdapter;
-	}
+    public void setPageinfoAdapter(PageInfoAdapterInterface pageinfoAdapter) {
+        this.pageinfoAdapter = pageinfoAdapter;
+    }
 
 
-	public int getCurrentPage() {
-		return currentPage;
-	}
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
 
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
 }
 /*
 

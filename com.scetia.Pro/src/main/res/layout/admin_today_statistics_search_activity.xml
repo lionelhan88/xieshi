@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#f5f5f5"
     android:orientation="vertical"
-    tools:context="com.lessu.xieshi.todaystatistics.AdminTodayStatisticsSearchActivity">
+    tools:context=".module.todaystatistics.AdminTodayStatisticsSearchActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

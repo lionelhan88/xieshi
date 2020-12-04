@@ -2,9 +2,6 @@ package com.lessu.xieshi.uploadpicture;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,36 +15,21 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
-import com.lessu.xieshi.HorizontalScrollViewEx;
+import com.lessu.xieshi.view.HorizontalScrollViewEx;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.XieShiGestureListener;
-import com.lessu.xieshi.map.ProjectListActivity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.app.ActionBar.LayoutParams;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -114,7 +96,6 @@ public class ImageGalleryActivity extends NavigationActivity{
 
 			@Override
 			public void onLongPress(MotionEvent arg0) {
-				// TODO Auto-generated method stub
 				LSAlert.showDialog(ImageGalleryActivity.this, "保存图片", "是否保存图片？", "确定", "取消", new DialogCallback() {
 					
 					@Override
@@ -141,8 +122,6 @@ public class ImageGalleryActivity extends NavigationActivity{
 					
 					@Override
 					public void onCancel() {
-						// TODO Auto-generated method stub
-						
 					}
 				});
 				

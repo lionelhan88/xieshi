@@ -14,7 +14,6 @@ public abstract class ListPageWrapper<T extends View> extends BasePageWrapper<T>
 
     public ListPageWrapper(Context incontext) {
 		super(incontext);
-		// TODO Auto-generated constructor stub
 	}
 	public void wrap(PullToRefreshListView listView) {
         super.wrap(listView);

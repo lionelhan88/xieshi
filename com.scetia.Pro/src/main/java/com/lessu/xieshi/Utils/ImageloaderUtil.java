@@ -3,15 +3,12 @@ package com.lessu.xieshi.Utils;
 import android.graphics.Bitmap;
 
 import com.lessu.xieshi.R;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 
 /**
  * Created by fhm on 2016/9/20.
  */
 public class ImageloaderUtil {
-    public static DisplayImageOptions imageconfig() {
+  /*  public static DisplayImageOptions imageconfig() {
         DisplayImageOptions options;
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.touxiang) //设置图片在下载期间显示的图片
@@ -46,5 +43,5 @@ public class ImageloaderUtil {
                 .bitmapConfig(Bitmap.Config.ARGB_8888)//设置图片的解码类型//
                 .build();//构建完成
         return options;
-    }
+    }*/
 }

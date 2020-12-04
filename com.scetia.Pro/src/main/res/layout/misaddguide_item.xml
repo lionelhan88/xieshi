@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/ll_additem"
-        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="51dp"
+        android:background="#ffffff"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/iv_additem"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="22dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="20dp" />
+
         <TextView
             android:id="@+id/tv_additem"
-            android:textSize="17sp"
-            android:textColor="#333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            >
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_marginRight="22dp"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/nextmis"/>
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="22dp"
+                android:background="@drawable/nextmis" />
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/xianmis"/>
+        android:background="@drawable/xianmis" />
 </LinearLayout>

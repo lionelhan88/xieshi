@@ -5,45 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lessu.xieshi.mis.activitys.MisHysearchActivity">
+    tools:context=".module.mis.activitys.MisMemberSearchActivity">
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="9dp"
         android:background="#ffffff"
-        android:orientation="horizontal"
-        >
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <EditText
-            android:layout_weight="10"
             android:id="@+id/et_hy_search"
-            android:layout_marginLeft="21dp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/chaxun"/>
+            android:layout_marginStart="21dp"
+            android:layout_weight="8"
+            android:background="@drawable/chaxun"
+            android:paddingStart="5dp"
+            android:textSize="@dimen/text_size_medium" />
+
         <TextView
-            android:layout_weight="-2"
             android:id="@+id/tv_hy_search"
-            android:layout_marginLeft="21dp"
-            android:layout_toRightOf="@+id/et_hy_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_weight="2"
             android:text="查询"
-            android:textSize="17sp"
             android:textColor="#3598dc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/mis_member_swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/lv_hysearch"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:footerDividersEnabled="false"
-        android:dividerHeight="0dp"
-        android:divider="@null"
-        >
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_search_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

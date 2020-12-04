@@ -39,7 +39,7 @@
     <string name="btClear">清空数据</string>
 
 
-    <string name="app_name">建设检测</string>
+    <string name="app_name" translatable="false">建设检测</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_sample_list">SampleListActivity</string>
@@ -99,13 +99,49 @@
 
     //年假管理
     <string name="apply_date_select">选择</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="annual_leave_state">
+        <item>全部</item>
+        <item>申请中</item>
+        <item>已批准</item>
+    </string-array>
 
-    <string-array name="arr_test">
-        <item>张三 1</item>
-        <item>李四 2</item>
-        <item>王五 3</item>
-        <item>张三 4</item>
+    //建设用砂管理
+    <string name="sand_manage_info_provider_search_text" translatable="false">供应商列表</string>
+    <string name="sand_manage_info_sales_manage_text" translatable="false">销售对象</string>
+    <string name="company_query_result_text" translatable="false">销售对象</string>
+    <string name="sand_manage_info_testing_manage_text" translatable="false">检测单位</string>
+    <string name="testing_company_query_result_text" translatable="false">检测单位</string>
+    <string name="sand_manage_flow_declaration_text" translatable="false">流向申报</string>
+    <string name="sand_manage_testing_commission_text" translatable="false">检测委托</string>
+    <string name="testing_commission_list_title_text">委托记录</string>
+    <string name="sand_manage_info_query_text" translatable="false">结果查询</string>
+    <string name="sand_testing_commission_supplier_text">供应商</string>
+    <string name="sand_testing_commission_testing_commission_text">检测单位</string>
+    <string name="result_query_detail_text">结果详情</string>
+    <string name="sales_number_text"><![CDATA[0<数量≤1000]]></string>
+    <string name="wether_today_now_temp_text">%.1f℃</string>
+    <string name="wether_today_now_sd_text">%.1f%%</string>
+
+    <string-array name="sampling_place_arr">
+        <item>料堆</item>
+        <item>皮带机</item>
+        <item>运输车</item>
+        <item>运输船</item>
+    </string-array>
+    
+    <string-array name="testing_info_query_result_sample_state">
+        <item>未送样</item>
+        <item>已送样</item>
+        <item>待检</item>
+        <item>检测中</item>
+        <item>已检</item>
+        <item>在检已出报告</item>
+    </string-array>
+
+    //用砂类别
+    <string-array name="sales_search_company_type">
+        <item>预拌混凝土</item>
+        <item>预制构件</item>
+        <item>预拌砂浆</item>
     </string-array>
 </resources>

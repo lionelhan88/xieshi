@@ -4,36 +4,35 @@
     android:id="@+id/activity_misnianjiasp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.lessu.xieshi.mis.activitys.MisnianjiaspActivity">
+    android:orientation="vertical">
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:layout_weight="10"
         android:id="@+id/lv_nianjiasp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:footerDividersEnabled="false"
-        android:dividerHeight="0dp"
+        android:layout_weight="10"
         android:divider="@null"
-        >
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:dividerHeight="0dp"
+        android:footerDividersEnabled="false"/>
 
 
     <LinearLayout
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        android:background="#ffffff"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="81dp">
+        android:layout_height="81dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp">
+
         <Button
             android:id="@+id/bt_njsp_pizhun"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="21dp"
             android:layout_marginRight="21dp"
             android:background="@drawable/njsp"
             android:text="批准"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
     </LinearLayout>
 </LinearLayout>

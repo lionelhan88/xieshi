@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.w3c.dom.Text;
 
@@ -141,9 +141,11 @@ public class EasyUI {
         try {
             ImageView imageView = (ImageView) image;
             try {
-                ImageLoader.getInstance().displayImage(GsonValidate.getStringByKeyPath(data, path, defaultUri),imageView);
+                Glide.with(imageView.getContext()).load(GsonValidate.getStringByKeyPath(data, path, defaultUri)).into(imageView);
+                //ImageLoader.getInstance().displayImage(GsonValidate.getStringByKeyPath(data, path, defaultUri),imageView);
             }catch (Exception e){
-                ImageLoader.getInstance().displayImage(defaultUri,imageView);
+                Glide.with(imageView.getContext()).load(defaultUri).into(imageView);
+                //ImageLoader.getInstance().displayImage(defaultUri,imageView);
                 Log.w("easy ui",e);
             }
         }catch (Exception e2){

@@ -4,5 +4,6 @@
     <string name="app_name">LSUIKit</string>
     <string name="action_settings">Settings</string>
     <string name="api_connection_failed_error">错误</string>
+    <string name="api_connection_failed_failure">失败</string>
 
 </resources>

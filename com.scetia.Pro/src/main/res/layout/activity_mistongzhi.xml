@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_mistongzhi"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.lessu.xieshi.mis.activitys.MistongzhiActivity">
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/lv_tongzi"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mis_notice_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
-
+        android:layout_height="match_parent"/>
 </RelativeLayout>

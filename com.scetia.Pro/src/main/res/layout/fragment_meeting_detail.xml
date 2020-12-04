@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
         android:id="@+id/fragment_meeting_detail_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -145,12 +145,6 @@
                     android:text="会议内容"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_small" />
-                <ImageView
-                    android:id="@+id/meeting_detail_content_img"
-                    style="@style/info_show_list_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"/>
                 <TextView
                     android:id="@+id/meeting_detail_content"
                     style="@style/info_show_list_edittext"
@@ -159,6 +153,13 @@
                     android:gravity="left"
                     android:minLines="5"
                     android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/meeting_detail_content_img"
+                    style="@style/info_show_list_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/meeting_detail_photo"
@@ -166,6 +167,6 @@
                 android:layout_height="200dp"
                 android:visibility="gone"/>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

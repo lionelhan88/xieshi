@@ -4,6 +4,6 @@
     android:id="@+id/ll_addparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.lessu.xieshi.mis.activitys.MisguideActivity">
+    android:orientation="vertical">
+
 </LinearLayout>

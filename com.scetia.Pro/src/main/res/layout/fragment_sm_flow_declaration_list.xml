@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/y20"
+    android:background="@color/white_smoke">
+
+    <RadioGroup
+        android:id="@+id/sm_flow_declaration_declare_rg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8">
+
+        <RadioButton
+            android:id="@+id/sm_flow_declaration_declare_rb_uncommission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/radio_button_left_round_selector_bg"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="未委托"
+            android:textColor="@color/radio_button_selector_bg" />
+
+        <RadioButton
+            android:id="@+id/sm_flow_declaration_declare_rb_commission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/radio_button_stroke_selector_bg"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="已委托"
+            android:textColor="@color/radio_button_selector_bg" />
+
+        <RadioButton
+            android:id="@+id/sm_flow_declaration_declare_rb_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/radio_button_right_round_selector_bg"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="全部"
+            android:textColor="@color/radio_button_selector_bg" />
+
+    </RadioGroup>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/sand_manage_flow_declaration_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/y20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sm_flow_declaration_declare_rg">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sand_manage_flow_declaration_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sand_manage_flow_declaration_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:src="@drawable/icon_add"
+        app:backgroundTint="@color/fab_click_bg"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:layout_behavior="com.lessu.xieshi.view.FabScrollBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/blue_normal1" />
+</androidx.constraintlayout.widget.ConstraintLayout>

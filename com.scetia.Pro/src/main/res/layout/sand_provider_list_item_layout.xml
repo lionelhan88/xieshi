@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_marginLeft="@dimen/x10"
+    android:layout_marginRight="@dimen/x10"
+    android:layout_marginTop="@dimen/y5"
+    android:layout_marginBottom="@dimen/y5"
+    android:background="@drawable/white_round_stroke_bg">
+
+    <TextView
+        android:id="@+id/sand_provider_list_item_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/black"
+        tools:text="111111111"
+        android:padding="5dp"/>
+    <TextView
+        android:id="@+id/sand_provider_list_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/black"
+        tools:text="备案证名称"
+        android:padding="5dp"/>
+
+</LinearLayout>

@@ -2,73 +2,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#f5f5f5"
-    tools:context="com.lessu.xieshi.ServiceActivity" >
-	<LinearLayout 
-	    android:id="@+id/telecomButton"
-	    android:layout_width="match_parent"
-	    android:layout_height="115dp"
-	    android:orientation="horizontal"
-	    android:background="@drawable/bg_service_item"
-	    android:layout_marginTop="10dp"
-	    android:paddingLeft="20dp"
-	    android:paddingRight="20dp"
-	    android:gravity="center_vertical"
-	    >
-	    <ImageView 
-	        android:layout_width="56dp"
-	        android:layout_height="56dp"
-	        android:src="@drawable/icon_telecom"
-	        android:scaleType="fitXY"
-	        />
-	    <TextView 
-	        android:layout_width="0dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:text="电信服务器"
-	        android:textSize="@dimen/text_size_large"
-	        android:layout_marginLeft="20dp"
-	        />
-	    <ImageView 
-	        android:id="@+id/telecomIcon"
-	        android:layout_width="25dp"
-	        android:layout_height="25dp"
-	        android:src="@drawable/icon_service_unselected"
-	        android:scaleType="fitXY"
-	        />
-	</LinearLayout>
-	<LinearLayout 
-	    android:id="@+id/unicomButton"
-	    android:layout_width="match_parent"
-	    android:layout_height="115dp"
-	    android:orientation="horizontal"
-	    android:background="@drawable/bg_service_item"
-	    android:layout_marginTop="10dp"
-	    android:paddingLeft="20dp"
-	    android:paddingRight="20dp"
-	    android:gravity="center_vertical"
-	    >
-	    <ImageView 
-	        android:layout_width="56dp"
-	        android:layout_height="56dp"
-	        android:src="@drawable/icon_unicom"
-	        android:scaleType="fitXY"
-	        />
-	    <TextView 
-	        android:layout_width="0dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:text="联通服务器"
-	        android:textSize="@dimen/text_size_large"
-	        android:layout_marginLeft="20dp"
-	        />
-	    <ImageView 
-	        android:id="@+id/unicomIcon"
-	        android:layout_width="25dp"
-	        android:layout_height="25dp"
-	        android:src="@drawable/icon_service_unselected"
-	        android:scaleType="fitXY"
-	        />
-	</LinearLayout>
+    android:orientation="vertical"
+    tools:context="com.lessu.xieshi.set.ServiceActivity">
+
+    <LinearLayout
+        android:id="@+id/telecomButton"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_service_item"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_telecom" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="电信服务器"
+            android:textSize="@dimen/text_size_large" />
+
+        <ImageView
+            android:id="@+id/telecomIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_service_unselected" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/unicomButton"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_service_item"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_unicom" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="联通服务器"
+            android:textSize="@dimen/text_size_large" />
+
+        <ImageView
+            android:id="@+id/unicomIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_service_unselected" />
+    </LinearLayout>
 </LinearLayout>
