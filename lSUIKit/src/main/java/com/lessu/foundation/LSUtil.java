@@ -37,14 +37,14 @@ public class LSUtil {
     }
 
     public static String valueStatic(String key){
-        Context context = ShareableApplication.sharedApplication;
+        Context context = ShareableApplication.getInstance();
         SharedPreferences settings = context.getSharedPreferences(LSUtilKey, 0);
         String value = settings.getString(key,null);
         return value;
     }
 
     public static void setValueStatic(String key,String value){
-        Context context = ShareableApplication.sharedApplication;
+        Context context = ShareableApplication.getInstance();
         SharedPreferences settings = context.getSharedPreferences(LSUtilKey, 0);
         SharedPreferences.Editor editor = settings.edit();
         if (value == null){
@@ -53,12 +53,11 @@ public class LSUtil {
             editor.putString(key,value);
         }
         editor.commit();
-
     }
 
 
     public LSUtil() {
-        this.context = ShareableApplication.sharedApplication;
+        this.context = ShareableApplication.getInstance();
     }
 
     protected Context context;

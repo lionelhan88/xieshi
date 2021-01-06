@@ -9,6 +9,7 @@
     android:background="@drawable/white_round_stroke_bg"
     app:contentView="@+id/content"
     app:rightMenuView="@+id/right"
+    android:id="@+id/sales_manage_list_item_easy_swipe"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout

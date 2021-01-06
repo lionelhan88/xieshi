@@ -17,6 +17,7 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.DateUtil;
 
 import java.io.File;
+import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.Date;
 
@@ -33,15 +34,14 @@ public class XXPhotoUtil {
         ONLY_PICTURES,
         ALL
     }
-    public static final int REQUEST_PHOTO_PICTURE = 1000;
-    public static final int REQUEST_TAKE_PHOTO=10001;
     private String photoName;
     private String photoSavePath;
+    private boolean isCompress;
     private ImageSelectBottomMenu.ImageSelectListener listener;
     private  static XXPhotoUtil instance;
-    private WeakReference<FragmentActivity> weakReference;
+    private SoftReference<FragmentActivity> weakReference;
     private XXPhotoUtil(FragmentActivity context){
-        weakReference = new WeakReference<>(context);
+        weakReference = new SoftReference<>(context);
         //图片默认的名字
          photoName = "XS_"+ DateUtil.pictureDate(new Date());
         //图片默认的存储地址
@@ -68,6 +68,7 @@ public class XXPhotoUtil {
      */
     public void start(){
         ImageSelectBottomMenu menu =  ImageSelectBottomMenu.newInstance(photoName,photoSavePath,TakePhotoOperation.ALL);
+        menu.setCompress(isCompress);
         menu.setImageSelectListener(listener);
         menu.show(weakReference.get().getSupportFragmentManager(),"image_select_menu");
     }
@@ -77,6 +78,7 @@ public class XXPhotoUtil {
      */
     public void startCamera(){
         ImageSelectBottomMenu menu =  ImageSelectBottomMenu.newInstance(photoName,photoSavePath,TakePhotoOperation.ONLY_CAMERA);
+        menu.setCompress(isCompress);
         menu.setImageSelectListener(listener);
         menu.show(weakReference.get().getSupportFragmentManager(),"image_select_menu");
     }
@@ -86,6 +88,7 @@ public class XXPhotoUtil {
      */
     public void startPictures(){
         ImageSelectBottomMenu menu =  ImageSelectBottomMenu.newInstance(photoName,photoSavePath,TakePhotoOperation.ONLY_PICTURES);
+        menu.setCompress(isCompress);
         menu.setImageSelectListener(listener);
         menu.show(weakReference.get().getSupportFragmentManager(),"image_select_menu");
     }
@@ -108,5 +111,10 @@ public class XXPhotoUtil {
     public XXPhotoUtil setPhotoSavePath(String photoSavePath) {
         this.photoSavePath = photoSavePath;
         return instance;
+    }
+
+    public XXPhotoUtil setCompress(boolean compress){
+        isCompress = compress;
+        return this;
     }
 }

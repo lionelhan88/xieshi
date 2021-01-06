@@ -3,8 +3,8 @@ package com.lessu.xieshi.module.mis.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.lessu.xieshi.http.ResponseObserver
-import com.lessu.xieshi.bean.LoadState
-import com.lessu.xieshi.http.ExceptionHandle.ResponseThrowable
+import com.lessu.data.LoadState
+import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle.ResponseThrowable
 import com.lessu.xieshi.module.mis.activitys.Content
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData
 import com.lessu.xieshi.module.mis.model.MisAnnualLeaveRepository
@@ -14,7 +14,6 @@ import com.lessu.xieshi.module.mis.model.MisAnnualLeaveRepository
  * on 2020/11/30
  */
 class MisAnnualLeaveDataSource(private val year: String, private val state: String) : PageKeyedDataSource<Int, MisAnnualLeaveData.AnnualLeaveBean>() {
-    //记录当前页面的加载状态
     private val repository: MisAnnualLeaveRepository by lazy {
         MisAnnualLeaveRepository()
     }
@@ -37,7 +36,7 @@ class MisAnnualLeaveDataSource(private val year: String, private val state: Stri
             override fun failure(throwable: ResponseThrowable?) {
                 if (throwable?.code == 2000) {
                     //没有相关数据
-                    loadState.postValue(LoadState.LOAD_INIT_NO_DATA)
+                    loadState.postValue(LoadState.EMPTY)
                 } else {
                     loadState.postValue(LoadState.FAILURE)
                     //加载失败，记录当前状态

@@ -1,13 +1,21 @@
 package com.lessu;
 
-import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.gyf.immersionbar.ImmersionBar;
@@ -15,69 +23,139 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationBar;
 import com.lessu.uikit.R;
 
+import java.lang.reflect.Field;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     public NavigationBar navigationBar;
-
-    protected abstract int getLayoutId();
-    protected abstract void initView();
-    protected abstract void initData();
-
     private Unbinder unbinder;
+    private LinearLayout rootView;
+    protected View contentView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view  =inflater.inflate(getLayoutId(),container,false);
-        setNavigationBar(new NavigationBar(getActivity()));
-        //为页面添加返回按钮
-        BarButtonItem handleButtonItem = new BarButtonItem(getActivity(), R.drawable.back);
-        handleButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                leftNavBarClick();
-            }
-        });
-        navigationBar.setLeftBarItem(handleButtonItem);
-        LinearLayout layoutView = new LinearLayout(requireActivity());
-        layoutView.setOrientation(LinearLayout.VERTICAL);
-        navigationBar.setBackgroundColor(ContextCompat.getColor(requireActivity(),R.color.top_bar_background));
-        layoutView.addView(navigationBar);
-        layoutView.addView(view);
-        unbinder=ButterKnife.bind(this,view);
-        return layoutView;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (rootView == null) {
+            navigationBar = getTopBarView();
+            rootView = getRootView(navigationBar);
+            contentView = createContentView(inflater, container);
+            initImmersionBar();
+            initView();
+            initData();
+        } else {
+            initImmersionBar();
+        }
+        return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
-        initImmersionBar();
-        initData();
+        if (isRegisterEventBus() && !EventBusUtil.isRegistered(this)) {
+            EventBusUtil.register(this);
+        }
     }
-    public void setNavigationBar(NavigationBar navigationBar) {
-        this.navigationBar = navigationBar;
+
+    protected NavigationBar getTopBarView() {
+        NavigationBar navigationBar = new NavigationBar(requireActivity());
+        navigationBar.setBackgroundColor(topBackgroundColor(R.color.top_bar_background));
+        //为页面添加返回按钮
+        BarButtonItem handleButtonItem = new BarButtonItem(requireActivity(), R.drawable.back);
+        handleButtonItem.setOnClickListener(this::leftNavBarClick);
+        navigationBar.setLeftBarItem(handleButtonItem);
+        return navigationBar;
     }
-    protected void setTitle(String title){
+
+    private LinearLayout getRootView(NavigationBar navigationBar) {
+        LinearLayout linearLayout = new LinearLayout(requireActivity());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.addView(navigationBar);
+        return linearLayout;
+    }
+
+    private View createContentView(LayoutInflater inflater, ViewGroup container) {
+        FrameLayout frameLayout = new FrameLayout(requireActivity());
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        frameLayout.setLayoutParams(layoutParams);
+        View contentView = inflater.inflate(getLayoutId(), container, false);
+        frameLayout.addView(contentView);
+        rootView.addView(frameLayout);
+        unbinder = ButterKnife.bind(this, contentView);
+        return contentView;
+    }
+
+
+    //布局ID
+    protected abstract int getLayoutId();
+
+    //初始化控件
+    protected abstract void initView();
+
+    //初始化数据
+    protected void initData() {
+
+    }
+
+    //设置头部标题栏背景
+    protected int topBackgroundColor(@ColorRes int colorRes) {
+        return ContextCompat.getColor(requireActivity(), colorRes);
+    }
+
+    //设置同步标题
+    protected void setTitle(String title) {
         navigationBar.setTitle(title);
     }
 
-    public void leftNavBarClick(){
-        requireActivity().onBackPressed();
+
+    public void leftNavBarClick(View view) {
+        Navigation.findNavController(view).navigateUp();
     }
 
-    protected  void initImmersionBar(){
+    //设置沉浸式状态栏
+    protected void initImmersionBar() {
         ImmersionBar.with(this).titleBarMarginTop(navigationBar)
                 .statusBarColorInt(getResources().getColor(R.color.top_bar_background))
                 .navigationBarColor(R.color.light_gray)
                 .navigationBarDarkIcon(true)
                 .init();
     }
+
+    //初始化swipeRefresh刷新样式
+    protected void setSwipeRefresh(SwipeRefreshLayout swipeRefresh) {
+        swipeRefresh.setColorSchemeResources(R.color.blue_light1, R.color.blue_normal1, R.color.blue_normal2);
+    }
+
+    //是否注册EventBus
+    protected boolean isRegisterEventBus() {
+        return false;
+    }
+
+    /**
+     * 设置SearchView下划线透明
+     **/
+    protected void setUnderLinearTransparent(SearchView searchView) {
+        try {
+            Class<?> argClass = searchView.getClass();
+            Field ownField = argClass.getDeclaredField("mSearchPlate");
+            ownField.setAccessible(true);
+            View mView = (View) ownField.get(searchView);
+            if (mView != null) {
+                mView.setBackgroundColor(Color.TRANSPARENT);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        if (isRegisterEventBus()) {
+            EventBusUtil.unregister(this);
+        }
     }
 
 }

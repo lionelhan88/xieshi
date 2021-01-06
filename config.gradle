@@ -5,36 +5,44 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 29,
             versionCode      : 3,
-            versionName      : "1.038",
+            versionName      : "1.042",
             applicationId    : "com.scetia.Pro",
     ]
-
-    dependencies = [
-            appcompat                : 'androidx.appcompat:appcompat:1.0.0',
-            eventBus                 : 'org.greenrobot:eventbus:3.1.1',
-            glide                    : 'com.github.bumptech.glide:glide:4.11.0',
-            glideAnnationProcess     : 'com.github.bumptech.glide:compiler:4.11.0',
-            refreshlayout            : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
-            pickerView               : 'com.contrarywind:Android-PickerView:4.1.9',
-            photoview                : 'com.bm.photoview:library:1.4.1',
-            okhttp                   : 'com.squareup.okhttp3:okhttp:3.6.0',
-            qrcode                   : 'cn.bingoogolapple:bga-qrcode-zxing:1.3.4',
-            supportV4                : 'androidx.legacy:legacy-support-v4:1.0.0',
-            butterknife              : 'com.jakewharton:butterknife:8.0.1',
+    annationProcess = [
             butterknifAnnationProcess: 'com.jakewharton:butterknife-compiler:8.0.1',
-            gson                     : 'com.google.code.gson:gson:2.8.5',
-            xxpermissions            : 'com.hjq:xxpermissions:5.5',
-            immersionbar             : 'com.gyf.immersionbar:immersionbar:3.0.0',
-            easySwipeMenuLayout      : 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4',
-            flowlayout:'com.hyman:flowlayout-lib:1.1.2',
-            multidex:'androidx.multidex:multidex:2.0.1',
-            tbs:'com.tencent.tbs.tbssdk:sdk:43903',
-            updateUtilsSDK2:'com.teprinciple:updateapputilsx:2.3.0',
-            rxJava                   : [
+            glideAnnationProcess     : 'com.github.bumptech.glide:compiler:4.11.0',
+    ]
+    androidTest = [
+            'androidx.test.ext:junit:1.1.2',
+            'androidx.test.espresso:espresso-core:3.3.0'
+    ]
+    testJunit = [
+            'junit:junit:4.12'
+    ]
+    dependencies = [
+            appcompat          : 'androidx.appcompat:appcompat:1.0.0',
+            eventBus           : 'org.greenrobot:eventbus:3.1.1',
+            glide              : 'com.github.bumptech.glide:glide:4.11.0',
+            refreshlayout      : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
+            pickerView         : 'com.contrarywind:Android-PickerView:4.1.9',
+            photoview          : 'com.bm.photoview:library:1.4.1',
+            okhttp             : 'com.squareup.okhttp3:okhttp:3.6.0',
+            qrcode             : 'cn.bingoogolapple:bga-qrcode-zxing:1.3.4',
+            supportV4          : 'androidx.legacy:legacy-support-v4:1.0.0',
+            butterknife        : 'com.jakewharton:butterknife:8.0.1',
+            gson               : 'com.google.code.gson:gson:2.8.5',
+            immersionbar       : 'com.gyf.immersionbar:immersionbar:3.0.0',
+            easySwipeMenuLayout: 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4',
+            flowlayout         : 'com.hyman:flowlayout-lib:1.1.2',
+            multidex           : 'androidx.multidex:multidex:2.0.1',
+            tbs                : 'com.tencent.tbs.tbssdk:sdk:43903',
+            updateUtilsSDK2    : 'com.teprinciple:updateapputilsx:2.3.0',
+            permissionGood     : 'com.github.wo5813288:PermissionGood:1.0.0',
+            rxJava             : [
                     'io.reactivex.rxjava2:rxjava:2.1.9',
                     'io.reactivex.rxjava2:rxandroid:2.0.2'
             ],
-            retrofit                 : [
+            retrofit           : [
                     //retrofit依赖
                     'com.squareup.retrofit2:retrofit:2.4.0',
                     'com.squareup.retrofit2:adapter-rxjava2:2.4.0',
@@ -42,18 +50,18 @@ ext {
                     'com.squareup.okhttp3:okhttp:3.10.0',
                     'com.squareup.okhttp3:logging-interceptor:3.9.1'
             ],
-            publish                  : [
+            publish            : [
                     'androidx.appcompat:appcompat:1.0.0',
                     'com.google.android.material:material:1.2.1',
                     'androidx.constraintlayout:constraintlayout:2.0.4',
             ],
 
-            navigation               : [
+            navigation         : [
                     "androidx.navigation:navigation-fragment:2.3.1",
                     "androidx.navigation:navigation-ui:2.3.1"
             ],
             //recyclerView adapter 框架
-            baseRecyclerView         : [
+            baseRecyclerView   : [
                     'androidx.recyclerview:recyclerview:1.1.0',
                     'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
             ],

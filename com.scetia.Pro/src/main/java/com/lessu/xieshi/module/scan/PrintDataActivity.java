@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 
-import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,7 +34,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.Utils.FileUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.JieMi;
+import com.lessu.xieshi.Utils.Decrypt;
 import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.Utils.Shref;
@@ -58,9 +57,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     ModuleControl moduleControl = new ModuleControl();
     Function fun = new Function();
-    /**
-     * 正在读取设备返回值的标识
-     */
+     //正在读取设备返回值的标识
     private  boolean isReading = true;
     private static byte flagCrc;
     private boolean isConnection = false;
@@ -80,12 +77,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     private TextView tv_xinpian_num;
     private String uidStr;
     private int j = 1;
-    /**
-     * 标识是jar方法连接的蓝牙
-     */
+     // 标识是jar方法连接的蓝牙
     private boolean uhfBlueConnect;
     private boolean lianjieshibai;
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +92,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
         navigationBar.setLeftBarItem(menuButtonitem);
         creator = new SwipeMenuCreator() {
-
             @Override
             public void create(SwipeMenu menu) {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
@@ -122,15 +115,12 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         LinearLayout ll_rukuchakan = findViewById(R.id.ll_rukuchakan);
         LinearLayout ll_shebeixinxi = findViewById(R.id.ll_shebeixinxi);
         SeekBar sb_scan = findViewById(R.id.sb_scan);
-
         TextView tv_baocun = findViewById(R.id.tv_baocun);
         TextView tv_duqv = findViewById(R.id.tv_duqv);
         TextView tv_qingchu = findViewById(R.id.tv_qingchu);
         TextView tv_shujvjiaohu = findViewById(R.id.tv_shujvjiaohu);
         tv_tiaoma_num = findViewById(R.id.tv_tiaoma_num);
         tv_xinpian_num = findViewById(R.id.tv_xinpian_num);
-
-
         SwipeMenuListView lv_tiaoma = findViewById(R.id.lv_tiaoma);
         SwipeMenuListView lv_xinpian = findViewById(R.id.lv_xinpian);
 
@@ -279,6 +269,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         soundPool.load(PrintDataActivity.this,R.raw.scan_existence,1);
         soundPool.load(PrintDataActivity.this,R.raw.scan_success,1);
     }
+
     /**
      * 播放提示音
      * @param isExistence 播放哪类提示音
@@ -399,10 +390,12 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             moduleControl.RecvDataFromBT(readBuffer);
             String backData = fun.bytesToHexString(readBuffer, readBuffer.length).toUpperCase();
             //读取蓝牙设备返回的数据，转换为16进制字符串
-            String uidHexStr = backData.substring(8,backData.lastIndexOf("FFFFFFF9")).trim();
-            //16进制转为十进制ascii码字符串
-            uidName = LongString.hexStr2Str(uidHexStr);
-            LogUtil.showLogE(uidName);
+          //  A00F0168 42502D323030303031 FFFFFF09,判断位数
+            if(backData.length()==34&&backData.startsWith("A00F0168")){
+                String uidHexStr = backData.substring(8,26).trim();
+                //16进制转为十进制ascii码字符串
+                uidName = LongString.hexStr2Str(uidHexStr);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -553,7 +546,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         } else {
                             String s = LongString.bytes2HexString(buffer2);
                             System.out.println(s);
-                            String jiexinpian = JieMi.jiexinpian(s);
+                            String jiexinpian = Decrypt.jiexinpian(s);
                             if (jiexinpian != null) {
                                 if (!Xal.contains(jiexinpian)) {
                                     Xal.add(0,jiexinpian);
@@ -634,7 +627,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
             case R.id.ll_shenhexiazai:
                 if (uidStr != null) {
-                    Intent intent = new Intent(PrintDataActivity.this, ShenhexiazaiActivity.class);
+                    Intent intent = new Intent(PrintDataActivity.this, ReviewDownloadActivity.class);
                     intent.putExtra("uidstr",uidStr);
                     startActivity(intent);
                 } else {
@@ -674,9 +667,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 break;
             case R.id.tv_shujvjiaohu:
                 getUid();
-                if (moduleControl.UhfReaderDisconnect()) {
-                    System.out.println("断开成功");
-                }
                 StringBuilder s = new StringBuilder();
                 for (int i = 0; i < Tal.size(); i++) {
                     s.append(Tal.get(i)).append(";");
@@ -688,7 +678,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     Intent intentshujvjiaohu = new Intent();
                     intentshujvjiaohu.putExtra("uidstr", uidStr);
                     intentshujvjiaohu.putExtra("TALXAL", s.toString());
-                    intentshujvjiaohu.setClass(PrintDataActivity.this, ShujvjiaohuActivity.class);
+                    intentshujvjiaohu.setClass(PrintDataActivity.this, DataInteractionActivity.class);
                     startActivity(intentshujvjiaohu);
                 } else {
                     Toast.makeText(PrintDataActivity.this, "设备编号为空", Toast.LENGTH_SHORT).show();
@@ -841,6 +831,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         }
         super.onDestroy();
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (uhfBlueConnect) {

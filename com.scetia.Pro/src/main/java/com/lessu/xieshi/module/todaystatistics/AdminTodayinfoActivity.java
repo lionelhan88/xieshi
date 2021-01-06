@@ -56,7 +56,6 @@ public class AdminTodayinfoActivity extends XieShiSlidingMenuActivity implements
         this.setTitle("信息查询");
         initView();
         initData();
-        navigationBar.setBackgroundColor(0xFF3598DC);
     }
 
     private void initView() {

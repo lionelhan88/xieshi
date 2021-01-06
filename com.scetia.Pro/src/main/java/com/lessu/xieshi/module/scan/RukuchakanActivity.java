@@ -13,24 +13,21 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
-import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.JieMi;
+import com.lessu.xieshi.Utils.Decrypt;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.bean.XalTal;
+import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.lessu.xieshi.view.DragLayout;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -209,7 +206,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
         }).start();
     }
 
-    private void Xianshi(XalTal shhujv,String s) {
+    private void Xianshi(ReceiveSampleInfoBean shhujv, String s) {
         tv_chakan.setText("识别完成");
         tv_rukuchakan.setText(s);
         tv_saomiaobianhao.setText(s);
@@ -267,7 +264,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 break;
 
             case R.id.ll_shenhexiazai:
-                startActivity(new Intent(RukuchakanActivity.this,ShenhexiazaiActivity.class));
+                startActivity(new Intent(RukuchakanActivity.this, ReviewDownloadActivity.class));
                 finish();
                 break;
 
@@ -329,7 +326,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                             if(Ts.length()==10&&substring.equals("1")){
                                 s=Ts;
                                 Ts1=null;
-                                final XalTal shhujv = getReadData(s);
+                                final ReceiveSampleInfoBean shhujv = getReadData(s);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -343,7 +340,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                         }
                         isReadingReady = true;
                     } else if (ceshishujv.length()== 10) {
-                        final XalTal shhujv = getReadData(ceshishujv);
+                        final ReceiveSampleInfoBean shhujv = getReadData(ceshishujv);
                         s = ceshishujv;
                         runOnUiThread(new Runnable() {
                             @Override
@@ -360,9 +357,9 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                     //是芯片
                 }else{
                     String s = LongString.bytes2HexString(buffer2);
-                    final String jiexinpian = JieMi.jiexinpian(s);
+                    final String jiexinpian = Decrypt.jiexinpian(s);
                     if(jiexinpian!=null){
-                        final XalTal shhujv = getReadData(jiexinpian);
+                        final ReceiveSampleInfoBean shhujv = getReadData(jiexinpian);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -393,7 +390,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
      * @param s
      * @return
      */
-    private XalTal getReadData(String s){
+    private ReceiveSampleInfoBean getReadData(String s){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -424,7 +421,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
         }
         System.out.println("waimian...."+shujvsoap.toString());
         SoapObject soap3=(SoapObject)shujvsoap.getProperty(0);
-        XalTal info=new XalTal();
+        ReceiveSampleInfoBean info=new ReceiveSampleInfoBean();
         if(soap3.toString().contains("Contract_SignNo")){
             info.setContract_SignNo(soap3.getProperty("Contract_SignNo").toString());
         }

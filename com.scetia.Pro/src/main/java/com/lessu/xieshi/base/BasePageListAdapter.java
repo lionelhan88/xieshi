@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.bean.LoadState;
+import com.lessu.data.LoadState;
 import com.lessu.xieshi.module.mis.adapter.PageListCommonViewHolder;
 import com.lessu.xieshi.module.mis.listener.AdapterItemClickListener;
 
@@ -150,8 +150,7 @@ public abstract class BasePageListAdapter<T> extends PagedListAdapter<T, Recycle
         public void bindWithLoadState(LoadState loadState){
             //根据不同的状态显示不同的提示
             switch (loadState) {
-                case LOAD_INIT_NO_DATA:
-                    //没有更多数据了
+                case EMPTY:
                     loadProgress.setVisibility(View.GONE);
                     loadText.setText("没有符合查询条件的数据");
                     itemView.setClickable(false);

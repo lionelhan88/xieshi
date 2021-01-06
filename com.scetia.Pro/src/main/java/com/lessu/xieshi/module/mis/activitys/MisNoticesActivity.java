@@ -1,15 +1,9 @@
 package com.lessu.xieshi.module.mis.activitys;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.bean.LoadState;
-import com.lessu.xieshi.http.ExceptionHandle;
+import com.lessu.data.LoadState;
+import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
 import com.lessu.xieshi.module.mis.bean.NoticeBean;
 import com.lessu.xieshi.module.mis.viewmodel.MisNoticesViewModel;
 

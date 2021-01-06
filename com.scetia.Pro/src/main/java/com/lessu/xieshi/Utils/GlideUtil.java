@@ -20,12 +20,13 @@ public class GlideUtil {
 
     /**
      * 加载图片不需要缓存，不需要设置错误图片
+     *
      * @param view
      * @param placeHolder
      * @param url
      * @param imgeview
      */
-    public static void showImageViewNoCache(View view, int placeHolder,String url,
+    public static void showImageViewNoCache(View view, int placeHolder, String url,
                                             ImageView imgeview) {
         Glide.with(view).load(url)// 加载图片
                 .skipMemoryCache(true)//跳过内存缓存
@@ -33,8 +34,10 @@ public class GlideUtil {
                 .placeholder(placeHolder)// 设置占位图
                 .into(imgeview);
     }
+
     /**
      * 加载图片不需要缓存，不需要占位图
+     *
      * @param view
      * @param imgBytes 加载图片的二进制
      * @param imgeview
@@ -47,8 +50,10 @@ public class GlideUtil {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//跳过硬盘缓存
                 .into(imgeview);
     }
+
     /**
      * 加载图片不需要缓存，不需要占位图
+     *
      * @param view
      * @param uri
      * @param imgeview
@@ -61,23 +66,10 @@ public class GlideUtil {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//跳过硬盘缓存
                 .into(imgeview);
     }
-    /**
-     * 加载图片不需要缓存，不需要占位图
-     * @param context
-     * @param imgBytes 加载图片的二进制
-     * @param imgeview
-     */
-    public static void showImageViewNoCache(Context context,int placeHolder, byte[] imgBytes,
-                                            ImageView imgeview) {
-        Glide.with(context).load(imgBytes)// 加载图片
-                .placeholder(placeHolder)
-                .skipMemoryCache(true)//跳过内存缓存
-                .diskCacheStrategy(DiskCacheStrategy.NONE)//跳过硬盘缓存
-                .into(imgeview);
-    }
 
     /**
      * 加载网络图片
+     *
      * @param context
      * @param url
      * @param imgeview
@@ -90,7 +82,7 @@ public class GlideUtil {
                 .into(imgeview);
     }
 
-    public static void showImageView(Context context,String url,ImageView imageView){
+    public static void showImageView(Context context, String url, ImageView imageView) {
         Glide.with(context).load(url)// 加载图片
                 .placeholder(imageView.getDrawable())
                 .into(imageView);
@@ -98,12 +90,13 @@ public class GlideUtil {
 
     /**
      * 加载图片不需要缓存，不需要占位图
+     *
      * @param context
      * @param uri
      * @param imgeview
      */
-    public static void showImageViewNoCacheCircle(Context context,int placeHolder, Uri uri,
-                                            ImageView imgeview) {
+    public static void showImageViewNoCacheCircle(Context context, int placeHolder, Uri uri,
+                                                  ImageView imgeview) {
         Glide.with(context).load(uri)// 加载图片
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .placeholder(placeHolder)
@@ -111,13 +104,15 @@ public class GlideUtil {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//跳过硬盘缓存
                 .into(imgeview);
     }
+
     /**
      * 加载图片不需要缓存，不需要占位图
+     *
      * @param context
      * @param url
      * @param imgeview
      */
-    public static void showImageViewNoCacheCircle(Context context,int placeHolder, String url,
+    public static void showImageViewNoCacheCircle(Context context, int placeHolder, String url,
                                                   ImageView imgeview) {
         Glide.with(context).load(url)// 加载图片
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
@@ -127,7 +122,7 @@ public class GlideUtil {
                 .into(imgeview);
     }
 
-    public static void showDrawableResourceId(Context context,int resourceId,ImageView imageView){
+    public static void showDrawableResourceId(Context context, int resourceId, ImageView imageView) {
         Glide.with(context).load(resourceId).into(imageView);
     }
 

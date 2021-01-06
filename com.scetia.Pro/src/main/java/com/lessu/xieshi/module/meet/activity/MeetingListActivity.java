@@ -73,7 +73,7 @@ public class MeetingListActivity extends NavigationActivity {
      * 初始化控件
      */
     private void initView() {
-        meetingListRefresh.setColorSchemeResources(R.color.danlan);
+        meetingListRefresh.setColorSchemeResources(R.color.blue_normal2);
         listAdapter = new MeetingListAdapter(R.layout.meeting_list_item_layout);
         meetingRecyclerView.setAdapter(listAdapter);
         meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

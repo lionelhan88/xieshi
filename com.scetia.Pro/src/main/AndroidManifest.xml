@@ -37,13 +37,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="false"
-        android:resizeable="true"
-        android:smallScreens="true" />
-
     <application
         android:name=".base.AppApplication"
         android:allowBackup="true"
@@ -58,20 +51,19 @@
             android:value="BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" />
 
         <activity
-            android:name=".login.SplashActivity"
+            android:name=".module.login.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".module.login.LoginActivity"
             android:hardwareAccelerated="true"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
         <activity
-            android:name=".login.FirstActivity"
+            android:name=".module.login.FirstActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -95,7 +87,7 @@
             android:name=".module.construction.SampleDetailActivity"
             android:label="@string/title_activity_sample_detail" />
         <activity
-            android:name=".login.ValidateActivity"
+            android:name=".module.login.ValidateActivity"
             android:label="@string/title_activity_validate" />
         <activity
             android:name=".module.dataauditing.DataAuditingActivity"
@@ -128,13 +120,10 @@
             android:name=".module.construction.ConstructionSearchActivity"
             android:label="@string/title_activity_construction_search" />
         <activity
-            android:name=".module.construction.ConstructionDetailActivity"
-            android:label="@string/title_activity_construction_detail" />
-        <activity
             android:name=".module.unqualified.UnqualifiedSearchActivity"
             android:label="@string/title_activity_unqualifield_search" />
         <activity
-            android:name=".module.unqualified.TestReportActivity"
+            android:name=".module.unqualified.TestingReportActivity"
             android:label="@string/title_activity_test_report" />
         <activity
             android:name=".module.web.ReportPreviewActivity"
@@ -155,10 +144,10 @@
             android:name=".module.construction.SampleSearchActivity"
             android:label="@string/title_activity_sample_search" />
         <activity
-            android:name=".module.unqualified.ReportContentActivity"
+            android:name=".module.unqualified.TestingReportContentActivity"
             android:label="@string/title_activity_report_content" />
         <activity
-            android:name=".module.unqualified.SampleListActivity"
+            android:name=".module.unqualified.UqTestingReportConclusionActivity"
             android:label="@string/title_activity_report_content" />
         <activity
             android:name=".module.unqualified.SampleDetailActivity"
@@ -194,7 +183,7 @@
             android:name=".module.construction.QrcodeDetailActivity"
             android:label="@string/title_activity_qrcode_detail" />
         <activity
-            android:name=".module.unqualified.ConstructionListActivity"
+            android:name=".module.unqualified.UnqualifiedConstructionListActivity"
             android:label="@string/title_activity_construction_list" />
         <activity
             android:name=".module.todaystatistics.TodayStatisticsDetailActivity"
@@ -220,10 +209,10 @@
             android:name=".module.scan.PrintDataActivity"
             android:label="PrintDataActivity" />
         <activity android:name=".module.scan.ShebeixinxiActivity" />
-        <activity android:name=".module.scan.ShujvjiaohuActivity" />
-        <activity android:name=".module.scan.YangpinqverenActivity" />
+        <activity android:name=".module.scan.DataInteractionActivity" />
+        <activity android:name=".module.scan.SampleInfoCheckConfirmActivity" />
         <activity android:name=".module.scan.ShenqingshangbaoActivity" />
-        <activity android:name=".module.scan.ShenhexiazaiActivity" />
+        <activity android:name=".module.scan.ReviewDownloadActivity" />
         <activity android:name=".module.scan.RukuchakanActivity" />
         <activity android:name=".module.scan.YangpinshibieActivity" />
 
@@ -242,7 +231,6 @@
         <activity android:name=".module.todaystatistics.AdminTodayinfoActivity" />
         <activity android:name=".module.todaystatistics.XianchangActivity" />
         <activity android:name=".module.todaystatistics.XianchangdetailActivity" />
-        <activity android:name=".module.todaystatistics.GongchengActivity" />
         <activity android:name=".module.mis.activitys.MisComparisonAprovalActivity" />
         <activity android:name=".module.mis.activitys.MisComparionObjActivity" />
         <activity android:name=".module.training.LearnDataActivity" />
@@ -254,7 +242,8 @@
         <activity android:name=".module.training.TrainingActivity" />
         <activity android:name=".module.meet.activity.MeetingListActivity" />
         <activity android:name=".module.meet.activity.OtherConfirmActivity" />
-        <activity android:name=".module.sand.SandHomeActivity" />
+        <activity android:name=".module.sand.SandHomeActivity"
+            android:windowSoftInputMode="adjustPan"/>
 
         <service
             android:name="com.baidu.location.f"

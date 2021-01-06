@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sand_common_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white_smoke" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,5 +32,4 @@
         app:fabSize="mini"
         app:layout_behavior="com.lessu.xieshi.view.FabScrollBehavior"
         app:rippleColor="@color/blue_normal1" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

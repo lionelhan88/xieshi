@@ -5,18 +5,15 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.bean.LoadState;
-import com.lessu.xieshi.module.mis.bean.MisHySearchResultData;
+import com.lessu.data.LoadState;
+import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
 import com.lessu.xieshi.module.mis.datasource.MisMemberSearchDataFactory;
 import com.lessu.xieshi.module.mis.datasource.MisMemberSearchDataSource;
-
-import java.util.List;
 
 /**
  * created by ljs
@@ -41,7 +38,7 @@ public class MisSearchViewModel extends BaseViewModel {
             .setEnablePlaceholders(false)
             .build();
     //返回后的数据
-    private LiveData<PagedList<MisHySearchResultData.ListContentBean>> pagedListLiveData
+    private LiveData<PagedList<MisMemberSearchResultData.ListContentBean>> pagedListLiveData
             = new LivePagedListBuilder(factory,config).build();
 
     public MisSearchViewModel(@NonNull Application application) {
@@ -52,7 +49,7 @@ public class MisSearchViewModel extends BaseViewModel {
     public LiveData<LoadState> getSearchLoadState() {
         return loadState;
     }
-    public LiveData<PagedList<MisHySearchResultData.ListContentBean>> getPagedListLiveData() {
+    public LiveData<PagedList<MisMemberSearchResultData.ListContentBean>> getPagedListLiveData() {
         return pagedListLiveData;
     }
 

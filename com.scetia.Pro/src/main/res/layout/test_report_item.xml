@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -131,21 +131,6 @@
             android:textColor="#7ed127"
             android:textSize="17sp" />
 
-        <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<Button-->
-        <!--android:id="@+id/bt_chuli"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:textSize="17sp"-->
-        <!--android:text="处理"-->
-        <!--android:textColor="#ffffff"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/yuanjiaojuxing1"-->
-        <!--/>-->
-        <!--</RelativeLayout>-->
     </LinearLayout>
 
     <ImageView
@@ -157,7 +142,7 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal" />
 
     <ImageView
         android:layout_width="wrap_content"

@@ -16,17 +16,11 @@ import java.util.Map;
 import butterknife.ButterKnife;
 
 public class ExamineSampleDetailActivity extends NavigationActivity {
-	private WebView detailWebView;
-	private Map<String,String> activtyMapper;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.examine_sample_detail_activity);
-		//if(detailWebView == null){
-			//detailWebView = (WebView) findViewById(R.id.detailWebView);
-		//}
 		this.setTitle("样品详情");
-		navigationBar.setBackgroundColor(0xFF3598DC);
 		ButterKnife.bind(this);
 	}
 	@Override
@@ -61,28 +55,5 @@ public class ExamineSampleDetailActivity extends NavigationActivity {
 		tv11.setText(examineSample.getAccessRuleCode());
 		TextView tv12 = (TextView) findViewById(R.id.tv12);
 		tv12.setText(examineSample.getDetectonRule());
-
-		//loadHtmlFile("html/va_sample_detail.html", "file:///android_asset/html/", jsonElement);
-		
 	}
-
-//	@Override
-//	public WebView getWebView() {
-//		if(detailWebView == null){
-//			detailWebView = (WebView) findViewById(R.id.detailWebView);
-//		}
-//		return detailWebView;
-//	}
-//
-//	@Override
-//	public String onStringReplacementForText(String text, Object data) {
-//		JsonElement jsonData = (JsonElement) data;
-//		return GsonValidate.getStringByKeyPath(jsonData, text,"");
-//	}
-//	@Override
-//	public boolean onReceiveEvent(String event, Map<String, String> params) {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-
 }

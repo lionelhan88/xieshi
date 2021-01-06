@@ -35,7 +35,7 @@
             android:inputType="number"
             android:paddingLeft="10dp"
             android:singleLine="true"
-            android:textColor="#999999" />
+            android:textColor="#999999"/>
 
         <com.lessu.uikit.Buttons.Button
             android:id="@+id/getValidateButton"
@@ -63,8 +63,8 @@
             android:text="登录"
             android:textColor="#ffffff"
             android:textSize="@dimen/text_size_large"
-            app:background_highlight="@drawable/denglu"
-            app:background_normal="@drawable/denglu" />
+            app:background_normal="@drawable/denglu"
+            app:background_highlight="@drawable/denglu"/>
 
     </LinearLayout>
 

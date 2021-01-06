@@ -1,6 +1,6 @@
 package com.lessu.xieshi.module.training;
 
-import com.lessu.xieshi.bean.TrainingUserInfo;
+import com.lessu.xieshi.module.training.bean.TrainingUserInfo;
 
 public class ScanEvent {
     private TrainingUserInfo trainingUserInfo;

@@ -175,7 +175,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         if (curMeetingUserBean.getCheckStatus() != null && curMeetingUserBean.getCheckStatus().equals("1")) {
             //已经签到过了
             meetingUserIsSigned.setText("已签到");
-            meetingUserIsSigned.setTextColor(getResources().getColor(R.color.danlan));
+            meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
         } else {
             meetingUserIsSigned.setText("未签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.orange1));
@@ -285,7 +285,7 @@ public class MeetingDetailActivity extends NavigationActivity {
                             //签到成功改变状态
                             meetingUserIsSigned.setText("已签到");
                             curMeetingUserBean.setCheckStatus("1");
-                            meetingUserIsSigned.setTextColor(getResources().getColor(R.color.danlan));
+                            meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
                             if (customDialog != null) {
                                 customDialog.dismiss();
                             }

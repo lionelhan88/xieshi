@@ -7,7 +7,7 @@ import android.util.Log;
  */
 
 public class LogUtil {
-    private static final String TAG = "com.lessu.xieshi";
+    private static final String TAG = "TAGSCETIA";
     private static boolean isShowLog = true;
     public static void showLogD(String logMsg){
         if(isShowLog) {

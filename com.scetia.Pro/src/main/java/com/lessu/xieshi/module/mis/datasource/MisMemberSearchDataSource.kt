@@ -3,17 +3,17 @@ package com.lessu.xieshi.module.mis.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.lessu.xieshi.http.ResponseObserver
-import com.lessu.xieshi.bean.LoadState
-import com.lessu.xieshi.http.ExceptionHandle.ResponseThrowable
+import com.lessu.data.LoadState
+import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle.ResponseThrowable
 import com.lessu.xieshi.module.mis.activitys.Content
-import com.lessu.xieshi.module.mis.bean.MisHySearchResultData
+import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData
 import com.lessu.xieshi.module.mis.model.MisMemberSearchRepository
 
 /**
  * created by ljs
  * on 2020/11/30
  */
-class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSource<Int, MisHySearchResultData.ListContentBean>() {
+class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSource<Int, MisMemberSearchResultData.ListContentBean>() {
     //记录当前加载的数据加
     // 载的状态，并把状态传递到dataSourceFactory
     private val loadState = MutableLiveData<LoadState>()
@@ -24,22 +24,22 @@ class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSo
         return loadState
     }
 
-    override fun loadInitial(params: LoadInitialParams<Int?>, callback: LoadInitialCallback<Int?, MisHySearchResultData.ListContentBean?>) {
+    override fun loadInitial(params: LoadInitialParams<Int?>, callback: LoadInitialCallback<Int?, MisMemberSearchResultData.ListContentBean?>) {
         loadState.postValue(LoadState.LOAD_INIT)
         retry = null
         //初始化数据加载
-        model.search(Content.getToken(), queryKey, 1, params.requestedLoadSize, object : ResponseObserver<MisHySearchResultData?>() {
-            override fun success(misHySearchResultData: MisHySearchResultData?) {
+        model.search(Content.getToken(), queryKey, 1, params.requestedLoadSize, object : ResponseObserver<MisMemberSearchResultData?>() {
+            override fun success(misMemberSearchResultData: MisMemberSearchResultData?) {
                 loadState.postValue(LoadState.SUCCESS)
-                val list = misHySearchResultData?.listContent!!
-                totalPage = misHySearchResultData.pageCount
+                val list = misMemberSearchResultData?.listContent!!
+                totalPage = misMemberSearchResultData.pageCount
                 callback.onResult(list, null, 2)
             }
 
             override fun failure(throwable: ResponseThrowable) {
                 if (throwable.code == 2000) {
                     //没有相关数据
-                    loadState.postValue(LoadState.LOAD_INIT_NO_DATA)
+                    loadState.postValue(LoadState.EMPTY)
                 } else {
                     loadState.postValue(LoadState.FAILURE)
                     //加载失败，记录当前状态
@@ -49,11 +49,11 @@ class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSo
         })
     }
 
-    override fun loadBefore(params: LoadParams<Int?>, callback: LoadCallback<Int?, MisHySearchResultData.ListContentBean?>) {
+    override fun loadBefore(params: LoadParams<Int?>, callback: LoadCallback<Int?, MisMemberSearchResultData.ListContentBean?>) {
         //暂时不用实现，我们不需要加载前一页
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int?, MisHySearchResultData.ListContentBean?>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int?, MisMemberSearchResultData.ListContentBean?>) {
         //加载后一页
         //如果当前要加载的页数大于总页数，说明数据已经没有了，通知UI更新“没有更多数据了”
         if (params.key > totalPage) {
@@ -62,8 +62,8 @@ class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSo
         }
         loadState.postValue(LoadState.LOADING)
         retry = null
-        model.search(Content.getToken(), queryKey, params.key, params.requestedLoadSize, object : ResponseObserver<MisHySearchResultData?>() {
-            override fun success(t: MisHySearchResultData?) {
+        model.search(Content.getToken(), queryKey, params.key, params.requestedLoadSize, object : ResponseObserver<MisMemberSearchResultData?>() {
+            override fun success(t: MisMemberSearchResultData?) {
                 loadState.postValue(LoadState.SUCCESS)
                 val list = t?.listContent!!
                 //加载下一页

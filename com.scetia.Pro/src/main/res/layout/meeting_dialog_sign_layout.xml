@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/meeting_success_dialog_hy_code"
-            style="@style/info_show_list_edittext"
+            style="@style/info_show_list_edit_text"
             android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
     <LinearLayout style="@style/info_show_list_linearLayout"
@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/meeting_success_dialog_hy_dw"
-            style="@style/info_show_list_edittext"
+            style="@style/info_show_list_edit_text"
             android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
     <LinearLayout style="@style/info_show_list_linearLayout"
@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/meeting_success_dialog_user"
-            style="@style/info_show_list_edittext"
+            style="@style/info_show_list_edit_text"
             android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout

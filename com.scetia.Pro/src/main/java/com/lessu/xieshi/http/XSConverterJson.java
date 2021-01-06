@@ -23,7 +23,6 @@ public class XSConverterJson extends Converter.Factory {
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        TypeAdapter<Object> adapter = gson.getAdapter(new TypeToken<Object>(){}.getRawType());
-        return new XSResponseBodyConverter<Object>(gson, type, adapter);
+        return new XSResponseBodyConverter<Object>(gson, type);
     }
 }

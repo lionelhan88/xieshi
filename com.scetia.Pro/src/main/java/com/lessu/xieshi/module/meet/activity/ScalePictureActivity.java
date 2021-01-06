@@ -33,7 +33,6 @@ public class ScalePictureActivity extends NavigationActivity {
         scalePictureImage.enable();
         String photoUrl = getIntent().getStringExtra("detail_photo");
         GlideUtil.showImageViewNoCache(this,photoUrl,scalePictureImage);
-        //ImageLoader.getInstance().displayImage(photoUrl,scalePictureImage);
         if(photoUrl!=null&&photoUrl.contains("Scetia_Meet_Gonggao")){
             navigationBar.setBackgroundColor(0xFF3598DC);
             setTitle("会议内容");

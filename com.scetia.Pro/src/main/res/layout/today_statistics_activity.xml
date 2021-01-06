@@ -183,9 +183,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="39dp"
+            android:background="@color/today_statics_list_title_color"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="@color/today_statics_list_title_color">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -254,14 +254,12 @@
 
         </LinearLayout>
 
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/pl_jinritongji"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:footerDividersEnabled="false" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_toady_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
     </LinearLayout>
 
 </LinearLayout>

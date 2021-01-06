@@ -25,11 +25,8 @@ android {
 dependencies {
     api project(':pullToRefreash')
     api files('libs/android-async-http-1.4.5.jar')
-    api project(path: ':permissionGood')
-//    api project(path:':updateapputils')
     api rootProject.ext.dependencies.gson
     api rootProject.ext.dependencies.butterknife
-    annotationProcessor rootProject.ext.dependencies.butterknifAnnationProcess
     //沉浸式状态栏
     api rootProject.ext.dependencies.immersionbar
     api rootProject.ext.dependencies.flowlayout
@@ -37,5 +34,9 @@ dependencies {
     api rootProject.ext.dependencies.tbs
     api rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.publish
+    implementation rootProject.ext.dependencies.eventBus
+    implementation rootProject.ext.dependencies.navigation
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    annotationProcessor rootProject.ext.annationProcess.butterknifAnnationProcess
 
 }

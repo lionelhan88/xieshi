@@ -84,7 +84,7 @@ public class PingGuDetailActivity extends NavigationActivity {
         String id = getintent.getExtras().getString("Id");
         System.out.println(id);
         String token = Content.getToken();
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
         params.put("s1", id);
         System.out.println(params);

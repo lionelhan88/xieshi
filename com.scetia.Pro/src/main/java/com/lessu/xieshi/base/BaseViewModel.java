@@ -6,8 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.bean.LoadState;
-import com.lessu.xieshi.http.ExceptionHandle;
+import com.lessu.xieshi.bean.LoadMoreState;
+import com.lessu.data.LoadState;
+import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
 import com.lessu.xieshi.lifcycle.IBaseLifecycle;
 
 /**
@@ -15,7 +16,10 @@ import com.lessu.xieshi.lifcycle.IBaseLifecycle;
  * on 2020/11/26
  */
 public abstract class BaseViewModel extends AndroidViewModel implements IBaseLifecycle {
-    protected MutableLiveData<LoadState> loadState = new MutableLiveData<>();
+    //单一状态的加载
+    protected MutableLiveData<LoadState> loadState;
+    //多种状态的加载
+    protected MutableLiveData<LoadMoreState> loadMoreState = new MutableLiveData<>();
     protected MutableLiveData<ExceptionHandle.ResponseThrowable> throwableLiveData = new MutableLiveData<>();
 
     public BaseViewModel(@NonNull Application application) {
@@ -23,7 +27,14 @@ public abstract class BaseViewModel extends AndroidViewModel implements IBaseLif
     }
 
     public MutableLiveData<LoadState> getLoadState() {
+        if(loadState==null){
+            loadState = new MutableLiveData<>();
+        }
         return loadState;
+    }
+
+    public MutableLiveData<LoadMoreState> getLoadMoreState() {
+        return loadMoreState;
     }
 
     public MutableLiveData<ExceptionHandle.ResponseThrowable> getThrowable() {

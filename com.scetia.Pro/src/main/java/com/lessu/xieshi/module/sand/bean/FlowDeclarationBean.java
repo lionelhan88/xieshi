@@ -1,63 +1,201 @@
 package com.lessu.xieshi.module.sand.bean;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * created by ljs
  * on 2020/10/29
  */
 public class FlowDeclarationBean {
+/**
+ *  "putOnRecordsPassport": "BW(砂)-01-20200063",
+ *     "productionUnitName": "上海山中玉实业有限公司",
+ *     "shipName": "船名（车号）船名（车号）123a!",
+ *     "terminalName": "码头名称码头名称123a!",
+ *     "sampleID": "110305",
+ *     "specID": "110305303",
+ *     "parameterIDs": "110305101;110305102;110305103;110305108;110305109;110305110;110305117",
+ *     "customerUnitMemberCode": "0013",
+ *     "SalesVolume": "900"
+ */
 
-    private String s1;
-    private String s2;
-    private String s3;
-    private String s4;
-    private String s5;
-    private boolean s6;
+    /**
+     * id : 6f8812d8-1293-44fd-85dc-08d89a4c4428
+     * flowInfoNo : 2020000001
+     * customerUnitName : 上海锦奉混凝土有限公司
+     * shipName : 船名（车号）船名（车号）123a!
+     * salesVolume : 900
+     * sampleName : 混合砂
+     * flowInfoStatus : 未委托
+     * createDatetime : 2020-12-07
+     */
 
-    public boolean isS6() {
-        return s6;
+
+
+    private String id;
+    private String flowInfoNo;
+    private String customerUnitName;
+    @Expose
+    private String shipName;
+    private String salesVolume;
+    private String sampleName;
+    private String flowInfoStatus;
+    private String createDatetime;
+    /**
+     * putOnRecordsPassport : BW(砂)-01-20200063
+     * productionUnitName : 上海山中玉实业有限公司
+     * terminalName : 码头名称码头名称123a!
+     * sampleID : 110305
+     * specID : 110305303
+     * parameterIDs : 110305101;110305102;110305103;110305108;110305109;110305110;110305117
+     * customerUnitMemberCode : 0013
+     * SalesVolume : 900
+     */
+    @Expose
+    private String putOnRecordsPassport;
+    @Expose
+    private String productionUnitName;
+    @Expose
+    private String terminalName;
+    @Expose
+    private String sampleID;
+    @Expose
+    private String specID;
+    @Expose
+    private String parameterIDs;
+    @Expose
+    private String customerUnitMemberCode;
+    @Expose
+    @SerializedName("SalesVolume")
+    private String SalesVolumePost;
+
+
+    public String getId() {
+        return id;
     }
 
-    public void setS6(boolean s6) {
-        this.s6 = s6;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getS1() {
-        return s1;
+    public String getFlowInfoNo() {
+        return flowInfoNo;
     }
 
-    public void setS1(String s1) {
-        this.s1 = s1;
+    public void setFlowInfoNo(String flowInfoNo) {
+        this.flowInfoNo = flowInfoNo;
     }
 
-    public String getS2() {
-        return s2;
+    public String getCustomerUnitName() {
+        return customerUnitName;
     }
 
-    public void setS2(String s2) {
-        this.s2 = s2;
+    public void setCustomerUnitName(String customerUnitName) {
+        this.customerUnitName = customerUnitName;
     }
 
-    public String getS3() {
-        return s3;
+    public String getShipName() {
+        return shipName;
     }
 
-    public void setS3(String s3) {
-        this.s3 = s3;
+    public void setShipName(String shipName) {
+        this.shipName = shipName;
     }
 
-    public String getS4() {
-        return s4;
+    public String getSalesVolumePost() {
+        return SalesVolumePost;
     }
 
-    public void setS4(String s4) {
-        this.s4 = s4;
+    public void setSalesVolumePost(String salesVolumePost) {
+        SalesVolumePost = salesVolumePost;
     }
 
-    public String getS5() {
-        return s5;
+    public String getSampleName() {
+        return sampleName;
     }
 
-    public void setS5(String s5) {
-        this.s5 = s5;
+    public void setSampleName(String sampleName) {
+        this.sampleName = sampleName;
+    }
+
+    public String getFlowInfoStatus() {
+        return flowInfoStatus;
+    }
+
+    public void setFlowInfoStatus(String flowInfoStatus) {
+        this.flowInfoStatus = flowInfoStatus;
+    }
+
+    public String getCreateDatetime() {
+        return createDatetime;
+    }
+
+    public void setCreateDatetime(String createDatetime) {
+        this.createDatetime = createDatetime;
+    }
+
+    public String getPutOnRecordsPassport() {
+        return putOnRecordsPassport;
+    }
+
+    public void setPutOnRecordsPassport(String putOnRecordsPassport) {
+        this.putOnRecordsPassport = putOnRecordsPassport;
+    }
+
+    public String getProductionUnitName() {
+        return productionUnitName;
+    }
+
+    public void setProductionUnitName(String productionUnitName) {
+        this.productionUnitName = productionUnitName;
+    }
+
+    public String getTerminalName() {
+        return terminalName;
+    }
+
+    public void setTerminalName(String terminalName) {
+        this.terminalName = terminalName;
+    }
+
+    public String getSampleID() {
+        return sampleID;
+    }
+
+    public void setSampleID(String sampleID) {
+        this.sampleID = sampleID;
+    }
+
+    public String getSpecID() {
+        return specID;
+    }
+
+    public void setSpecID(String specID) {
+        this.specID = specID;
+    }
+
+    public String getParameterIDs() {
+        return parameterIDs;
+    }
+
+    public void setParameterIDs(String parameterIDs) {
+        this.parameterIDs = parameterIDs;
+    }
+
+    public String getCustomerUnitMemberCode() {
+        return customerUnitMemberCode;
+    }
+
+    public void setCustomerUnitMemberCode(String customerUnitMemberCode) {
+        this.customerUnitMemberCode = customerUnitMemberCode;
+    }
+
+    public String getSalesVolume() {
+        return salesVolume;
+    }
+
+    public void setSalesVolume(String salesVolume) {
+        this.salesVolume = salesVolume;
     }
 }

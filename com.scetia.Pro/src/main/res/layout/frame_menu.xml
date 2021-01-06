@@ -3,476 +3,463 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="39dp" 
-    
+    android:paddingTop="39dp"
+
     >
-    	<AbsoluteLayout 
-    	    android:layout_width="match_parent"
-    	    android:layout_height="match_parent"
-    	    >
-    	    <LinearLayout
-    	        android:layout_width="match_parent" 
-    	        android:layout_height="match_parent"
-    	        android:orientation="vertical"
-    	        android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    	        >
-        <LinearLayout 
-            android:id="@+id/section0"
+
+    <AbsoluteLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="7dp"
-        android:paddingTop="2dp"
-        android:background="@drawable/bg_menu_left_side_0"
-        >
-            <TextView 
-                android:layout_marginLeft="5dp"
-                android:text="检测数据"
-                android:textSize="@dimen/text_size_medium"
-                android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:gravity="center_vertical"
-                android:textColor="@android:color/white"
-                />
-            
-            <AbsoluteLayout
-                android:id="@+id/layoutItem0"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                    android:id="@+id/dataAuditingJumpButton"
-                    
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-                <LinearLayout 
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-	                android:paddingLeft="10dp"
-	                android:orientation="horizontal"
-	                android:gravity="center_vertical"
-	                >
-	                <ImageView 
-	                    android:id="@+id/arrow0"
-	                    android:layout_width="8dp"
-	                    android:layout_height="15dp"
-	                    android:src="@drawable/icon_menu_left_side_arrow"
-	                    android:scaleType="fitXY"
-	                    android:visibility="invisible"
-	                    />
-	                <TextView
-						android:drawableLeft="@drawable/shujushenhe"
-						android:drawablePadding="8dp"
-	                    android:layout_marginLeft="10dp"
-	                    android:text="记录审核"
-	                    android:layout_width="0dp"
-	                    android:layout_weight="1"
-	                    android:gravity="center_vertical"
-	                    android:layout_height="match_parent"
-	                    android:textColor="#3e3e3e"
-	                    android:textSize="@dimen/text_size_medium"
-	                    />
-            	</LinearLayout>
-            </AbsoluteLayout>
-            
-            <AbsoluteLayout
-                android:id="@+id/layoutItem1"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                    android:id="@+id/dataExamineJumpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-	            <LinearLayout 
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-	                android:paddingLeft="10dp"
-	                android:orientation="horizontal"
-	                android:gravity="center_vertical"
-	                >
-	                <ImageView 
-	                    android:id="@+id/arrow1"
-	                    android:layout_width="8dp"
-	                    android:layout_height="15dp"
-	                    android:src="@drawable/icon_menu_left_side_arrow"
-	                    android:scaleType="fitXY"
-	                    android:visibility="invisible"
-	                    />
-	                <TextView
-						android:drawableLeft="@drawable/baogaobiaozhun"
-						android:drawablePadding="8dp"
-	                    android:layout_marginLeft="10dp"
-	                    android:text="报告批准"
-	                    android:layout_width="0dp"
-	                    android:layout_weight="1"
-	                    android:gravity="center_vertical"
-	                    android:layout_height="match_parent"
-	                    android:textColor="#3e3e3e"
-	                    android:textSize="@dimen/text_size_medium"
-	                    />
-	            </LinearLayout>
-	            
-            </AbsoluteLayout>
-        </LinearLayout>
-    
-        <LinearLayout 
-            android:id="@+id/section1"
-            android:layout_marginTop="22dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="7dp"
-        android:paddingTop="2dp"
-        android:background="@drawable/bg_menu_left_side_1"
-        >
-            <TextView 
-                android:layout_marginLeft="5dp"
-                android:text="信息查询"
-                android:textSize="@dimen/text_size_medium"
-                android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:gravity="center_vertical"
-                android:textColor="@android:color/white"
-                />
-            
-            <AbsoluteLayout
-                android:id="@+id/layoutItem2"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                     android:id="@+id/constructionJumpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-            <LinearLayout 
-                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <ImageView 
-                    android:id="@+id/arrow2"
-                    android:layout_width="8dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_menu_left_side_arrow"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    />
-                <TextView 
-                    android:layout_marginLeft="10dp"
-                    android:text="样品查询"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-					android:drawableLeft="@drawable/yang"
-					android:drawablePadding="8dp"
-                    android:textColor="#3e3e3e"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-            </LinearLayout>
-            </AbsoluteLayout>
-            
-            <AbsoluteLayout
-                android:id="@+id/layoutItem3"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                    android:id="@+id/todayStatisticsJumpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-            <LinearLayout 
-                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <ImageView 
-                    android:id="@+id/arrow3"
-                    android:layout_width="8dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_menu_left_side_arrow"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    />
-                <TextView
-					android:drawableLeft="@drawable/jinritongji"
-					android:drawablePadding="8dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="统计信息"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:textColor="#3e3e3e"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-            </LinearLayout>
-            </AbsoluteLayout>
-            
-            <AbsoluteLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:id="@+id/layoutItem4"
-                >
-                <Button 
-                    android:id="@+id/unqualifiedJumpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-            <LinearLayout 
-                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <ImageView 
-                    android:id="@+id/arrow4"
-                    android:layout_width="8dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_menu_left_side_arrow"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    />
-                <TextView
-					android:drawableLeft="@drawable/buhegexinxi"
-					android:drawablePadding="8dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="不合格信息查询"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:textColor="#3e3e3e"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-            </LinearLayout>
-            </AbsoluteLayout>
-        </LinearLayout>
-    
-        <LinearLayout 
-            android:id="@+id/section2"
-            android:layout_marginTop="22dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="7dp"
-        android:paddingTop="2dp"
-        android:background="@drawable/bg_menu_left_side_2"
-        >
-            <TextView 
-                android:layout_marginLeft="5dp"
-                android:text="静载检测实时信息"
-                android:textSize="@dimen/text_size_medium"
-                android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:gravity="center_vertical"
-                android:textColor="@android:color/white"
-                />
-            <AbsoluteLayout
-                android:id="@+id/layoutItem5"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                   	android:id="@+id/projectJumpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-            <LinearLayout 
-                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <ImageView 
-                    android:id="@+id/arrow5"
-                    android:layout_width="8dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_menu_left_side_arrow"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    />
-                <TextView 
-                    android:layout_marginLeft="10dp"
-                    android:text="工程查询"
-					android:drawableLeft="@drawable/gongcheng"
-					android:drawablePadding="8dp"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:textColor="#3e3e3e"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-            </LinearLayout>
-            </AbsoluteLayout>
-            
-            <AbsoluteLayout
-                android:id="@+id/layoutItem6"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                    
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-            <LinearLayout 
-                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <ImageView 
-                    android:id="@+id/arrow6"
-                    android:layout_width="8dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_menu_left_side_arrow"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    />
-                <TextView 
-                    android:layout_marginLeft="10dp"
-                    android:text="线路导航"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:textColor="#3e3e3e"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-            </LinearLayout>
-            </AbsoluteLayout>
-            
-            <AbsoluteLayout
-                android:id="@+id/layoutItem7"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                >
-                <Button 
-                    android:id="@+id/uploadJumpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    />
-            <LinearLayout 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <ImageView 
-                    android:id="@+id/arrow7"
-                    android:layout_width="8dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_menu_left_side_arrow"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    />
-                <TextView 
-                    android:layout_marginLeft="10dp"
-                    android:text="现场图片上传"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:textColor="#3e3e3e"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-            </LinearLayout>
-            </AbsoluteLayout>
-        </LinearLayout>
-        </LinearLayout>
-        <LinearLayout 
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            >
-        <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            
-            ></LinearLayout>
-        <LinearLayout 
-            
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/bg_left_logout"
-            >
-            <LinearLayout 
-                android:id="@+id/settingButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="56dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <LinearLayout
+                android:id="@+id/section0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_menu_left_side_0"
                 android:orientation="vertical"
-                android:gravity="center"
-                >
-                <ImageView 
-	                android:layout_width="23dp"
-	                android:layout_height="23dp"
-	                android:scaleType="fitXY"
-	                android:src="@drawable/btn_setting"
-	                />
-	            <TextView 
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="设置"
-	                android:textSize="@dimen/text_size_large"
-	                android:textColor="#3e3e3e"
-	                
-	                />
+                android:paddingTop="2dp"
+                android:paddingBottom="7dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="检测数据"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem0"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/dataAuditingJumpButton"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow0"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/shujushenhe"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="记录审核"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem1"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/dataExamineJumpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow1"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/baogaobiaozhun"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="报告批准"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+
+                </AbsoluteLayout>
             </LinearLayout>
-            <LinearLayout 
-                android:id="@+id/exitButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="56dp"
+
+            <LinearLayout
+                android:id="@+id/section1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/bg_menu_left_side_1"
                 android:orientation="vertical"
-                android:gravity="center"
-                >
-                <ImageView 
-	                android:layout_width="23dp"
-	                android:layout_height="23dp"
-	                android:scaleType="fitXY"
-	                android:src="@drawable/btn_exit"
-	                />
-	            <TextView 
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="退出"
-	                android:textSize="@dimen/text_size_large"
-	                android:textColor="#3e3e3e"
-	                
-	                />
+                android:paddingTop="2dp"
+                android:paddingBottom="7dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="信息查询"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/constructionJumpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow2"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/yang"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="样品查询"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem3"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/todayStatisticsJumpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow3"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/jinritongji"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="统计信息"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem4"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/unqualifiedJumpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow4"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/buhegexinxi"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="不合格信息查询"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
             </LinearLayout>
-            
+
+            <LinearLayout
+                android:id="@+id/section2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/bg_menu_left_side_2"
+                android:orientation="vertical"
+                android:paddingTop="2dp"
+                android:paddingBottom="7dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="静载检测实时信息"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem5"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/projectJumpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow5"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/gongcheng"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="工程查询"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem6"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow6"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="线路导航"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout
+                    android:id="@+id/layoutItem7"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <Button
+                        android:id="@+id/uploadJumpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:id="@+id/arrow7"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_menu_left_side_arrow"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="现场图片上传"
+                            android:textColor="#3e3e3e"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+                </AbsoluteLayout>
+            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_left_logout"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/settingButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_setting" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设置"
+                        android:textColor="#3e3e3e"
+                        android:textSize="@dimen/text_size_large" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/exitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_exit" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退出"
+                        android:textColor="#3e3e3e"
+                        android:textSize="@dimen/text_size_large" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </AbsoluteLayout>
-        
+
 </LinearLayout>

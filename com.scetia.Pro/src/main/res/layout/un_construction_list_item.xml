@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="47dp"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:text="报告编号:"
             android:textColor="#b5b5b5"
@@ -33,23 +33,25 @@
             android:textColor="#007EFF"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
 
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp">
+
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="会员号:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -64,25 +66,26 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
 
     <LinearLayout
-        android:background="#ffffff"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="联系人:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -97,23 +100,25 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="联系电话:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -128,24 +133,26 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:background="#ffffff"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="是否监督抽检:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -160,24 +167,26 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="工程名称:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -185,32 +194,34 @@
         <TextView
             android:id="@+id/ProjectNameTextView"
             android:layout_width="wrap_content"
-            android:gravity="center_vertical"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="2"
             android:text="杨浦区"
             android:textColor="#4c4a4a"
-            android:maxLines="2"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:background="#ffffff"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="建设单位:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -225,23 +236,25 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="施工单位:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -256,24 +269,26 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:background="#ffffff"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="监督单位:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -288,23 +303,25 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="质监站:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -319,24 +336,26 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:background="#ffffff"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
         <TextView
-            android:drawableLeft="@drawable/yuan"
-            android:drawablePadding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/yuan"
+            android:drawablePadding="8dp"
             android:text="日期:"
             android:textColor="#b5b5b5"
             android:textSize="17sp" />
@@ -351,20 +370,21 @@
             android:textColor="#4c4a4a"
             android:textSize="17sp" />
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="10dp">
-    </LinearLayout>
+        android:paddingLeft="10dp"/>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/xuxian"/>
+        android:background="@drawable/xuxian" />
 </LinearLayout>

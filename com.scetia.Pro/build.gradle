@@ -2,10 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-aspectjx'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-aspectjx {
-    enabled true
-    exclude 'com.google','com.taobao'
-}
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -17,7 +14,6 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         multiDexEnabled true
-        //添加这个配置，不然编译会报错
         //添加如下配置就OK了
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
@@ -38,31 +34,31 @@ android {
     }
     buildTypes {
         release {
-            //加上这句话，不然打包时会报错，目前还不知道是什么原因
-            lintOptions {
-                checkReleaseBuilds false
-                abortOnError false
-            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        debug {
+       /* debug {
             minifyEnabled false
-            zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-        }
+        }*/
     }
     applicationVariants.all { variant ->
         def buildType = variant.buildType.name
         //只对release起作用
         if (buildType == "release") {
-            variant.getPackageApplication().outputDirectory = new File("D:\\APP签名和打包\\xieshi path\\Scetia_Pro_v$versionName")
+            def fileDir = "D:\\APP签名和打包\\xieshi path\\Scetia_Pro_v${versionName}"
+            def file = new File(fileDir)
+            if (!file.exists()) {
+                //如果文件不存在，创建文件
+                file.mkdirs()
+            }
+            variant.getPackageApplication().outputDirectory = file
         }
         variant.outputs.each { mm ->
             if (buildType == "release") {
-                def fileName = "Scetia_Pro.apk"
+                def fileName = "Scetia_Pro_v${versionName}.apk"
                 mm.outputFileName = fileName
             }
         }
@@ -80,29 +76,22 @@ android {
 
 
 dependencies {
-    implementation rootProject.ext.dependencies.rxJava
-    implementation rootProject.ext.dependencies.retrofit
-    implementation rootProject.ext.dependencies.publish
-    implementation rootProject.ext.dependencies.baseRecyclerView
-    implementation rootProject.ext.dependencies.navigation
-    implementation rootProject.ext.dependencies.eventBus
-    annotationProcessor rootProject.ext.dependencies.glideAnnationProcess
-    implementation rootProject.ext.dependencies.refreshlayout
-    implementation rootProject.ext.dependencies.pickerView
-    implementation rootProject.ext.dependencies.photoview
-    implementation rootProject.ext.dependencies.qrcode
-    implementation rootProject.ext.dependencies.okhttp
-    implementation rootProject.ext.dependencies.supportV4
-    implementation rootProject.ext.dependencies.easySwipeMenuLayout
-    implementation rootProject.ext.dependencies.updateUtilsSDK2
-    annotationProcessor rootProject.ext.dependencies.butterknifAnnationProcess
+    rootProject.ext.dependencies.each { k, v ->
+        if (k != "gson" && k != "butterknife" && k != "immersionbar" && k != "flowlayout" && k != "multidex"
+                && k != "tbs" && k != "glide") {
+            implementation v
+        }
+    }
+    annotationProcessor rootProject.ext.annationProcess.butterknifAnnationProcess
+    annotationProcessor rootProject.ext.annationProcess.glideAnnationProcess
+    testImplementation rootProject.ext.testJunit
+    androidTestImplementation rootProject.ext.androidTest
     implementation project(':lSUIKit')
-    implementation project(':pullToRefreash')
     implementation project(':library')
     implementation files('libs/zbar.jar')
     implementation files('libs/uhfreaderapi.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
     compile files('libs/BaiduLBS_Android.jar')
     implementation 'android.arch.paging:runtime:1.0.1'
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

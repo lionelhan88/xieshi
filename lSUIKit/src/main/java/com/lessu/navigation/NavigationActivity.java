@@ -1,38 +1,24 @@
 package com.lessu.navigation;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import android.os.IBinder;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lessu.ShareableApplication;
 import com.lessu.uikit.R;
-import java.util.List;
-
-import butterknife.ButterKnife;
-
 /**
  * Created by lessu on 14-7-31.
  */
@@ -40,8 +26,6 @@ public class NavigationActivity extends FragmentActivity {
     public NavigationBar navigationBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ShareableApplication.activities.add(this);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setNavigationBar(new NavigationBar(this));
         addTitleBarHandle();
@@ -53,17 +37,6 @@ public class NavigationActivity extends FragmentActivity {
      * 添加顶部标题栏菜单按钮
      */
     private void addTitleBarHandle(){
-        ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if (tasks.get(0).numActivities > 1){
-            BarButtonItem backButtonItem = BarButtonItem.backBarButtonItem(this);
-            backButtonItem.titleButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    leftNavBarClick();
-                }
-            });
-        }
         //为页面添加返回按钮
         BarButtonItem handleButtonItem = new BarButtonItem(this, R.drawable.back);
         handleButtonItem.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +49,9 @@ public class NavigationActivity extends FragmentActivity {
         navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
     }
 
+    /**
+     * 左上角返回按钮
+     */
     protected void leftNavBarClick(){
         finish();
     }
@@ -122,9 +98,6 @@ public class NavigationActivity extends FragmentActivity {
                 .navigationBarColor(R.color.light_gray)
                 .navigationBarDarkIcon(true)
                 .init();
-    }
-    public void setTitleView(View view){
-    	getNavigationBar().setTitleView(view);
     }
     public void setLeftNavigationItem(String title,View.OnClickListener listener){
     	BarButtonItem barButtonItem = new BarButtonItem(this, title);
@@ -205,9 +178,9 @@ public class NavigationActivity extends FragmentActivity {
         // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
         return false;
     }
+
     /**
      * 多种隐藏软件盘方法的其中一种
-     *
      * @param token
      */
     private void hideSoftInput(IBinder token) {

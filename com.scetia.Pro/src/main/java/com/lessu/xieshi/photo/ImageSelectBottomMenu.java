@@ -1,6 +1,6 @@
 package com.lessu.xieshi.photo;
 
-import android.content.ContentResolver;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -10,26 +10,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 
+import com.lessu.foundation.DensityUtil;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.GlideUtil;
+import com.lessu.xieshi.Utils.ImageUtil;
 import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.UriUtils;
-import com.lessu.xieshi.login.FirstActivity;
 
 import java.io.File;
 
@@ -45,6 +42,7 @@ public class ImageSelectBottomMenu extends DialogFragment {
     private String photoSavePath;
     private String photoPath;
     private Uri photoUri;
+    private boolean isCompress = false;
     public static final String PHOTO_NAME_KEY = "photo_name";
     public static final String PHOTO_SAVE_PATH_KEY = "photo_save_path_key";
     public static final int REQUEST_PHOTO_PICTURE = 1000;
@@ -67,6 +65,9 @@ public class ImageSelectBottomMenu extends DialogFragment {
 
     private ImageSelectListener imageSelectListener;
 
+    public void setCompress(boolean compress) {
+        isCompress = compress;
+    }
 
     public void setImageSelectListener(ImageSelectListener imageSelectListener) {
         this.imageSelectListener = imageSelectListener;
@@ -138,7 +139,7 @@ public class ImageSelectBottomMenu extends DialogFragment {
          *android10以后的插入图片的方式有所不同，这里需要判断
          */
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){
-            photoUri = createUriQ(photoName,photoSavePath);
+            photoUri = createUriQ(photoName);
         }else {
             photoUri = createUri(requireActivity(), saveFile, intent);
         }
@@ -160,7 +161,7 @@ public class ImageSelectBottomMenu extends DialogFragment {
      * android10以后用这种方法
      * @return
      */
-    public Uri createUriQ(String photonName,String photoSavePath){
+    public Uri createUriQ(String photonName){
         ContentValues contentValues = new ContentValues();
         //文件名称
         contentValues.put(MediaStore.Images.Media.DISPLAY_NAME,photonName);
@@ -188,18 +189,17 @@ public class ImageSelectBottomMenu extends DialogFragment {
     public void onStart() {
         super.onStart();
         // 设置宽度为屏宽、位置在屏幕底部
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(android.R.color.transparent);
-        WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.BOTTOM;
-        Display defaultDisplay =requireActivity().getWindowManager().getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        defaultDisplay.getRealMetrics(displayMetrics);
-        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        wlp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(wlp);
-        //点击空白区域禁止消失
-        getDialog().setCanceledOnTouchOutside(true);
+        Dialog dialog = getDialog();
+        if(dialog!=null) {
+            Window window = dialog.getWindow();
+            if(window!=null) {
+                window.setBackgroundDrawableResource(android.R.color.transparent);
+                window.setLayout((int) DensityUtil.screenWidth(requireContext()), ViewGroup.LayoutParams.WRAP_CONTENT);
+                window.setGravity(Gravity.BOTTOM);
+            }
+            //点击空白区域禁止消失
+            dialog.setCanceledOnTouchOutside(true);
+        }
     }
 
     @Override
@@ -208,6 +208,10 @@ public class ImageSelectBottomMenu extends DialogFragment {
         if(resultCode==RESULT_OK){
             if(requestCode==REQUEST_TAKE_PHOTO){
                 //拍照的返回结果
+                if(isCompress) {
+                    //如果需要压缩图片
+                    ImageUtil.scaleAndCompress(photoPath, photoPath);
+                }
                 MediaScannerConnection.scanFile(requireActivity(),new String[]{photoSavePath},null,null);
                 imageSelectListener.takePhoto(photoPath,photoUri);
             }else{
@@ -220,8 +224,8 @@ public class ImageSelectBottomMenu extends DialogFragment {
                 //选相册的返回结果
                 imageSelectListener.takePhoto(dataColumn,uri);
             }
-            dismiss();
         }
+        dismiss();
     }
 
     @Override

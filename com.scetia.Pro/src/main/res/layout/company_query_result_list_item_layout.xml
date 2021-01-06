@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/y5"
     android:layout_marginRight="@dimen/x10"
     android:layout_marginBottom="@dimen/y5"
-    android:paddingEnd="5dp"
+    android:padding="5dp"
     android:background="@drawable/white_round_stroke_bg"
     app:contentView="@+id/content"
     app:rightMenuView="@+id/right">
@@ -17,7 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="性质"
         android:textSize="@dimen/text_size_medium"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toStartOf="@+id/company_query_result_list_item_select"
@@ -26,13 +25,13 @@
 
     <TextView
         android:id="@+id/company_query_result_list_item_select_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="上海市检测有限公司"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size_medium"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/company_query_result_list_item_select"
         app:layout_constraintTop_toBottomOf="@+id/company_query_result_list_item_select_nature" />
     <ImageView
         android:id="@+id/company_query_result_list_item_select"

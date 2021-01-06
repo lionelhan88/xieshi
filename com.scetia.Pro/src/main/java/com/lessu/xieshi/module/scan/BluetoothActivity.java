@@ -17,7 +17,6 @@ import android.provider.Settings;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Switch;
@@ -43,8 +42,8 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
     private BluetoothAdapter bluetoothAdapter;
     private ListView unbindDevices;
     private ListView bondDevices;
-    private ArrayList<BluetoothDevice> unbondDeviceslist = new ArrayList<BluetoothDevice>();
-    private ArrayList<BluetoothDevice> bondDeviceslist = new ArrayList<BluetoothDevice>();
+    private ArrayList<BluetoothDevice> unBondDevices = new ArrayList<>();
+    private ArrayList<BluetoothDevice> bondDeviceslist = new ArrayList<>();
     private BarButtonItem handleButtonItem;
     private ObjectAnimator objectAnimator;
     public static final int BLUETOOTH_REQUEST_CODE=1;
@@ -52,7 +51,6 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bluetooth_layout);
-        navigationBar.setBackgroundColor(0xFF3598DC);
         this.setTitle("蓝牙连接");
         handleButtonItem = new BarButtonItem(this , R.drawable.shuaxinl );
         handleButtonItem.setOnClickMethod(this,"searchBlueDevices");
@@ -127,12 +125,13 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
         }
         return true;
     }
+
     /**
      * 初始化打开蓝牙
      */
     private void initBluetooth() {
-        if (BlueIsOpen()) {
-            //蓝牙已经打开了，判断有没有打开gps权限和开关
+        if (bluetoothAdapter.isEnabled()) {
+            //蓝牙已经打开了
             blueSwitch.setChecked(true);
             blueToothStartDiscovery();
         }else {
@@ -141,13 +140,22 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
             blueSwitch.setChecked(true);
         }
     }
+
+    /**
+     * 打开蓝牙
+     */
+    public void openBluetooth() {
+        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        startActivityForResult(enableBtIntent, BLUETOOTH_REQUEST_CODE);
+    }
+
     /**
      * 开始搜索蓝牙
      */
     private void blueToothStartDiscovery(){
         if (objectAnimator != null) return;
         bondDeviceslist.clear();
-        unbondDeviceslist.clear();
+        unBondDevices.clear();
         if (simpleAdapter != null && bondData != null) {
             bondData.clear();
             simpleAdapter.notifyDataSetChanged();
@@ -173,20 +181,7 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
                     }
                 });
     }
-    /**
-     * 检测蓝牙是否打开
-     * @return
-     */
-    private boolean BlueIsOpen() {
-        return this.bluetoothAdapter.isEnabled();
-    }
-    /**
-     * 打开蓝牙
-     */
-    public void openBluetooth() {
-        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        startActivityForResult(enableBtIntent, BLUETOOTH_REQUEST_CODE);
-    }
+
 
     /**
      * 关闭蓝牙
@@ -253,8 +248,8 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
      * @param device
      */
     public void addUnbindDevices(BluetoothDevice device) {
-        if (device.getName()!=null&&!unbondDeviceslist.contains(device)) {
-            unbondDeviceslist.add(device);
+        if (device.getName()!=null&&!unBondDevices.contains(device)) {
+            unBondDevices.add(device);
         }
     }
 
@@ -311,10 +306,10 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
      */
     private void addUnbondDevicesToListView() {
         ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
-        int count = unbondDeviceslist.size();
+        int count = unBondDevices.size();
         for (int i = 0; i < count; i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("deviceName",unbondDeviceslist.get(i).getName());
+            map.put("deviceName", unBondDevices.get(i).getName());
             data.add(map);// 把item项的数据加到data中
         }
         String[] from = { "deviceName" };
@@ -332,11 +327,11 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
                                     int arg2, long arg3) {
                 try {
                     Method createBondMethod = BluetoothDevice.class.getMethod("createBond");
-                    createBondMethod.invoke(unbondDeviceslist.get(arg2));
+                    createBondMethod.invoke(unBondDevices.get(arg2));
                     // 将绑定好的设备添加的已绑定list集合
-                    bondDeviceslist.add(unbondDeviceslist.get(arg2));
+                    bondDeviceslist.add(unBondDevices.get(arg2));
                     // 将绑定好的设备从未绑定list集合中移除
-                    unbondDeviceslist.remove(arg2);
+                    unBondDevices.remove(arg2);
                     addBondDevicesToListView();
                     addUnbondDevicesToListView();
                 } catch (Exception e) {

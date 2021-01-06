@@ -27,7 +27,6 @@ public class QrcodeDetailActivity extends TemplatedWebViewActivity {
 			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
 		}
 		this.setTitle("扫描详情");
-		navigationBar.setBackgroundColor(0xFF3598DC);
 	}
 
 	@Override

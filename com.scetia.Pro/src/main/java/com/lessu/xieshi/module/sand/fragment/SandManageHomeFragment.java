@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 
 import com.lessu.BaseFragment;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.view.FullScreenDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,11 +39,7 @@ public class SandManageHomeFragment extends BaseFragment {
     @Override
     protected void initView() {
         setTitle("用砂管理");
-    }
-
-    @Override
-    protected void initData() {
-
+        contentView.setVisibility(View.VISIBLE);
     }
 
     @OnClick({R.id.sand_manage_provider_search, R.id.sand_manage_sales_manage, R.id.sand_manage_testing_manage, R.id.sand_manage_flow_declaration, R.id.sand_manage_testing_commission, R.id.sand_manage_info_query})

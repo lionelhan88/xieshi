@@ -38,8 +38,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 public class MisPingGuActivity extends NavigationActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
-
-    private BarButtonItem handleButtonItem;
     private EditText et_pg_search;
     private TextView tv_pg_search;
     private PullToRefreshListView lv_pgsearch;
@@ -54,16 +52,7 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
         setContentView(R.layout.activity_mis_pingu);
         navigationBar.setBackgroundColor(0xFF3598DC);
         this.setTitle("评估信息查询");
-        handleButtonItem = new BarButtonItem(this , R.drawable.back );
-        handleButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        navigationBar.setLeftBarItem(handleButtonItem);
         initView();
-
         initData();
     }
 

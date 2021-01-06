@@ -6,57 +6,79 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.lessu.BaseFragment;
+import com.lessu.data.LoadState;
+import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.TestingCommissionListAdapter;
-import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
+import com.lessu.xieshi.module.sand.viewmodel.TestingCommissionListViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * created by ljs
  * on 2020/11/10
  */
-public class TestingCommissionListFragment extends BaseFragment {
-    @BindView(R.id.sand_common_rv)
-    RecyclerView sandCommonRv;
-    @BindView(R.id.sand_common_refresh)
-    SmartRefreshLayout sandCommonRefresh;
-    @BindView(R.id.sand_common_fab)
-    FloatingActionButton sandCommonFab;
+public class TestingCommissionListFragment extends BaseVMFragment<TestingCommissionListViewModel> {
+    @BindView(R.id.sand_sales_target_list_rv)
+    RecyclerView sandSalesTargetListRv;
+    @BindView(R.id.sand_sales_target_list_refresh)
+    SmartRefreshLayout sandSalesTargetListRefresh;
     private TestingCommissionListAdapter listAdapter;
-
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_sand_common_layout;
+        return R.layout.fragment_smart_refresh_list_common_layout;
+    }
+
+    @Override
+    protected Class<TestingCommissionListViewModel> getViewModelClass() {
+        return TestingCommissionListViewModel.class;
+    }
+
+    @Override
+    protected void observerData() {
+        viewModel.getLoadDatState().observe(this,loadState -> {
+            switchUIPageState(loadState,sandSalesTargetListRefresh);
+        });
+        //数据列表加载成功
+        viewModel.getTestingCommissionLiveData().observe(this,testingCommissionBeans -> {
+            if(viewModel.getLoadDatState().getValue()== LoadState.LOAD_INIT_SUCCESS
+            ||viewModel.getLoadDatState().getValue()== LoadState.EMPTY){
+                //初始化数据成功，需要重新刷新数据
+                listAdapter.setNewData(testingCommissionBeans);
+            }else{
+                //加载更多数据成功，直接在后面追加数据
+                listAdapter.addData(testingCommissionBeans);
+            }
+        });
     }
 
     @Override
     protected void initView() {
         setTitle(getString(R.string.testing_commission_list_title_text));
-        listAdapter = new TestingCommissionListAdapter();
-        sandCommonRv.setAdapter(listAdapter);
-        sandCommonRv.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false));
-        sandCommonFab.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.actionCommissionListToDetail));
+        listAdapter = viewModel.getListAdapter();
+        sandSalesTargetListRv.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        sandSalesTargetListRv.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener((adapter, view, position) -> {
             Navigation.findNavController(view).navigate(R.id.actionCommissionListToDetail);
         });
+
+        sandSalesTargetListRefresh.setOnRefreshListener(refreshLayout ->viewModel.refreshOnLoad());
+        sandSalesTargetListRefresh.setOnLoadMoreListener(refreshLayout -> viewModel.loadData(false));
     }
 
     @Override
-    protected void initData() {
-        for (int i = 0; i <= 10; i++) {
-            TestingCommissionBean bean = new TestingCommissionBean();
-            bean.setS1("人工砂");
-            bean.setS2("张三");
-            bean.setS3("2020-11-01");
-            bean.setS4("上海市检测技术单位");
-            bean.setS5("张三");
-            bean.setS6("2020-11-14");
-            listAdapter.addData(bean);
-        }
+    public void onStart() {
+        super.onStart();
+        viewModel.loadData(true);
+    }
+
+    @OnClick(R.id.sand_sales_target_list_fab)
+    public void onViewClicked(View v) {
+        Navigation.findNavController(v).navigate(R.id.actionCommissionListToDetail);
     }
 }

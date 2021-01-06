@@ -47,6 +47,7 @@ public class CompanySignFragment extends LazyFragment {
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
+        misMeetingFragmentRefresh.setEnableLoadMore(false);
         listAdapter = new CompanySignListAdapter(R.layout.meeting_company_sign_list_item_layout);
         misFragmentCompanySignRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         misFragmentCompanySignRv.setAdapter(listAdapter);
@@ -107,6 +108,7 @@ public class CompanySignFragment extends LazyFragment {
     @Override
     protected void initData() {
         misMeetingFragmentRefresh.autoRefresh();
+
     }
 
     @Override

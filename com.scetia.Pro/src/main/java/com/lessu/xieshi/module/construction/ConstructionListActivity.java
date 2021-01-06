@@ -42,14 +42,12 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 		this.setTitle("工地列表");
 		navigationBar.setBackgroundColor(0xFF3598DC);
 		
-		BarButtonItem	searchButtonitem = new BarButtonItem(this , R.drawable.icon_navigation_search );
-        searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");	
-    
-        navigationBar.setRightBarItem(searchButtonitem);
+		BarButtonItem	searchButtonItem = new BarButtonItem(this , R.drawable.icon_navigation_search );
+        searchButtonItem.setOnClickMethod(this,"searchButtonDidClick");
+        navigationBar.setRightBarItem(searchButtonItem);
         
         BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
         menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");	
-        //navigationBar.setLeftBarItem(menuButtonitem);
 	}
 	
 	@Override
@@ -163,34 +161,5 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 		QueryStr = bundle.get("QueryStr").toString();
 		}
 	}
-	
-//	@Override
-//	public boolean dispatchKeyEvent(KeyEvent event) {
-//	    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//	    	exitBy2Click();
-//	    	return false;
-//	    } else {
-//	        return super.dispatchKeyEvent(event);
-//	    }
-//	}
-	private static Boolean isExit = false;
-	private void exitBy2Click() {
-		// TODO Auto-generated method stub
-		Timer tExit = null;
-		 if (isExit == false) {
-		 isExit = true; // 准备退出
-		 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-		 tExit = new Timer();
-		 tExit.schedule(new TimerTask() {
-		  @Override
-		  public void run() {
-		  isExit = false; // 取消退出
-		  }
-		 }, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
-		 
-		 } else {
-		 finish();
-		 System.exit(0);
-		 }
-	}
+
 }

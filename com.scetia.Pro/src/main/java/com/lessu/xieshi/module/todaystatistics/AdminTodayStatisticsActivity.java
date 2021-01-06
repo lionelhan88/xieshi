@@ -136,12 +136,9 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_today_statistics_activity);
 		this.setTitle("工地查询");
-		navigationBar.setBackgroundColor(0xFF3598DC);
 		try{
 			System.loadLibrary("locSDK7a");
-			LogUtil.showLogD("百度地图加载成功");
 		}catch(Throwable  ex){
-			LogUtil.showLogE("百度地图加载失败...");
 			ex.printStackTrace();
 		}
 
@@ -665,9 +662,6 @@ public class AdminTodayStatisticsActivity extends XieShiSlidingMenuActivity impl
 
 		@Override
 		public void onConnectHotSpotMessage(String s, int i) {
-			System.out.println("hot...s..."+s);
-			System.out.println("hot...i..."+i);
-
 		}
 	}
 

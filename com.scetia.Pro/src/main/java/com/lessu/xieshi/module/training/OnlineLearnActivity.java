@@ -20,7 +20,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.bean.PushToDx;
+import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.lessu.xieshi.http.TrainRetrofit;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.sdk.WebView;

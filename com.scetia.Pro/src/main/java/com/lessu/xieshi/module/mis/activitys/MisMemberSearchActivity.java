@@ -14,10 +14,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.bean.LoadState;
+import com.lessu.data.LoadState;
 import com.lessu.xieshi.module.mis.adapter.MisMemberSearchListAdapter;
 import com.lessu.xieshi.module.mis.viewmodel.MisSearchViewModel;
-import com.lessu.xieshi.module.mis.bean.MisHySearchResultData;
+import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
 import com.lessu.xieshi.module.mis.listener.AdapterItemClickListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,9 +52,9 @@ public class MisMemberSearchActivity extends NavigationActivity implements View.
             }
         });
         //数据加入adapter中显示
-        viewModel.getPagedListLiveData().observe(this, new Observer<PagedList<MisHySearchResultData.ListContentBean>>() {
+        viewModel.getPagedListLiveData().observe(this, new Observer<PagedList<MisMemberSearchResultData.ListContentBean>>() {
             @Override
-            public void onChanged(PagedList<MisHySearchResultData.ListContentBean> listContentBeans) {
+            public void onChanged(PagedList<MisMemberSearchResultData.ListContentBean> listContentBeans) {
                 searchAdapter.submitList(listContentBeans);
             }
         });
@@ -74,9 +74,9 @@ public class MisMemberSearchActivity extends NavigationActivity implements View.
             }
         });
         searchAdapter = new MisMemberSearchListAdapter(viewModel);
-        searchAdapter.setAdapterItemClickListener(new AdapterItemClickListener<MisHySearchResultData.ListContentBean>() {
+        searchAdapter.setAdapterItemClickListener(new AdapterItemClickListener<MisMemberSearchResultData.ListContentBean>() {
             @Override
-            public void onItemClickListener(int position, MisHySearchResultData.ListContentBean contentBean) {
+            public void onItemClickListener(int position, MisMemberSearchResultData.ListContentBean contentBean) {
                 EventBus.getDefault().postSticky(contentBean);
                 startOtherActivity(HyDetailActivity.class);
             }

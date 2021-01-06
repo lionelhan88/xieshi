@@ -17,7 +17,8 @@
             app:destination="@id/SandInfoMaintainSalesFragment" />
         <action
             android:id="@+id/actionManageToTestingManage"
-            app:destination="@id/SandInfoMaintainTestingManageFragment" />
+            app:destination="@id/SandInfoMaintainTestingManageFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/actionManageToTestingCommission"
             app:destination="@id/TestingCommissionListFragment" />
@@ -26,16 +27,21 @@
             app:destination="@id/SMFlowDeclarationListFragment" />
         <action
             android:id="@+id/actionManageToTestingQuery"
-            app:destination="@id/TestingInfoQueryFragment" />
+            app:destination="@id/TestingInfoQueryFragment"
+
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/SandInfoMaintainProviderFragment"
-        android:name="com.lessu.xieshi.module.sand.fragment.SandInfoMaintainProviderFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandSupplierListFragment"
         android:label="SandInfoMaintainProviderFragment"
         tools:layout="@layout/fragment_sand_info_maintain" />
     <fragment
         android:id="@+id/SandInfoMaintainSalesFragment"
-        android:name="com.lessu.xieshi.module.sand.fragment.SandInfoMaintainSalesFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandSalesTargetListFragment"
         android:label="SMFlowDeclarationDetailFragment"
         tools:layout="@layout/fragment_sand_info_maintain_sales">
         <action
@@ -45,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/SandInfoMaintainTestingManageFragment"
-        android:name="com.lessu.xieshi.module.sand.fragment.SandInfoMaintainTestingManageFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandTestingCompanyListFragment"
         android:label="SandInfoMaintainTestingManageFragment"
         tools:layout="@layout/fragment_testing_company_manage">
         <action
@@ -63,9 +69,16 @@
     </fragment>
     <fragment
         android:id="@+id/sandTestingCommissionFragment"
-        android:name="com.lessu.xieshi.module.sand.fragment.SandTestingCommissionFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.TestingCommissionDetailFragment"
         android:label="SandTestingCommissionFragment"
-        tools:layout="@layout/fragment_sand_testing_commission" />
+        tools:layout="@layout/fragment_sand_testing_commission" >
+        <action
+            android:id="@+id/actionSandTestingCommissionFragmentToFlowDeclarationList"
+            app:destination="@id/SMFlowDeclarationListFragment" />
+        <action
+            android:id="@+id/actionSandTestingCommissionFragmentToCompanyList"
+            app:destination="@id/SandInfoMaintainTestingManageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/SMFlowDeclarationListFragment"
@@ -80,7 +93,14 @@
         android:id="@+id/SMFlowDeclarationDetailFragment"
         android:name="com.lessu.xieshi.module.sand.fragment.SMFlowDeclarationDetailFragment"
         android:label="SMFlowDeclarationDetailFragment"
-        tools:layout="@layout/fragment_sm_flow_declaration_detail" />
+        tools:layout="@layout/fragment_sm_flow_declaration_detail">
+        <action
+            android:id="@+id/actionSMFlowDeclarationDetailToSupplierFragment"
+            app:destination="@id/SandInfoMaintainProviderFragment"/>
+        <action android:id="@+id/actionSMFLowDeclarationDetailToSaleTarget"
+            app:destination="@+id/SandInfoMaintainSalesFragment"/>
+    </fragment>
+
 
     <fragment
         android:id="@+id/TestingInfoQueryFragment"
@@ -98,12 +118,12 @@
         tools:layout="@layout/fragment_testing_info_query_details" />
     <fragment
         android:id="@+id/SupplierQueryResultFragment"
-        android:name="com.lessu.xieshi.module.sand.fragment.SupplierQueryResultFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandSalesTargetQueryListFragment"
         android:label="SupplierQueryResultFragment"
         tools:layout="@layout/fragment_company_query_result" />
     <fragment
         android:id="@+id/TestingCompanyQueryResultFragment"
-        android:name="com.lessu.xieshi.module.sand.fragment.TestingCompanyQueryResultFragment"
+        android:name="com.lessu.xieshi.module.sand.fragment.SandTestingCompanyQueryListFragment"
         android:label="TestingCompanyQueryResultFragment"
         tools:layout="@layout/fragment_testing_company_query_result" />
 </navigation>

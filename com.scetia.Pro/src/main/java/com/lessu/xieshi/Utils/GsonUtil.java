@@ -6,6 +6,10 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -68,7 +72,60 @@ public class GsonUtil {
      * @return
      */
     public static String toJsonStr(Object o){
-        return new Gson().toJson(o);
+        return mGson.toJson(o);
+    }
+
+    /**
+     * 将Map集合转换为json字符串
+     * @return
+     */
+    public static String mapToJsonStr(Map<?,Object> map){
+        return mGson.toJson(map);
+    }
+
+    /**
+     * 格式化SOAP的数据
+     */
+    public static <T> List<T> parseSoapObject(String methodName, SoapObject soapObject, Class<T> aClass){
+        List<T> beans = new ArrayList<>();
+        try {
+            SoapObject property = (SoapObject) soapObject.getProperty(methodName + "Result");
+            for (int i=0;i<property.getPropertyCount();i++){
+                SoapObject property1 = (SoapObject) property.getProperty(i);
+                T t = aClass.newInstance();
+                for (int j=0;j<property1.getPropertyCount();j++){
+                    PropertyInfo info = new PropertyInfo();
+                    property1.getPropertyInfo(j,info);
+                    soapObjectToBean(info, t);
+                }
+                beans.add(t);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return beans;
+    }
+
+    /**
+     * 将soapObject转换为javaBean
+     * @param info
+     * @param o
+     * @param <T>
+     */
+    private static <T> void  soapObjectToBean(PropertyInfo info,T o){
+        try {
+            Class<?> aClass = o.getClass();
+            Field declaredField = aClass.getDeclaredField(info.getName());
+            declaredField.setAccessible(true);
+            String typeName = declaredField.getType().toString();
+            if(typeName.endsWith("String")){
+                declaredField.set(o,String.valueOf(info.getValue()));
+            }else if(typeName.endsWith("int")){
+                declaredField.set(o,Integer.parseInt(String.valueOf(info.getValue())));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

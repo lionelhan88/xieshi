@@ -26,4 +26,5 @@ public interface  IBaseLifecycle extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroy();
+
 }

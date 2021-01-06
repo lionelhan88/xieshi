@@ -15,7 +15,7 @@ import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.module.construction.ConstructionListActivity;
 import com.lessu.xieshi.module.dataauditing.DataAuditingActivity;
 import com.lessu.xieshi.module.dataexamine.DataExamineActivity;
-import com.lessu.xieshi.login.LoginActivity;
+import com.lessu.xieshi.module.login.LoginActivity;
 import com.lessu.xieshi.map.ProjectListActivity;
 import com.lessu.xieshi.module.todaystatistics.AdminTodayStatisticsActivity;
 import com.lessu.xieshi.module.todaystatistics.TodayStatisticsActivity;
@@ -84,7 +84,6 @@ public class XieShiSlidingMenuActivity extends NavigationActivity {
 		menu.findViewById(R.id.section0).setVisibility(View.GONE);
 		menu.findViewById(R.id.section1).setVisibility(View.GONE);
 		menu.findViewById(R.id.section2).setVisibility(View.GONE);
-		System.out.println("userPower....."+userPower);
 		userPower= Shref.getString(this, Common.USERPOWER,"");
 		if (userPower != null && !userPower.isEmpty()){
 			for (int i = 0;i<userPower.length();i++){

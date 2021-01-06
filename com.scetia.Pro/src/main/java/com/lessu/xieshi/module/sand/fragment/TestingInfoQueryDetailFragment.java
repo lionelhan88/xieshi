@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.BaseFragment;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.sand.adapter.ResultQueryDetailParamterAdapter;
-import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
+import com.lessu.xieshi.module.sand.bean.TestingQueryResultBean;
 
 import butterknife.BindView;
 
@@ -42,12 +42,12 @@ public class TestingInfoQueryDetailFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        for (int i=0;i<=5;i++){
-            FlowDeclarationBean bean = new FlowDeclarationBean();
-            bean.setS1("参数名称"+i);
-            bean.setS2("检测值"+i);
-            bean.setS3("检测结果"+i);
-            paramterAdapter.addData(bean);
+        for (int i=0;i<15;i++){
+            TestingQueryResultBean testingQueryResultBean = new TestingQueryResultBean();
+            testingQueryResultBean.setSampleName("中沙");
+            testingQueryResultBean.setParameterDetectValue("111");
+            testingQueryResultBean.setParameterDetectResult("检测结果");
+            paramterAdapter.addData(testingQueryResultBean);
         }
     }
 

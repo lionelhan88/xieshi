@@ -200,7 +200,7 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 				if (uri !=null){
 					try {
 						bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-						double getpicsize = ImageUtil.getpicsize(bitmap.getWidth(), bitmap.getHeight());
+						double getpicsize = ImageUtil.getPicSize(bitmap.getWidth(), bitmap.getHeight());
 						if(bitmap.getWidth()>=1024||bitmap.getHeight()>=1024){
 							BitmapFactory.Options opts=new BitmapFactory.Options();
 							opts.inTempStorage = new byte[100 * 1024];

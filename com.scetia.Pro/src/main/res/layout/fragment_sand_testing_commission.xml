@@ -9,7 +9,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -17,13 +18,15 @@
 
             <TextView
                 android:id="@+id/testing_commission_company_name"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:drawableEnd="@drawable/xialamis"
+                android:hint="请选择委托单位"
                 android:paddingEnd="5dp"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -31,14 +34,15 @@
 
             <TextView
                 android:id="@+id/testing_commission_testing_company"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:drawableEnd="@drawable/xialamis"
                 android:hint="请选择检测单位名称"
                 android:paddingEnd="5dp"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -46,7 +50,7 @@
 
             <RadioGroup
                 android:id="@+id/sand_manage_sampling_company_rg"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -73,20 +77,22 @@
         <LinearLayout
             android:id="@+id/sand_manage_sampling_order_time_ll"
             style="@style/info_show_list_linearLayout"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
-                android:text="取样时间:" />
+                android:text="预约取样时间:" />
 
             <TextView
                 android:id="@+id/sand_manage_sampling_order_time"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:textSize="@dimen/text_size_medium"
                 tools:text="2020-10-27 11:00" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -94,27 +100,13 @@
 
             <TextView
                 android:id="@+id/sand_manage_sampling_place"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:drawableEnd="@drawable/xialamis"
                 android:hint="请选择取样地点"
                 android:paddingEnd="5dp"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
-
-            <TextView
-                style="@style/info_show_list_left"
-                android:text="检测参数:" />
-
-            <TextView
-                android:id="@+id/sand_manage_testing_parameters"
-                style="@style/info_show_list_edittext"
-                android:drawableEnd="@drawable/xialamis"
-                android:hint="请选择检测参数"
-                android:paddingEnd="5dp"
-                android:textSize="@dimen/text_size_medium" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/sand_manage_sampling_process_ll"
@@ -132,8 +124,8 @@
                     android:text="取样过程记录" />
 
                 <TextView
-                    style="@style/info_show_list_edittext"
-                    android:text="（最少上传6张照片不多于10张）"
+                    style="@style/info_show_list_edit_text"
+                    android:text="（最少上传6张照片）"
                     android:textColor="@color/red_dark"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
@@ -145,7 +137,8 @@
                 android:overScrollMode="never" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -153,18 +146,19 @@
 
             <TextView
                 android:id="@+id/sand_manage_sampling_user"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 tools:text="张三" />
 
             <TextView
                 android:id="@+id/sand_manage_sampling_user_list"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:drawableEnd="@drawable/xialamis"
                 android:paddingEnd="5dp"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -172,10 +166,11 @@
 
             <EditText
                 android:id="@+id/sand_manage_identification"
-                style="@style/info_show_list_edittext" />
+                style="@style/info_show_list_edit_text" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -183,7 +178,7 @@
 
             <TextView
                 android:id="@+id/sand_manage_sampling_time"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
@@ -197,12 +192,13 @@
 
             <TextView
                 android:id="@+id/sand_manage_sampling_number"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
         <LinearLayout
             style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp"
             android:visibility="gone">
 
             <TextView
@@ -211,11 +207,12 @@
 
             <TextView
                 android:id="@+id/sand_manage_commission_number"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -223,11 +220,12 @@
 
             <TextView
                 android:id="@+id/sand_manage_commission_user"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout">
+        <LinearLayout style="@style/info_show_list_linearLayout"
+            android:minHeight="55dp">
 
             <TextView
                 style="@style/info_show_list_left"
@@ -235,11 +233,12 @@
 
             <TextView
                 android:id="@+id/sand_manage_commission_date"
-                style="@style/info_show_list_edittext"
+                style="@style/info_show_list_edit_text"
                 android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
         <Button
+            android:id="@+id/sand_testing_commission_detail_ok"
             android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_gravity="center"

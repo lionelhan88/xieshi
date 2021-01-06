@@ -95,7 +95,7 @@ public  class FileUtil {
         }
         try {
             File cacheDirectory = new File(file, getTxtName()+".txt");
-            Toast.makeText(AppApplication.getAppContext(), cacheDirectory.toString(), Toast.LENGTH_SHORT).show();
+            ToastUtil.showShort( cacheDirectory.toString());
             System.out.println(cacheDirectory);
 
             fop = new FileOutputStream(cacheDirectory);

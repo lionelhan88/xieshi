@@ -1,17 +1,13 @@
 package com.lessu.xieshi.module.mis.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.google.gson.EasyGson;
-import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.module.mis.bean.MisHySearchResultData;
+import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,7 +54,7 @@ public class HyDetailActivity extends NavigationActivity {
      * 初始化数据
      */
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void initData(MisHySearchResultData.ListContentBean contentBean) {
+    public void initData(MisMemberSearchResultData.ListContentBean contentBean) {
         EventBus.getDefault().removeStickyEvent(contentBean);
         tv_mishy_huiyuanhao.setText(contentBean.getMemberId());
         tv_mishy_name.setText(contentBean.getMemberName());

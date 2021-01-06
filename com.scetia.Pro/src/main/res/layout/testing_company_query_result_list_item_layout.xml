@@ -10,9 +10,9 @@
     android:layout_marginRight="@dimen/x10"
     android:layout_marginBottom="@dimen/y5"
     android:background="@drawable/white_round_stroke_bg"
+    android:clickable="true"
     app:contentView="@id/company_manage_item_content"
     app:rightMenuView="@id/right">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/company_manage_item_content"
         android:layout_width="match_parent"

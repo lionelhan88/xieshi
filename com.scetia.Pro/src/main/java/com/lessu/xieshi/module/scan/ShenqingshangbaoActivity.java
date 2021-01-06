@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShenqingshangbaoActivity extends NavigationActivity implements View.OnClickListener {
-
     private DragLayout dl;
     private SwipeMenuCreator creator;
     private LinearLayout ll_shenqingshangbao;
@@ -68,27 +67,9 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shenqingshangbao);
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        System.out.println("走到这个activity......");
         this.setTitle("申请上报");
-
         //设置侧滑菜单
         dl = (DragLayout) findViewById(R.id.dl);
-        dl.setDragListener(new DragLayout.DragListener() {
-            @Override
-            public void onOpen() {
-
-            }
-
-            @Override
-            public void onClose() {
-            }
-
-            @Override
-            public void onDrag(float percent) {
-            }
-        });
-
         BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
         menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
         navigationBar.setLeftBarItem(menuButtonitem);
@@ -124,23 +105,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
         ll_rukuchakan = (LinearLayout) findViewById(R.id.ll_rukuchakan);
         ll_shebeixinxi = (LinearLayout) findViewById(R.id.ll_shebeixinxi);
         sb_scan = (SeekBar) findViewById(R.id.sb_scan);
-        sb_scan.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         ll_shenqingshangbao.setOnClickListener(this);
         ll_shenhexiazai.setOnClickListener(this);
         ll_rukuchakan.setOnClickListener(this);
@@ -182,63 +146,60 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
         Intent intentGet = getIntent();
         String talxal = intentGet.getStringExtra("talxal");
         sampleid = intentGet.getStringExtra("sampleid");
-        System.out.println("membercode...."+AppApplication.muidstr);
-        System.out.println("声请上报。。。。"+talxal);
-        System.out.println("声请上报样品编号。。。。"+ sampleid);
-        if(sampleid !=null){
-            if(sampleid.contains("~")) {
-                String[] split = sampleid.split("~");
-                s = split[0];
-                s1 = split[1];
-                if(!talxal.equals("")){
-                    System.out.println("talxal..."+talxal);
-                    if(talxal.contains(";")) {
-                        String[] split1 = talxal.split(";");
-                        for (int i = 0; i <split1.length ; i++) {
-                            if (Integer.parseInt(split1[i]) >= Integer.parseInt(s) && Integer.parseInt(split1[i]) <= Integer.parseInt(s1)) {
-                                if (left) {
-                                    alleft.add(split1[i]);
-                                    left = false;
-                                } else {
-                                    alright.add(split1[i]);
-                                    left = true;
-                                }
-                            }
-                        }
-                    }else{
-                        System.out.println("talxal只有一个号");
-                        alleft.add(talxal);
-                    }
-                }else{
-                    System.out.println("talxal为空。。。");
-                }
-            }else{
-                alleft.add(sampleid);
-                System.out.println("id只有一个号");
-            }
+        if(sampleid==null){
+            return;
+        }else if(sampleid.contains("~")){
+            String[] split = sampleid.split("~");
+            s = split[0];
+            s1 = split[1];
+            handleTalXal(talxal);
         }else{
-            System.out.println("为空");
+            alleft.add(sampleid);
         }
-
-        System.out.println("alleft...."+alleft);
-        System.out.println("alright...."+alright);
-        Shuaxinyemian();
+        refreshData();
     }
 
-    private void Shuaxinyemian() {
-        if(madapterleft!=null){
+    /**
+     * 将数据添加到列表中
+     * @param codeStr
+     */
+    private void handleTalXal(String codeStr) {
+        if(codeStr!=null){
+            if(!codeStr.contains(";")){
+                alleft.add(codeStr);
+                return;
+            }
+            String[] numbers = codeStr.split(";");
+            for(String number:numbers){
+                if (Integer.parseInt(number) >= Integer.parseInt(s) && Integer.parseInt(number) <= Integer.parseInt(s1)) {
+                    if (left) {
+                        alleft.add(number);
+                        left = false;
+                    } else {
+                        alright.add(number);
+                        left = true;
+                    }
+                }
+            }
+        }
+    }
+
+    private void refreshData() {
+        if (madapterleft != null) {
             madapterleft.notifyDataSetChanged();
-        }else{
-            madapterleft=new LeftAdapter();
+        } else {
+            madapterleft = new LeftAdapter();
+            lv_left.setAdapter(madapterleft);
         }
-        lv_left.setAdapter(madapterleft);
-        if(madapterright!=null){
+
+        if (madapterright != null) {
             madapterright.notifyDataSetChanged();
-        }else{
-            madapterright=new RightAdapter();
+        } else {
+            madapterright = new RightAdapter();
+            lv_right.setAdapter(madapterright);
         }
-        lv_right.setAdapter(madapterright);
-        tv_biaoshinum.setText(alleft.size()+alright.size()+"");
+
+        tv_biaoshinum.setText(alleft.size() + alright.size() + "");
     }
 
     class LeftAdapter extends BaseAdapter{
@@ -309,13 +270,10 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_shenqingshangbao:
-//                Intent intent1=new Intent();
-//                intent1.setClass(ShenqingshangbaoActivity.this,ShenqingshangbaoActivity.class);
-//                startActivity(intent1);
                 break;
 
             case R.id.ll_shenhexiazai:
-                startActivity(new Intent(ShenqingshangbaoActivity.this,ShenhexiazaiActivity.class));
+                startActivity(new Intent(ShenqingshangbaoActivity.this, ReviewDownloadActivity.class));
                 finish();
                 break;
 
@@ -333,11 +291,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
 
             case R.id.bt_add:
                 String s = et_shangbao.getText().toString();
-                if(alleft.size()>alright.size()){
-                    left=false;
-                }else{
-                    left=true;
-                }
+                left = alleft.size()<=alright.size();
                 if(!alleft.contains(s)&&!alright.contains(s)&&s.length()==10){
                     if(left){
                         alleft.add(s);
@@ -347,10 +301,9 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                         left=true;
                     }
                 }
-                Shuaxinyemian();
+                refreshData();
                 break;
             case R.id.bt_shanchu:
-                System.out.println("alshanchu...."+alshanchu);
                 temp = new ArrayList();
                 if(alshanchu.size()==0){
                     return;
@@ -365,13 +318,9 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                 }
                 if(alleft.size()>alright.size()){
                     int chaleft = alleft.size() - alright.size();
-                    System.out.println("差是。。。。。"+chaleft);
-                    //temp = new ArrayList();
                     for (int i = 0; i < chaleft; i++) {
                         temp.add(alleft.get(i));
                     }
-                    System.out.println("temp....."+temp);
-                    System.out.println("alleft....."+alleft);
                     for (int i = 0; i < chaleft; i++) {
                         alleft.remove(temp.get(i));
                     }
@@ -388,13 +337,9 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                     temp.clear();
                 }else if(alleft.size()<alright.size()){
                     int chaleft = alright.size() - alleft.size();
-                    System.out.println("差是。。。。。"+chaleft);
-                    // temp = new ArrayList();
                     for (int i = 0; i < chaleft; i++) {
                         temp.add(alright.get(i));
                     }
-                    System.out.println("temp....."+temp);
-                    System.out.println("alleft....."+alleft);
                     for (int i = 0; i < chaleft; i++) {
                         alright.remove(temp.get(i));
                     }
@@ -413,7 +358,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                     left=true;
                     temp.clear();
                 }
-                Shuaxinyemian();
+                refreshData();
                 alshanchu.clear();
 
                 break;
@@ -421,11 +366,9 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                 left=true;
                 alleft.clear();
                 alright.clear();
-                Shuaxinyemian();
+                refreshData();
                 break;
             case R.id.ll_shenqin:
-                System.out.println("点了申请");
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -436,8 +379,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                         for (int i = 0; i <alright.size() ; i++) {
                             ss=ss+alright.get(i)+";";
                         }
-                        System.out.println("coreCodeStr..."+ss);
-                        System.out.println("membercode...."+AppApplication.muidstr);
                         String nameSpace1 = "http://tempuri.org/";
                         String methodName1 = "CheckSamples";
                         String endPoint1 = "http://www.scetia.com/Scetia.SampleManage.WS/SampleManagement.asmx";
@@ -445,7 +386,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                         SoapObject soapObject1 = new SoapObject(nameSpace1, methodName1);
                         soapObject1.addProperty("coreCodeStr", ss);
                         soapObject1.addProperty("membercode", AppApplication.muidstr);
-                        //soapObject1.addProperty("membercode", "35ffd0054843353230782243");
                         SoapSerializationEnvelope envelope1 = new SoapSerializationEnvelope(
                                 SoapEnvelope.VER10);
                         envelope1.bodyOut = soapObject1;
@@ -454,11 +394,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                         HttpTransportSE transport1 = new HttpTransportSE(endPoint1);
                         try {
                             transport1.call(soapAction1, envelope1);
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (XmlPullParserException e) {
-                            // TODO Auto-generated catch block
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         SoapObject object1 = (SoapObject) envelope1.bodyIn;
@@ -473,7 +409,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                         }else{
                             SoapObject property = (SoapObject) object1.getProperty(0);
                             int num=property.getPropertyCount();
-                            System.out.println("num......."+num);
                             if(num==1){
                                 SoapObject property1 = (SoapObject) property.getProperty(0);
                                 String retStatus = property1.getProperty("RetStatus").toString();

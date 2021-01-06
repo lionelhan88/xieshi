@@ -6,14 +6,15 @@
     android:orientation="vertical">
 
     <include layout="@layout/top_bar_layout" />
+
     <RadioGroup
         android:id="@+id/supplier_query_result_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/y30"
-        android:paddingEnd="@dimen/y30"
-        android:paddingTop="@dimen/y20"
         android:orientation="horizontal"
+        android:paddingStart="@dimen/y30"
+        android:paddingTop="@dimen/y20"
+        android:paddingEnd="@dimen/y30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -57,18 +58,20 @@
 
     </RadioGroup>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/sand_manage_flow_declaration_refresh"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_sand_sales_query_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/y20"
+        android:layout_marginTop="5dp"
         android:layout_weight="1">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sand_company_query_result_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white_smoke"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:background="@color/white_smoke" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -82,13 +85,13 @@
 
         <TextView
             android:id="@+id/company_query_result_bottom_save"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:background="@drawable/text_blue_round_bg"
             android:gravity="center"
             android:padding="7dp"
-            android:text="保存（0）"
+            android:text="保存"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_medium"
             app:layout_constraintBottom_toBottomOf="parent"

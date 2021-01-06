@@ -181,7 +181,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/dyuanjiaojuxing"
                     android:text="样品信息确认"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -191,22 +191,11 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/qingshaodeng" />
 
-            <LinearLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_review_download"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/lv_shenheshujvjiaohu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
-
-
+                android:layout_height="match_parent" />
         </LinearLayout>
     </com.lessu.xieshi.view.MyRelativeLayout>
 </com.lessu.xieshi.view.DragLayout>

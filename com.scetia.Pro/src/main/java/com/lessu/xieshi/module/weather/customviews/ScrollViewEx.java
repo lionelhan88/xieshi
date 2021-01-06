@@ -53,41 +53,4 @@ public class ScrollViewEx extends ScrollView {
         }
         lastscrolly = getScrollY();
     }
-  /*  private void setChildBackground(){
-        int backapah = (int) (255 - 255 * m1 / m2);
-        int allapha = (int) (255 * m1 / m2);
-        if (allapha > 255) {
-            allapha = 255;
-        }
-        if (allapha < 0) {
-            allapha = 0;
-        }
-        if (backapah > 255) {
-            backapah = 255;
-        }
-        if (backapah < 0) {
-            backapah = 0;
-        }
-        if(getChildCount()==0) return;
-        RelativeLayout layout = (RelativeLayout) getChildAt(0);
-        LinearLayout llTqAll = (LinearLayout) layout.getChildAt(0);
-        llTqAll.getBackground().setAlpha(allapha);
-        LinearLayout llTqBackfround = llTqAll.findViewById(R.id.llto)
-
-        llTqBackfround.getBackground().setAlpha(backapah);
-        llTqShenlanse.getBackground().setAlpha(backapah);
-        llTqAddparent.setAlpha((float) (m1 / m2));
-        dfTq.setAlpha((float) (m1 / m2));
-        if (scTq.getScrollY() <= 0) {
-            llTqAll.getBackground().setAlpha(0);
-            llTqBackfround.getBackground().setAlpha(255);
-            llTqShenlanse.getBackground().setAlpha(255);
-        }
-        if (scTq.getScrollY() >= indexm) {
-            dfTq.setAlpha(1f);
-            llTqBackfround.getBackground().setAlpha(0);
-            llTqAll.getBackground().setAlpha(255);
-            llTqShenlanse.getBackground().setAlpha(0);
-        }
-    }*/
 }

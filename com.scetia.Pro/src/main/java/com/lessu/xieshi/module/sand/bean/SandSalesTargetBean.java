@@ -6,33 +6,36 @@ package com.lessu.xieshi.module.sand.bean;
  * 销售对象实体类
  */
 public class SandSalesTargetBean {
-
-    private int num;
-    private String salesTargetName;
-    private String getSalesTargetNature;
+    //会员编号
+    private String serialNo;
+    //企业名称
+    private String unitName;
+    //企业性质
+    private String unitType;
     private boolean isSelect;
-    public int getNum() {
-        return num;
+
+    public String getSerialNo() {
+        return serialNo;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
     }
 
-    public String getSalesTargetName() {
-        return salesTargetName;
+    public String getUnitName() {
+        return unitName;
     }
 
-    public void setSalesTargetName(String salesTargetName) {
-        this.salesTargetName = salesTargetName;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
-    public String getGetSalesTargetNature() {
-        return getSalesTargetNature;
+    public String getUnitType() {
+        return unitType;
     }
 
-    public void setGetSalesTargetNature(String getSalesTargetNature) {
-        this.getSalesTargetNature = getSalesTargetNature;
+    public void setUnitType(String unitType) {
+        this.unitType = unitType;
     }
 
     public boolean isSelect() {

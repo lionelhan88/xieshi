@@ -86,6 +86,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
         //签到信息
         curUserId = Shref.getString(getActivity(), Common.USERID, "");
         EventBus.getDefault().register(this);
+        smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -125,7 +126,6 @@ public class MisMeetingDetailFragment extends LazyFragment {
     @Override
     protected void initData() {
         smartRefreshLayout.autoRefresh();
-
         btMeetingIsConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +206,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
         if (curMeetingUserBean.getCheckStatus() != null && curMeetingUserBean.getCheckStatus().equals("1")) {
             //已经签到过了
             meetingUserIsSigned.setText("已签到");
-            meetingUserIsSigned.setTextColor(getResources().getColor(R.color.danlan));
+            meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
         } else {
             meetingUserIsSigned.setText("未签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.orange1));

@@ -24,7 +24,7 @@ import com.lessu.foundation.DensityUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.DateUtil;
-import com.lessu.xieshi.bean.LoadState;
+import com.lessu.data.LoadState;
 import com.lessu.xieshi.module.mis.adapter.MisAnnualLeaveListAdapter;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.lessu.xieshi.module.mis.viewmodel.MisAnnualLeaveViewModel;

@@ -1,6 +1,7 @@
 package com.lessu.uikit.views;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.Dialog;
@@ -12,6 +13,8 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AlertDialog;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,7 +35,9 @@ public class LSAlert {
     }
     public interface SelectItemCallback{
         void selectItem(int position);
-        void onCancel();
+        default void onCancel(){
+
+        }
     }
 
     public static void showAlert(Context context,String detail) {
@@ -137,6 +142,13 @@ public class LSAlert {
         Window window = alertDialog.getWindow();
         window.setBackgroundDrawableResource(android.R.color.transparent);
     }
+
+    /**
+     * 全屏的dialog弹窗
+     */
+    public static void showFullScreenDialog(){
+
+    }
     /**
      * 弹出式菜单选择列表
      * @param context
@@ -185,26 +197,22 @@ public class LSAlert {
                         callback.selectItem(which);
                     }
                 })
-                .setNegativeButton(cancelButtonText,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        callback.onCancel();
-                    }
-                }).create();
+                .setPositiveButton(cancelButtonText, (dialogInterface, i) -> callback.onCancel()).create();
         alertDialog.show();
         setButtonColor(context,alertDialog);
     }
-    public static ProgressDialog progressDialog;
 
-    public static void setProgressDialog(ProgressDialog progress){
-
-        progressDialog = progress;
-
-    }
     private static void setButtonColor(Context context,AlertDialog alertDialog){
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.black));
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.blue_normal2));
     }
+
+
+    public static ProgressDialog progressDialog;
+    public static void setProgressDialog(ProgressDialog progress){
+        progressDialog = progress;
+    }
+
     public static int progressHudCount = 0 ;
     protected static List<String> progressHudText = new ArrayList<String>();
     public static void showProgressHud(Context context,String text){
@@ -234,10 +242,10 @@ public class LSAlert {
         if (progressHudCount == 1) {
             if (progressDialog != null) {
                 progressDialog.dismiss();
+                progressDialog = null;
+                progressHudText.remove(progressHudText.size() - 1);
+                progressHudCount--;
             }
-            progressDialog = null;
-            progressHudText.remove(progressHudText.size() - 1);
-            progressHudCount--;
         } else {
             String text = progressHudText.get(progressHudText.size() - 1);
             progressDialog.setTitle(text);

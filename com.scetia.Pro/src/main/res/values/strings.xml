@@ -128,7 +128,7 @@
         <item>运输车</item>
         <item>运输船</item>
     </string-array>
-    
+
     <string-array name="testing_info_query_result_sample_state">
         <item>未送样</item>
         <item>已送样</item>
@@ -143,5 +143,27 @@
         <item>预拌混凝土</item>
         <item>预制构件</item>
         <item>预拌砂浆</item>
+    </string-array>
+
+    //区县资源
+    <string-array name="counties_arr">
+        <item>全部</item>
+        <item>宝山区</item>
+        <item>外省市</item>
+        <item>长宁区</item>
+        <item>浦东新区</item>
+        <item>金山区</item>
+        <item>普陀区</item>
+        <item>松江区</item>
+        <item>静安区</item>
+        <item>黄浦区</item>
+        <item>嘉定区</item>
+        <item>奉贤区</item>
+        <item>闵行区</item>
+        <item>杨浦区</item>
+        <item>青浦区</item>
+        <item>崇明区</item>
+        <item>徐汇区</item>
+        <item>虹口区</item>
     </string-array>
 </resources>

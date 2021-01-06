@@ -1,6 +1,7 @@
 package com.lessu.xieshi.http;
 
 import com.lessu.xieshi.base.BaseRetrofitManage;
+import com.lessu.xieshi.http.api.TraningApiService;
 
 public class TrainRetrofit extends BaseRetrofitManage {
     public static final String BASE_URL="https://bgtj.o-learn.cn/";
@@ -18,7 +19,7 @@ public class TrainRetrofit extends BaseRetrofitManage {
         }
         return instance;
     }
-    public API getService(){
-        return retrofit.create(API.class);
+    public TraningApiService getService(){
+        return retrofit.create(TraningApiService.class);
     }
 }

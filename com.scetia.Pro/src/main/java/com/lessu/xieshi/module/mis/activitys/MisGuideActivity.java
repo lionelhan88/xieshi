@@ -22,20 +22,19 @@ import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.bean.LoadState;
-import com.lessu.xieshi.http.ExceptionHandle;
-import com.lessu.xieshi.login.FirstActivity;
-import com.lessu.xieshi.login.bean.LoginUserBean;
-import com.lessu.xieshi.login.viewmodel.FirstViewModel;
-import com.lessu.xieshi.login.viewmodel.FirstViewModelFactory;
+import com.lessu.data.LoadState;
+import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.lessu.xieshi.module.login.bean.LoginUserBean;
+import com.lessu.xieshi.module.login.viewmodel.FirstViewModel;
+import com.lessu.xieshi.module.login.viewmodel.FirstViewModelFactory;
 import com.lessu.xieshi.module.weather.WeatherDetailActivity;
 import com.lessu.xieshi.set.SettingActivity;
 import com.lessu.xieshi.Utils.Common;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.Utils.Shref;
-import com.lessu.xieshi.login.LoginActivity;
+import com.lessu.xieshi.module.login.LoginActivity;
 import com.lessu.xieshi.module.meet.activity.MeetingListActivity;
-import com.lessu.xieshi.module.mis.bean.Misguidebean;
+import com.lessu.xieshi.module.mis.bean.MisGuideBean;
 import com.lessu.xieshi.module.scan.ScanActivity;
 import com.lessu.xieshi.Utils.UpdateAppUtil;
 
@@ -48,7 +47,7 @@ public class MisGuideActivity extends NavigationActivity {
     private LinearLayout ll_addparent;
     private BarButtonItem handleButtonItem2;
     private FirstViewModel firstViewModel;
-    final ArrayList<Misguidebean> menuArray = new ArrayList<>();
+    final ArrayList<MisGuideBean> menuArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +96,7 @@ public class MisGuideActivity extends NavigationActivity {
                 }
             }
         });
-        Misguidebean settingbean = new Misguidebean(R.drawable.shezhimis, "系统设置", SettingActivity.class);
+        MisGuideBean settingbean = new MisGuideBean(R.drawable.shezhimis, "系统设置", SettingActivity.class);
         addItemView(settingbean);
     }
 
@@ -179,14 +178,14 @@ public class MisGuideActivity extends NavigationActivity {
      * @param shortUserPower 权限
      */
     private void initMenu(String shortUserPower){
-        Misguidebean huiyuanbean = new Misguidebean(R.drawable.huiyuanxinxi, "会员信息查询", MisMemberSearchActivity.class);
-        Misguidebean zhenshubean = new Misguidebean(R.drawable.zhengshuxinxi, "证书信息查询", MisCertificateSearchActivity.class);
-        Misguidebean pinguchaxunbean = new Misguidebean(R.drawable.pingguchaxun, "评估信息查询", MisPingGuActivity.class);
-        Misguidebean xinxibean = new Misguidebean(R.drawable.xinxitongzhi, "信息通知", MisNoticesActivity.class);
-        Misguidebean nianjiashenqinbean = new Misguidebean(R.drawable.nianjiashenqing, "年假管理", MisAnnualLeaveManageActivity.class);
+        MisGuideBean huiyuanbean = new MisGuideBean(R.drawable.huiyuanxinxi, "会员信息查询", MisMemberSearchActivity.class);
+        MisGuideBean zhenshubean = new MisGuideBean(R.drawable.zhengshuxinxi, "证书信息查询", MisCertificateSearchActivity.class);
+        MisGuideBean pinguchaxunbean = new MisGuideBean(R.drawable.pingguchaxun, "评估信息查询", MisPingGuActivity.class);
+        MisGuideBean xinxibean = new MisGuideBean(R.drawable.xinxitongzhi, "信息通知", MisNoticesActivity.class);
+        MisGuideBean nianjiashenqinbean = new MisGuideBean(R.drawable.nianjiashenqing, "年假管理", MisAnnualLeaveManageActivity.class);
         //2018-10-16新增功能模块 “比对审批”
-        Misguidebean comparisonApproval = new Misguidebean(R.drawable.shujubidui,"比对审批",MisComparisonAprovalActivity.class);
-        Misguidebean meetingManager = new Misguidebean(R.drawable.icon_mis_meeting,"会议安排", MeetingListActivity.class);
+        MisGuideBean comparisonApproval = new MisGuideBean(R.drawable.shujubidui,"比对审批",MisComparisonAprovalActivity.class);
+        MisGuideBean meetingManager = new MisGuideBean(R.drawable.icon_mis_meeting,"会议安排", MeetingListActivity.class);
         char s1 = shortUserPower.charAt(0);
         char s2 = shortUserPower.charAt(1);
         char s3 = shortUserPower.charAt(2);
@@ -234,7 +233,7 @@ public class MisGuideActivity extends NavigationActivity {
      * 添加菜单选项
      * @param misguidebean 菜单选项
      */
-    private void addItemView(Misguidebean misguidebean){
+    private void addItemView(MisGuideBean misguidebean){
         View view = View.inflate(this, R.layout.misaddguide_item, null);
         LinearLayout ll_additem = view.findViewById(R.id.ll_additem);
         ImageView iv_additem = view.findViewById(R.id.iv_additem);
@@ -244,7 +243,7 @@ public class MisGuideActivity extends NavigationActivity {
         ll_additem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(misguidebean.clazz.getName().equals("MeetingListActivity")){
+                if(misguidebean.clazz.getName().contains("MeetingListActivity")){
                     Intent meetingIntent = new Intent(MisGuideActivity.this,misguidebean.clazz);
                     meetingIntent.putExtra("type_user", 0);
                     startActivity(meetingIntent);

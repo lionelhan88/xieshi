@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lessu.ShareableApplication;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
@@ -15,10 +16,10 @@ import com.lessu.xieshi.R;
  */
 
 public class ToastUtil {
-    static Toast mToast = null;
-    public static void showShort( String msg) {
+    private static Toast mToast = null;
+    public static void showShort(String msg) {
         if (null == mToast) {
-            mToast = Toast.makeText(AppApplication.getAppContext(), msg, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(ShareableApplication.getInstance(), msg, Toast.LENGTH_SHORT);
         } else {
             mToast.setText(msg);
         }

@@ -49,6 +49,7 @@ public class ReplaceSignFragment extends LazyFragment {
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
+        misMeetingFragmentRefresh.setEnableLoadMore(false);
         rlReplace.setVisibility(View.VISIBLE);
         listAdapter = new ReplaceSignListAdapter(R.layout.meeting_company_sign_list_item_layout);
         misFragmentCompanySignRv.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));

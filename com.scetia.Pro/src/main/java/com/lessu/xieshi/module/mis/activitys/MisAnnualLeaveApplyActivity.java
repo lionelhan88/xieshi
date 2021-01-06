@@ -57,14 +57,14 @@ public class MisAnnualLeaveApplyActivity extends NavigationActivity implements V
     }
 
     private void initView() {
-        cb_njsq = (CheckBox) findViewById(R.id.cb_njsq);
-        tv_starttime = (TextView) findViewById(R.id.tv_starttime);
-        tv_endtime = (TextView) findViewById(R.id.tv_endtime);
-        tv_startstart = (TextView) findViewById(R.id.tv_startstart);
-        tv_endend = (TextView) findViewById(R.id.tv_endend);
-        tv_alltime = (TextView) findViewById(R.id.tv_alltime);
-        et_shiyou = (EditText) findViewById(R.id.et_shiyou);
-        bt_njsq_tijiao = (Button) findViewById(R.id.bt_njsq_tijiao);
+        cb_njsq = findViewById(R.id.cb_njsq);
+        tv_starttime = findViewById(R.id.tv_starttime);
+        tv_endtime = findViewById(R.id.tv_endtime);
+        tv_startstart = findViewById(R.id.tv_startstart);
+        tv_endend = findViewById(R.id.tv_endend);
+        tv_alltime = findViewById(R.id.tv_alltime);
+        et_shiyou = findViewById(R.id.et_shiyou);
+        bt_njsq_tijiao = findViewById(R.id.bt_njsq_tijiao);
         tv_starttime.setOnClickListener(this);
         tv_endtime.setOnClickListener(this);
         bt_njsq_tijiao.setOnClickListener(this);

@@ -47,26 +47,18 @@ public class SampleDetailActivity extends NavigationActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sample_detail_activity);
-//		if(sampledetailWebView == null){
-//			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
-//		}
+		this.setTitle("样品信息");
 		tv_bianhao = (TextView) findViewById(R.id.tv_bianhao);
 		tv_hege = (TextView) findViewById(R.id.tv_hege);
 		lv_yangpinxinxi = (ListView) findViewById(R.id.lv_yangpinxinxi);
-		this.setTitle("样品信息");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-		
 		BarButtonItem	handleButtonItem = new BarButtonItem(this , "处理" );
 		handleButtonItem.setOnClickMethod(this,"handleButtonDidClick");	
-    
         navigationBar.setRightBarItem(handleButtonItem);
-        
         dataRequest();
 	}
 
 	private void dataRequest() {
-		// TODO Auto-generated method stub
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		Bundle bundelForData=this.getIntent().getExtras(); 
 		String Report_ID = bundelForData.getString("Report_id");
 		String Checksum = bundelForData.getString("Checksum");
@@ -157,20 +149,12 @@ public class SampleDetailActivity extends NavigationActivity {
 								return view;
 							}
 						});
-						//loadHtmlFile("html/uq_sample_detail.html", "file:///android_asset/html/", json);
 					}
 				});
 	}
 	static class ViewHolder{
 		TextView tv1;
 		TextView tv2;
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		
-		
 	}
 
 	public void handleButtonDidClick(){
@@ -194,7 +178,7 @@ public class SampleDetailActivity extends NavigationActivity {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								HashMap<String, Object> params = new HashMap<String, Object>();
+								HashMap<String, Object> params = new HashMap<>();
 						 		
 						 		String Token = LSUtil.valueStatic("Token");
 						 		params.put("Token", Token);
@@ -222,27 +206,5 @@ public class SampleDetailActivity extends NavigationActivity {
 		)  
 		.setNegativeButton("取消", null)  
 		.show(); 
-		
-
     }
-	
-//	@Override
-//	public WebView getWebView() {
-//		if(sampledetailWebView == null){
-//			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
-//		}
-//		return sampledetailWebView;
-//	}
-//
-//	@Override
-//	public String onStringReplacementForText(String text, Object data) {
-//		JsonElement jsonData = (JsonElement) data;
-//		return GsonValidate.getStringByKeyPath(jsonData, text,"");
-//	}
-//
-//	@Override
-//	public boolean onReceiveEvent(String event, Map<String, String> params) {
-//
-//		return false;
-//	}
 }

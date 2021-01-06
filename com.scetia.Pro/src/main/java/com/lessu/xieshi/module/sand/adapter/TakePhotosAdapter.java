@@ -1,10 +1,15 @@
 package com.lessu.xieshi.module.sand.adapter;
 
 
+import android.content.Intent;
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.view.CloseImageView;
+import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
+import com.lessu.xieshi.photo.XXPhotoUtil;
+import com.lessu.xieshi.view.ImageViewWithDelete;
 
 
 /**
@@ -19,7 +24,7 @@ public class TakePhotosAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
     }
 
     public interface OnSrcClickListener{
-        void onScrClick(CloseImageView closeImageView,String photoPath);
+        void onScrClick(ImageViewWithDelete imageViewWithDelete, String photoPath);
     }
 
     public void setOnSrcClickListener(OnSrcClickListener onSrcClickListener) {
@@ -28,9 +33,9 @@ public class TakePhotosAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
 
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
-        final CloseImageView closeImageView = helper.getView(R.id.sand_manage_take_photos_item_close_img);
-        closeImageView.setImageUrl(item);
-        closeImageView.setCloseImageViewClick(new CloseImageView.CloseImageViewClick() {
+        final ImageViewWithDelete imageViewWithDelete = helper.getView(R.id.sand_manage_take_photos_item_close_img);
+        imageViewWithDelete.setImageUrl(item);
+        imageViewWithDelete.setCloseImageViewClick(new ImageViewWithDelete.CloseImageViewClick() {
             @Override
             public void closeListener() {
                 String item1 = getItem(getData().size() - 1);
@@ -38,12 +43,11 @@ public class TakePhotosAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
                     addData("");
                 }
                 remove(helper.getAdapterPosition());
-
             }
 
             @Override
-            public void srcClickListener() {
-                onSrcClickListener.onScrClick(closeImageView,item);
+            public void srcClickListener(View v) {
+                onSrcClickListener.onScrClick(imageViewWithDelete,item);
             }
         });
     }

@@ -12,9 +12,9 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.bean.CourseScore;
+import com.lessu.xieshi.module.training.bean.CourseScore;
 import com.lessu.xieshi.bean.Project;
-import com.lessu.xieshi.bean.PushToDx;
+import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.lessu.xieshi.http.TrainRetrofit;
 
 import org.greenrobot.eventbus.EventBus;

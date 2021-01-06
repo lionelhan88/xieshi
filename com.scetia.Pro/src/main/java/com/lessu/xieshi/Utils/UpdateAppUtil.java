@@ -59,7 +59,7 @@ public class UpdateAppUtil {
                             if (isMustBeUpdate) {
                                 //TODO:弹出强制跟新弹窗，用户点击取消就退出app
                                 description = "更新内容:\r\n" + json.get("Description").getAsString()
-                                        + "\r\n此更新为强制更新，必须更新后尚可继续使用，如点击暂不更新退出程序！\r\n" + "是否立即前往更新？";
+                                        + "\r\n此更新为强制更新，必须更新后尚可继续使用！" + " 是否立即前往更新？";
                             } else {
                                 description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
                             }
@@ -125,9 +125,7 @@ public class UpdateAppUtil {
         updateConfig.setApkSaveName(context.getPackageName()+"V"+version);
         //UI界面配置
         UiConfig uiConfig = new UiConfig();
-        uiConfig.setUiType(UiType.PLENTIFUL);
-        UiConfig uiConfig2 = new UiConfig();
-        uiConfig2.setUiType(UiType.PLENTIFUL);
+        uiConfig.setUiType(UiType.SIMPLE);
 
         UpdateAppUtils.getInstance().apkUrl(apkUrl)
                 .updateTitle("发现新版本V"+version)

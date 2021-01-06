@@ -1,268 +1,304 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/common_background"
-    >
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#ffffff"
                 android:gravity="center_vertical"
-                android:background="#ffffff">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="报告编号:"
                     android:textColor="#999999"
-                    android:text="报告编号:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#eaeaea"
                 android:gravity="center_vertical"
-                android:background="#eaeaea">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="样品名称:"
                     android:textColor="#999999"
-                    android:text="样品名称:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#ffffff"
                 android:gravity="center_vertical"
-                android:background="#ffffff">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="规格名称:"
                     android:textColor="#999999"
-                    android:text="规格名称:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#eaeaea"
                 android:gravity="center_vertical"
-                android:background="#eaeaea">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="强度等级名称:"
                     android:textColor="#999999"
-                    android:text="强度等级名称:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#ffffff"
                 android:gravity="center_vertical"
-                android:background="#ffffff">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="代表数量:"
                     android:textColor="#999999"
-                    android:text="代表数量:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#eaeaea"
                 android:gravity="center_vertical"
-                android:background="#eaeaea">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="工程部队:"
                     android:textColor="#999999"
-                    android:text="工程部队:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#ffffff"
                 android:gravity="center_vertical"
-                android:background="#ffffff">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="生产单位:"
                     android:textColor="#999999"
-                    android:text="生产单位:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#eaeaea"
                 android:gravity="center_vertical"
-                android:background="#eaeaea">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="备案证:"
                     android:textColor="#999999"
-                    android:text="备案证:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#ffffff"
                 android:gravity="center_vertical"
-                android:background="#ffffff">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="检测日期:"
                     android:textColor="#999999"
-                    android:text="检测日期:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#eaeaea"
                 android:gravity="center_vertical"
-                android:background="#eaeaea">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="样品检测结论:"
                     android:textColor="#999999"
-                    android:text="样品检测结论:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#ffffff"
                 android:gravity="center_vertical"
-                android:background="#ffffff">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="评定依据:"
                     android:textColor="#999999"
-                    android:text="评定依据:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
+                android:background="#eaeaea"
                 android:gravity="center_vertical"
-                android:background="#eaeaea">
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text="检测方法:"
                     android:textColor="#999999"
-                    android:text="检测方法:"/>
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:text=""
                     android:textColor="#333333"
-                    android:text=""/>
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

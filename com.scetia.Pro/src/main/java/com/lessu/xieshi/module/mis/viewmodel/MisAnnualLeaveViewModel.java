@@ -10,7 +10,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.bean.LoadState;
+import com.lessu.data.LoadState;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.lessu.xieshi.module.mis.datasource.MisAnnualLeaveDataFactory;
 import com.lessu.xieshi.module.mis.datasource.MisAnnualLeaveDataSource;
@@ -42,7 +42,7 @@ public class MisAnnualLeaveViewModel extends BaseViewModel {
             .setPageSize(5)
             .build();
     private LiveData<PagedList<MisAnnualLeaveData.AnnualLeaveBean>> pagedListLiveData =
-            new LivePagedListBuilder(factory,config).build();
+            new LivePagedListBuilder<>(factory,config).build();
 
     public MisAnnualLeaveViewModel(@NonNull Application application) {
         super(application);

@@ -14,7 +14,7 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.web.TemplatedWebViewActivity;
-import com.lessu.xieshi.module.unqualified.SampleListActivity;
+import com.lessu.xieshi.module.unqualified.UqTestingReportConclusionActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -113,7 +113,7 @@ public class AuditingDetailActivity extends TemplatedWebViewActivity {
 	public boolean onReceiveEvent(String event, Map<String, String> params) {
 		if (event != null){
 			if (event.equalsIgnoreCase("sampleList")){
-				Intent intent = new Intent (AuditingDetailActivity.this, SampleListActivity.class);
+				Intent intent = new Intent (AuditingDetailActivity.this, UqTestingReportConclusionActivity.class);
 				Bundle bundle = new Bundle();  
 				Bundle bundelForData=this.getIntent().getExtras(); 
 				String Report_ID = bundelForData.getString("Report_id");

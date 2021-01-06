@@ -1,7 +1,7 @@
 package com.lessu.xieshi.module.training;
 
-import com.lessu.xieshi.bean.PaidItem;
-import com.lessu.xieshi.bean.PushToDx;
+import com.lessu.xieshi.module.training.bean.PaidItem;
+import com.lessu.xieshi.module.training.bean.PushToDx;
 
 import java.util.List;
 import java.util.Map;

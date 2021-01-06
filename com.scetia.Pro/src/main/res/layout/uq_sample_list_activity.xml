@@ -1,19 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_background"
-    tools:context="com.lessu.xieshi.SampleListActivity" >
+    android:background="@color/common_background">
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:footerDividersEnabled="false"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:dividerHeight="0dp"
-        >
-    </ListView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_uq_testing_report_conclusion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</LinearLayout>
+</FrameLayout>

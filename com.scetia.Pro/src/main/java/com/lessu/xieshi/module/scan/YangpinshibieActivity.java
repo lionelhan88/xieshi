@@ -13,10 +13,10 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.JieMi;
+import com.lessu.xieshi.Utils.Decrypt;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.Utils.Shref;
-import com.lessu.xieshi.bean.XalTal;
+import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -211,7 +211,7 @@ public class YangpinshibieActivity extends NavigationActivity{
     }
 
 
-    private void Xianshi(XalTal shhujv,String s) {
+    private void Xianshi(ReceiveSampleInfoBean shhujv, String s) {
 
         tv_chakan.setText("识别完成");
 
@@ -316,7 +316,7 @@ public class YangpinshibieActivity extends NavigationActivity{
                                     Ts2 = null;
                                     Ts = null;
                                     //Wenjian.baocunauto(Tal,Xal);
-                                    final XalTal shhujv = getShhujv(s);
+                                    final ReceiveSampleInfoBean shhujv = getShhujv(s);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -340,7 +340,7 @@ public class YangpinshibieActivity extends NavigationActivity{
                             Ts = null;
                             System.out.println("Ts...." + Ts);
                             // Wenjian.baocunauto(Tal,Xal);
-                            final XalTal shhujv = getShhujv(s);
+                            final ReceiveSampleInfoBean shhujv = getShhujv(s);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -353,11 +353,11 @@ public class YangpinshibieActivity extends NavigationActivity{
                         System.out.println("是芯片");
                         String s = LongString.bytes2HexString(buffer2);
                         System.out.println(s);
-                        final String jiexinpian = JieMi.jiexinpian(s);
+                        final String jiexinpian = Decrypt.jiexinpian(s);
                         System.out.println("jiexixinpian..waimian..." + jiexinpian);
                         if (jiexinpian != null) {
                             System.out.println("jiexixinpian....." + jiexinpian);
-                            final XalTal shhujv = getShhujv(jiexinpian);
+                            final ReceiveSampleInfoBean shhujv = getShhujv(jiexinpian);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -383,7 +383,7 @@ public class YangpinshibieActivity extends NavigationActivity{
     }
 
 
-    private XalTal getShhujv(String s){
+    private ReceiveSampleInfoBean getShhujv(String s){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -420,7 +420,7 @@ public class YangpinshibieActivity extends NavigationActivity{
         // for(int i=0;i<shujvsoap.getPropertyCount();i++){
         SoapObject soap3=(SoapObject)shujvsoap.getProperty(0);
         System.out.println("......"+soap3.toString());
-        XalTal info=new XalTal();
+        ReceiveSampleInfoBean info=new ReceiveSampleInfoBean();
         if(soap3.toString().contains("Contract_SignNo")){
             System.out.println("能得到吗。。。。"+soap3.getProperty("Contract_SignNo").toString());
             info.setContract_SignNo(soap3.getProperty("Contract_SignNo").toString());

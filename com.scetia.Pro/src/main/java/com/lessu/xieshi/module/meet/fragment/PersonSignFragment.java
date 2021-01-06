@@ -37,6 +37,7 @@ public class PersonSignFragment extends LazyFragment {
 
     @Override
     protected void initView() {
+        misMeetingFragmentRefresh.setEnableLoadMore(false);
         listAdapter = new PersonSignListAdapter(R.layout.meeting_company_sign_list_item_layout);
         misFragmentCompanySignRv.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         misFragmentCompanySignRv.setAdapter(listAdapter);
