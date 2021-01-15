@@ -2,16 +2,15 @@ package com.lessu.xieshi.view;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.lessu.foundation.DensityUtil;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GlideUtil;
+import com.scetia.Pro.common.Util.GlideUtil;
 
 /**
  * created by ljs
@@ -69,8 +68,8 @@ public class ImageViewWithDelete extends RelativeLayout {
         srcImageView = new ImageView(getContext());
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         lp.setMargins(
-                DensityUtil.dp2px(getContext(),10f),DensityUtil.dp2px(getContext(),10f),
-                DensityUtil.dp2px(getContext(),10f),DensityUtil.dp2px(getContext(),10f));
+                DensityUtil.dip2px(getContext(),10f),DensityUtil.dip2px(getContext(),10f),
+                DensityUtil.dip2px(getContext(),10f),DensityUtil.dip2px(getContext(),10f));
         srcImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         addView(srcImageView,lp);
     }
@@ -82,7 +81,7 @@ public class ImageViewWithDelete extends RelativeLayout {
         closeImg = new ImageView(getContext());
         closeImg.setImageResource(R.drawable.del_pic_bg);
         closeImg.setScaleType(ImageView.ScaleType.FIT_XY);
-        LayoutParams lp2 =new  LayoutParams(DensityUtil.dp2px(getContext(),20f),DensityUtil.dp2px(getContext(),20f));
+        LayoutParams lp2 =new  LayoutParams(DensityUtil.dip2px(getContext(),20f),DensityUtil.dip2px(getContext(),20f));
         //默认隐藏view
         closeImg.setVisibility(View.GONE);
         addView(closeImg,lp2);

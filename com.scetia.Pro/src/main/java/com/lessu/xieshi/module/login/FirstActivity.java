@@ -17,20 +17,17 @@ import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.GlideUtil;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.Util.SPUtil;
 import com.lessu.xieshi.module.login.bean.LoginUserBean;
 import com.lessu.xieshi.module.login.viewmodel.FirstViewModelFactory;
 import com.lessu.xieshi.photo.XXPhotoUtil;
 import com.lessu.xieshi.base.AppApplication;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.login.viewmodel.FirstViewModel;
 import com.lessu.xieshi.map.ProjectListActivity;
 import com.lessu.xieshi.module.construction.ConstructionListActivity;
@@ -50,6 +47,8 @@ import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.set.SettingActivity;
 import com.lessu.xieshi.Utils.UpdateAppUtil;
 import com.lessu.xieshi.uploadpicture.UploadPictureActivity;
+import com.scetia.Pro.common.Util.GlideUtil;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -118,7 +117,7 @@ public class FirstActivity extends NavigationActivity {
         //该功能还未开放！！！！！！
         llSeccion6.setVisibility(View.INVISIBLE);
         initDataListener();
-        UpdateAppUtil.checkUpdateApp(this,false);
+        UpdateAppUtil.checkUpdateApp(this, false);
         initData();
         ImmersionBar.with(this).titleBarMarginTop(llTianqi)
                 .navigationBarColor(R.color.light_gray)
@@ -135,21 +134,22 @@ public class FirstActivity extends NavigationActivity {
      */
     private void initData() {
         //TODO:加载头像
-        String headImg = Shref.getString(FirstActivity.this, Common.PICNAME, "");
+        String headImg = SPUtil.getSPConfig(Common.PICNAME, "");
         GlideUtil.showImageViewNoCacheCircle(this, R.drawable.touxiang, headImg, ivTouxiang);
 
-        String userName = Shref.getString(this, Common.USERNAME, "");
-        String password =Shref.getString(FirstActivity.this, Common.PASSWORD, "");
-        String deviceId = Shref.getString(FirstActivity.this, Common.DEVICEID, "");
+        String userName = SPUtil.getSPConfig(Common.USERNAME, "");
+        String password = SPUtil.getSPConfig(Common.PASSWORD, "");
+        String deviceId = SPUtil.getSPConfig(Common.DEVICEID, "");
         tvYonghuming.setText(userName);
         //每次进入主界面要重新登陆获取数据，可能更新权限
-        if(Shref.getBoolean(this,Shref.AUTO_LOGIN_KEY,false)){
+        if (SPUtil.getSPConfig(SPUtil.AUTO_LOGIN_KEY, false)) {
             //如果开启自动登录，进入页面需要自动登录
-            firstViewModel.login(userName,password,deviceId);
-        }else{
-            String userPower = Shref.getString(this, Common.USERPOWER, null);
-            if(userPower!=null) initMenu(userPower);
+            firstViewModel.login(userName, password, deviceId);
+        } else {
+            String userPower = SPUtil.getSPConfig(Common.USERPOWER, "");
+            if (!userPower.equals("")) initMenu(userPower);
         }
+
 
     }
 
@@ -157,22 +157,19 @@ public class FirstActivity extends NavigationActivity {
      * 监听数据变化，更新UI界面
      */
     private void initDataListener() {
-        firstViewModel =new ViewModelProvider(this,new FirstViewModelFactory(this.getApplication(),this))
+        firstViewModel = new ViewModelProvider(this, new FirstViewModelFactory(this.getApplication(), this))
                 .get(FirstViewModel.class);
         firstViewModel.getUserBeanData().observe(this, new Observer<LoginUserBean>() {
             @Override
             public void onChanged(LoginUserBean userBean) {
-                String userPower = userBean.getUserPower().equals("（待定）")?"1":userBean.getUserPower();
-                String userId = userBean.getUserId();
-                String MemberInfoStr = userBean.getMemberInfoStr();
-                String token = userBean.getToken();
-                Shref.setString(FirstActivity.this, Common.USERPOWER, userPower);
-                Shref.setString(FirstActivity.this, Common.USERID, userId);
-                Shref.setString(FirstActivity.this, Common.MEMBERINFOSTR, MemberInfoStr);
+                String userPower = userBean.getUserPower().equals("（待定）") ? "1" : userBean.getUserPower();
+                SPUtil.setSPConfig(Common.USERPOWER, userPower);
+                SPUtil.setSPConfig(Common.USERID, userBean.getUserId());
+                SPUtil.setSPConfig(Common.MEMBERINFOSTR, userBean.getMemberInfoStr());
+                SPUtil.setSPConfig(Common.USER_FULL_NAME, userBean.getUserFullName());
                 //存放jwtToken
-                LSUtil.setValueStatic(Common.JWT_KEY,userBean.getJwt());
-                Shref.setString(FirstActivity.this, Common.USER_FULL_NAME, userBean.getUserFullName());
-                LSUtil.setValueStatic("Token", token);
+                SPUtil.setSPLSUtil(Common.JWT_KEY, userBean.getJwt());
+                SPUtil.setSPLSUtil("Token", userBean.getToken());
                 initMenu(userPower);
             }
         });
@@ -188,31 +185,32 @@ public class FirstActivity extends NavigationActivity {
         firstViewModel.getLoadState().observe(this, new Observer<LoadState>() {
             @Override
             public void onChanged(LoadState loadState) {
-                if (loadState==LoadState.LOADING){
+                if (loadState == LoadState.LOADING) {
                     LSAlert.showProgressHud(FirstActivity.this, "正在登陆...");
-                }else{
+                } else {
                     tvTianqi.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             //加载弹窗消失的太快，会造成闪一下的效果，给用户体验不好，所以使用延迟消失
                             LSAlert.dismissProgressHud();
                         }
-                    },300);
+                    }, 300);
                 }
             }
         });
         firstViewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
             @Override
             public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
-                if(throwable.code==3000){
-                    LSAlert.showAlert(FirstActivity.this, "提示", throwable.message+"\n需要重新登录"
+                if (throwable.code == 3000) {
+                    LSAlert.showAlert(FirstActivity.this, "提示", throwable.message + "\n需要重新登录"
                             , "确定", false, () -> loginOut());
-                }else {
+                } else {
                     LSAlert.showAlert(FirstActivity.this, "提示", throwable.message);
                 }
             }
         });
     }
+
     /**
      * 退出登录
      */
@@ -227,10 +225,11 @@ public class FirstActivity extends NavigationActivity {
 
     /**
      * 初始化菜单
+     *
      * @param newPower
      */
     private void initMenu(String newPower) {
-        if(newPower.equals("1")){
+        if (newPower.equals("1")) {
             //供应商账号
             llSeccion1.setVisibility(View.VISIBLE);
             ivSeccion1.setImageResource(R.drawable.home_meeting_bg);
@@ -244,7 +243,7 @@ public class FirstActivity extends NavigationActivity {
             llSeccion5.setVisibility(View.INVISIBLE);
             llSeccion6.setVisibility(View.INVISIBLE);
             //界面初始化完成，开启自动登录
-            Shref.setBoolean(this,Shref.AUTO_LOGIN_KEY,true);
+            SPUtil.setSPConfig(SPUtil.AUTO_LOGIN_KEY, true);
             return;
         }
         final String userPower = newPower.substring(0, 14);
@@ -284,8 +283,8 @@ public class FirstActivity extends NavigationActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, Shref.BLUETOOTH_DEVICE, null) != null) {
-                        System.out.println(Shref.getString(FirstActivity.this,  Shref.BLUETOOTH_DEVICE, ""));
+                    if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").equals("")) {
+                        System.out.println(SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, ""));
                         intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
                     } else {
                         AppApplication.isGLY = false;
@@ -341,9 +340,7 @@ public class FirstActivity extends NavigationActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        //intent.putExtra("deviceAddress", Shref.getString(FirstActivity.this,"deviceaddress",null));
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
+                    if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
                         intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
                     } else {
                         AppApplication.isGLY = false;
@@ -429,8 +426,7 @@ public class FirstActivity extends NavigationActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
+                    if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
                         intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
                     } else {
                         AppApplication.isGLY = false;
@@ -462,7 +458,7 @@ public class FirstActivity extends NavigationActivity {
             /*
              * 如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
              */
-            if (Shref.getString(this, Common.USERNAME, "").toUpperCase().startsWith("MEET")) {
+            if (SPUtil.getSPConfig(Common.USERNAME, "").toUpperCase().startsWith("MEET")) {
                 llSeccion1.setVisibility(View.VISIBLE);
                 llSeccion2.setVisibility(View.INVISIBLE);
                 llSeccion3.setVisibility(View.INVISIBLE);
@@ -537,8 +533,7 @@ public class FirstActivity extends NavigationActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
-                    if (Shref.getString(FirstActivity.this, "deviceaddress", null) != null) {
-                        System.out.println(Shref.getString(FirstActivity.this, "deviceaddress", ""));
+                    if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
                         intent.setClass(FirstActivity.this, PrintDataActivity.class);
                     } else {
                         AppApplication.isGLY = true;
@@ -564,7 +559,7 @@ public class FirstActivity extends NavigationActivity {
             });
         }
         //界面初始化完成，开启自动登录
-        Shref.setBoolean(this,Shref.AUTO_LOGIN_KEY,true);
+        SPUtil.setSPConfig(SPUtil.AUTO_LOGIN_KEY, true);
     }
 
     /**
@@ -597,6 +592,7 @@ public class FirstActivity extends NavigationActivity {
     }
 
     private long time = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -623,9 +619,9 @@ public class FirstActivity extends NavigationActivity {
                 break;
             case R.id.iv_touxiang:
                 XXPhotoUtil.with(this).setPhotoName("header").setListener((photoPath, photoUri) -> {
-                    GlideUtil.showImageViewNoCacheCircle(FirstActivity.this,R.drawable.touxiang,photoPath,ivTouxiang);
+                    GlideUtil.showImageViewNoCacheCircle(FirstActivity.this, R.drawable.touxiang, photoPath, ivTouxiang);
                     //保存头像目录
-                    Shref.setString(FirstActivity.this, Common.PICNAME, photoPath);
+                    SPUtil.setSPConfig(Common.PICNAME, photoPath);
                 }).start();
                 break;
         }

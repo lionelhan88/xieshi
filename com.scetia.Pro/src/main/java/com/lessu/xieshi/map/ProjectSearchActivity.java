@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class ProjectSearchActivity extends XieShiSlidingMenuActivity {
 	}
 
 	private void getType() {
-		token = LSUtil.valueStatic("Token");
+		token = SPUtil.getSPLSUtil("Token","");
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("Token", token);
 		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceStake.asmx/GetMemberList"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {

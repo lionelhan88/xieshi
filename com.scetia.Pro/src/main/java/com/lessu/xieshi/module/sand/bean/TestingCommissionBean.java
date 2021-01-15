@@ -45,10 +45,10 @@ public class TestingCommissionBean {
     private String detectionAgencyMemberCode;
     @Expose
     private int samplingMethod=2;
-    @Expose
+
     private String appointmentSamplingTime;
     @Expose
-    private String samplingLocation;
+    private int samplingLocation;
     @Expose
     private String samplingProcess;
     @Expose
@@ -153,11 +153,11 @@ public class TestingCommissionBean {
         this.appointmentSamplingTime = appointmentSamplingTime;
     }
 
-    public String getSamplingLocation() {
+    public int getSamplingLocation() {
         return samplingLocation;
     }
 
-    public void setSamplingLocation(String samplingLocation) {
+    public void setSamplingLocation(int samplingLocation) {
         this.samplingLocation = samplingLocation;
     }
 

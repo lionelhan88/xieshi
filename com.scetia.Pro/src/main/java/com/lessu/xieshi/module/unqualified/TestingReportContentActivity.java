@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.bean.ListSampleDetail;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportContentViewModel;
 
 import java.util.ArrayList;
@@ -98,7 +98,7 @@ public class TestingReportContentActivity extends NavigationActivity  {
         }
         String Report_id = bundle.getString("Report_id");
         String Checksum = bundle.getString("Checksum");
-        String Token = LSUtil.valueStatic("Token");
+        String Token = Content.getToken();
         params.put("Token", Token);
         params.put("Report_id", Report_id);
         params.put("Checksum", Checksum);

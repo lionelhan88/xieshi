@@ -21,13 +21,13 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.module.meet.MyAutoCompleteView;
 import com.lessu.xieshi.view.SignView;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.adapter.OtherMeetingUserListAdapter;
 import com.lessu.xieshi.module.meet.bean.OtherMeetingBean;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.mis.activitys.Content;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -111,11 +111,11 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
                 //如果被指定的参会人没有账号
                 if (otherMeetingBean.getUserId().equals("1")) {
                     String phone = otherJoinPhone.getText().toString().trim();
-                    if(TextUtils.isEmpty(phone)){
+                    if (TextUtils.isEmpty(phone)) {
                         ToastUtil.showShort("请填写手机号！");
                         return;
                     }
-                    if(!ValidateHelper.validatePhone(phone)){
+                    if (!ValidateHelper.validatePhone(phone)) {
                         ToastUtil.showShort("输入的手机号有误！");
                         return;
                     }
@@ -126,7 +126,7 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
                     ToastUtil.showShort("请手写您的姓名！");
                     return;
                 }
-                setSubstituteUser(meetingId, Shref.getString(this, Common.USERID, ""), otherMeetingBean, hyId,
+                setSubstituteUser(meetingId, SPUtil.getSPConfig(Common.USERID, ""), otherMeetingBean, hyId,
                         otherMeetingJoinUserHandSign.saveBase64Str());
                 break;
             case R.id.bt_bt_other_meeting_join_reset:

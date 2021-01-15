@@ -20,8 +20,9 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LongString;
+import com.lessu.xieshi.http.api.TraningApiService;
 import com.lessu.xieshi.module.training.bean.PushToDx;
-import com.lessu.xieshi.http.TrainRetrofit;
+import com.scetia.Pro.network.manage.TrainRetrofit;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -192,7 +193,7 @@ public class OnlineLearnActivity extends NavigationActivity {
         Gson gson = new Gson();
         String params=gson.toJson(pushToDx);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"),params);
-        TrainRetrofit.getInstance().getService().updateUserCourse(body)
+        TrainRetrofit.getInstance().getService(TraningApiService.class).updateUserCourse(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ApiObserver<TrainingResultData<PushToDx>>() {

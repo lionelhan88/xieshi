@@ -5,22 +5,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiBase;
-import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.http.XSRetrofit;
-
-import java.util.HashMap;
+import com.scetia.Pro.network.ConstantApi;
+import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.SPUtil;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ServiceActivity extends NavigationActivity {
-    String serviceText = "";
+    private String serviceText = "";
     @BindView(R.id.telecomIcon)
     ImageView telecomIcon;
     @BindView(R.id.telecomButton)
@@ -43,23 +42,25 @@ public class ServiceActivity extends NavigationActivity {
 
         BarButtonItem nullButtonItem = new BarButtonItem(this, "");
         navigationBar.setLeftBarItem(nullButtonItem);
-        if(LSUtil.valueStatic("service").equals("telecom")){
+        if (SPUtil.getSPLSUtil("service", "").equals(Common.TELECOM_SERVICE)) {
             //电信
             telecomIcon.setImageResource(R.drawable.icon_service_selected);
-        }else{
+        } else {
             //联通
             unicomIcon.setImageResource(R.drawable.icon_service_selected);
         }
+        serviceText = Common.getService(SPUtil.getSPLSUtil("service", ""));
+
     }
 
     /**
      * “完成”点击事件
      */
     public void completeButtonDidClick() {
-        if(serviceText.contains("h")){
-            LSUtil.setValueStatic("service", "unicom");
-        }else{
-            LSUtil.setValueStatic("service", "telecom");
+        if (serviceText.contains("h")) {
+            SPUtil.setSPLSUtil("service", "unicom");
+        } else {
+            SPUtil.setSPLSUtil("service", "telecom");
         }
         ApiBase.sharedInstance().apiUrl = serviceText;
         XSRetrofit.getInstance().changeBaseUrl("http://" + serviceText + "/");
@@ -71,12 +72,12 @@ public class ServiceActivity extends NavigationActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.telecomButton:
-                serviceText = "www.scetia.com/scetia.app.ws";
+                serviceText = ConstantApi.XS_TELECOM_BASE_URL;
                 telecomIcon.setImageResource(R.drawable.icon_service_selected);
                 unicomIcon.setImageResource(R.drawable.icon_service_unselected);
                 break;
             case R.id.unicomButton:
-                serviceText = "www.schetia.com/scetia.app.ws";
+                serviceText = ConstantApi.XS_UNICOM_BASE_URL;
                 unicomIcon.setImageResource(R.drawable.icon_service_selected);
                 telecomIcon.setImageResource(R.drawable.icon_service_unselected);
                 break;

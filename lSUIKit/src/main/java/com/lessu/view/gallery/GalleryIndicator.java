@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.view.View;
 
-import com.lessu.uikit.Utils;
+import com.scetia.Pro.common.Util.DensityUtil;
 
 public class GalleryIndicator extends View{
 
@@ -21,12 +21,12 @@ public class GalleryIndicator extends View{
 		super(context);
 		fillPaint = new Paint();
 		fillPaint.setColor(INDICATOR_ITEM_FILL_COLOR);
-		fillPaint.setStrokeWidth(Utils.dip2px(getContext(), 1));
+		fillPaint.setStrokeWidth(DensityUtil.dip2px(getContext(), 1));
 		fillPaint.setAntiAlias(true);
 //		invalidate();
 		
-		INDICATOR_ITEM_SIZE = Utils.dip2px(getContext(), INDICATOR_ITEM_SIZE);
-		INDICATOR_ITEM_PADDING = Utils.dip2px(getContext(), INDICATOR_ITEM_PADDING);
+		INDICATOR_ITEM_SIZE = DensityUtil.dip2px(getContext(), INDICATOR_ITEM_SIZE);
+		INDICATOR_ITEM_PADDING = DensityUtil.dip2px(getContext(), INDICATOR_ITEM_PADDING);
 		setBackgroundColor(Color.TRANSPARENT);
 	}
 	

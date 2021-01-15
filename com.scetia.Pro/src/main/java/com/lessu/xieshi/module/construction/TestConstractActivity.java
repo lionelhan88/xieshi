@@ -12,7 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.page.PageController;
@@ -56,7 +56,7 @@ public class TestConstractActivity extends NavigationActivity implements OnItemC
 			@Override
 			protected void onPageToInit(final PageController pageController) {
 				// TODO Auto-generated method stub
-				String token = LSUtil.valueStatic("Token");
+				String token = Content.getToken();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				Bundle bundelForData=TestConstractActivity.this.getIntent().getExtras(); 
 				String projectId = bundelForData.getString("ProjectId");

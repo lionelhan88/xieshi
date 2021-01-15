@@ -2,13 +2,12 @@ package com.lessu.xieshi.module.sand.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.lessu.xieshi.http.BuildSandResultData;
-import com.lessu.xieshi.http.BuildSandRetrofit;
-import com.lessu.xieshi.http.ResponseObserver;
 import com.lessu.xieshi.http.api.BuildSandApiService;
 import com.lessu.xieshi.module.sand.bean.AddedTestingCompanyBean;
-import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean;
+import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.manage.BuildSandRetrofit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,7 +27,7 @@ public class SandTestingCompanyQueryListRepository {
     public void queryTestingCompanies(int pageSize,int pageIndex, String queryCounties, String queryKey,
                                       ResponseObserver<List<TestingCompanyBean>> callBack) {
         BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getTestingCompanies(pageSize,pageIndex,queryKey,queryCounties,"unitName")
+                .getTestingCompanies(pageSize,pageIndex,queryKey,queryCounties,"memberCode")
                 .compose(BuildSandRetrofit.<BuildSandResultData<List<TestingCompanyBean>>, List<TestingCompanyBean>>applyTransformer())
                 .subscribe(callBack);
     }
@@ -61,8 +60,7 @@ public class SandTestingCompanyQueryListRepository {
             RequestBody body = RequestBody.create(MediaType.parse("application/json"),jsonObject.toString());
             BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
                     .addTestingCompanies(body)
-                    .compose(BuildSandRetrofit.<BuildSandResultData<Object>,
-                            Object>applyTransformer())
+                    .compose(BuildSandRetrofit.<BuildSandResultData<Object>, Object>applyTransformer())
                     .subscribe(callBack);
         }catch (Exception e){
             e.printStackTrace();

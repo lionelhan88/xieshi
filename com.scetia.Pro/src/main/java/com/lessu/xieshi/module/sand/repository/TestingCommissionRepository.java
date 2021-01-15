@@ -1,14 +1,13 @@
 package com.lessu.xieshi.module.sand.repository;
 
-import com.lessu.xieshi.http.BuildSandResultData;
-import com.lessu.xieshi.http.BuildSandRetrofit;
-import com.lessu.xieshi.http.ResponseObserver;
+import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.http.api.BuildSandApiService;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
+import com.scetia.Pro.network.manage.BuildSandRetrofit;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;

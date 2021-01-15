@@ -1,11 +1,11 @@
 package com.lessu.xieshi.module.sand.repository;
 
-import com.lessu.xieshi.http.BuildSandResultData;
-import com.lessu.xieshi.http.BuildSandRetrofit;
-import com.lessu.xieshi.http.ResponseObserver;
 import com.lessu.xieshi.http.api.BuildSandApiService;
-import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
 import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
+import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.manage.BuildSandRetrofit;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.List;

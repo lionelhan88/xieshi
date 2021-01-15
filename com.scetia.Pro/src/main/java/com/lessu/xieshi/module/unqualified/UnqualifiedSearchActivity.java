@@ -14,13 +14,13 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.DateUtil;
+import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.text.ParseException;
@@ -117,7 +117,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 	 */
 	private void initData(){
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("Token", LSUtil.valueStatic("Token"));
+		params.put("Token", Content.getToken());
 		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceSource.asmx/BHGItemSource"), params, new EasyAPI.ApiFastSuccessCallBack() {
 			@Override
 			public void onSuccessJson(JsonElement result) {
@@ -213,7 +213,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 				, position -> {
 					tvTestingType.setText(nameString[position]);
 					HashMap<String, Object> params = new HashMap<>();
-					params.put("Token", LSUtil.valueStatic("Token"));
+					params.put("Token", Content.getToken());
 					params.put("Condition", idString[position]);
 					System.out.println(params);
 					EasyAPI.apiConnectionAsync(UnqualifiedSearchActivity.this, true, false, ApiMethodDescription.get("/ServiceSource.asmx/ItemItemSource"), params, new EasyAPI.ApiFastSuccessCallBack() {

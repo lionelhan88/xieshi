@@ -22,6 +22,7 @@ public class SandTestingCompanyListAdapter extends BaseQuickAdapter<AddedTesting
         EasySwipeMenuLayout layout = helper.getView(R.id.company_manage_swipe_menLayout);
         layout.setCanLeftSwipe(isCanSwipe);
         helper.setGone(R.id.testing_company_manage_item_select_img,false);
+        helper.setText(R.id.testing_company_manage_item_company_code,"会员编号:"+item.getDetectionAgencyMemberCode());
         helper.setText(R.id.testing_company_manage_item_company_name,item.getDetectionAgencyUnitName());
         helper.setText(R.id.testing_company_manage_item_company_area,item.getDetectionAgencyCounties());
         helper.setText(R.id.testing_company_manage_item_company_user,item.getDetectionAgencyContactPerson());

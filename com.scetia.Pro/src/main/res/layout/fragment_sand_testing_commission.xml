@@ -2,7 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -147,14 +148,7 @@
             <TextView
                 android:id="@+id/sand_manage_sampling_user"
                 style="@style/info_show_list_edit_text"
-                tools:text="张三" />
-
-            <TextView
-                android:id="@+id/sand_manage_sampling_user_list"
-                style="@style/info_show_list_edit_text"
-                android:drawableEnd="@drawable/xialamis"
-                android:paddingEnd="5dp"
-                android:visibility="gone" />
+                android:hint="请选择取样人员"/>
         </LinearLayout>
 
         <LinearLayout style="@style/info_show_list_linearLayout"
@@ -166,10 +160,13 @@
 
             <EditText
                 android:id="@+id/sand_manage_identification"
-                style="@style/info_show_list_edit_text" />
+                style="@style/info_show_list_edit_text"
+                android:hint="请选择唯一性标识号"/>
         </LinearLayout>
 
-        <LinearLayout style="@style/info_show_list_linearLayout"
+        <LinearLayout
+            android:id="@+id/ll_sand_manage_sampling_time"
+            style="@style/info_show_list_linearLayout"
             android:minHeight="55dp">
 
             <TextView
@@ -179,7 +176,8 @@
             <TextView
                 android:id="@+id/sand_manage_sampling_time"
                 style="@style/info_show_list_edit_text"
-                android:textSize="@dimen/text_size_medium" />
+                android:textSize="@dimen/text_size_medium"
+                android:hint="请选择取样日期"/>
         </LinearLayout>
 
         <LinearLayout
@@ -225,7 +223,8 @@
         </LinearLayout>
 
         <LinearLayout style="@style/info_show_list_linearLayout"
-            android:minHeight="55dp">
+            android:minHeight="55dp"
+            android:visibility="gone">
 
             <TextView
                 style="@style/info_show_list_left"

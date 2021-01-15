@@ -14,11 +14,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.mis.adapter.MisMemberSearchListAdapter;
 import com.lessu.xieshi.module.mis.viewmodel.MisSearchViewModel;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
-import com.lessu.xieshi.module.mis.listener.AdapterItemClickListener;
+import com.scetia.Pro.baseapp.listener.AdapterItemClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 

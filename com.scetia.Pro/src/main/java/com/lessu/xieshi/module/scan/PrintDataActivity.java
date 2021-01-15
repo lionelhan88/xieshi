@@ -12,6 +12,7 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 
 import android.util.Log;
@@ -35,14 +36,14 @@ import com.lessu.xieshi.Utils.FileUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Decrypt;
-import com.lessu.xieshi.Utils.LogUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.UriUtils;
+import com.scetia.Pro.common.photo.UriUtils;
 import com.lessu.xieshi.view.DragLayout;
 import com.raylinks.Function;
 import com.raylinks.ModuleControl;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,8 +58,8 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     ModuleControl moduleControl = new ModuleControl();
     Function fun = new Function();
-     //正在读取设备返回值的标识
-    private  boolean isReading = true;
+    //正在读取设备返回值的标识
+    private boolean isReading = true;
     private static byte flagCrc;
     private boolean isConnection = false;
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -77,7 +78,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     private TextView tv_xinpian_num;
     private String uidStr;
     private int j = 1;
-     // 标识是jar方法连接的蓝牙
+    // 标识是jar方法连接的蓝牙
     private boolean uhfBlueConnect;
     private boolean lianjieshibai;
 
@@ -160,7 +161,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 //长按删除当前项
                 AlertDialog.Builder builder = new AlertDialog.Builder(PrintDataActivity.this);
                 builder.setTitle("提示");
-                builder.setMessage("是否删除"+Tal.get(pos)+"?");
+                builder.setMessage("是否删除" + Tal.get(pos) + "?");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -205,6 +206,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             dl.open();
         }
     }
+
     /**
      * 初始化数据
      */
@@ -216,7 +218,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             public void run() {
                 //设备连接成功，开始读取设备的uid
                 startGetUid();
-                if (Shref.getString(PrintDataActivity.this, getDeviceAddress(), null) == null) {
+                if (SPUtil.getSPConfig(getDeviceAddress(), "").equals("")) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -227,13 +229,13 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         }
                     });
                 }
-                boolean flag =connect();
+                boolean flag = connect();
                 if (!flag) {
                     // 连接失败
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Shref.setString(PrintDataActivity.this, Shref.BLUETOOTH_DEVICE, null);
+                            SPUtil.setSPConfig(SPUtil.BLUETOOTH_DEVICE, "");
                             ToastUtil.showShort("连接失败，检查蓝牙是否打开，请返回重新连接");
                         }
                     });
@@ -249,9 +251,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     /**
      * 初始化提示音播放
      */
-    private void initSoundPool(){
+    private void initSoundPool() {
         //当前系统的SDK版本大于等于21(Android 5.0)时
-        if(Build.VERSION.SDK_INT > 21){
+        if (Build.VERSION.SDK_INT > 21) {
             SoundPool.Builder builder = new SoundPool.Builder();
             //传入音频数量
             builder.setMaxStreams(2);
@@ -262,32 +264,34 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             //加载一个AudioAttributes
             builder.setAudioAttributes(attrBuilder.build());
             soundPool = builder.build();
-        }else{
+        } else {
             soundPool = new SoundPool(2, AudioManager.STREAM_SYSTEM, 0);
         }
         //已经存在
-        soundPool.load(PrintDataActivity.this,R.raw.scan_existence,1);
-        soundPool.load(PrintDataActivity.this,R.raw.scan_success,1);
+        soundPool.load(PrintDataActivity.this, R.raw.scan_existence, 1);
+        soundPool.load(PrintDataActivity.this, R.raw.scan_success, 1);
     }
 
     /**
      * 播放提示音
+     *
      * @param isExistence 播放哪类提示音
      */
-    private void playSoundPool(boolean isExistence){
-        if(isExistence){
-            soundPool.play(1,1,1,0,0,1);
-        }else{
-            soundPool.play(2,1,1,0,0,1);
+    private void playSoundPool(boolean isExistence) {
+        if (isExistence) {
+            soundPool.play(1, 1, 1, 0, 0, 1);
+        } else {
+            soundPool.play(2, 1, 1, 0, 0, 1);
         }
     }
+
     /**
      * 获取设备编号
      */
     private void startGetUid() {
         toastAlert("正在获取设备号...");
         getUid();
-        while (Shref.getString(PrintDataActivity.this, getDeviceAddress(), null) == null) {
+        while (SPUtil.getSPConfig(getDeviceAddress(), "").equals("")) {
             if (uhfBlueConnect) {
                 if (j < 5) {
                     getBluetoothDeviceId();
@@ -306,14 +310,15 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             }
         }
     }
+
     /**
      * 获取设备编号
      */
     private void getUid() {
-        if (Shref.getString(PrintDataActivity.this, getDeviceAddress(), null) != null) {
-            uidStr = Shref.getString(PrintDataActivity.this, getDeviceAddress(), null);
+        if (!SPUtil.getSPConfig(getDeviceAddress(), "").equals("")) {
+            uidStr = SPUtil.getSPConfig(getDeviceAddress(), "");
             AppApplication.muidstr = uidStr;
-            LogUtil.showLogE("从本地缓存获取的设备uid=="+uidStr);
+            LogUtil.showLogE("从本地缓存获取的设备uid==" + uidStr);
             return;
         }
         try {
@@ -351,25 +356,25 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         if (moduleControl.UhfGetReaderUID(bUid, flagCrc)) {
             //先判断是否是旧设备，如果成功获取到uid，则是旧设备
             uidStr = fun.bytesToHexString(bUid, 12);
-            LogUtil.showLogE("设备uid=="+uidStr);
-            Shref.setString(PrintDataActivity.this, getDeviceAddress(), uidStr);
+            LogUtil.showLogE("设备uid==" + uidStr);
+            SPUtil.setSPConfig(getDeviceAddress(), uidStr);
             AppApplication.muidstr = uidStr;
             if (uhfBlueConnect) {
                 //获取uid成功后，要断开jar方式连接的蓝牙，准备自定义方式连接设备
                 uhfReaderDisconnect();
             }
-        } else if(!(newUidName=getNewUhfUID2()).equals("")){
+        } else if (!(newUidName = getNewUhfUID2()).equals("")) {
             //之前的方法没有获取到uid，此时成功获取uid，则是新设备
             uidStr = newUidName;
-            LogUtil.showLogE("设备uid=="+uidStr);
-            Shref.setString(PrintDataActivity.this, getDeviceAddress(), uidStr);
+            LogUtil.showLogE("设备uid==" + uidStr);
+            SPUtil.setSPConfig(getDeviceAddress(), uidStr);
             AppApplication.muidstr = uidStr;
             if (uhfBlueConnect) {
                 //获取uid成功后，要断开jar方式连接的蓝牙，准备自定义方式连接设备
                 uhfReaderDisconnect();
             }
         } else {
-            if(j>=5) {
+            if (j >= 5) {
                 toastAlert("未能获取手持机标识号");
             }
         }
@@ -377,22 +382,23 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     /**
      * 获取新设备的uid方法
+     *
      * @return uidName 返回值uid
      */
-    private String  getNewUhfUID2(){
-        String uidName="";
+    private String getNewUhfUID2() {
+        String uidName = "";
         try {
             //获取设备uid命令
-            byte[] writData = {(byte) 0xA0,0x03,0x01, 0x68, (byte) 0xF4};
-            moduleControl.SendDataToBT(writData,writData.length);
+            byte[] writData = {(byte) 0xA0, 0x03, 0x01, 0x68, (byte) 0xF4};
+            moduleControl.SendDataToBT(writData, writData.length);
             Thread.sleep(800);
             byte[] readBuffer = new byte[17];
             moduleControl.RecvDataFromBT(readBuffer);
             String backData = fun.bytesToHexString(readBuffer, readBuffer.length).toUpperCase();
             //读取蓝牙设备返回的数据，转换为16进制字符串
-          //  A00F0168 42502D323030303031 FFFFFF09,判断位数
-            if(backData.length()==34&&backData.startsWith("A00F0168")){
-                String uidHexStr = backData.substring(8,26).trim();
+            //  A00F0168 42502D323030303031 FFFFFF09,判断位数
+            if (backData.length() == 34 && backData.startsWith("A00F0168")) {
+                String uidHexStr = backData.substring(8, 26).trim();
                 //16进制转为十进制ascii码字符串
                 uidName = LongString.hexStr2Str(uidHexStr);
             }
@@ -404,16 +410,17 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     /**
      * 获取蓝牙地址
+     *
      * @return String
      */
     private String getDeviceAddress() {
         Intent intent = this.getIntent();
-        String deviceAdd = Shref.getString(PrintDataActivity.this, Shref.BLUETOOTH_DEVICE, null);
+        String deviceAdd = SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "");
         //是否存在已经缓存的地址，如果没有缓存的地址，重新获取上一个页面传来的地址
         if (deviceAdd == null) {
             deviceAdd = intent.getStringExtra("deviceAddress");
-            Shref.setString(PrintDataActivity.this, Shref.BLUETOOTH_DEVICE, deviceAdd);
-            LogUtil.showLogD("deviceAddress为null==" +deviceAdd);
+            SPUtil.setSPConfig(SPUtil.BLUETOOTH_DEVICE, deviceAdd);
+            LogUtil.showLogD("deviceAddress为null==" + deviceAdd);
         }
         return deviceAdd;
     }
@@ -441,7 +448,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 });
                 return false;
             }
-            toastAlert(device.getName()+ "连接成功!");
+            toastAlert(device.getName() + "连接成功!");
         }
         return true;
     }
@@ -506,9 +513,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                     String substring = Ts.substring(0, 1);
                                     if (Ts.length() == 10 && substring.equals("1")) {
                                         if (!Tal.contains(Ts)) {
-                                            Tal.add(0,Ts);
+                                            Tal.add(0, Ts);
                                             playSoundPool(false);
-                                        }else{
+                                        } else {
                                             playSoundPool(true);
                                         }
                                         Ts1 = null;
@@ -527,10 +534,10 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                     }
                                 }
                             } else if (ceshishujv.length() == 10) {
-                                if(!Tal.contains(ceshishujv)) {
+                                if (!Tal.contains(ceshishujv)) {
                                     Tal.add(0, ceshishujv);
                                     playSoundPool(false);
-                                }else{
+                                } else {
                                     playSoundPool(true);
                                 }
                                 FileUtil.baocunauto(Tal, Xal);
@@ -549,7 +556,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             String jiexinpian = Decrypt.jiexinpian(s);
                             if (jiexinpian != null) {
                                 if (!Xal.contains(jiexinpian)) {
-                                    Xal.add(0,jiexinpian);
+                                    Xal.add(0, jiexinpian);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -557,7 +564,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                                         }
                                     });
                                     playSoundPool(false);
-                                }else{
+                                } else {
                                     playSoundPool(true);
                                 }
                                 runOnUiThread(new Runnable() {
@@ -575,7 +582,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort( "连接断开了，请重新连接");
+                        ToastUtil.showShort("连接断开了，请重新连接");
                         finish();
                     }
                 });
@@ -584,7 +591,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    ToastUtil.showShort( "设备未连接，请重新连接！");
+                    ToastUtil.showShort("设备未连接，请重新连接！");
                     finish();
                 }
             });
@@ -594,7 +601,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     /**
      * 弹出提示
      */
-    private void toastAlert(final String message){
+    private void toastAlert(final String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -602,6 +609,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             }
         });
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -617,7 +625,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     Intent intent1 = new Intent();
                     intent1.putExtra("talxal", s1.toString());
                     //传入uid
-                    intent1.putExtra("uidstr",uidStr);
+                    intent1.putExtra("uidstr", uidStr);
                     intent1.setClass(PrintDataActivity.this, ShenqingshangbaoActivity.class);
                     startActivity(intent1);
                 } else {
@@ -628,7 +636,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             case R.id.ll_shenhexiazai:
                 if (uidStr != null) {
                     Intent intent = new Intent(PrintDataActivity.this, ReviewDownloadActivity.class);
-                    intent.putExtra("uidstr",uidStr);
+                    intent.putExtra("uidstr", uidStr);
                     startActivity(intent);
                 } else {
                     Toast.makeText(PrintDataActivity.this, "设备编号为空", Toast.LENGTH_SHORT).show();
@@ -661,7 +669,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 Xal.clear();
                 Tal.clear();
                 madaptertiaoma.notifyDataSetChanged();
-                tv_tiaoma_num.setText(String.valueOf(Tal.size()) );
+                tv_tiaoma_num.setText(String.valueOf(Tal.size()));
                 madapterxinpian.notifyDataSetChanged();
                 tv_xinpian_num.setText(String.valueOf(Xal.size()));
                 break;
@@ -826,7 +834,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(soundPool!=null){
+        if (soundPool != null) {
             soundPool.release();
         }
         super.onDestroy();

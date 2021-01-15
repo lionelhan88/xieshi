@@ -2,12 +2,12 @@ package com.lessu.xieshi.module.mis.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.lessu.xieshi.http.ResponseObserver
-import com.lessu.data.LoadState
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle.ResponseThrowable
+import com.scetia.Pro.network.conversion.ResponseObserver
+import com.scetia.Pro.baseapp.uitls.LoadState
 import com.lessu.xieshi.module.mis.activitys.Content
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData
 import com.lessu.xieshi.module.mis.model.MisAnnualLeaveRepository
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
 
 /**
  * created by ljs
@@ -33,7 +33,7 @@ class MisAnnualLeaveDataSource(private val year: String, private val state: Stri
                 callback.onResult(t.listContent,null,2)
             }
 
-            override fun failure(throwable: ResponseThrowable?) {
+            override fun failure(throwable: ExceptionHandle.ResponseThrowable?) {
                 if (throwable?.code == 2000) {
                     //没有相关数据
                     loadState.postValue(LoadState.EMPTY)
@@ -62,7 +62,7 @@ class MisAnnualLeaveDataSource(private val year: String, private val state: Stri
                 callback.onResult(t?.listContent!!,params.key+1)
             }
 
-            override fun failure(throwable: ResponseThrowable?) {
+            override fun failure(throwable: ExceptionHandle.ResponseThrowable?) {
                 loadState.postValue(LoadState.FAILURE)
                 retry = {loadAfter(params,callback)}
             }

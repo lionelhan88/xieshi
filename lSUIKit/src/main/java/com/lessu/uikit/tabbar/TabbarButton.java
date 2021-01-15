@@ -1,7 +1,7 @@
 package com.lessu.uikit.tabbar;
 
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.uikit.Buttons.Button;
-import com.lessu.uikit.Utils;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -41,9 +41,9 @@ public class TabbarButton extends Button{
 
 		super.onLayout(changed, left, top, right, bottom);
 		if (changed){
-			int size = (int) (bottom - top - this.getTextSize() - Utils.dip2px(getContext(), 4)) - 10;
+			int size = (int) (bottom - top - this.getTextSize() - DensityUtil.dip2px(getContext(), 4)) - 10;
 			
-			this.imageBounds = new Rect(0 , 5 + Utils.dip2px(getContext(), 2), size , size);
+			this.imageBounds = new Rect(0 , 5 + DensityUtil.dip2px(getContext(), 2), size , size);
 
 			this.refresh();
 		}

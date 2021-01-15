@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation rootProject.ext.dependencies.mmkv
+    api rootProject.ext.dependencies.publish
+    api rootProject.ext.dependencies.rxJava
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies.pickerView
+    api rootProject.ext.dependencies.glide
+    api rootProject.ext.dependencies.butterknife
+    api rootProject.ext.dependencies.eventBus
+    api rootProject.ext.dependencies.immersionbar
+    api rootProject.ext.dependencies.paging
+    api rootProject.ext.dependencies.navigation
+    api rootProject.ext.dependencies.gson
+    api rootProject.ext.dependencies.refreshlayout
+    api rootProject.ext.dependencies.baseRecyclerView
+    api rootProject.ext.dependencies.easySwipeMenuLayout
+    annotationProcessor rootProject.ext.annationProcess.glideAnnationProcess
+    api files('libs/zbar.jar')
+    testImplementation rootProject.ext.testJunit
+    androidTestImplementation rootProject.ext.androidTest
+
+}

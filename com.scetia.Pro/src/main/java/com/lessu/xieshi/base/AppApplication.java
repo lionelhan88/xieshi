@@ -1,26 +1,22 @@
 package com.lessu.xieshi.base;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
+
 import androidx.multidex.MultiDex;
 import com.baidu.mapapi.SDKInitializer;
-import com.lessu.ShareableApplication;
-import com.lessu.foundation.LSUtil;
+import com.scetia.Pro.network.ConstantApi;
+import com.scetia.Pro.baseapp.ShareableApplication;
 import com.lessu.net.ApiBase;
 import com.lessu.net.ApiConnection;
-import com.lessu.xieshi.Utils.Common;
+import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.SPUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.smtt.sdk.QbSdk;
 
 
-public class AppApplication extends ShareableApplication{
+public class AppApplication extends ShareableApplication {
 	public static String muidstr;
 	public static boolean isGLY=false;
 	@Override
@@ -42,10 +38,7 @@ public class AppApplication extends ShareableApplication{
 	 * 规定smartRefresh的样式风格
 	 */
 	private void initSmartRefresh(){
-		SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
-			//设置顶部加载样式为经典样式
-			return new ClassicsHeader(context).setDrawableSize(20f);
-		});
+		SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new ClassicsHeader(context).setDrawableSize(20f));
 		SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context).setDrawableSize(20f));
 	}
 	/**
@@ -73,9 +66,9 @@ public class AppApplication extends ShareableApplication{
 		ApiConnection.DefaultStandardMessageKey 	= "Message";
 		ApiConnection.DefaultStandardSuccessKey		= "Success";
 		//每次进入程序都要重新默认为电信服务
-		LSUtil.setValueStatic("service", "telecom");
-		Common.serviceMap.put("telecom","www.scetia.com/scetia.app.ws");
-		Common.serviceMap.put("unicom","www.schetia.com/scetia.app.ws");
-		ApiBase.sharedInstance().apiUrl = Common.serviceMap.get(LSUtil.valueStatic("service"));
+		SPUtil.setSPLSUtil("service", Common.TELECOM_SERVICE);
+		Common.setService(Common.TELECOM_SERVICE, ConstantApi.XS_TELECOM_BASE_URL);
+		Common.setService(Common.UNICOM_SERVICE,ConstantApi.XS_UNICOM_BASE_URL);
+		ApiBase.sharedInstance().apiUrl = Common.getService(SPUtil.getSPLSUtil("service",""));
 	}
 }

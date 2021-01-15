@@ -13,14 +13,15 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.LogUtil;
+import com.lessu.xieshi.http.api.TraningApiService;
+import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.lessu.xieshi.module.training.bean.TrainingUserInfo;
-import com.lessu.xieshi.http.TrainRetrofit;
+import com.scetia.Pro.common.Util.SPUtil;
+import com.scetia.Pro.network.manage.TrainRetrofit;
 import com.lessu.xieshi.module.training.ApiObserver;
 import com.lessu.xieshi.module.training.TrainingResultData;
 import com.lessu.xieshi.module.training.ScanEvent;
@@ -123,7 +124,7 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
             Gson gson = new Gson();
             String params = gson.toJson(pushToDx);
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), params);
-            TrainRetrofit.getInstance().getService().updateUserCourse(body)
+            TrainRetrofit.getInstance().getService(TraningApiService.class).updateUserCourse(body)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new ApiObserver<TrainingResultData<PushToDx>>() {
@@ -167,9 +168,9 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
             HashMap<String, Object> params = new HashMap<>();
             params.put("s1", result);
             //传入UserId
-            params.put("s2", Shref.getString(this, Common.USERID, ""));
+            params.put("s2", SPUtil.getSPConfig(Common.USERID, ""));
             //传入userName
-            params.put("s3", Shref.getString(this, Common.USERNAME, ""));
+            params.put("s3", SPUtil.getSPConfig(Common.USERNAME, ""));
             EasyAPI.apiConnectionAsync(this, true, false,
                     ApiMethodDescription.get("/ServiceMis.asmx/ScanLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                         @Override

@@ -1,6 +1,6 @@
 package com.lessu.xieshi.http.api;
 
-import com.lessu.xieshi.http.XSResultData;
+import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.module.login.bean.LoginUserBean;
 import com.lessu.xieshi.module.login.bean.ValidateCodeBean;
 

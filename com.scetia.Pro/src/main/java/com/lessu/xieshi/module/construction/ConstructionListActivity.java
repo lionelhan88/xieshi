@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.gson.EasyGson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.page.PageController;
@@ -26,8 +25,6 @@ import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 
@@ -55,7 +52,6 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 		// TODO Auto-generated method stub
 		super.onStart();
 		//跳转到搜索页面
-		
 		PullToRefreshListView listView = (PullToRefreshListView) findViewById(R.id.listView);
 
 	
@@ -70,7 +66,7 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 			@Override
 			protected void onPageToInit(final PageController pageController) {
 				// TODO Auto-generated method stub
-				String token = LSUtil.valueStatic("Token");
+				String token = Content.getToken();
 				
 				HashMap<String, Object> params = new HashMap<String, Object>();
 	            params.put("Token", token);

@@ -13,6 +13,7 @@
     android:clickable="true"
     app:contentView="@id/company_manage_item_content"
     app:rightMenuView="@id/right">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/company_manage_item_content"
         android:layout_width="match_parent"
@@ -20,12 +21,23 @@
         android:padding="5dp">
 
         <TextView
+            android:id="@+id/testing_company_manage_item_company_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="会员编号:0176" />
+
+        <TextView
             android:id="@+id/testing_company_manage_item_company_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testing_company_manage_item_company_code"
             tools:text="张三" />
 
         <TextView
@@ -35,7 +47,7 @@
             android:paddingStart="5dp"
             android:textSize="@dimen/text_size_medium"
             app:layout_constraintStart_toEndOf="@+id/testing_company_manage_item_company_user"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testing_company_manage_item_company_code"
             tools:text="18300704684" />
 
         <TextView
@@ -45,7 +57,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_medium"
             app:layout_constraintEnd_toStartOf="@+id/testing_company_manage_item_select_img"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testing_company_manage_item_company_code"
             tools:text="静安区" />
 
         <TextView

@@ -9,7 +9,6 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.lessu.xieshi.Utils.LogUtil;
 
 /**
  * created by ljs

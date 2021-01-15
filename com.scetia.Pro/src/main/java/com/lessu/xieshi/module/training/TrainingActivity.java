@@ -21,15 +21,15 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.DateUtil;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.module.training.bean.PaidItem;
 import com.lessu.xieshi.bean.Project;
 import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.lessu.xieshi.module.training.bean.TrainingUserInfo;
 import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.scan.ScanActivity;
+import com.scetia.Pro.common.Util.SPUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -132,7 +132,7 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
      * 初始化数据
      */
     private void initData(){
-        String mm = Shref.getString(this, Common.MEMBERINFOSTR,"");
+        String mm = SPUtil.getSPConfig(Common.MEMBERINFOSTR,"");
         if(!mm.equals("")){
             String[] mms = mm.split("\\|");
             huiyuanhao.setText(mms[0]);

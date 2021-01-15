@@ -3,16 +3,12 @@ package com.lessu.xieshi.module.sand.fragment;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.lessu.BaseFragment;
-import com.lessu.EventBusUtil;
-import com.lessu.GlobalEvent;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
@@ -21,9 +17,13 @@ import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.SandSalesManageListAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
 import com.lessu.xieshi.module.sand.viewmodel.SandSalesTargetListViewModel;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,6 +97,7 @@ public class SandSalesTargetListFragment extends BaseVMFragment<SandSalesTargetL
                 getArguments().getInt(SMFlowDeclarationDetailFragment.NAVIGATE_KEY)==1));
 
         sandSalesTargetListRv.setAdapter(listAdapter);
+
         sandSalesTargetListRefresh.setOnRefreshListener(refreshLayout -> {
             viewModel.refresh();
         });
@@ -123,19 +124,31 @@ public class SandSalesTargetListFragment extends BaseVMFragment<SandSalesTargetL
                     ToastUtil.showShort("未有选中的项！");
                     return;
                 }
-                EventBusUtil.sendStickyEvent(new GlobalEvent(EventBusUtil.B,listAdapter.getSelectedBean()));
+                EventBusUtil.sendStickyEvent(new GlobalEvent<>(EventBusUtil.B,listAdapter.getSelectedBean()));
                 Navigation.findNavController(v).navigateUp();
             });
         }
-
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void initData() {
         viewModel.setPageIndex(0);
         viewModel.loadData(true);
     }
+
+    @Override
+    protected boolean isRegisterEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addSalesSuccess(GlobalEvent<Boolean> event){
+        if(event.getCode()==EventBusUtil.A){
+            viewModel.setPageIndex(0);
+            viewModel.loadData(false);
+        }
+    }
+
 
     @OnClick({R.id.sand_sales_target_list_fab})
     public void onViewClicked(View view) {

@@ -6,11 +6,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.base.BasePageListAdapter;
-import com.lessu.xieshi.module.mis.adapter.PageListCommonViewHolder;
+import com.scetia.Pro.baseapp.page.BasePageListAdapter;
+import com.scetia.Pro.baseapp.basepage.PageListCommonViewHolder;
 import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
 import com.lessu.xieshi.module.sand.viewmodel.SanSalesQueryListViewModel;
 

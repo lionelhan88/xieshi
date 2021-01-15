@@ -2,14 +2,14 @@ package com.lessu.xieshi.module.login.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.XSResultData;
-import com.lessu.xieshi.base.BaseRetrofitManage;
-import com.lessu.xieshi.http.XSRetrofit;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.base.BaseRetrofitManage;
+import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.http.api.LoginApiService;
 import com.lessu.xieshi.module.login.bean.LoginUserBean;
 import com.lessu.xieshi.module.weather.WeatherApiService;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import java.util.HashMap;
 

@@ -12,10 +12,11 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LongString;
+import com.lessu.xieshi.http.api.TraningApiService;
 import com.lessu.xieshi.module.training.bean.CourseScore;
 import com.lessu.xieshi.bean.Project;
 import com.lessu.xieshi.module.training.bean.PushToDx;
-import com.lessu.xieshi.http.TrainRetrofit;
+import com.scetia.Pro.network.manage.TrainRetrofit;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,7 +87,8 @@ public class LearnDataActivity extends NavigationActivity {
                             String paramStr = "planNo="+project.getPlanNo()+"&projectCode="+project.getProjectCode()+
                                     "&timestamp="+date+"&userId="+userId+"&secret=Rpa00Wcw9yaI";
                             String sign = LongString.md5(paramStr).toUpperCase();
-                            Observable<TrainingResultData<List<CourseScore>>> courseScores = TrainRetrofit.getInstance().getService().getCourseScores(userId, project.getProjectCode(),
+                            Observable<TrainingResultData<List<CourseScore>>> courseScores = TrainRetrofit.getInstance().getService(
+                                    TraningApiService.class).getCourseScores(userId, project.getProjectCode(),
                                     project.getPlanNo(), date, sign);
                             arrs.add(courseScores);
                        }

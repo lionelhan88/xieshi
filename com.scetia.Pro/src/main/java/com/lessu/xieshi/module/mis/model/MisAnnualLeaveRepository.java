@@ -1,11 +1,12 @@
 package com.lessu.xieshi.module.mis.model;
 
+
 import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.XSResultData;
-import com.lessu.xieshi.http.XSRetrofit;
 import com.lessu.xieshi.http.api.MisApiService;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.bean.XSResultData;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import java.util.HashMap;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
  */
 public class MisAnnualLeaveRepository {
 
-    public void getAnnualLeaveData(String token, String year, String state,int currentPageNo,int pageSize,ResponseObserver<MisAnnualLeaveData> callBack){
+    public void getAnnualLeaveData(String token, String year, String state, int currentPageNo, int pageSize, ResponseObserver<MisAnnualLeaveData> callBack){
         HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
         params.put("year", year);

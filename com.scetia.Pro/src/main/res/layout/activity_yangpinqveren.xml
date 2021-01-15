@@ -123,7 +123,7 @@
 
                 <SeekBar
                     android:id="@+id/sb_scan"
-                    style="@style/myseekbarstyle"
+                    style="@style/CustomeSeekBarStyle"
                     android:layout_width="162dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="14dp"

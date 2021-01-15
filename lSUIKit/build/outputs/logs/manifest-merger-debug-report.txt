@@ -1,0 +1,49 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:1-11:12
+	package
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:3:5-30
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:5:5-30
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+application
+ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:6:5-9:19
+uses-library#org.apache.http.legacy
+ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:7:9-87
+	android:required
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:7:61-85
+	android:name
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:7:23-60
+activity#com.lessu.activity.WebViewActivity
+ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:8:9-70
+	android:name
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:8:19-68
+uses-sdk
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		ADDED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
+		INJECTED from D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml

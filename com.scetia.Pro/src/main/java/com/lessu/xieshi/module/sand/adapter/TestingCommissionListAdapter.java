@@ -1,8 +1,12 @@
 package com.lessu.xieshi.module.sand.adapter;
 
 
+import android.widget.LinearLayout;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
+import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
 
@@ -23,5 +27,7 @@ public class TestingCommissionListAdapter extends BaseQuickAdapter<TestingCommis
         helper.setText(R.id.testing_commission_item_company_name,item.getConsignUnit());//委托单位 即备案企业名称
         helper.setText(R.id.testing_commission_item_commission_user,item.getPrincipal());//委托人
         helper.setText(R.id.testing_commission_item_date,item.getCommissionDate());//委托日期
+        helper.addOnClickListener(R.id.right);
+        helper.addOnClickListener(R.id.commission_list_item_content);
     }
 }

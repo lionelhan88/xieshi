@@ -76,22 +76,27 @@ android {
 
 
 dependencies {
-    rootProject.ext.dependencies.each { k, v ->
-        if (k != "gson" && k != "butterknife" && k != "immersionbar" && k != "flowlayout" && k != "multidex"
-                && k != "tbs" && k != "glide") {
-            implementation v
-        }
-    }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation rootProject.ext.dependencies.photoview
+    implementation rootProject.ext.dependencies.qrcode
+    implementation rootProject.ext.dependencies.supportV4
+    implementation rootProject.ext.dependencies.flowlayout
+    implementation rootProject.ext.dependencies.tbs
+    implementation rootProject.ext.dependencies.updateUtilsSDK2
+    implementation rootProject.ext.dependencies.permissionGood
+    implementation rootProject.ext.dependencies.pulltorefreash
     annotationProcessor rootProject.ext.annationProcess.butterknifAnnationProcess
     annotationProcessor rootProject.ext.annationProcess.glideAnnationProcess
     testImplementation rootProject.ext.testJunit
     androidTestImplementation rootProject.ext.androidTest
     implementation project(':lSUIKit')
+    implementation project(':lib_base')
+    implementation project(':lib_network')
     implementation project(':library')
-    implementation files('libs/zbar.jar')
+    implementation project(':lib_common')
+    implementation project(':lib_map')
     implementation files('libs/uhfreaderapi.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
-    compile files('libs/BaiduLBS_Android.jar')
-    implementation 'android.arch.paging:runtime:1.0.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+
 }

@@ -7,5 +7,6 @@
         android:id="@+id/sand_manage_take_photos_item_close_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:transitionName="enlargePicture"
         android:layout_centerInParent="true"/>
 </RelativeLayout>

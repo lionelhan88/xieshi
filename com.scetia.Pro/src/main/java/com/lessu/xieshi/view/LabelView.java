@@ -11,7 +11,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.lessu.foundation.DensityUtil;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.xieshi.R;
 
 /**
@@ -38,12 +38,12 @@ public class LabelView extends AppCompatTextView {
     public LabelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.LabelView);
-        defWidth = (int) arr.getDimension(R.styleable.LabelView_label_length, DensityUtil.dp2px(context,50));
+        defWidth = (int) arr.getDimension(R.styleable.LabelView_label_length, DensityUtil.dip2px(context,50));
         angel = arr.getInteger(R.styleable.LabelView_label_angle,2);
         backgroundColor = arr.getColor(R.styleable.LabelView_label_background_color,getResources().getColor(R.color.red_dark));
         contentText = arr.getString(R.styleable.LabelView_label_content_text);
         mContentTextColor =arr.getColor(R.styleable.LabelView_label_content_text_color,getResources().getColor(R.color.white));
-        contentTextSize = arr.getDimension(R.styleable.LabelView_label_content_text_size,DensityUtil.dp2px(context,13));
+        contentTextSize = arr.getDimension(R.styleable.LabelView_label_content_text_size,DensityUtil.dip2px(context,13));
         arr.recycle();
         init();
     }

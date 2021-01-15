@@ -4,12 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Base64;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
-import com.lessu.xieshi.base.AppApplication;
-import com.lessu.xieshi.Utils.LogUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -179,4 +179,5 @@ public  class FileUtil {
         }
         return uri;
     }
+
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
@@ -35,7 +35,7 @@ public class ExamineDetailActivity extends TemplatedWebViewActivity {
 		super.onStart();
 		Bundle bundelForData=this.getIntent().getExtras();
 		String consignId = bundelForData.getString("ConsignId");
-		String token = LSUtil.valueStatic("Token");
+		String token = Content.getToken();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("ConsignId", consignId);
 		params.put("Token", token);

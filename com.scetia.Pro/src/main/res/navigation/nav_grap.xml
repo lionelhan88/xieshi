@@ -27,12 +27,7 @@
             app:destination="@id/SMFlowDeclarationListFragment" />
         <action
             android:id="@+id/actionManageToTestingQuery"
-            app:destination="@id/TestingInfoQueryFragment"
-
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:destination="@id/TestingInfoQueryFragment" />
     </fragment>
     <fragment
         android:id="@+id/SandInfoMaintainProviderFragment"
@@ -78,6 +73,9 @@
         <action
             android:id="@+id/actionSandTestingCommissionFragmentToCompanyList"
             app:destination="@id/SandInfoMaintainTestingManageFragment" />
+        <action
+            android:id="@+id/action_sandTestingCommissionFragment_to_scalePictureActivity"
+            app:destination="@id/scalePictureActivity" />
     </fragment>
 
     <fragment
@@ -99,6 +97,8 @@
             app:destination="@id/SandInfoMaintainProviderFragment"/>
         <action android:id="@+id/actionSMFLowDeclarationDetailToSaleTarget"
             app:destination="@+id/SandInfoMaintainSalesFragment"/>
+        <action android:id="@+id/flowDeclarationDetailToCommissionDetail"
+            app:destination="@+id/sandTestingCommissionFragment"/>
     </fragment>
 
 
@@ -126,4 +126,8 @@
         android:name="com.lessu.xieshi.module.sand.fragment.SandTestingCompanyQueryListFragment"
         android:label="TestingCompanyQueryResultFragment"
         tools:layout="@layout/fragment_testing_company_query_result" />
+    <activity
+        android:id="@+id/scalePictureActivity"
+        android:name="com.lessu.xieshi.module.meet.activity.ScalePictureActivity"
+        android:label="ScalePictureActivity" />
 </navigation>

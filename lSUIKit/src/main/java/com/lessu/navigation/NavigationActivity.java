@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import android.os.IBinder;
@@ -22,7 +24,7 @@ import com.lessu.uikit.R;
 /**
  * Created by lessu on 14-7-31.
  */
-public class NavigationActivity extends FragmentActivity {
+public class NavigationActivity extends FragmentActivity  {
     public NavigationBar navigationBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,6 @@ public class NavigationActivity extends FragmentActivity {
         navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
     }
 
-    /**
-     * 左上角返回按钮
-     */
-    protected void leftNavBarClick(){
-        finish();
-    }
 
     @Override
     public void setContentView(int layoutResID) {
@@ -88,6 +84,13 @@ public class NavigationActivity extends FragmentActivity {
     	}else{
     		getNavigationBar().setTitle(title);
     	}
+    }
+
+    /**
+     * 左上角返回按钮
+     */
+    protected void leftNavBarClick(){
+        finish();
     }
 
     /**

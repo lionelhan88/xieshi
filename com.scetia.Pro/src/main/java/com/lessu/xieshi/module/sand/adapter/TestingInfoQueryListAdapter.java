@@ -21,11 +21,10 @@ public class TestingInfoQueryListAdapter extends BaseQuickAdapter<TestingQueryRe
 
     @Override
     protected void convert(BaseViewHolder helper, TestingQueryResultBean item) {
-
         helper.setText(R.id.result_query_item_sample_name, item.getSampleName());
         helper.setText(R.id.result_query_item_sample_state, item.getSampleStatusName());
         helper.setText(R.id.result_query_item_commission_date, item.getConsignCreateDate());
-        helper.setText(R.id.result_query_item_commission_company, item.getCustomerUnitMemberName());
+        helper.setText(R.id.result_query_item_commission_company, item.getDetectionAgencyMemberName());
         helper.setText(R.id.result_query_item_ship_name, item.getShipName());
         LabelView view = helper.getView(R.id.result_query_item_label_view);
         if(item.getSampleRegular().equals(QUALIFIED_RESULT)){

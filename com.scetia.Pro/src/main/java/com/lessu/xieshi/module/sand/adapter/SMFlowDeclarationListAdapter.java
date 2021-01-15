@@ -42,10 +42,13 @@ public class SMFlowDeclarationListAdapter extends BaseQuickAdapter<FlowDeclarati
             helper.setText(R.id.sm_flow_declaration_declare_commission_state,COMMISSIONED_STATE);
             helper.setTextColor(R.id.sm_flow_declaration_declare_commission_state,
                     mContext.getResources().getColor(R.color.green_dark));
+            //已经委托的记录禁止删除
+            easySwipeMenuLayout.setCanLeftSwipe(false);
         }else{
             helper.setText(R.id.sm_flow_declaration_declare_commission_state,UN_COMMISSION_STATE);
             helper.setTextColor(R.id.sm_flow_declaration_declare_commission_state,
                     mContext.getResources().getColor(R.color.red_dark));
+            easySwipeMenuLayout.setCanLeftSwipe(true);
         }
         if(helper.getAdapterPosition()==selectedPosition){
             helper.itemView.setBackgroundResource(R.drawable.text_blue_round_bg);

@@ -2,7 +2,7 @@ package com.lessu.xieshi.http.api;
 
 import com.lessu.xieshi.bean.ReportContentBean;
 import com.lessu.xieshi.bean.TodayStatisticsBean;
-import com.lessu.xieshi.http.XSResultData;
+import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.module.unqualified.bean.ConstructionData;
 import com.lessu.xieshi.module.unqualified.bean.ReportConclusionBean;
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData;

@@ -1,7 +1,6 @@
 package com.lessu.uikit.tableview;
 
-import com.lessu.foundation.DensityUtil;
-import com.lessu.uikit.Utils;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.uikit.easy.EasyUI;
 
 import android.content.Context;
@@ -31,9 +30,9 @@ public class TableViewCell extends FrameLayout{
 		
 	}
 	protected void init(){
-		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(LayoutParams.FILL_PARENT, Utils.dip2px(getContext(), 44));
+		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(LayoutParams.FILL_PARENT, DensityUtil.dip2px(getContext(), 44));
 		this.setLayoutParams(layoutParams);
-		this.setPadding(Utils.dip2px(getContext(), 20), 0, 0, 0);
+		this.setPadding(DensityUtil.dip2px(getContext(), 20), 0, 0, 0);
 		if(this.style == TableViewCellStyle.Default){
 			LinearLayout contentLayout = new LinearLayout(getContext());
 			contentLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
@@ -63,7 +62,7 @@ public class TableViewCell extends FrameLayout{
 			
 			detailTextView = new TextView(getContext());
 			detailTextView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.FILL_PARENT));
-			detailTextView.setPadding(0, 0, DensityUtil.dp2px(getContext(), 8), 0);
+			detailTextView.setPadding(0, 0, DensityUtil.dip2px(getContext(), 8), 0);
 			detailTextView.setTextSize(17);
 			detailTextView.setGravity(Gravity.CENTER_VERTICAL);
 			detailTextView.setTextColor(Color.GRAY);

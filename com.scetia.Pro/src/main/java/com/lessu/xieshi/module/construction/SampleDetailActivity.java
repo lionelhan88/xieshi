@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -49,7 +49,7 @@ public class SampleDetailActivity extends NavigationActivity {
 		Bundle bundelForData=this.getIntent().getExtras(); 
 		String Id = bundelForData.getString("Id");
 		String MemberCode = bundelForData.getString("MemberCode");
-		String Token = LSUtil.valueStatic("Token");
+		String Token = Content.getToken();
 		
 		
 		params.put("Token", Token);

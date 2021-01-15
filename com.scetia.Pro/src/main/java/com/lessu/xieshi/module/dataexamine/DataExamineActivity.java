@@ -16,7 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.foundation.RegKit;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiBase;
@@ -45,7 +45,7 @@ import butterknife.OnClick;
 public class DataExamineActivity extends XieShiSlidingMenuActivity implements OnItemClickListener {
 	String itemId = "";
 	ListPageWrapper wrapper;
-	String token =  LSUtil.valueStatic("Token");
+	String token =  Content.getToken();
 	String doneFlag = "";
 	String kindId = "";
 	String typeTitle = "";

@@ -16,7 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.foundation.RegKit;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiBase;
@@ -31,7 +31,6 @@ import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.http.HttpUrlConnect;
 import com.lessu.xieshi.view.ListViewCell;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.LogUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
 	String typeTitle = "";
 	String projectTitle = "";
 	String flagTitle = "";
-	String token = LSUtil.valueStatic("Token");
+	String token = Content.getToken();
 	int auditedCounter = 0;
 	int loseauditedCounter = 0;
 	ListPageWrapper wrapper;
@@ -303,13 +302,10 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
 		bundle.putString("KindId", kindId);
 		intent.putExtras(bundle);
 		startActivityForResult(intent, 1);
-
-
 	}
 
 	@OnClick(R.id.auditingAllButton)
 	protected void auditingAllButtonDidClick(){
-		LogUtil.showLogE("点击了全部比准");
 		if (wrapper!=null&&wrapper.getPageController().getList().size()>0){
 			auditedCounter =0;
 			loseauditedCounter = 0;

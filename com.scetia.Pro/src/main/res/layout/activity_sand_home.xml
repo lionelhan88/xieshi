@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment2"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:name="com.scetia.Pro.baseapp.custome_nav.CustomNavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"

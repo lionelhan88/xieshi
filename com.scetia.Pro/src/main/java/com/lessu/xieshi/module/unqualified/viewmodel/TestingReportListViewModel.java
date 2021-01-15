@@ -9,7 +9,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.datasource.TestingReportListDataFactory;
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData;
 

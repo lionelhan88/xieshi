@@ -1,10 +1,10 @@
 package com.lessu.xieshi.module.weather;
 
 import com.google.gson.Gson;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.XSRetrofit;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import java.util.HashMap;
 

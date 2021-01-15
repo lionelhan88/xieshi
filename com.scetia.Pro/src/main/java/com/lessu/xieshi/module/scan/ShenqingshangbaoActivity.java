@@ -22,8 +22,8 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.view.DragLayout;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -477,11 +477,10 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                         }
 
                                     }
-                                    System.out.println("huiyuanhao"+Shref.getString(ShenqingshangbaoActivity.this,"huiyuanhao",""));
-                                    if(Shref.getString(ShenqingshangbaoActivity.this,"huiyuanhao","")!=null) {
-                                        soapObject2.addProperty("membercode", Shref.getString(ShenqingshangbaoActivity.this, "huiyuanhao", ""));
+                                    System.out.println("huiyuanhao"+ SPUtil.getSPConfig("huiyuanhao",""));
+                                    if(SPUtil.getSPConfig("huiyuanhao","")!=null) {
+                                        soapObject2.addProperty("membercode", SPUtil.getSPConfig("huiyuanhao", ""));
                                     }
-                                    //soapObject2.addProperty("membercode", 1160);
                                     SoapSerializationEnvelope envelope2 = new SoapSerializationEnvelope(
                                             SoapEnvelope.VER10);
                                     envelope2.bodyOut = soapObject2;

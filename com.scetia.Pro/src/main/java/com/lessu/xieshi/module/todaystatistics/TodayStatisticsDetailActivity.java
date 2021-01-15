@@ -16,7 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -110,7 +110,7 @@ public class TodayStatisticsDetailActivity extends NavigationActivity implements
             @Override
             protected void onPageToInit(final PageController pageController) {
                 //这里要改1
-                String token = LSUtil.valueStatic("Token");
+                String token = Content.getToken();
                 HashMap<String, Object> params = new HashMap<String, Object>();
                 projectArea = bundle.getString("ProjectArea");
                 projectName = bundle.getString("ProjectName");
@@ -185,7 +185,7 @@ public class TodayStatisticsDetailActivity extends NavigationActivity implements
      * 获取材料检测的所有数据
      */
     private void connectlist() {
-        String token = LSUtil.valueStatic("Token");
+        String token = Content.getToken();
         HashMap<String, Object> params = new HashMap<String, Object>();
         bundle = getIntent().getExtras();
         String projectId = bundle.getString("ProjectId");
@@ -212,7 +212,7 @@ public class TodayStatisticsDetailActivity extends NavigationActivity implements
      * 获取工程检测数据
      */
     private void getProjectQueryList() {
-        String token = LSUtil.valueStatic("Token");
+        String token = Content.getToken();
         HashMap<String, Object> params = new HashMap<String, Object>();
         bundle = getIntent().getExtras();
         String projectId = bundle.getString("ProjectId");

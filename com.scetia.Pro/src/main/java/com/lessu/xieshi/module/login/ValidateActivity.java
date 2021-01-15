@@ -8,16 +8,16 @@ import android.widget.EditText;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.bean.LoadMoreState;
-import com.lessu.data.LoadState;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.baseapp.uitls.LoadMoreState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
+import com.scetia.Pro.common.Util.SPUtil;
 import com.lessu.xieshi.module.login.bean.LoginUserBean;
 import com.lessu.xieshi.module.login.bean.ValidateCodeBean;
 import com.lessu.xieshi.module.login.viewmodel.ValidateViewModel;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +45,8 @@ public class ValidateActivity extends NavigationActivity {
         setTitle("绑定");
         ButterKnife.bind(this);
         initDataListener();
-        if (LSUtil.valueStatic("PhoneNumber") != null) {
-            String phoneNumber = LSUtil.valueStatic("PhoneNumber");
+        String phoneNumber = SPUtil.getSPLSUtil("PhoneNumber","");
+        if (!phoneNumber.equals("")) {
 			phoneNumEditText.setText(phoneNumber);
         }
         //验证码的倒计时60s
@@ -92,8 +92,8 @@ public class ValidateActivity extends NavigationActivity {
         viewModel.getValidateCodeLiveData().observe(this, new Observer<ValidateCodeBean>() {
             @Override
             public void onChanged(ValidateCodeBean validateCodeBean) {
-                LSUtil.setValueStatic("Token", validateCodeBean.getToken());
-                LSUtil.setValueStatic("PhoneNumber", validateCodeBean.getPhoneNumber());
+               SPUtil.setSPLSUtil("Token", validateCodeBean.getToken());
+                SPUtil.setSPLSUtil("PhoneNumber", validateCodeBean.getPhoneNumber());
                 //开始进入验证码倒计时时间
                 getValidateButton.setBackgroundResource(R.drawable.yanzhengma);
                 getValidateButton.setEnabled(false);
@@ -116,7 +116,7 @@ public class ValidateActivity extends NavigationActivity {
 
     @OnTextChanged(R.id.phoneNumEditText)
     public void phoneNumEditTextChanged() {
-        LSUtil.setValueStatic("PhoneNumber", phoneNumEditText.getText().toString());
+        SPUtil.setSPLSUtil("PhoneNumber", phoneNumEditText.getText().toString());
     }
 
     @OnClick(R.id.getValidateButton)

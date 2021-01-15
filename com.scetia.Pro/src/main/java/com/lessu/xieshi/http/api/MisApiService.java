@@ -1,6 +1,6 @@
 package com.lessu.xieshi.http.api;
 
-import com.lessu.xieshi.http.XSResultData;
+import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.module.mis.bean.CertificateBean;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;

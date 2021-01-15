@@ -5,15 +5,21 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.data.LoadState;
+import com.lessu.xieshi.http.api.BuildSandApiService;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.sand.adapter.TestingCommissionListAdapter;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
 import com.lessu.xieshi.module.sand.repository.TestingCommissionRepository;
+import com.scetia.Pro.network.manage.BuildSandRetrofit;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 /**
  * created by ljs
@@ -27,6 +33,8 @@ public class TestingCommissionListViewModel extends BaseViewModel {
     private TestingCommissionRepository repository = new TestingCommissionRepository();
     //加载数据列表时的状态
     private MutableLiveData<LoadState> loadDatState = new MutableLiveData<>();
+    //删除项的下标索引
+    private MutableLiveData<Integer> delPosition = new MutableLiveData<>();
     private MutableLiveData<List<TestingCommissionBean>> testingCommissionLiveData = new MutableLiveData<>();
 
     public TestingCommissionListViewModel(@NonNull Application application) {
@@ -53,27 +61,33 @@ public class TestingCommissionListViewModel extends BaseViewModel {
         return testingCommissionLiveData;
     }
 
-    public void refreshOnLoad(){
-        currentPageIndex=DEFAULT_PAGE_INDEX;
+    public MutableLiveData<Integer> getDelPosition() {
+        return delPosition;
+    }
+
+    public void refreshOnLoad() {
+        currentPageIndex = DEFAULT_PAGE_INDEX;
         loadData(false);
     }
+
     /**
      * 加载数据列表
+     *
      * @param isShowLoading 是否展示加载提示框
      */
     public void loadData(boolean isShowLoading) {
-        if(isShowLoading&&currentPageIndex==DEFAULT_PAGE_INDEX){
+        if (isShowLoading && currentPageIndex == DEFAULT_PAGE_INDEX) {
             //第一次进入页面需要加载提示框
             loadDatState.setValue(LoadState.LOAD_INIT);
         }
         repository.getTestingCommissions(currentPageIndex, new ResponseObserver<List<TestingCommissionBean>>() {
             @Override
             public void success(List<TestingCommissionBean> testingCommissionBeans) {
-                if(testingCommissionBeans.size()==0){
+                if (testingCommissionBeans.size() == 0) {
                     //如果当前时第一页，没有数据时提示初始化无数据否则提示没有更多数据
-                    loadDatState.setValue(currentPageIndex==DEFAULT_PAGE_INDEX?LoadState.EMPTY :LoadState.NO_MORE);
-                }else{
-                    loadDatState.setValue(currentPageIndex==DEFAULT_PAGE_INDEX?LoadState.LOAD_INIT_SUCCESS:LoadState.SUCCESS);
+                    loadDatState.setValue(currentPageIndex == DEFAULT_PAGE_INDEX ? LoadState.EMPTY : LoadState.NO_MORE);
+                } else {
+                    loadDatState.setValue(currentPageIndex == DEFAULT_PAGE_INDEX ? LoadState.LOAD_INIT_SUCCESS : LoadState.SUCCESS);
                     //准备加载下一页
                     currentPageIndex++;
                 }
@@ -86,6 +100,35 @@ public class TestingCommissionListViewModel extends BaseViewModel {
                 throwableLiveData.postValue(throwable);
             }
         });
+    }
+
+    /**
+     * 删除选中的委托记录
+     *
+     * @param commissionId
+     */
+    public void delCommission(String commissionId, int position) {
+        loadState.setValue(LoadState.LOADING);
+        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
+                .delTestingCommission(commissionId)
+                .compose(BuildSandRetrofit.<Response<ResponseBody>, Response<ResponseBody>>applyTransformer())
+                .subscribe(new ResponseObserver<Response<ResponseBody>>() {
+                    @Override
+                    public void success(Response<ResponseBody> responseBody) {
+                        if (responseBody.code() == 204) {
+                            loadState.postValue(LoadState.SUCCESS);
+                            delPosition.setValue(position);
+                        } else {
+                            loadState.postValue(LoadState.FAILURE);
+                            throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(ExceptionHandle.LOCAL_ERROR, "删除失败！"));
+                        }
+                    }
+
+                    @Override
+                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                        throwableLiveData.setValue(throwable);
+                    }
+                });
     }
 
 

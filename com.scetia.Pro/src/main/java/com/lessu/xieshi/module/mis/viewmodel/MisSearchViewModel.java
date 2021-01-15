@@ -10,7 +10,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
 import com.lessu.xieshi.module.mis.datasource.MisMemberSearchDataFactory;
 import com.lessu.xieshi.module.mis.datasource.MisMemberSearchDataSource;

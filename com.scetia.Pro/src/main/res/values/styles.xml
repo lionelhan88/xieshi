@@ -3,28 +3,39 @@
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+    <!--Activity切换的过度动画-->
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right_to_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_from_right_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left_to_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_from_left_to_right</item>
     </style>
 
+    <style name="LoginTheme" parent="@style/AppBaseTheme">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
 
     <!--启动页避免白屏给用户不好的体验，设置启动页背景-->
-    <style name="SplashTheme" parent="@style/AppBaseTheme">
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
     <!-- spinner -->
-    <style name="spinner_style">
+    <style name="CustomSpinnerStyle">
         <item name="android:background">@drawable/spinner_selector</item>
         <item name="android:paddingLeft">4dp</item>
     </style>
 
     <!--seekbar-->
-    <style name="myseekbarstyle" parent="@android:style/Widget.SeekBar">
+    <style name="CustomeSeekBarStyle" parent="@android:style/Widget.SeekBar">
         <item name="android:maxHeight">8.0dip</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">
-            @android:drawable/progress_indeterminate_horizontal
-        </item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
         <item name="android:progressDrawable">@drawable/selector_seekbar</item>
         <item name="android:minHeight">8.0dip</item>
         <item name="android:thumb">@drawable/yuana</item>

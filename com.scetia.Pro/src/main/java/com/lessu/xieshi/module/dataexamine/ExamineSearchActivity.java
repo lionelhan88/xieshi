@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -42,7 +42,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 		this.setTitle("报告批准查询");
 		navigationBar.setBackgroundColor(0xFF3598DC);
 		ButterKnife.bind(this);
-		token = LSUtil.valueStatic("Token");
+		token = Content.getToken();
 		Type = "0";
         Bundle bundle = getIntent().getExtras();
         kindId = bundle.getString("KindId");

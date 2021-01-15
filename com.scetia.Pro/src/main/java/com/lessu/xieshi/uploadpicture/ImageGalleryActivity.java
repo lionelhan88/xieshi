@@ -8,7 +8,7 @@ import butterknife.OnClick;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
@@ -169,7 +169,7 @@ public class ImageGalleryActivity extends NavigationActivity{
 		for (int i=1;i<4;i++){
 			final int index = i;
 			HashMap<String, Object> params = new HashMap<String, Object>();
-	    	String token = LSUtil.valueStatic("Token");
+	    	String token = Content.getToken();
 	    	String taskId = getIntent().getStringExtra("TaskID");
 	    	String imgIndex = String.valueOf(i);
 	    	params.put("Token", token);

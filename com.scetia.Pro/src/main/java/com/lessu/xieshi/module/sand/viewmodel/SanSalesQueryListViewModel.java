@@ -8,10 +8,10 @@ import androidx.lifecycle.Transformations;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
-import com.lessu.xieshi.http.ResponseObserver;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
 import com.lessu.xieshi.module.sand.datasource.SandSalesQueryListDataFactory;
 import com.lessu.xieshi.module.sand.repository.SandSalesQueryListRepository;

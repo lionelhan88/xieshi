@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.adapter.TestingReportListAdapter;
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportListViewModel;
@@ -77,7 +77,7 @@ public class TestingReportActivity extends NavigationActivity {
     }
 
     private HashMap<String,Object> getParams(){
-        String token = LSUtil.valueStatic("Token");
+        String token = Content.getToken();
         Bundle bundle = TestingReportActivity.this.getIntent().getExtras();
         String ProjectName = bundle.getString("ProjectName");
         String ProjectArea = bundle.getString("ProjectArea");

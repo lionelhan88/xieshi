@@ -8,16 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.base.BasePageListAdapter;
-import com.lessu.xieshi.module.mis.adapter.PageListCommonViewHolder;
-import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
+import com.scetia.Pro.baseapp.page.BasePageListAdapter;
+import com.scetia.Pro.baseapp.basepage.PageListCommonViewHolder;
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean;
-import com.lessu.xieshi.module.sand.viewmodel.SanSalesQueryListViewModel;
 import com.lessu.xieshi.module.sand.viewmodel.TestingCompanyQueryListViewModel;
 
 import java.util.ArrayList;
@@ -97,12 +92,14 @@ public class TestingCompanyQueryListAdapter extends BasePageListAdapter<TestingC
         ConstraintLayout all = vh.getView(R.id.company_manage_item_content);
         ImageView ivSelect = vh.getView(R.id.testing_company_manage_item_select_img);
         ivSelect.setVisibility(View.VISIBLE);
+
+        TextView membercode = vh.getView(R.id.testing_company_manage_item_company_code);
         TextView unitName = vh.getView(R.id.testing_company_manage_item_company_name);
         TextView counties = vh.getView(R.id.testing_company_manage_item_company_area);
         TextView contactPerson = vh.getView(R.id.testing_company_manage_item_company_user);
         TextView personPhone = vh.getView(R.id.testing_company_manage_item_company_phone);
         TextView address = vh.getView(R.id.testing_company_manage_item_company_address);
-
+        membercode.setText("会员编号:"+testingCompanyBean.getMemberCode());
         unitName.setText(testingCompanyBean.getUnitName());
         counties.setText(testingCompanyBean.getCounties());
         contactPerson.setText(testingCompanyBean.getContactPerson());

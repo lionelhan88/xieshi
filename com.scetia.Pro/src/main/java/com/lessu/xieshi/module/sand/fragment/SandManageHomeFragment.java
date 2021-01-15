@@ -4,10 +4,10 @@ import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
-import com.lessu.BaseFragment;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.view.FullScreenDialog;
+import com.scetia.Pro.baseapp.fragment.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,6 +40,11 @@ public class SandManageHomeFragment extends BaseFragment {
     protected void initView() {
         setTitle("用砂管理");
         contentView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void leftNavBarClick(View view) {
+       requireActivity().finish();
     }
 
     @OnClick({R.id.sand_manage_provider_search, R.id.sand_manage_sales_manage, R.id.sand_manage_testing_manage, R.id.sand_manage_flow_declaration, R.id.sand_manage_testing_commission, R.id.sand_manage_info_query})

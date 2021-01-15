@@ -1,6 +1,6 @@
 package com.lessu.xieshi.http.api;
 
-import com.lessu.xieshi.http.BuildSandResultData;
+import com.scetia.Pro.network.bean.BuildSandResultData;
 import com.lessu.xieshi.module.sand.bean.SandItemParameterBean;
 import com.lessu.xieshi.module.sand.bean.SandSampleBean;
 import com.lessu.xieshi.module.sand.bean.SandSpecBean;

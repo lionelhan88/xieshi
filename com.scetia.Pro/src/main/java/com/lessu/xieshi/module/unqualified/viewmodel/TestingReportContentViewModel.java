@@ -7,13 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.bean.ReportContentBean;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.XSResultData;
-import com.lessu.xieshi.http.XSRetrofit;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.http.api.CommonApiService;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import java.util.HashMap;
 

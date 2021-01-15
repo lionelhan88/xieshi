@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.bean.ReportConclusionBean;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportConclusionViewModel;
 
@@ -61,7 +61,7 @@ public class UqTestingReportConclusionActivity extends NavigationActivity {
 		Bundle bundle=getIntent().getExtras();
 		final String Report_ID = bundle.getString("Report_id");
 		String Checksum = bundle.getString("Checksum");
-		String Token = LSUtil.valueStatic("Token");
+		String Token = Content.getToken();
 		params.put("Report_id", Report_ID);
 		params.put("Checksum", Checksum);
 		params.put("Token", Token);

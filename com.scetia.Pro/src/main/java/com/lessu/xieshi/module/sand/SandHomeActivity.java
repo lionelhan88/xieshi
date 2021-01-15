@@ -16,7 +16,6 @@ public class SandHomeActivity extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sand_home);
-        setTitle("建设用砂管理");
         navigationBar.setVisibility(View.GONE);
     }
 }

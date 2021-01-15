@@ -8,9 +8,9 @@ import android.widget.Toast;
 
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Shref;
 import com.raylinks.Function;
 import com.raylinks.ModuleControl;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -70,7 +70,7 @@ public class ShebeixinxiActivity extends AppCompatActivity {
                         });
                     }else {
                         final String result = object.getProperty(0).toString();
-                        Shref.setString(ShebeixinxiActivity.this, "huiyuanhao", result);
+                        SPUtil.setSPConfig("huiyuanhao", result);
                         System.out.println("object..." + object);
                         System.out.println("result...." + result);
                         runOnUiThread(new Runnable() {

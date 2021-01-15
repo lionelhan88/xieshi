@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.adapter.ConstructionListAdapter;
 import com.lessu.xieshi.module.unqualified.viewmodel.ConstructionListViewModel;
 
@@ -71,7 +71,7 @@ public class UnqualifiedConstructionListActivity extends XieShiSlidingMenuActivi
     }
 
     private HashMap<String, Object> getParams() {
-        String token = LSUtil.valueStatic("Token");
+        String token = Content.getToken();
         Bundle bundle = getIntent().getExtras();
         String MemberId = bundle.getString("MemberId");
         String StartDate = bundle.getString("StartDate");

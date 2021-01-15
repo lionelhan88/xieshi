@@ -20,11 +20,11 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.lessu.foundation.DensityUtil;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.DateUtil;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.common.Util.DateUtil;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.mis.adapter.MisAnnualLeaveListAdapter;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.lessu.xieshi.module.mis.viewmodel.MisAnnualLeaveViewModel;
@@ -125,7 +125,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
     private void initView() {
         listAdapter = new MisAnnualLeaveListAdapter(viewModel);
         annualLeaveRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        int div = DensityUtil.dp2px(MisAnnualLeaveManageActivity.this,5);
+        int div = DensityUtil.dip2px(MisAnnualLeaveManageActivity.this,5);
         annualLeaveRv.addItemDecoration(new RecyclerViewItemDecoration(div));
         annualLeaveRv.setAdapter(listAdapter);
         misAnnualLeaveRefresh.setColorSchemeResources(R.color.blue_light1, R.color.blue_normal1, R.color.blue_normal2);

@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.lessu.EventBusUtil;
-import com.lessu.GlobalEvent;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
@@ -20,9 +18,12 @@ import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.SMFlowDeclarationListAdapter;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
 import com.lessu.xieshi.module.sand.viewmodel.SMFlowDeclarationListViewModel;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +42,6 @@ public class SMFlowDeclarationListFragment extends BaseVMFragment<SMFlowDeclarat
     @BindView(R.id.sm_flow_declaration_declare_rg)
     RadioGroup smFlowDeclarationDeclareRg;
     private SMFlowDeclarationListAdapter listAdapter;
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_sm_flow_declaration_list;
@@ -69,6 +69,14 @@ public class SMFlowDeclarationListFragment extends BaseVMFragment<SMFlowDeclarat
         viewModel.getThrowable().observe(this, responseThrowable -> {
             ToastUtil.showShort(responseThrowable.message);
         });
+
+        viewModel.getFlowDeclarationLiveData().observe(this, flowDeclarationBeans -> {
+            if (viewModel.getLoadDataState().getValue() == LoadState.LOAD_INIT_SUCCESS) {
+                listAdapter.setNewData(flowDeclarationBeans);
+            } else {
+                listAdapter.addData(flowDeclarationBeans);
+            }
+        });
     }
 
 
@@ -82,7 +90,7 @@ public class SMFlowDeclarationListFragment extends BaseVMFragment<SMFlowDeclarat
             viewModel.refresh();
         });
         sandManageFlowDeclarationRefresh.setOnLoadMoreListener(refreshLayout -> {
-            viewModel.loadData(false);
+            viewModel.loadMoreData();
         });
         sandManageFlowDeclarationFab.setVisibility(arguments == null ? View.VISIBLE : View.GONE);
         smFlowDeclarationDeclareRg.setVisibility(arguments == null ? View.VISIBLE : View.GONE);
@@ -118,27 +126,44 @@ public class SMFlowDeclarationListFragment extends BaseVMFragment<SMFlowDeclarat
             });
         }
 
-
-        viewModel.getFlowDeclarationLiveData().observe(this, flowDeclarationBeans -> {
-            if (viewModel.getLoadDataState().getValue() == LoadState.LOAD_INIT_SUCCESS) {
-                listAdapter.setNewData(flowDeclarationBeans);
-            } else {
-                listAdapter.addData(flowDeclarationBeans);
+        smFlowDeclarationDeclareRg.setOnCheckedChangeListener((group, checkedId) -> {
+            sandManageFlowDeclarationRefresh.resetNoMoreData();
+            sandManageFlowDeclarationRefresh.closeHeaderOrFooter();
+            switch (checkedId){
+                case R.id.sm_flow_declaration_declare_rb_uncommission:
+                    viewModel.setQueryKey("未委托");
+                    break;
+                case R.id.sm_flow_declaration_declare_rb_commission:
+                    viewModel.setQueryKey("已委托");
+                    break;
+                case R.id.sm_flow_declaration_declare_rb_all:
+                    viewModel.setQueryKey(null);
+                    break;
             }
         });
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        viewModel.setPageIndex(0);
-        viewModel.loadData(true);
+    protected void initData() {
+        viewModel.setQueryKey("未委托");
+    }
+
+    @Override
+    protected boolean isRegisterEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addFlowDeclarationSuccess(GlobalEvent<Boolean> event){
+        if(event.getCode()==EventBusUtil.D){
+            viewModel.refresh();
+        }
     }
 
     private void initRecyclerView() {
         listAdapter = viewModel.getListAdapter();
         listAdapter.setCanSlide(getArguments() == null);
-        sandManageFlowDeclarationRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        sandManageFlowDeclarationRv.setLayoutManager(new LinearLayoutManager(requireActivity()));
         sandManageFlowDeclarationRv.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener((adapter, view, position) ->
                 Navigation.findNavController(view).navigate(R.id.actionSMFlowDeclarationListToDetail));

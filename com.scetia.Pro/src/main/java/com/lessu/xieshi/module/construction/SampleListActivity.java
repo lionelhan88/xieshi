@@ -12,7 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
@@ -62,7 +62,7 @@ public class SampleListActivity extends NavigationActivity implements OnItemClic
 			@Override
 			protected void onPageToInit(final PageController pageController) {
 				// TODO Auto-generated method stub
-				String token = LSUtil.valueStatic("Token");
+				String token = Content.getToken();
 				Bundle bundle = SampleListActivity.this.getIntent().getExtras();
 				String ContractSignNumber = bundle.getString("ContractSignNumber");
 

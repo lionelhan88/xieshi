@@ -2,9 +2,11 @@ package com.lessu.xieshi.module.meet.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,16 +21,16 @@ import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.DateUtil;
+import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.module.meet.adapter.MeetingListAdapter;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.meet.event.SendMeetingListToDetail;
 import com.lessu.xieshi.module.mis.activitys.Content;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -120,7 +122,7 @@ public class MeetingListActivity extends NavigationActivity {
     private void getMeetingList(final boolean isShowLoading) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("Token", Content.getToken());
-        params.put("s2", Shref.getString(this, Common.USERID, ""));
+        params.put("s2", SPUtil.getSPConfig(Common.USERID, ""));
         params.put("s3", meetingListDateSelectStart.getText());
         params.put("s4", meetingListDateSelectEnd.getText());
         params.put("s6", typeUser == 0 ? "0" : "1");
@@ -128,18 +130,18 @@ public class MeetingListActivity extends NavigationActivity {
                 params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                     @Override
                     public void onSuccessJson(JsonElement result) {
-                        if(meetingListRefresh.isRefreshing()){
+                        if (meetingListRefresh.isRefreshing()) {
                             meetingListRefresh.setRefreshing(false);
                         }
                         listAdapter.setNewData(new ArrayList<MeetingBean>());
                         boolean isSuccess = result.getAsJsonObject().get("Success").getAsBoolean();
                         if (isSuccess) {
                             JsonArray data = result.getAsJsonObject().get("Data").getAsJsonArray();
-                            List<MeetingBean> meetingBeans = GsonUtil.JsonToList(data.toString(),MeetingBean.class);
+                            List<MeetingBean> meetingBeans = GsonUtil.JsonToList(data.toString(), MeetingBean.class);
                             listAdapter.setNewData(meetingBeans);
                         } else {
-                            String message =  result.getAsJsonObject().get("Message").getAsString();
-                            View emptyView = LayoutInflater.from(MeetingListActivity.this).inflate(R.layout.empty_view,null,false);
+                            String message = result.getAsJsonObject().get("Message").getAsString();
+                            View emptyView = LayoutInflater.from(MeetingListActivity.this).inflate(R.layout.empty_view, null, false);
                             TextView emptyViewText = emptyView.findViewById(R.id.empty_view_text);
                             emptyViewText.setText(message);
                             listAdapter.setEmptyView(emptyView);
@@ -148,10 +150,10 @@ public class MeetingListActivity extends NavigationActivity {
 
                     @Override
                     public String onFailed(ApiError error) {
-                        if(meetingListRefresh.isRefreshing()){
+                        if (meetingListRefresh.isRefreshing()) {
                             meetingListRefresh.setRefreshing(false);
                         }
-                        if(!isShowLoading){
+                        if (!isShowLoading) {
                             ToastUtil.showShort(error.errorMeesage);
                         }
                         return error.errorMeesage;

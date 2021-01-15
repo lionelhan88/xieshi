@@ -1,6 +1,6 @@
 package com.lessu.xieshi.module.weather.utils;
 
-import com.lessu.foundation.LSUtil;
+import com.scetia.Pro.common.Util.SPUtil;
 
 /**
  * Created by fhm on 2017/10/26.
@@ -9,7 +9,7 @@ import com.lessu.foundation.LSUtil;
 public class Contenttianqi {
     public  static String gettoken(){
         String token;
-        token = LSUtil.valueStatic("Token");
+        token = SPUtil.getSPLSUtil("Token","");
        // token ="f1af7a4e-a927-42c7-9b9b-82e1feaa5c21";
        // token ="25dbc35a-ae8e-4847-957e-a502aafd0611";
        // token="1137cfb7-1c1d-4590-9b27-5867bb5bdf48";

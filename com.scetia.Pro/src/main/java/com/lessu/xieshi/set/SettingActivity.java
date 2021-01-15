@@ -3,8 +3,6 @@ package com.lessu.xieshi.set;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,18 +11,17 @@ import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.Utils.UpdateAppUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.module.login.LoginActivity;
 import com.lessu.xieshi.module.scan.ScanActivity;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.util.HashMap;
 
@@ -45,7 +42,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
         setContentView(R.layout.setting_activity);
         ButterKnife.bind(this);
         setTitle("设置");
-        String serviceString = LSUtil.valueStatic("service");
+        String serviceString = SPUtil.getSPLSUtil("service","");
         serviceTitleMap = new HashMap<>();
         serviceTitleMap.put("telecom", "电信服务器");
         serviceTitleMap.put("unicom", "联通服务器");
@@ -65,20 +62,21 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
     @OnClick(R.id.jiechuButton)
     public void jiechuButtonDidClick() {
         //解除绑定的操作
-        String description = "手机号:" + LSUtil.valueStatic("PhoneNumber") + "\n" + "用户名:" + Shref.getString(SettingActivity.this, Common.USERNAME, "");
+        String description = "手机号:" + SPUtil.getSPLSUtil("PhoneNumber","") + "\n" + "用户名:" +
+                SPUtil.getSPConfig(Common.USERNAME, "");
         LSAlert.showDialog(SettingActivity.this, "解除账号绑定", description, "确定", "取消", new DialogCallback() {
             @Override
             public void onConfirm() {
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("UserName", Shref.getString(SettingActivity.this, Common.USERNAME, ""));
-                params.put("PhoneNumber", LSUtil.valueStatic("PhoneNumber"));
-                params.put("PassWord", Shref.getString(SettingActivity.this, Common.PASSWORD, ""));
+                params.put("UserName", SPUtil.getSPConfig(Common.USERNAME, ""));
+                params.put("PhoneNumber", SPUtil.getSPLSUtil("PhoneNumber",""));
+                params.put("PassWord", SPUtil.getSPConfig(Common.PASSWORD, ""));
                 System.out.println(params);
                 EasyAPI.apiConnectionAsync(SettingActivity.this, true, false, ApiMethodDescription.get("/ServiceUST.asmx/User_UnBind "), params, new EasyAPI.ApiFastSuccessCallBack() {
                     @Override
                     public void onSuccessJson(JsonElement result) {
-                        Shref.setString(SettingActivity.this, Common.USERPOWER, "");
-                        LSUtil.setValueStatic("Token", "");
+                        SPUtil.setSPConfig(Common.USERPOWER, "");
+                        SPUtil.setSPLSUtil("Token", "");
                         Intent intent = new Intent();
                         intent.setClass(SettingActivity.this, LoginActivity.class);
                         intent.putExtra("jiebang", true);
@@ -130,7 +128,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
 
     @OnClick(R.id.scanLogin)
     public void scanLogin() {
-        if (Shref.getString(SettingActivity.this, Common.USERID, "").equals("")) {
+        if (SPUtil.getSPConfig(Common.USERID, "").equals("")) {
             //如果userid是"",则要提示用户重新登录才能获取到userId
             LSAlert.showDialog(SettingActivity.this, "提示", "使用此功能需要重新登录\n是否现在登录？",
                     "确定", "取消", new DialogCallback() {
@@ -177,11 +175,11 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
      * 退出登录
      */
     private void loginOut() {
-        Intent intentTUICHU = new Intent();
-        intentTUICHU.setClass(SettingActivity.this, LoginActivity.class);
-        intentTUICHU.putExtra("exit", true);
-        intentTUICHU.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intentTUICHU);
+        Intent intentLoginOut = new Intent();
+        intentLoginOut.setClass(SettingActivity.this, LoginActivity.class);
+        intentLoginOut.putExtra("exit", true);
+        intentLoginOut.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentLoginOut);
         finish();
     }
 
@@ -189,7 +187,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            String service = LSUtil.valueStatic("service");
+            String service = SPUtil.getSPLSUtil("service","");
             if (serviceTitleMap.containsKey(service)) {
                 serviceTextView.setText(serviceTitleMap.get(service));
             } else {

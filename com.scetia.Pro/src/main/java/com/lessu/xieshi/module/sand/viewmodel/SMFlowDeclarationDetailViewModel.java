@@ -5,36 +5,21 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.bean.LoadMoreState;
-import com.lessu.xieshi.http.BuildSandResultData;
-import com.lessu.xieshi.http.BuildSandRetrofit;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.api.BuildSandApiService;
-import com.lessu.xieshi.http.api.SourceApiService;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.baseapp.uitls.LoadMoreState;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.sand.adapter.TestingParametersListAdapter;
-import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
 import com.lessu.xieshi.module.sand.bean.SandItemParameterBean;
-import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
 import com.lessu.xieshi.module.sand.bean.SandSampleBean;
 import com.lessu.xieshi.module.sand.bean.SandSpecBean;
-import com.lessu.xieshi.module.sand.bean.SandSupplierBean;
 import com.lessu.xieshi.module.sand.repository.SMFlowDeclarationDetailRepository;
 
-import org.intellij.lang.annotations.Flow;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 

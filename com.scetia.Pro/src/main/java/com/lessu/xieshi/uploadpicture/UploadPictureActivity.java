@@ -20,14 +20,14 @@ import android.widget.Toast;
 import com.google.gson.EasyGson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ImageUtil;
+import com.scetia.Pro.common.photo.ImageUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.io.ByteArrayOutputStream;
@@ -63,7 +63,7 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 		// TODO Auto-generated method stub
 		super.onStart();
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		String token = LSUtil.valueStatic("Token");
+		String token = Content.getToken();
 		params.put("Token", token);
 		params.put("TaskName", "");
 		params.put("ProjectName", "");
@@ -224,7 +224,7 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 
 						String imgByteString = Base64.encodeToString(imgByte,Base64.DEFAULT);
 						HashMap<String, Object> params = new HashMap<String, Object>();
-						String token = LSUtil.valueStatic("Token");
+						String token = Content.getToken();
 						String taskID = list.get(position).getAsJsonObject().get("TaskID").getAsString();
 						String imgIndex = String.valueOf(nowUploadIndex);
 						imgIndex = String.valueOf(nowUploadIndex+1);

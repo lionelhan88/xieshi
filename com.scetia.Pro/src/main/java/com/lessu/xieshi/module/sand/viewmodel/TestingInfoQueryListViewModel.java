@@ -5,15 +5,16 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.http.BuildSandResultData;
-import com.lessu.xieshi.http.BuildSandRetrofit;
-import com.lessu.xieshi.http.ResponseObserver;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.http.api.BuildSandApiService;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
 import com.lessu.xieshi.module.sand.bean.TestingQueryResultBean;
+import com.scetia.Pro.network.manage.BuildSandRetrofit;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,24 +32,38 @@ public class TestingInfoQueryListViewModel extends BaseViewModel {
     public MutableLiveData<List<TestingQueryResultBean>> getResultQueryLiveData() {
         return resultQueryLiveData;
     }
+    private String queryKey;
+
+    public void setQueryKey(String queryKey) {
+        this.queryKey = queryKey;
+        loadInitData();
+    }
 
     public void loadInitData() {
         currentPage = DEFAULT_PAGE_INDEX;
         loadState.postValue(LoadState.LOAD_INIT);
-        loadData();
+        loadData(queryKey);
     }
 
     public void refreshLoad(){
         currentPage = DEFAULT_PAGE_INDEX;
-        loadData();
+        loadData(queryKey);
     }
 
     public void loadMoreData(){
-        loadData();
+        loadData(queryKey);
     }
-    private void loadData() {
+    private void loadData(String queryKey) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("orderBy","consignCreateDate desc");
+        params.put("pageIndex",currentPage);
+        params.put("pageSize",20);
+        params.put("sampleStatus","");
+        if(queryKey!=null){
+            params.put("detectionAgencyMemberName",queryKey);
+        }
         BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getTestingInfoResultData("consignCreateDate desc", currentPage, 20, "")
+                .getTestingInfoResultData(params)
                 .compose(BuildSandRetrofit.<BuildSandResultData<List<TestingQueryResultBean>>, List<TestingQueryResultBean>>applyTransformer())
                 .subscribe(new ResponseObserver<List<TestingQueryResultBean>>() {
                     @Override

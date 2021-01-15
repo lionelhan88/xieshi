@@ -1,11 +1,11 @@
 package com.lessu.xieshi.module.sand.datasource
 
-import com.lessu.xieshi.base.BasePageKedDataSource2
-import com.lessu.data.LoadState
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle
-import com.lessu.xieshi.http.ResponseObserver
+import com.scetia.Pro.baseapp.datasource.BasePageKedDataSource2
+import com.scetia.Pro.baseapp.uitls.LoadState
+import com.scetia.Pro.network.conversion.ResponseObserver
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean
 import com.lessu.xieshi.module.sand.repository.SandTestingCompanyQueryListRepository
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
 
 /**
  * created by ljs
@@ -17,7 +17,7 @@ class SandTestingCompanyQueryListDataSource(private val queryCounties:String, pr
     override fun loadInitData(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, TestingCompanyBean>) {
         loadState.postValue(LoadState.LOAD_INIT)
         repository.queryTestingCompanies(params.requestedLoadSize,0,queryCounties,queryUnitKey,
-                object :ResponseObserver<List<TestingCompanyBean>>(){
+                object : ResponseObserver<List<TestingCompanyBean>>(){
                     override fun success(t: List<TestingCompanyBean>?) {
                         if(t?.size==0){
                             loadState.postValue(LoadState.EMPTY)
@@ -38,7 +38,7 @@ class SandTestingCompanyQueryListDataSource(private val queryCounties:String, pr
     override fun loadAfterData(params: LoadParams<Int>, callback: LoadCallback<Int, TestingCompanyBean>) {
         loadState.postValue(LoadState.LOADING)
         repository.queryTestingCompanies(params.requestedLoadSize,params.key,queryCounties,queryUnitKey,
-                object :ResponseObserver<List<TestingCompanyBean>>(){
+                object : ResponseObserver<List<TestingCompanyBean>>(){
                     override fun success(t: List<TestingCompanyBean>?) {
                         if(t?.size==0){
                             loadState.postValue(LoadState.NO_MORE)

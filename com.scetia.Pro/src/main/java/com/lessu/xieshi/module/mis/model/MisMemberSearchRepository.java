@@ -1,11 +1,12 @@
 package com.lessu.xieshi.module.mis.model;
 
 import com.google.gson.JsonObject;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.xieshi.http.XSResultData;
-import com.lessu.xieshi.http.XSRetrofit;
 import com.lessu.xieshi.http.api.MisApiService;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
+import com.scetia.Pro.network.base.BaseRetrofitManage;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.bean.XSResultData;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 /**
  * created by ljs
@@ -21,7 +22,7 @@ public class MisMemberSearchRepository {
         jsonObject.addProperty("PageSize",pageSize);
         XSRetrofit.getInstance().getService(MisApiService.class)
                 .search(jsonObject.toString())
-                .compose(XSRetrofit.<XSResultData<MisMemberSearchResultData>, MisMemberSearchResultData>applyTransformer())
+                .compose(BaseRetrofitManage.<XSResultData<MisMemberSearchResultData>, MisMemberSearchResultData>applyTransformer())
                 .subscribe(callBack);
 
     }

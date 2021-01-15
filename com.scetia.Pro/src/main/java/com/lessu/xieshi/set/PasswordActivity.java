@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.util.HashMap;
 
@@ -37,7 +36,7 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 	@OnClick(R.id.commitButton)
 	public void commitButtonDidClick(){
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		String userName = LSUtil.valueStatic("UserName");
+		String userName = SPUtil.getSPLSUtil("UserName","");
 		String passWordOld = ((EditText)findViewById(R.id.oldPasswordEditText)).getText().toString();
 		final String passWordNew = ((EditText)findViewById(R.id.newPasswordEditText)).getText().toString();
 		String passWordComfirm = ((EditText)findViewById(R.id.comfirmPasswordEditText)).getText().toString();
@@ -54,7 +53,7 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 			public void onSuccessJson(JsonElement result) {
 				boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
 				if(success) {
-					Shref.setString(PasswordActivity.this, Common.PASSWORD, passWordNew);
+					SPUtil.setSPConfig(Common.PASSWORD, passWordNew);
 					Intent intent = new Intent(PasswordActivity.this, PasswordCompleteActivity.class);
 					startActivity(intent);
 					finish();

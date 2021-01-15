@@ -24,11 +24,11 @@ import com.lessu.net.page.PageInfoAdapterInterface;
 import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.module.mis.bean.Misnjbean;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -164,7 +164,7 @@ public class MisAnnualLeaveApprovalActivity extends NavigationActivity implement
                     String Id = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("mId").getAsString();
 
                     String name = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("xm").getAsString();
-                    if(name.equals(Shref.getString(MisAnnualLeaveApprovalActivity.this, Common.USERNAME,null))){
+                    if(name.equals(SPUtil.getSPConfig(Common.USERNAME,null))){
                         ToastUtil.showShort("不能批准自己的");
                         return;
                     }

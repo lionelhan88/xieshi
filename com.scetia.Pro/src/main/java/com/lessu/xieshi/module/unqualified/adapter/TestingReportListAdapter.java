@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.base.BasePageListAdapter;
-import com.lessu.xieshi.module.mis.adapter.PageListCommonViewHolder;
+import com.scetia.Pro.baseapp.page.BasePageListAdapter;
+import com.scetia.Pro.baseapp.basepage.PageListCommonViewHolder;
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportListViewModel;
 

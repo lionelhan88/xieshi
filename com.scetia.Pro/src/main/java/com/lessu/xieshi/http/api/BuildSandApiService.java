@@ -1,6 +1,6 @@
 package com.lessu.xieshi.http.api;
 
-import com.lessu.xieshi.http.BuildSandResultData;
+import com.scetia.Pro.network.bean.BuildSandResultData;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
 import com.lessu.xieshi.module.sand.bean.AddedTestingCompanyBean;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
@@ -10,6 +10,7 @@ import com.lessu.xieshi.module.sand.bean.SandSupplierBean;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -23,6 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * created by ljs
@@ -85,13 +87,15 @@ public interface BuildSandApiService {
     @DELETE("gravel.app/detectionAgency/{id}")
     Observable<Response<ResponseBody>> delAddedTestingCompany(@Path("id") String id);
 
-
+    /**
+     * @Query("pageSize") int pageSize,
+     *             @Query("pageIndex") int pageIndex,
+     *             @Query("orderBy") String orderBy
+     * @return
+     */
     //流向申报记录列表
     @GET("gravel.app/flowinfo")
-    Observable<BuildSandResultData<List<FlowDeclarationBean>>> getSMFlowDeclarations(
-            @Query("pageSize") int pageSize,
-            @Query("pageIndex") int pageIndex,
-            @Query("orderBy") String orderBy);
+    Observable<BuildSandResultData<List<FlowDeclarationBean>>> getSMFlowDeclarations(@QueryMap HashMap<String,Object> map);
 
     //获取流向申报的详情
     @GET("gravel.app/flowinfo/{flowId}")
@@ -122,18 +126,33 @@ public interface BuildSandApiService {
     @POST("gravel.app/consignInfo")
     Observable<BuildSandResultData<TestingCommissionBean>> addTestingCommission(@Body RequestBody body);
 
+    //获取检测委托的详情
+    @GET("gravel.app/consignInfo/{consignInfoId}")
+    Observable<BuildSandResultData<TestingCommissionBean>> getTestingCommissionInfo(@Path("consignInfoId")String consignInfoId);
+
+    //更新检测委托信息
+    @PUT("gravel.app/consignInfo/{consignInfoId}")
+    Observable<Response<Object>> putTestingCommissionInfo(@Path("consignInfoId") String consignInfoId
+            , @Body RequestBody bean);
+
     //删除检测委托
-    @DELETE("gravel.app/consigninfo{consignInfoId}")
+    @DELETE("gravel.app/consigninfo/{consignInfoId}")
     Observable<Response<ResponseBody>> delTestingCommission(@Path("consignInfoId") String id);
 
     //获取检测结果数据列表
     @GET("gravel.infoquery/flowconsigninfo")
-    Observable<BuildSandResultData<List<TestingQueryResultBean>>> getTestingInfoResultData(
-            @Query("orderBy") String orderBy,
-            @Query("pageIndex") int pageIndex,
-            @Query("pageSize") int pageSize,
-            @Query("sampleStatus") String status);
+    Observable<BuildSandResultData<List<TestingQueryResultBean>>> getTestingInfoResultData(@QueryMap HashMap<String,Object> map);
 
+    /**
+     *   @Query("orderBy") String orderBy,
+     *             @Query("pageIndex") int pageIndex,
+     *             @Query("pageSize") int pageSize,
+     *             @Query("sampleStatus") String status
+     * @param flowConsignInfoId
+     * @return
+     */
+
+    //获取检测结果数据详情
     @GET("gravel.infoquery/flowconsigninfo/{flowConsignInfoId}")
     Observable<BuildSandResultData<TestingQueryResultBean>> getTestingInfoResultDetail(@Path("flowConsignInfoId") String flowConsignInfoId);
 

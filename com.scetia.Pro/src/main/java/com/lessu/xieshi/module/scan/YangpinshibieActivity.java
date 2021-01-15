@@ -12,11 +12,11 @@ import android.widget.Toast;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.Utils.Decrypt;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -32,13 +32,13 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class YangpinshibieActivity extends NavigationActivity{
+public class YangpinshibieActivity extends NavigationActivity {
 
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private static BluetoothSocket bluetoothSocket = null;
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothDevice device;
-    private static  InputStream inputStream;
+    private static InputStream inputStream;
     private static OutputStream outputStream;
     private boolean isConnection = false;
 
@@ -93,6 +93,7 @@ public class YangpinshibieActivity extends NavigationActivity{
         initView();
         initData();
     }
+
     private void initView() {
         tv_saomiaobianhao = (TextView) findViewById(R.id.tv_saomiaobianhao);
         tv_hetongdengjihao = (TextView) findViewById(R.id.tv_hetongdengjihao);
@@ -146,7 +147,7 @@ public class YangpinshibieActivity extends NavigationActivity{
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Shref.setString(YangpinshibieActivity.this, "deviceaddress", null);
+                            SPUtil.setSPConfig("deviceaddress", "");
                             Toast.makeText(YangpinshibieActivity.this, "连接失败，检查蓝牙是否打开，请返回重新连接", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -163,19 +164,19 @@ public class YangpinshibieActivity extends NavigationActivity{
         // 直接通过Context类的getIntent()即可获取Intent
         Intent intent = this.getIntent();
         // 判断
-        if ( Shref.getString(YangpinshibieActivity.this, "deviceaddress", null) == null) {
-            Shref.setString(YangpinshibieActivity.this,"deviceaddress",intent.getStringExtra("deviceAddress"));
-            System.out.println("!=null......"+intent.getStringExtra("deviceAddress"));
+        if (SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+            SPUtil.setSPConfig("deviceaddress", intent.getStringExtra("deviceAddress"));
+            System.out.println("!=null......" + intent.getStringExtra("deviceAddress"));
             return intent.getStringExtra("deviceAddress");
         } else {
-            String deviceaddress = Shref.getString(YangpinshibieActivity.this, "deviceaddress", null);
-            System.out.println("null......"+intent.getStringExtra("deviceAddress"));
+            String deviceaddress = SPUtil.getSPConfig("deviceaddress", "");
+            System.out.println("null......" + intent.getStringExtra("deviceAddress"));
             return deviceaddress;
         }
     }
 
     /**
-     *连接蓝牙设备
+     * 连接蓝牙设备
      */
 
     public boolean connect() {
@@ -249,11 +250,13 @@ public class YangpinshibieActivity extends NavigationActivity{
         tv_baogaoriqi.setText(shhujv.getReportDate());
         tv_beizhu.setText(shhujv.getMemo());
     }
-    String s="";
+
+    String s = "";
+
     public void read() {
         try {
             inputStream = bluetoothSocket.getInputStream();
-            outputStream=bluetoothSocket.getOutputStream();
+            outputStream = bluetoothSocket.getOutputStream();
 
             String Ts1 = null;
             String Ts2 = null;
@@ -268,7 +271,7 @@ public class YangpinshibieActivity extends NavigationActivity{
 
 
             //这里会一直等待读取
-            StringBuilder sb=new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             while (true) {
 
                 int bytes;
@@ -375,7 +378,7 @@ public class YangpinshibieActivity extends NavigationActivity{
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(YangpinshibieActivity.this,"连接断开了，请重新连接",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(YangpinshibieActivity.this, "连接断开了，请重新连接", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });
@@ -383,7 +386,7 @@ public class YangpinshibieActivity extends NavigationActivity{
     }
 
 
-    private ReceiveSampleInfoBean getShhujv(String s){
+    private ReceiveSampleInfoBean getShhujv(String s) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -393,11 +396,10 @@ public class YangpinshibieActivity extends NavigationActivity{
         String nameSpace1 = "http://tempuri.org/";
         String methodName1 = "CheckSamplesForJL";
         String endPoint1 = "http://www.scetia.com/Scetia.SampleManage.WS/SampleManagement.asmx";
-        String soapAction1= "http://tempuri.org/CheckSamplesForJL";
+        String soapAction1 = "http://tempuri.org/CheckSamplesForJL";
         SoapObject soapObject1 = new SoapObject(nameSpace1, methodName1);
         soapObject1.addProperty("coreCodeStr", s);
-        soapObject1.addProperty("userName", Shref.getString(YangpinshibieActivity.this, Common.USERNAME,""));
-        System.out.println("username。。。。。"+ Shref.getString(YangpinshibieActivity.this, Common.USERNAME,""));
+        soapObject1.addProperty("userName", SPUtil.getSPConfig(Common.USERNAME, ""));
 
         SoapSerializationEnvelope envelope1 = new SoapSerializationEnvelope(
                 SoapEnvelope.VER10);
@@ -413,120 +415,121 @@ public class YangpinshibieActivity extends NavigationActivity{
 
         xalTallist = new ArrayList();
         SoapObject object1 = (SoapObject) envelope1.bodyIn;
-        System.out.println("样品识别。。。。"+object1.toString());
+        System.out.println("样品识别。。。。" + object1.toString());
 
         SoapObject shujvsoap = (SoapObject) object1.getProperty(0);
-        System.out.println("样品识别...."+shujvsoap.toString());
+        System.out.println("样品识别...." + shujvsoap.toString());
         // for(int i=0;i<shujvsoap.getPropertyCount();i++){
-        SoapObject soap3=(SoapObject)shujvsoap.getProperty(0);
-        System.out.println("......"+soap3.toString());
-        ReceiveSampleInfoBean info=new ReceiveSampleInfoBean();
-        if(soap3.toString().contains("Contract_SignNo")){
-            System.out.println("能得到吗。。。。"+soap3.getProperty("Contract_SignNo").toString());
+        SoapObject soap3 = (SoapObject) shujvsoap.getProperty(0);
+        System.out.println("......" + soap3.toString());
+        ReceiveSampleInfoBean info = new ReceiveSampleInfoBean();
+        if (soap3.toString().contains("Contract_SignNo")) {
+            System.out.println("能得到吗。。。。" + soap3.getProperty("Contract_SignNo").toString());
             info.setContract_SignNo(soap3.getProperty("Contract_SignNo").toString());
         }
-        if(soap3.toString().contains("ConSign_ID")){
+        if (soap3.toString().contains("ConSign_ID")) {
             info.setConSign_ID(soap3.getProperty("ConSign_ID").toString());
         }
-        if(soap3.toString().contains("Sample_ID")){
+        if (soap3.toString().contains("Sample_ID")) {
             info.setSample_ID(soap3.getProperty("Sample_ID").toString());
         }
-        if(soap3.toString().contains("Sample_BsId")){
+        if (soap3.toString().contains("Sample_BsId")) {
             info.setSample_BsId(soap3.getProperty("Sample_BsId").toString());
         }
-        if(soap3.toString().contains("；ReportNumber")){
+        if (soap3.toString().contains("；ReportNumber")) {
             System.out.println("reportnumber能得到吗？？......");
             info.setReportNumber(soap3.getProperty("ReportNumber").toString());
         }
-        if(soap3.toString().contains("BuildingReportNumber")){
+        if (soap3.toString().contains("BuildingReportNumber")) {
             info.setBuildingReportNumber(soap3.getProperty("BuildingReportNumber").toString());
         }
-        if(soap3.toString().contains("Sample_Status")){
+        if (soap3.toString().contains("Sample_Status")) {
             info.setSample_Status(soap3.getProperty("Sample_Status").toString());
         }
-        if(soap3.toString().contains("Exam_Result")){
+        if (soap3.toString().contains("Exam_Result")) {
             info.setExam_Result(soap3.getProperty("Exam_Result").toString());
         }
-        if(soap3.toString().contains("ProjectName")){
+        if (soap3.toString().contains("ProjectName")) {
             info.setProjectName(soap3.getProperty("ProjectName").toString());
         }
-        if(soap3.toString().contains("ProJect_Part")){
+        if (soap3.toString().contains("ProJect_Part")) {
             info.setProJect_Part(soap3.getProperty("ProJect_Part").toString());
         }
-        if(soap3.toString().contains("ProjectAddress")){
+        if (soap3.toString().contains("ProjectAddress")) {
             info.setProjectAddress(soap3.getProperty("ProjectAddress").toString());
         }
-        if(soap3.toString().contains("AreaKey")){
+        if (soap3.toString().contains("AreaKey")) {
             info.setAreaKey(soap3.getProperty("AreaKey").toString());
         }
-        if(soap3.toString().contains("KindName")){
+        if (soap3.toString().contains("KindName")) {
             info.setKindName(soap3.getProperty("KindName").toString());
         }
-        if(soap3.toString().contains("ItemName")){
+        if (soap3.toString().contains("ItemName")) {
             info.setItemName(soap3.getProperty("ItemName").toString());
         }
-        if(soap3.toString().contains("SampleName")){
+        if (soap3.toString().contains("SampleName")) {
             info.setSampleName(soap3.getProperty("SampleName").toString());
         }
-        if(soap3.toString().contains("SampleJudge")){
+        if (soap3.toString().contains("SampleJudge")) {
             info.setSampleJudge(soap3.getProperty("SampleJudge").toString());
         }
-        if(soap3.toString().contains("Exam_Parameter_Cn")){
+        if (soap3.toString().contains("Exam_Parameter_Cn")) {
             info.setExam_Parameter_Cn(soap3.getProperty("Exam_Parameter_Cn").toString());
         }
-        if(soap3.toString().contains("SpecName")){
+        if (soap3.toString().contains("SpecName")) {
             info.setSpecName(soap3.getProperty("SpecName").toString());
         }
-        if(soap3.toString().contains("GradeName")){
+        if (soap3.toString().contains("GradeName")) {
             info.setGradeName(soap3.getProperty("GradeName").toString());
         }
-        if(soap3.toString().contains("BuildUnitName")){
+        if (soap3.toString().contains("BuildUnitName")) {
             info.setBuildUnitName(soap3.getProperty("BuildUnitName").toString());
         }
-        if(soap3.toString().contains("ConstructUnitName")){
+        if (soap3.toString().contains("ConstructUnitName")) {
             info.setConstructUnitName(soap3.getProperty("ConstructUnitName").toString());
         }
-        if(soap3.toString().contains("SuperviseUnitName")){
+        if (soap3.toString().contains("SuperviseUnitName")) {
             info.setBuildUnitName(soap3.getProperty("SuperviseUnitName").toString());
         }
-        if(soap3.toString().contains("DetectionUnitName")){
+        if (soap3.toString().contains("DetectionUnitName")) {
             info.setDetectionUnitName(soap3.getProperty("DetectionUnitName").toString());
         }
-        if(soap3.toString().contains("Record_Certificate")){
+        if (soap3.toString().contains("Record_Certificate")) {
             info.setRecord_Certificate(soap3.getProperty("Record_Certificate").toString());
         }
-        if(soap3.toString().contains("Produce_Factory")){
+        if (soap3.toString().contains("Produce_Factory")) {
             info.setProduce_Factory(soap3.getProperty("Produce_Factory").toString());
         }
-        if(soap3.toString().contains("Molding_Date")){
+        if (soap3.toString().contains("Molding_Date")) {
             info.setMolding_Date(soap3.getProperty("Molding_Date").toString());
         }
-        if(soap3.toString().contains("AgeTime")){
+        if (soap3.toString().contains("AgeTime")) {
             info.setAgeTime(soap3.getProperty("AgeTime").toString());
         }
-        if(soap3.toString().contains("CreateDateTime")){
+        if (soap3.toString().contains("CreateDateTime")) {
             info.setCreateDateTime(soap3.getProperty("CreateDateTime").toString());
         }
-        if(soap3.toString().contains("DetectonDate")){
+        if (soap3.toString().contains("DetectonDate")) {
             info.setDetectonDate(soap3.getProperty("DetectonDate").toString());
         }
-        if(soap3.toString().contains("ReportDate")){
+        if (soap3.toString().contains("ReportDate")) {
             info.setReportDate(soap3.getProperty("ReportDate").toString());
         }
-        if(soap3.toString().contains("Memo")){
+        if (soap3.toString().contains("Memo")) {
             info.setMemo(soap3.getProperty("Memo").toString());
         }
         // }
-        return  info;
+        return info;
     }
+
     @Override
     protected void onDestroy() {
         System.out.println("断开蓝牙设备连接");
         try {
-            if(bluetoothSocket!=null) {
+            if (bluetoothSocket != null) {
                 bluetoothSocket.close();
             }
-            if(inputStream!=null) {
+            if (inputStream != null) {
                 inputStream.close();
             }
         } catch (IOException e) {

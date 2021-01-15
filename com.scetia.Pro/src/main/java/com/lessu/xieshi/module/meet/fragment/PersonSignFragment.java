@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.LazyFragment;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.MisMeetingFragmentToMis;
 import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.meet.adapter.PersonSignListAdapter;
+import com.scetia.Pro.baseapp.fragment.LazyFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;

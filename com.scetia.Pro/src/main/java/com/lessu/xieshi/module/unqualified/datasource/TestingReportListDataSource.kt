@@ -1,14 +1,14 @@
 package com.lessu.xieshi.module.unqualified.datasource
 
 import com.google.gson.Gson
-import com.lessu.xieshi.base.BasePageKedDataSource
-import com.lessu.data.LoadState
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle
-import com.lessu.xieshi.http.ResponseObserver
-import com.lessu.xieshi.http.XSResultData
-import com.lessu.xieshi.http.XSRetrofit
+import com.scetia.Pro.baseapp.datasource.BasePageKedDataSource
+import com.scetia.Pro.baseapp.uitls.LoadState
+import com.scetia.Pro.network.conversion.ResponseObserver
+import com.scetia.Pro.network.bean.XSResultData
+import com.scetia.Pro.network.manage.XSRetrofit
 import com.lessu.xieshi.http.api.CommonApiService
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
 import org.json.JSONObject
 import kotlin.collections.HashMap
 

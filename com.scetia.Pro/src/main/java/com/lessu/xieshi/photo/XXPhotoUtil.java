@@ -1,24 +1,12 @@
 package com.lessu.xieshi.photo;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.MediaStore;
 
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
 
-import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.DateUtil;
+import com.scetia.Pro.common.Util.DateUtil;
 
-import java.io.File;
 import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
 import java.util.Date;
 
 /**
@@ -53,6 +41,7 @@ public class XXPhotoUtil {
         return instance;
     }
 
+
     /**
      * 获取到照片以后的回调
      * @param listener
@@ -60,7 +49,7 @@ public class XXPhotoUtil {
      */
     public XXPhotoUtil setListener(ImageSelectBottomMenu.ImageSelectListener listener) {
         this.listener = listener;
-        return instance;
+        return this;
     }
 
     /**
@@ -100,7 +89,7 @@ public class XXPhotoUtil {
      */
     public XXPhotoUtil setPhotoName(String photoName) {
         this.photoName = photoName;
-        return instance;
+        return this;
     }
 
     /**
@@ -110,7 +99,7 @@ public class XXPhotoUtil {
      */
     public XXPhotoUtil setPhotoSavePath(String photoSavePath) {
         this.photoSavePath = photoSavePath;
-        return instance;
+        return this;
     }
 
     public XXPhotoUtil setCompress(boolean compress){

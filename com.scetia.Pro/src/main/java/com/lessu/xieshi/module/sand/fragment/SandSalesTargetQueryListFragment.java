@@ -1,6 +1,5 @@
 package com.lessu.xieshi.module.sand.fragment;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -8,17 +7,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.lessu.BaseFragment;
-import com.lessu.EventBusUtil;
-import com.lessu.GlobalEvent;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
@@ -27,16 +21,14 @@ import com.lessu.xieshi.module.sand.adapter.CompanyQueryResultListAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
 import com.lessu.xieshi.module.sand.bean.SandSalesTargetBean;
 import com.lessu.xieshi.module.sand.viewmodel.SanSalesQueryListViewModel;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -94,6 +86,7 @@ public class SandSalesTargetQueryListFragment extends BaseVMFragment<SanSalesQue
                         listAdapter.getAddedSalesTargets().remove(bean.getSerialNo());
                     }
                     listAdapter.clearSelectData();
+                    EventBusUtil.sendEvent(new GlobalEvent<>(EventBusUtil.A,true));
                     break;
                 case FAILURE:
                     LSAlert.dismissProgressHud();

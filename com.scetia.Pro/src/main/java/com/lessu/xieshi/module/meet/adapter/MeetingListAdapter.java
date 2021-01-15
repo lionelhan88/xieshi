@@ -3,9 +3,9 @@ package com.lessu.xieshi.module.meet.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
+import com.scetia.Pro.common.Util.SPUtil;
 
 public class MeetingListAdapter extends BaseQuickAdapter<MeetingBean, BaseViewHolder> {
     public MeetingListAdapter(int layoutResId) {
@@ -23,7 +23,7 @@ public class MeetingListAdapter extends BaseQuickAdapter<MeetingBean, BaseViewHo
         //会议结束时间
         helper.setText(R.id.meeting_list_item_end_date,item.getMeetingEndTime());
         helper.addOnClickListener(R.id.meeting_list_item_confirm);
-        String curUserId = Shref.getString(mContext,Common.USERID,"");
+        String curUserId = SPUtil.getSPConfig(Common.USERID,"");
         MeetingBean.MeetingUserBean curBean = null;
         for (MeetingBean.MeetingUserBean meetingUserBean:item.getListUserContent()){
             if(meetingUserBean.getUserId().equals(curUserId)){

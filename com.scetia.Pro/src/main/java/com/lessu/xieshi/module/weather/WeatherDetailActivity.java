@@ -18,13 +18,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lessu.foundation.DensityUtil;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GlideUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.data.LoadState;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.weather.bean.DailyForecast;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;
@@ -32,6 +30,8 @@ import com.lessu.xieshi.module.weather.bean.Tqpicbean;
 import com.lessu.xieshi.module.weather.customviews.DailyForecastView;
 import com.lessu.xieshi.module.weather.customviews.ScrollViewEx;
 import com.lessu.xieshi.module.weather.utils.WeatherUtil;
+import com.scetia.Pro.common.Util.GlideUtil;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import java.util.ArrayList;
 import java.util.List;

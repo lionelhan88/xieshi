@@ -3,15 +3,12 @@ package com.lessu.xieshi.module.sand.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.lessu.EventBusUtil;
-import com.lessu.GlobalEvent;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
@@ -20,9 +17,12 @@ import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.SandTestingCompanyListAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedTestingCompanyBean;
 import com.lessu.xieshi.module.sand.viewmodel.SandTestingCompanyListViewModel;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -81,6 +81,7 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
                 listAdapter.addData(addedTestingCompanyBeans);
             }
         });
+
     }
 
     @Override
@@ -115,7 +116,7 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
                 Navigation.findNavController(v).navigateUp();
             });
         }
-        sandSalesTargetListRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        sandSalesTargetListRv.setLayoutManager(new LinearLayoutManager(requireActivity()));
         sandSalesTargetListRv.setAdapter(listAdapter);
 
         sandSalesTargetListRefresh.setEnableLoadMoreWhenContentNotFull(false);
@@ -128,19 +129,27 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void initData() {
         viewModel.setPageIndex(0);
         viewModel.loadData(true);
     }
 
+    @Override
+    protected boolean isRegisterEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addTestingCompanySuccess(GlobalEvent<Boolean> event){
+        if(event.getCode()==EventBusUtil.A){
+            viewModel.setPageIndex(0);
+            viewModel.loadData(false);
+        }
+    }
+
     @OnClick({R.id.sand_sales_target_list_fab})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.sand_sales_target_list_fab:
-                EventBusUtil.sendStickyEvent(new GlobalEvent<>(EventBusUtil.B, listAdapter.getData()));
-                Navigation.findNavController(view).navigate(R.id.actionTestingMangeToTestingQueryResult);
-                break;
-        }
+        EventBusUtil.sendStickyEvent(new GlobalEvent<>(EventBusUtil.B, listAdapter.getData()));
+        Navigation.findNavController(view).navigate(R.id.actionTestingMangeToTestingQueryResult);
     }
 }

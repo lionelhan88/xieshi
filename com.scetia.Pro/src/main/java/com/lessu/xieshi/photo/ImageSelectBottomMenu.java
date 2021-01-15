@@ -21,12 +21,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 
-import com.lessu.foundation.DensityUtil;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.ImageUtil;
-import com.lessu.xieshi.Utils.Shref;
-import com.lessu.xieshi.Utils.UriUtils;
+import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.photo.ImageUtil;
+import com.scetia.Pro.common.photo.UriUtils;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.io.File;
 
@@ -220,7 +220,7 @@ public class ImageSelectBottomMenu extends DialogFragment {
                 if (!dataColumn.contains("file://")) {
                     dataColumn = "file://" + dataColumn;
                 }
-                Shref.setString(requireActivity(), Common.PICNAME, dataColumn);
+                SPUtil.setSPConfig(Common.PICNAME, dataColumn);
                 //选相册的返回结果
                 imageSelectListener.takePhoto(dataColumn,uri);
             }

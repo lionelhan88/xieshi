@@ -1,6 +1,6 @@
 package com.lessu.uikit.tableview;
 
-import com.lessu.uikit.Utils;
+import com.scetia.Pro.common.Util.DensityUtil;
 
 import android.content.Context;
 import android.widget.AbsListView;
@@ -14,7 +14,7 @@ public class HeaderCell extends LinearLayout{
 		super(context);
 
 		this.setOrientation(HORIZONTAL);
-		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(LayoutParams.FILL_PARENT, Utils.dip2px(getContext(), 44));
+		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(LayoutParams.FILL_PARENT, DensityUtil.dip2px(getContext(), 44));
 		this.setLayoutParams(layoutParams);
 		
 		

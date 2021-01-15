@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
@@ -76,7 +76,7 @@ public class XianchangActivity extends XieShiSlidingMenuActivity {
     private void initData() {
         Intent getintent=getIntent();
         String projectid = getintent.getStringExtra("projectid");
-        String  token = LSUtil.valueStatic("Token");
+        String  token = Content.getToken();
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("Type", 1);
         params.put("ProjectId", projectid);

@@ -17,9 +17,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.GlideUtil;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
@@ -29,6 +27,8 @@ import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.meet.event.SendMeetingListToDetail;
 import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.scan.ScanActivity;
+import com.scetia.Pro.common.Util.SPUtil;
+import com.scetia.Pro.common.Util.GlideUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,7 +47,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MeetingDetailActivity extends NavigationActivity {
-    public static final String MEETING_DETAIL_IMG="http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
+    public static final String MEETING_DETAIL_IMG = "http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)
@@ -103,7 +103,7 @@ public class MeetingDetailActivity extends NavigationActivity {
     @SuppressLint("CheckResult")
     private void initView() {
         //签到信息
-        curUserId = Shref.getString(this, Common.USERID, "");
+        curUserId = SPUtil.getSPConfig(Common.USERID, "");
         //此处要循环比较,如果当前登录的用户也是参与人员，则也显示签到信息
         if (meetingBean == null) {
             finish();
@@ -152,7 +152,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().displayImage(MEETING_DETAIL_IMG,meetingDetailContentImg,
                 ImageloaderUtil.MeetingImageOptions());*/
-        Glide.with(this).load(MEETING_DETAIL_IMG).override(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+        Glide.with(this).load(MEETING_DETAIL_IMG).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(meetingDetailContentImg);
         String photoUrl = meetingBean.getMeetingDetailPhoto();
         if (photoUrl == null || photoUrl.equals("")) {
@@ -160,7 +160,7 @@ public class MeetingDetailActivity extends NavigationActivity {
             meetingDetailPhoto.setVisibility(View.GONE);
         } else {
             meetingDetailPhoto.setVisibility(View.VISIBLE);
-            GlideUtil.showImageViewNoCache(this,photoUrl,meetingDetailPhoto);
+            GlideUtil.showImageViewNoCache(this, photoUrl, meetingDetailPhoto);
            /* ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto,
                     ImageloaderUtil.MeetingImageOptions());*/
         }
@@ -189,7 +189,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         }
         meetingDetailJoinUserFullName.setText(curMeetingUserBean.getUserFullName());
         meetingDetailJoinUserPhone.setText(curMeetingUserBean.getTel());
-        if(curMeetingUserBean.getUnitMemberCode()!=null) {
+        if (curMeetingUserBean.getUnitMemberCode() != null) {
             meetingDetailJoinHyCode.setText(curMeetingUserBean.getUnitMemberCode());
         }
         /**
@@ -398,7 +398,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo,R.id.meeting_detail_content_img})
+    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo, R.id.meeting_detail_content_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_meeting_is_confirm:

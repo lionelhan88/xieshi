@@ -47,34 +47,20 @@ public class LSAlert {
         LSAlert.showAlert(context,title,detail,"确认",null);
     }
     public static void showAlert(Context context,String title,String detail,String confirmButtonTitle, final AlertCallback callback){
-        Dialog alertDialog = new AlertDialog.Builder(context)
-                .setTitle(title)
-                .setMessage(detail)
-                .setPositiveButton(confirmButtonTitle, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (callback!=null) {
-                            callback.onConfirm();
-                        }
-                    }
-                }).create();
-        alertDialog.show();
+        showAlert(context,title,detail,confirmButtonTitle,true,callback);
     }
     public static void showAlert(Context context,String title,String detail,String confirmButtonTitle,boolean isTouchCancel ,final AlertCallback callback){
-        Dialog alertDialog = new AlertDialog.Builder(context).
+        AlertDialog alertDialog = new AlertDialog.Builder(context).
                 setTitle(title).
                 setMessage(detail)
                 .setCancelable(isTouchCancel)
-                .setPositiveButton(confirmButtonTitle, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (callback!=null) {
-                            callback.onConfirm();
-                        }
+                .setPositiveButton(confirmButtonTitle, (dialogInterface, i) -> {
+                    if (callback!=null) {
+                        callback.onConfirm();
                     }
-                })
-                .create();
+                }).create();
         alertDialog.show();
+        setButtonColor(context,alertDialog);
     }
     public static void showDialog(Context context,String title,String detail,String confirmButtonTitle, String cancelButtonTitle,final DialogCallback callback){
         Dialog alertDialog = new AlertDialog.Builder(context).
@@ -101,7 +87,7 @@ public class LSAlert {
     }
 
     public static void showAlert(Context context, String title, View view, String confirmButtonTitle, final AlertCallback callback){
-        Dialog alertDialog = new AlertDialog.Builder(context).
+        AlertDialog alertDialog = new AlertDialog.Builder(context).
                 setTitle(title).
                 setView(view).
                 setPositiveButton(confirmButtonTitle, new DialogInterface.OnClickListener() {
@@ -114,6 +100,7 @@ public class LSAlert {
                 })
                 .create();
         alertDialog.show();
+        setButtonColor(context,alertDialog);
     }
     /**
      * 背景透明的dialog
@@ -131,9 +118,7 @@ public class LSAlert {
             builder.setPositiveButton(confirmButtonTitle, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if (callback!=null) {
-                        callback.onConfirm();
-                    }
+                    callback.onConfirm();
                 }
             });
         }
@@ -143,12 +128,6 @@ public class LSAlert {
         window.setBackgroundDrawableResource(android.R.color.transparent);
     }
 
-    /**
-     * 全屏的dialog弹窗
-     */
-    public static void showFullScreenDialog(){
-
-    }
     /**
      * 弹出式菜单选择列表
      * @param context

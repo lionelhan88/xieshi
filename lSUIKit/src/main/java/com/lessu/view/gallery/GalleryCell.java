@@ -7,13 +7,12 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.lessu.uikit.Utils;
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.uikit.easy.EasyUI;
 
 public class GalleryCell extends RelativeLayout{
@@ -52,7 +51,7 @@ public class GalleryCell extends RelativeLayout{
         this.addView(imageView);
 
         textView = new TextView(getContext());
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, Utils.dip2px(getContext(), 25));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, DensityUtil.dip2px(getContext(), 25));
         layoutParams.alignWithParent = true;
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         textView.setLayoutParams(layoutParams);

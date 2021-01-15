@@ -8,9 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.base.BasePageListAdapter;
+import com.scetia.Pro.baseapp.page.BasePageListAdapter;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.lessu.xieshi.module.mis.viewmodel.MisAnnualLeaveViewModel;
+import com.scetia.Pro.baseapp.basepage.PageListCommonViewHolder;
 
 /**
  * created by ljs

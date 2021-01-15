@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lessu.uikit.Utils;
+import com.scetia.Pro.common.Util.DensityUtil;
 
 /**
  * Created by lessu on 14-7-31.
@@ -41,7 +41,7 @@ public class NavigationBar extends RelativeLayout {
         this.barTintColor = 0xFFF0F0F0;
         this.tintColor    = Color.WHITE;
 
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Utils.dip2px(getContext(), 49));
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(getContext(), 49));
         //layoutParams.bottomMargin = 4;
         this.setLayoutParams(layoutParams);
         this.setBackgroundColor(this.barTintColor);
@@ -56,7 +56,7 @@ public class NavigationBar extends RelativeLayout {
         leftLayoutParams.addRule(ALIGN_PARENT_LEFT);
 
         leftBarLayout.setLayoutParams(leftLayoutParams);
-        leftBarLayout.setMinimumWidth(Utils.dip2px(getContext(), 15));
+        leftBarLayout.setMinimumWidth(DensityUtil.dip2px(getContext(), 15));
         leftBarLayout.setGravity(Gravity.CENTER_HORIZONTAL);
 
 
@@ -67,7 +67,7 @@ public class NavigationBar extends RelativeLayout {
         rightLayoutParams.alignWithParent = true;
         rightLayoutParams.addRule(ALIGN_PARENT_RIGHT);
         rightBarLayout.setLayoutParams(rightLayoutParams);
-        rightBarLayout.setMinimumWidth(Utils.dip2px(getContext(),15));
+        rightBarLayout.setMinimumWidth(DensityUtil.dip2px(getContext(),15));
         rightBarLayout.setGravity(Gravity.CENTER_HORIZONTAL);
 
         this.addView(leftBarLayout);

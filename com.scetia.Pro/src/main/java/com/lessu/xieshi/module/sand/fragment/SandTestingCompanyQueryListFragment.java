@@ -5,10 +5,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -16,10 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lessu.BaseFragment;
-import com.lessu.EventBusUtil;
-import com.lessu.GlobalEvent;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
@@ -28,6 +23,8 @@ import com.lessu.xieshi.module.sand.adapter.TestingCompanyQueryListAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedTestingCompanyBean;
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean;
 import com.lessu.xieshi.module.sand.viewmodel.TestingCompanyQueryListViewModel;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -91,6 +88,7 @@ public class SandTestingCompanyQueryListFragment extends BaseVMFragment<TestingC
                         listAdapter.getAddedTestingCompanies().remove(bean.getMemberCode());
                     }
                     listAdapter.clearSelectData();
+                    EventBusUtil.sendEvent(new GlobalEvent<>(EventBusUtil.A,true));
                     break;
                 case FAILURE:
                     LSAlert.dismissProgressHud();

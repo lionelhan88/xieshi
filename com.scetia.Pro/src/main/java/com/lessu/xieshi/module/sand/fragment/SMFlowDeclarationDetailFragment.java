@@ -5,21 +5,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lessu.BaseFragment;
-import com.lessu.EventBusUtil;
-import com.lessu.GlobalEvent;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.DateUtil;
-import com.lessu.xieshi.Utils.LogUtil;
+import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
@@ -30,8 +24,9 @@ import com.lessu.xieshi.module.sand.bean.SandSpecBean;
 import com.lessu.xieshi.module.sand.bean.SandSupplierBean;
 import com.lessu.xieshi.module.sand.viewmodel.SMFlowDeclarationDetailViewModel;
 import com.lessu.xieshi.view.FullScreenDialog;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -97,6 +92,7 @@ public class SMFlowDeclarationDetailFragment extends BaseVMFragment<SMFlowDeclar
                         LSAlert.showAlert(requireActivity(), "提交成功");
                         //当前信息保存成功后，显示“委托”按钮可以让用户立即进行委托
                         btFlowDeclarationDetailDeclaration.setVisibility(View.VISIBLE);
+                        EventBusUtil.sendEvent(new GlobalEvent<>(EventBusUtil.D,this));
                     }
                     break;
                 case FAILURE:
@@ -164,7 +160,13 @@ public class SMFlowDeclarationDetailFragment extends BaseVMFragment<SMFlowDeclar
         flowDeclarationDetailShipName.setText(bean.getShipName());
         flowDeclarationDetailWharfName.setText(bean.getTerminalName());
         flowDeclarationDetailSaleNumber.setText(bean.getSalesVolume());
-        btFlowDeclarationDetailDeclaration.setVisibility(bean.getId()!=null?View.VISIBLE:View.GONE);
+        //注意 ：这里需要判断当前项是否已经委托过了，如果委托过了就不能再进行委托了
+        if(bean.getId()==null||bean.getFlowInfoStatus().equals("已委托")){
+            btFlowDeclarationDetailDeclaration.setVisibility(View.GONE);
+        }else{
+            btFlowDeclarationDetailDeclaration.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -172,27 +174,31 @@ public class SMFlowDeclarationDetailFragment extends BaseVMFragment<SMFlowDeclar
         if (event.getCode() == EventBusUtil.A) {
             //这里进入页面后要移除事件的监听，防止返回当前页面后还继续收到此事件的
             EventBusUtil.removeStickyEvent(event);
-            viewModel.setFlowDeclarationBean((FlowDeclarationBean) event.getData());
+            FlowDeclarationBean data = event.getData();
+            viewModel.setFlowDeclarationBean(data);
             viewModel.loadInitFlowDeclaration(viewModel.getFlowDeclarationBean().getId());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiveSelectBean(GlobalEvent event) {
-        if (event.getCode() == EventBusUtil.B) {
-            AddedSandSalesTargetBean bean = (AddedSandSalesTargetBean) event.getData();
+    public void receiveSelectBean(GlobalEvent<Object> event) {
+        Object data = event.getData();
+        if (event.getCode() == EventBusUtil.B&&data instanceof AddedSandSalesTargetBean) {
+            AddedSandSalesTargetBean bean = (AddedSandSalesTargetBean)data;
             //销售对象
             viewModel.getFlowDeclarationBean().setCustomerUnitMemberCode(bean.getCustomerUnitMemberCode());
             viewModel.getFlowDeclarationBean().setCustomerUnitName(bean.getCustomerUnitName());
             flowDeclarationDetailSaleUser.setText(bean.getCustomerUnitName());
-        } else if (event.getCode() == EventBusUtil.C) {
-            SandSupplierBean bean = (SandSupplierBean) event.getData();
+        } else if (event.getCode() == EventBusUtil.C&&data instanceof SandSupplierBean) {
+            SandSupplierBean bean = (SandSupplierBean) data;
             //备案证号
             viewModel.getFlowDeclarationBean().setPutOnRecordsPassport(bean.getPutOnRecordsPassport());
             //备案证名称
             viewModel.getFlowDeclarationBean().setProductionUnitName(bean.getProductionUnitName());
             flowDeclarationDetailRecordNumber.setText(bean.getPutOnRecordsPassport());
             flowDeclarationDetailRecordName.setText(bean.getProductionUnitName());
+        }else if (event.getCode()==EventBusUtil.D&&data instanceof Boolean){
+            btFlowDeclarationDetailDeclaration.setVisibility(View.GONE);
         }
     }
 
@@ -272,8 +278,9 @@ public class SMFlowDeclarationDetailFragment extends BaseVMFragment<SMFlowDeclar
                 viewModel.saveFlowDeclaration();
                 break;
             case R.id.bt_flow_declaration_detail_declaration:
-                //用户可以在当前页面进行委托
-
+                //界面设计要求：可以从当前流转记录直接进行委托D
+                EventBusUtil.sendStickyEvent(new GlobalEvent<>(EventBusUtil.E,viewModel.getFlowDeclarationBean()));
+                Navigation.findNavController(view).navigate(R.id.flowDeclarationDetailToCommissionDetail);
                 break;
             case R.id.flow_declaration_detail_sand_name:
                 List<SandSampleBean> value = viewModel.getSanSampleLiveData().getValue();

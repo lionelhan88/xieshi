@@ -15,10 +15,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.data.LoadState;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.mis.bean.NoticeBean;
 import com.lessu.xieshi.module.mis.viewmodel.MisNoticesViewModel;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import java.util.List;
 

@@ -1,15 +1,17 @@
 package com.lessu.xieshi.base;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.lessu.BaseFragment;
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
+import com.scetia.Pro.baseapp.fragment.BaseFragment;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 /**
@@ -18,12 +20,14 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
  */
 public abstract class BaseVMFragment<VM extends ViewModel> extends BaseFragment {
     protected VM viewModel;
-
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initViewModel();
         observerData();
+        super.onViewCreated(view, savedInstanceState);
+        if (isRegisterEventBus() && !EventBusUtil.isRegistered(this)) {
+            EventBusUtil.register(this);
+        }
     }
 
     private void initViewModel() {
@@ -32,6 +36,12 @@ public abstract class BaseVMFragment<VM extends ViewModel> extends BaseFragment 
         } else {
             viewModel = new ViewModelProvider(this, getViewModelFactory()).get(getViewModelClass());
         }
+    }
+
+
+    //是否注册EventBus
+    protected boolean isRegisterEventBus() {
+        return false;
     }
 
     protected abstract Class<VM> getViewModelClass();
@@ -60,7 +70,7 @@ public abstract class BaseVMFragment<VM extends ViewModel> extends BaseFragment 
                 break;
             case NO_MORE:
                 smartRefreshLayout.finishLoadMoreWithNoMoreData();
-
+                smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true);
                 break;
             case SUCCESS:
                 smartRefreshLayout.finishLoadMore(true);
@@ -70,6 +80,14 @@ public abstract class BaseVMFragment<VM extends ViewModel> extends BaseFragment 
                 smartRefreshLayout.finishLoadMore(false);
                 smartRefreshLayout.finishRefresh(false);
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (isRegisterEventBus()) {
+            EventBusUtil.unregister(this);
         }
     }
 }

@@ -2,13 +2,8 @@ package com.lessu.uikit.tabbar;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.uikit.easy.EasyCollection;
-import com.lessu.uikit.Utils;
-
-
-
-
-
 
 
 //import android.app.ActionBar.LayoutParams;
@@ -56,7 +51,7 @@ public class TabbarFragment extends Fragment {
 		
 		tabLayout = new Tabbar(getActivity());
 		tabLayout.setId(TabbarLayoutId);
-		LayoutParams tabLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, Utils.dip2px(getActivity(), 49));
+		LayoutParams tabLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, DensityUtil.dip2px(getActivity(), 49));
 		tabLayout.setLayoutParams(tabLayoutParams);
 //		tabLayout.setBackgroundColor(Color.GREEN);
 		mainView.addView(tabLayout);

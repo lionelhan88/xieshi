@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.bean.LoadMoreState;
-import com.lessu.data.LoadState;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.baseapp.uitls.LoadMoreState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.lifcycle.IBaseLifecycle;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 /**
  * created by ljs

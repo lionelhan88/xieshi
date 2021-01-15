@@ -23,10 +23,10 @@ import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.lessu.xieshi.module.scan.adapter.ReviewDownloadListAdapter;
 import com.lessu.xieshi.view.DragLayout;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -81,6 +81,7 @@ public class DataInteractionActivity extends NavigationActivity implements View.
         super.onStart();
         initData();
     }
+
     /**
      * 左上角的抽屉按钮点击事件
      */
@@ -113,14 +114,14 @@ public class DataInteractionActivity extends NavigationActivity implements View.
         listAdapter.getToastLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                LSAlert.showAlert(DataInteractionActivity.this,s);
+                LSAlert.showAlert(DataInteractionActivity.this, s);
             }
         });
-        rvDataInteraction.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rvDataInteraction.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvDataInteraction.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener((adapter, view, position) -> {
             Intent intentPut = new Intent(DataInteractionActivity.this, SampleInfoCheckConfirmActivity.class);
-            intentPut.putExtra("current",position+"");
+            intentPut.putExtra("current", position + "");
             intentPut.putExtra("talxal", talxal);
             intentPut.putExtra("lstBean", xalTallist);
             startActivity(intentPut);
@@ -157,20 +158,20 @@ public class DataInteractionActivity extends NavigationActivity implements View.
                     transport.call(soapAction, envelope);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    runOnUiThread(() ->ToastUtil.showShort("获取数据失败，请稍后重试！"));
+                    runOnUiThread(() -> ToastUtil.showShort("获取数据失败，请稍后重试！"));
                     return;
                 }
-                SoapObject object= (SoapObject) envelope.bodyIn;
-                if(object.toString().equals("CheckHmResponse{}")){
+                SoapObject object = (SoapObject) envelope.bodyIn;
+                if (object.toString().equals("CheckHmResponse{}")) {
                     runOnUiThread(() -> ToastUtil.showShort("还未绑定会员编号"));
                     return;
                 }
                 String result = object.getProperty(0).toString();
-                Shref.setString(DataInteractionActivity.this, "huiyuanhao", result);
+                SPUtil.setSPConfig("huiyuanhao", result);
                 String nameSpace1 = "http://tempuri.org/";
                 String methodName1 = "CheckSamples";
                 String endPoint1 = "http://www.scetia.com/Scetia.SampleManage.WS/SampleManagement.asmx";
-                String soapAction1= "http://tempuri.org/CheckSamples";
+                String soapAction1 = "http://tempuri.org/CheckSamples";
                 SoapObject soapObject1 = new SoapObject(nameSpace1, methodName1);
                 soapObject1.addProperty("coreCodeStr", finalTalxal);
                 soapObject1.addProperty("membercode", AppApplication.muidstr);
@@ -178,24 +179,24 @@ public class DataInteractionActivity extends NavigationActivity implements View.
                 envelope1.bodyOut = soapObject1;
                 envelope1.dotNet = true;
                 envelope1.setOutputSoapObject(soapObject1);
-                HttpTransportSE transport1 = new HttpTransportSE(endPoint1,40000);
+                HttpTransportSE transport1 = new HttpTransportSE(endPoint1, 40000);
                 try {
                     transport1.call(soapAction1, envelope1);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    runOnUiThread(() ->ToastUtil.showShort("获取数据失败，请稍后重试！"));
+                    runOnUiThread(() -> ToastUtil.showShort("获取数据失败，请稍后重试！"));
                     return;
                 }
-                SoapObject object1= (SoapObject) envelope1.bodyIn;
-                if(object1.getPropertyCount()==1){
-                    runOnUiThread(()->ToastUtil.showShort(object1.getProperty(0).toString()));
+                SoapObject object1 = (SoapObject) envelope1.bodyIn;
+                if (object1.getPropertyCount() == 1) {
+                    runOnUiThread(() -> ToastUtil.showShort(object1.getProperty(0).toString()));
                     return;
                 }
                 //解析数据，并转换为对象集合返回
                 List<ReceiveSampleInfoBean> receiveSampleInfoBeans = GsonUtil.parseSoapObject(methodName1, object1, ReceiveSampleInfoBean.class);
                 xalTallist.clear();
                 xalTallist.addAll(receiveSampleInfoBeans);
-                runOnUiThread(()->{
+                runOnUiThread(() -> {
                     iv_loding.setVisibility(View.GONE);
                     listAdapter.setNewData(xalTallist);
                 });
@@ -207,8 +208,8 @@ public class DataInteractionActivity extends NavigationActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_shenqingshangbao:
-                Intent intent1=new Intent();
-                intent1.setClass(DataInteractionActivity.this,ShenqingshangbaoActivity.class);
+                Intent intent1 = new Intent();
+                intent1.setClass(DataInteractionActivity.this, ShenqingshangbaoActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.ll_shenhexiazai:
@@ -216,7 +217,7 @@ public class DataInteractionActivity extends NavigationActivity implements View.
                 break;
 
             case R.id.ll_rukuchakan:
-                startActivity(new Intent(DataInteractionActivity.this,RukuchakanActivity.class));
+                startActivity(new Intent(DataInteractionActivity.this, RukuchakanActivity.class));
                 break;
 
             case R.id.ll_shebeixinxi:
@@ -232,11 +233,10 @@ public class DataInteractionActivity extends NavigationActivity implements View.
 
             case R.id.bt_yaopinqveren:
                 Intent intentPut = new Intent(DataInteractionActivity.this, SampleInfoCheckConfirmActivity.class);
-                intentPut.putExtra("lstBean",xalTallist);
+                intentPut.putExtra("lstBean", xalTallist);
                 intentPut.putExtra("talxal", talxal);
                 startActivity(intentPut);
                 break;
-
 
 
         }

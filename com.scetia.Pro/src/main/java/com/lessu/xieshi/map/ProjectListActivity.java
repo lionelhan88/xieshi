@@ -37,15 +37,15 @@ import com.google.gson.EasyGson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lessu.foundation.LSUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.LogUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -189,13 +189,11 @@ public class ProjectListActivity  extends XieShiSlidingMenuActivity implements O
 	 */
 	private void getProjectList(){
 		if (memberCode == null || hour == null || hour.isEmpty()){
-//			Intent intent = new Intent(this, ProjectSearchActivity.class);
-//			startActivityForResult(intent, 3);
 
 		}
 		else{
 			HashMap<String, Object> params = new HashMap<String, Object>();
-			String token = LSUtil.valueStatic("Token");
+			String token = SPUtil.getSPLSUtil("Token","");
 			params.put("Token", token);
 			params.put("Hour", Integer.valueOf(hour));
 			params.put("MemberCode",memberCode);

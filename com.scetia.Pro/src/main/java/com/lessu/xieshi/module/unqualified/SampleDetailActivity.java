@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.google.gson.EasyGson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lessu.foundation.DensityUtil;
-import com.lessu.foundation.LSUtil;
+import com.scetia.Pro.common.Util.DensityUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
@@ -63,7 +63,7 @@ public class SampleDetailActivity extends NavigationActivity {
 		String Report_ID = bundelForData.getString("Report_id");
 		String Checksum = bundelForData.getString("Checksum");
 		String Sample_ID = bundelForData.getString("Sample_id");
-		String Token = LSUtil.valueStatic("Token");
+		String Token = Content.getToken();
 		
 		
 		params.put("Token", Token);
@@ -171,7 +171,7 @@ public class SampleDetailActivity extends NavigationActivity {
 		    	 dialog.dismiss();  
 		    	 final EditText contentEditText = new EditText(SampleDetailActivity.this);
 		    	 contentEditText.setText(ExecContent);
-		    	 contentEditText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, DensityUtil.dp2px(SampleDetailActivity.this,50)));
+		    	 contentEditText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, DensityUtil.dip2px(SampleDetailActivity.this,50)));
 		    	 new AlertDialog.Builder(SampleDetailActivity.this).setTitle("请输入处理内容").setIcon(
 		    		     android.R.drawable.ic_dialog_info).setView(contentEditText).setPositiveButton("确定", new OnClickListener() {
 							
@@ -180,7 +180,7 @@ public class SampleDetailActivity extends NavigationActivity {
 								// TODO Auto-generated method stub
 								HashMap<String, Object> params = new HashMap<>();
 						 		
-						 		String Token = LSUtil.valueStatic("Token");
+						 		String Token = Content.getToken();
 						 		params.put("Token", Token);
 						 		params.put("ExecContent", contentEditText.getText().toString());
 						 		ExecContent = contentEditText.getText().toString();

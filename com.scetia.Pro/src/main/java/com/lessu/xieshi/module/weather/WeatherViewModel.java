@@ -8,11 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.lessu.xieshi.Utils.LogUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.http.ResponseObserver;
-import com.lessu.data.LoadState;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.lifcycle.BaiduMapLifecycle;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;

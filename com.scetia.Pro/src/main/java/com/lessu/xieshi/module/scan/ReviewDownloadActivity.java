@@ -23,10 +23,10 @@ import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.lessu.xieshi.Utils.Shref;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.lessu.xieshi.module.scan.adapter.ReviewDownloadListAdapter;
 import com.lessu.xieshi.view.DragLayout;
+import com.scetia.Pro.common.Util.SPUtil;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -133,7 +133,7 @@ public class ReviewDownloadActivity extends NavigationActivity implements View.O
         String endPoint1 = "http://www.scetia.com/Scetia.SampleManage.WS/SampleManagement.asmx";
         String soapAction1 = "http://tempuri.org/GetReportUpState ";
         SoapObject soapObject1 = new SoapObject(nameSpace1, methodName1);
-        soapObject1.addProperty("membercode", Shref.getString(ReviewDownloadActivity.this, "huiyuanhao", ""));
+        soapObject1.addProperty("membercode", SPUtil.getSPConfig("huiyuanhao", ""));
         SoapSerializationEnvelope envelope1 = new SoapSerializationEnvelope(
                 SoapEnvelope.VER10);
         envelope1.bodyOut = soapObject1;

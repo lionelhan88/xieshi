@@ -6,10 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lessu.ShareableApplication;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
+import com.scetia.Pro.baseapp.ShareableApplication;
 
 /**
  * Created by fhm on 2017/2/14.

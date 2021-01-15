@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
-        android:text="委托单位："
+        android:text="检测单位："
         android:textColor="@color/grey_11"
         android:textSize="@dimen/text_size_medium"
         app:layout_constraintStart_toStartOf="parent"

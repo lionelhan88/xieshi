@@ -5,15 +5,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.google.gson.JsonObject;
-import com.lessu.uikit.easy.EasyUI;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.base.BasePageListAdapter;
-import com.lessu.xieshi.module.mis.adapter.PageListCommonViewHolder;
+import com.scetia.Pro.baseapp.page.BasePageListAdapter;
+import com.scetia.Pro.baseapp.basepage.PageListCommonViewHolder;
 import com.lessu.xieshi.module.unqualified.bean.ConstructionData;
-import com.lessu.xieshi.module.unqualified.bean.TestingReportData;
 import com.lessu.xieshi.module.unqualified.viewmodel.ConstructionListViewModel;
-import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportListViewModel;
 
 /**
  * created by ljs

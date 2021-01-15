@@ -12,21 +12,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.LazyFragment;
-import com.lessu.xieshi.Utils.GlideUtil;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
-import com.lessu.xieshi.Utils.Common;
-import com.lessu.xieshi.Utils.Shref;
+import com.scetia.Pro.common.Util.Common;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.MeetingUserBeanToMeetingActivity;
 import com.lessu.xieshi.module.meet.event.MisMeetingFragmentToMis;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.mis.activitys.Content;
+import com.scetia.Pro.baseapp.fragment.LazyFragment;
+import com.scetia.Pro.common.Util.SPUtil;
+import com.scetia.Pro.common.Util.GlideUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -84,7 +84,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
     @Override
     protected void initView() {
         //签到信息
-        curUserId = Shref.getString(getActivity(), Common.USERID, "");
+        curUserId = SPUtil.getSPConfig(Common.USERID, "");
         EventBus.getDefault().register(this);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -141,6 +141,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
                 Intent scaleIntent = new Intent(getActivity(), ScalePictureActivity.class);
                 scaleIntent.putExtra("detail_photo",meetingBean.getMeetingDetailPhoto());
                 startActivity(scaleIntent);
+                requireActivity().overridePendingTransition(R.anim.acitvity_zoom_open, 0);
             }
         });
         meetingDetailContentImg.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +150,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
                 Intent scaleIntent = new Intent(getActivity(), ScalePictureActivity.class);
                 scaleIntent.putExtra("detail_photo", MEETING_DETAIL_IMG);
                 startActivity(scaleIntent);
-                getActivity().overridePendingTransition(R.anim.acitvity_zoom_open, 0);
+                requireActivity().overridePendingTransition(R.anim.acitvity_zoom_open, 0);
             }
         });
 
@@ -194,8 +195,6 @@ public class MisMeetingDetailFragment extends LazyFragment {
         } else {
             meetingDetailPhoto.setVisibility(View.VISIBLE);
             GlideUtil.showImageViewNoCache(requireActivity(),photoUrl,meetingDetailPhoto);
-            /*ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto,
-                    ImageloaderUtil.MeetingImageOptions());*/
         }
         if (curMeetingUserBean.getUserId() == null || curMeetingUserBean.getUserId().equals("")) {
             //不是参会人员,隐藏会议通知确认和签到状态

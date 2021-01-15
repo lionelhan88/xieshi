@@ -5,16 +5,17 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.data.LoadState;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.http.BuildSandResultData;
-import com.lessu.xieshi.http.BuildSandRetrofit;
-import com.lessu.xieshi.http.ResponseObserver;
+import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.http.api.BuildSandApiService;
-import com.lessu.xieshi.http.exceptionhandle.ExceptionHandle;
 import com.lessu.xieshi.module.sand.adapter.SMFlowDeclarationListAdapter;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
+import com.scetia.Pro.network.manage.BuildSandRetrofit;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 public class SMFlowDeclarationListViewModel extends BaseViewModel {
     private static final int DEFAULT_PAGE_INDEX = 0;
     private int currentPageIndex = DEFAULT_PAGE_INDEX;
+    private static final String DEFAULT_QUERY_KEY = "未委托";
     private MutableLiveData<LoadState> loadDataState;
     private MutableLiveData<List<FlowDeclarationBean>> flowDeclarationLiveData;
     public SMFlowDeclarationListViewModel(@NonNull Application application) {
@@ -38,7 +40,7 @@ public class SMFlowDeclarationListViewModel extends BaseViewModel {
     public void setPageIndex(int pageIndex){
         currentPageIndex = pageIndex;
     }
-
+    private String queryKey =DEFAULT_QUERY_KEY;
     public MutableLiveData<LoadState> getLoadDataState() {
         if(loadDataState==null){
             loadDataState = new MutableLiveData<>();
@@ -61,23 +63,44 @@ public class SMFlowDeclarationListViewModel extends BaseViewModel {
     }
 
     /**
+     * 按条件查询
+     * @param queryKey
+     */
+    public void setQueryKey(String queryKey){
+        this.queryKey = queryKey;
+        currentPageIndex = DEFAULT_PAGE_INDEX;
+        loadData(queryKey,true);
+    }
+    /**
      * 刷新数据
      */
     public void refresh(){
         currentPageIndex = DEFAULT_PAGE_INDEX;
-        loadData(false);
+        loadData(queryKey,false);
     }
+    public void loadMoreData(){
+        loadData(queryKey,false);
+    }
+
 
     /**
      * 加载数据
      */
-    public void loadData(boolean isInit){
-        if(currentPageIndex==DEFAULT_PAGE_INDEX&&isInit&&getFlowDeclarationLiveData().getValue()==null){
+    public void loadData(String queryKey,boolean isInit){
+        if(currentPageIndex==DEFAULT_PAGE_INDEX&&isInit){
             //第一页初始化
             loadDataState.postValue(LoadState.LOAD_INIT);
         }
+        HashMap<String,Object> params = new HashMap<>();
+        if(queryKey!=null){
+            params.put("flowInfoStatus",queryKey);
+        }
+        params.put("pageSize",20);
+        params.put("pageIndex",currentPageIndex);
+        params.put("orderBy","createDatetime");
+
         BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getSMFlowDeclarations(20,currentPageIndex,"createDatetime")
+                .getSMFlowDeclarations(params)
                 .compose(BuildSandRetrofit.<BuildSandResultData<List<FlowDeclarationBean>>, List<FlowDeclarationBean>>applyTransformer())
                 .subscribe(new ResponseObserver<List<FlowDeclarationBean>>() {
                     @Override

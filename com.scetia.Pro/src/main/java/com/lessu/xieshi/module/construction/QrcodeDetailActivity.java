@@ -6,7 +6,7 @@ import java.util.Map;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lessu.foundation.LSUtil;
+import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
@@ -36,7 +36,7 @@ public class QrcodeDetailActivity extends TemplatedWebViewActivity {
 		Bundle bundelForData=this.getIntent().getExtras(); 
 		Id = bundelForData.getString("CoreCode");
 		
-		String Token = LSUtil.valueStatic("Token");
+		String Token = Content.getToken();
 		
 		params.put("Token", Token);
 		params.put("CoreCode", Id);

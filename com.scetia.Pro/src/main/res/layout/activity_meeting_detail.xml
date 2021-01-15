@@ -221,6 +221,7 @@
                 android:id="@+id/meeting_detail_photo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:transitionName="enlargePicture"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
