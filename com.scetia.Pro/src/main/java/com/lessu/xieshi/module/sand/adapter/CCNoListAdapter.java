@@ -31,11 +31,6 @@ public class CCNoListAdapter extends BaseQuickAdapter<TestingCommissionBean.CCNo
         helper.setText(R.id.tv_item_parameter_name, item.getCcNoStr());
         helper.setVisible(R.id.iv_item_parameter_select,false);
         helper.setVisible(R.id.tv_item_parameter_must_state,false);
-    /*    if (mSelectPosition==helper.getAdapterPosition()) {
-            helper.setImageResource(R.id.iv_item_parameter_select, R.drawable.icon_chosen);
-        }else{
-            helper.setImageResource(R.id.iv_item_parameter_select, R.drawable.icon_unchosen );
-        }*/
     }
 
 
@@ -56,22 +51,10 @@ public class CCNoListAdapter extends BaseQuickAdapter<TestingCommissionBean.CCNo
      */
     public String getSelectedCCNos(){
         return  getItem(mSelectPosition).getCcNoStr();
-      /*  StringBuilder sb = new StringBuilder();
-        Collections.sort(selectedCCNos);
-        for (String s : selectedCCNos) {
-            sb.append(s).append(";");
-        }
-        return sb.substring(0,sb.length()-1);*/
     }
 
     public void changeItemState(String ccNo,int position){
         mSelectPosition = position;
         notifyDataSetChanged();
-        /*if(!selectedCCNos.contains(ccNo)){
-            selectedCCNos.add(ccNo);
-        }else{
-            selectedCCNos.remove(ccNo);
-        }
-        notifyItemChanged(position);*/
     }
 }
