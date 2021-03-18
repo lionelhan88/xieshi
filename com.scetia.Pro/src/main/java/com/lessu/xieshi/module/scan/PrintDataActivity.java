@@ -414,7 +414,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         Intent intent = this.getIntent();
         String deviceAdd = SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "");
         //是否存在已经缓存的地址，如果没有缓存的地址，重新获取上一个页面传来的地址
-        if (deviceAdd==null) {
+        if (deviceAdd.isEmpty()) {
             deviceAdd = intent.getStringExtra("deviceAddress");
             SPUtil.setSPConfig(SPUtil.BLUETOOTH_DEVICE, deviceAdd);
         }
