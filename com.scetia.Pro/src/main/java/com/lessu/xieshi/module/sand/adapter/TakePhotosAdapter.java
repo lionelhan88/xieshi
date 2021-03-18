@@ -2,13 +2,12 @@ package com.lessu.xieshi.module.sand.adapter;
 
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
-import com.lessu.xieshi.photo.XXPhotoUtil;
 import com.lessu.xieshi.view.ImageViewWithDelete;
 
 
@@ -18,6 +17,7 @@ import com.lessu.xieshi.view.ImageViewWithDelete;
  */
 public class TakePhotosAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private OnSrcClickListener onSrcClickListener;
+    private DelClickListener delClickListener;
     public TakePhotosAdapter() {
         super(R.layout.sand_manage_take_photos_item);
         addData("");
@@ -26,9 +26,16 @@ public class TakePhotosAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
     public interface OnSrcClickListener{
         void onScrClick(ImageViewWithDelete imageViewWithDelete, String photoPath);
     }
+    public interface DelClickListener{
+        void onDelClick(int imageIndex);
+    }
 
     public void setOnSrcClickListener(OnSrcClickListener onSrcClickListener) {
         this.onSrcClickListener = onSrcClickListener;
+    }
+
+    public void setDelClickListener(DelClickListener delClickListener) {
+        this.delClickListener = delClickListener;
     }
 
     @Override
@@ -39,9 +46,10 @@ public class TakePhotosAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
             @Override
             public void closeListener() {
                 String item1 = getItem(getData().size() - 1);
-                if(!item1.equals("")){
+                if(!TextUtils.isEmpty(item1)){
                     addData("");
                 }
+                delClickListener.onDelClick(helper.getAdapterPosition());
                 remove(helper.getAdapterPosition());
             }
 

@@ -3,24 +3,20 @@ package com.lessu.xieshi.module.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.widget.EditText;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.baseapp.uitls.LoadMoreState;
-import com.scetia.Pro.baseapp.uitls.LoadState;
+import com.lessu.xieshi.Utils.ToastUtil;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
-import com.lessu.xieshi.module.login.bean.LoginUserBean;
-import com.lessu.xieshi.module.login.bean.ValidateCodeBean;
 import com.lessu.xieshi.module.login.viewmodel.ValidateViewModel;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
@@ -38,16 +34,18 @@ public class ValidateActivity extends NavigationActivity {
     private String deviceId;
     private CountDownTimer countDownTimer;
     private ValidateViewModel viewModel;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.validate_activity);
+    protected int getLayoutId() {
+        return R.layout.validate_activity;
+    }
+
+    @Override
+    protected void initView() {
         setTitle("绑定");
-        ButterKnife.bind(this);
-        initDataListener();
-        String phoneNumber = SPUtil.getSPLSUtil("PhoneNumber","");
-        if (!phoneNumber.equals("")) {
-			phoneNumEditText.setText(phoneNumber);
+        String phoneNumber = SPUtil.getSPLSUtil(Constants.User.XS_PHONE_NUMBER,"");
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            phoneNumEditText.setText(phoneNumber);
         }
         //验证码的倒计时60s
         countDownTimer = new CountDownTimer(60 * 1000, 1000) {
@@ -64,53 +62,43 @@ public class ValidateActivity extends NavigationActivity {
                 getValidateButton.setText("重新获取验证码");
             }
         };
-
     }
 
-    private void initDataListener() {
+    @Override
+    protected void observerData() {
         viewModel = new ViewModelProvider(this).get(ValidateViewModel.class);
-        viewModel.getLoadMoreState().observe(this, new Observer<LoadMoreState>() {
-            @Override
-            public void onChanged(LoadMoreState loadMoreState) {
-                if(loadMoreState.loadState==LoadState.LOADING){
-                    String message = loadMoreState.loadType==0?"正在获取验证码":"正在登录";
-                    LSAlert.showProgressHud(ValidateActivity.this,message);
-                }else{
+        viewModel.getLoadState().observe(this,loadState -> {
+            switch (loadState){
+                case LOADING:
+                    LSAlert.showProgressHud(ValidateActivity.this,loadState.getMessage());
+                    break;
+                case SUCCESS:
                     LSAlert.dismissProgressHud();
-                }
-            }
-        });
-
-        viewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
-            @Override
-            public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
-                LSAlert.showAlert(ValidateActivity.this, throwable.message);
+                    break;
+                case FAILURE:
+                    LSAlert.dismissProgressHud();
+                    ToastUtil.showShort(loadState.getMessage());
+                    break;
             }
         });
 
         //获取验证码成功
-        viewModel.getValidateCodeLiveData().observe(this, new Observer<ValidateCodeBean>() {
-            @Override
-            public void onChanged(ValidateCodeBean validateCodeBean) {
-               SPUtil.setSPLSUtil("Token", validateCodeBean.getToken());
-                SPUtil.setSPLSUtil("PhoneNumber", validateCodeBean.getPhoneNumber());
-                //开始进入验证码倒计时时间
-                getValidateButton.setBackgroundResource(R.drawable.yanzhengma);
-                getValidateButton.setEnabled(false);
-                countDownTimer.start();
-            }
+        viewModel.getValidateCodeLiveData().observe(this, validateCodeBean -> {
+           SPUtil.setSPLSUtil(Constants.User.XS_TOKEN, validateCodeBean.getToken());
+            SPUtil.setSPLSUtil(Constants.User.XS_PHONE_NUMBER, validateCodeBean.getPhoneNumber());
+            //开始进入验证码倒计时时间
+            getValidateButton.setBackgroundResource(R.drawable.yanzhengma);
+            getValidateButton.setEnabled(false);
+            countDownTimer.start();
         });
 
         //绑定成功
-        viewModel.getLoginUserLiveData().observe(this, new Observer<LoginUserBean>() {
-            @Override
-            public void onChanged(LoginUserBean loginUserBean) {
-                Intent intent = new Intent();
-                intent.putExtra("userName", userName);
-                intent.putExtra("password", passWord);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
+        viewModel.getLoginUserLiveData().observe(this, loginUserBean -> {
+            Intent intent = new Intent();
+            intent.putExtra("userName", userName);
+            intent.putExtra("password", passWord);
+            setResult(RESULT_OK, intent);
+            finish();
         });
     }
 
@@ -132,5 +120,12 @@ public class ValidateActivity extends NavigationActivity {
     @OnClick(R.id.validateButton)
     public void validateButtonDidPress() {
         viewModel.validatePhone(validateCodeEditText.getText().toString());
+    }
+
+    @Override
+    protected void onDestroy() {
+        countDownTimer.cancel();
+        super.onDestroy();
+
     }
 }

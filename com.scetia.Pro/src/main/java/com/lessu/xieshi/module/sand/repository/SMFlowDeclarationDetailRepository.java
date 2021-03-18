@@ -1,10 +1,11 @@
 package com.lessu.xieshi.module.sand.repository;
 
 import com.google.gson.Gson;
+import com.scetia.Pro.network.base.BaseRepository;
 import com.scetia.Pro.network.bean.BuildSandResultData;
 import com.scetia.Pro.network.conversion.ResponseObserver;
-import com.lessu.xieshi.http.api.BuildSandApiService;
-import com.lessu.xieshi.http.api.SourceApiService;
+import com.lessu.xieshi.http.service.BuildSandApiService;
+import com.lessu.xieshi.http.service.SourceApiService;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
 import com.lessu.xieshi.module.sand.bean.SandItemParameterBean;
 import com.lessu.xieshi.module.sand.bean.SandSampleBean;
@@ -25,21 +26,18 @@ import retrofit2.Response;
  * created by ljs
  * on 2020/12/25
  */
-public class SMFlowDeclarationDetailRepository {
+public class SMFlowDeclarationDetailRepository extends BaseRepository {
     /**
      * 获取流向申报的具体数据
      */
     public void getFlowDeclarationInfo(String flowId, ResponseObserver<FlowDeclarationBean> callBack) {
-        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getSMFlowDeclarationInfo(flowId)
-                .compose(BuildSandRetrofit.<BuildSandResultData<FlowDeclarationBean>, FlowDeclarationBean>applyTransformer())
-                .subscribe(callBack);
+        requestApi(BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
+                .getSMFlowDeclarationInfo(flowId),callBack);
     }
 
     public void getSandSamples(ResponseObserver<List<SandSampleBean>> callBack) {
-        BuildSandRetrofit.getInstance().getService(SourceApiService.class).getItemSamples()
-                .compose(BuildSandRetrofit.<BuildSandResultData<List<SandSampleBean>>, List<SandSampleBean>>applyTransformer())
-                .subscribe(callBack);
+        requestApi( BuildSandRetrofit.getInstance().getService(SourceApiService.class).getItemSamples()
+                .compose(BuildSandRetrofit.<BuildSandResultData<List<SandSampleBean>>, List<SandSampleBean>>applyTransformer()),callBack);
     }
 
     public void getSpecAndParameters(String sampleId, ResponseObserver<List<? extends Object>> callBack) {
@@ -51,29 +49,20 @@ public class SMFlowDeclarationDetailRepository {
         Observable<BuildSandResultData<List<SandSpecBean>>> itemSpecs =
                 BuildSandRetrofit.getInstance().getService(SourceApiService.class).getItemSpecs(sampleId)
                         .subscribeOn(Schedulers.io());
-        Observable.merge(itemParameters, itemSpecs)
-                .compose(BuildSandRetrofit.<BuildSandResultData<? extends List<?>>, List<Object>>applyTransformer())
-                .subscribe(callBack);
+        requestApi(Observable.merge(itemParameters, itemSpecs),callBack);
     }
 
     public void saveFlowDeclaration(FlowDeclarationBean flowDeclarationBean, ResponseObserver<FlowDeclarationBean> callBack) {
-        Observable<BuildSandResultData<FlowDeclarationBean>> request;
         Gson gson = new Gson().newBuilder().excludeFieldsWithoutExposeAnnotation().create();
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), gson.toJson(flowDeclarationBean));
-        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .addSMFlowDeclaration(body)
-                .compose(BuildSandRetrofit.<BuildSandResultData<FlowDeclarationBean>, FlowDeclarationBean>applyTransformer())
-                .subscribe(callBack);
+       requestApi(BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
+               .addSMFlowDeclaration(body),callBack);
     }
 
-    public void updateFlowDeclaration(FlowDeclarationBean flowDeclarationBean, ResponseObserver<Response<ResponseBody>> callBack){
-        Observable<BuildSandResultData<FlowDeclarationBean>> request;
+    public void updateFlowDeclaration(FlowDeclarationBean flowDeclarationBean, ResponseObserver<Object> callBack){
         Gson gson = new Gson().newBuilder().excludeFieldsWithoutExposeAnnotation().create();
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), gson.toJson(flowDeclarationBean));
-        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .putSMFlowDeclarationInfo(flowDeclarationBean.getId(),body)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(callBack);
+       requestApi(BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
+               .putSMFlowDeclarationInfo(flowDeclarationBean.getId(),body),callBack);
     }
 }

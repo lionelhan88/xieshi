@@ -1,6 +1,5 @@
 package com.lessu.xieshi.module.meet.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,14 +12,13 @@ import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.event.OtherConfirmEvent;
-import com.lessu.xieshi.module.mis.activitys.Content;
+import com.scetia.Pro.common.Util.Constants;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -36,13 +34,25 @@ public class OtherConfirmActivity extends NavigationActivity {
     Button otherConfirmBtOk;
     private String meetingId;
     private String userId;
-    @Override
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_confirm_layout);
         ButterKnife.bind(this);
         navigationBar.setTitle("会议确认");
         navigationBar.setBackgroundColor(0xFF3598DC);
+        meetingId = getIntent().getStringExtra("meeting_id");
+        userId = getIntent().getStringExtra("user_id");
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_other_confirm_layout;
+    }
+
+    @Override
+    protected void initView() {
+        navigationBar.setTitle("会议确认");
         meetingId = getIntent().getStringExtra("meeting_id");
         userId = getIntent().getStringExtra("user_id");
     }
@@ -55,7 +65,7 @@ public class OtherConfirmActivity extends NavigationActivity {
      */
     private void requestMeetingConfirm(String meetingID, String userID, final String userName, final String phone) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", meetingID);
         params.put("s2", userID);
         params.put("s3", userName);

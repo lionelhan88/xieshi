@@ -18,10 +18,14 @@ public class SplashActivity extends NavigationActivity {
         finish();
     };
     private Handler handler;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_layout);
+    protected int getLayoutId() {
+        return R.layout.activity_splash_layout;
+    }
+
+    @Override
+    protected void initView() {
         //避免每次点击home建后，点击图标会重新创建启动页
         if (!this.isTaskRoot()) {
             //如果你就放在launcher Activity中话，这里可以直接return了
@@ -34,12 +38,12 @@ public class SplashActivity extends NavigationActivity {
         }
         navigationBar.setVisibility(View.GONE);
         handler=new Handler();
-        handler.postDelayed(runnable,1000);
+        handler.postDelayed(runnable,800);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         handler.removeCallbacks(runnable);
+        super.onDestroy();
     }
 }

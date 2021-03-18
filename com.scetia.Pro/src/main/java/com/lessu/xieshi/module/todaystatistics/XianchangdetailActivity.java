@@ -21,7 +21,7 @@ public class XianchangdetailActivity extends XieShiSlidingMenuActivity {
     private ArrayList<XianchangshikuaibBean.DataBean.SampleInProjectDetailListBean> newdetaillist;
     private xcdetailAdapter madapter;
 
-    @Override
+ /*   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xianchangdetail);
@@ -37,15 +37,29 @@ public class XianchangdetailActivity extends XieShiSlidingMenuActivity {
         navigationBar.setLeftBarItem(backbutton);
         initView();
         initData();
+    }*/
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_xianchangdetail;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        this.setTitle("样品信息");
+        BarButtonItem backbutton = new BarButtonItem(this , R.drawable.back);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        navigationBar.setLeftBarItem(backbutton);
         lv_xianchangdetail = (ListView) findViewById(R.id.lv_xianchangdetail);
-
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         Intent intent=getIntent();
         newdetaillist = (ArrayList<XianchangshikuaibBean.DataBean.SampleInProjectDetailListBean>) intent.getSerializableExtra("newdetaillist");
         if (newdetaillist != null) {

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lessu.navigation.NavigationBar;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
@@ -90,18 +91,14 @@ public class SandSalesTargetQueryListFragment extends BaseVMFragment<SanSalesQue
                     break;
                 case FAILURE:
                     LSAlert.dismissProgressHud();
+                    LSAlert.showAlert(requireActivity(),loadState.getMessage());
                     break;
             }
         });
-        viewModel.getThrowable().observe(this, throwable -> {
-            LSAlert.showAlert(requireActivity(),throwable.message);
-        });
-
     }
 
     @Override
     protected void initView() {
-        navigationBar.setVisibility(View.GONE);
         testingInfoQuerySearch.setIconifiedByDefault(false);
         setUnderLinearTransparent(testingInfoQuerySearch);
         setSwipeRefresh(refreshSandSalesQueryList);
@@ -156,12 +153,15 @@ public class SandSalesTargetQueryListFragment extends BaseVMFragment<SanSalesQue
     }
 
     @Override
-    protected void initImmersionBar() {
-        ImmersionBar.with(this).titleBar(testingInfoQueryToolbar)
-                .navigationBarColor(R.color.light_gray)
-                .navigationBarDarkIcon(true)
-                .init();
+    protected NavigationBar createTopBarView() {
+        return null;
     }
+
+    @Override
+    protected View getImmersionBarNavigation() {
+        return testingInfoQueryToolbar;
+    }
+
 
     @Override
     protected boolean isRegisterEventBus() {

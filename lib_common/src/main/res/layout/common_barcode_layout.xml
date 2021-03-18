@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.bingoogolapple.qrcode.zxing.ZXingView
+        android:id="@+id/common_qrcode_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:qrcv_borderColor="@android:color/white"
+        app:qrcv_borderSize="1dp"
+        app:qrcv_cornerColor="@color/blue_normal2"
+        app:qrcv_cornerLength="20dp"
+        app:qrcv_cornerSize="3dp"
+        app:qrcv_isAutoZoom="true"
+        app:qrcv_isOnlyDecodeScanBoxArea="true"
+        app:qrcv_maskColor="#33FFFFFF"
+        app:qrcv_rectWidth="300dp"
+        app:qrcv_barCodeTipText="将条码放入扫描框内"
+        app:qrcv_isTipTextBelowRect="true"
+        app:qrcv_isBarcode="true"
+        app:qrcv_scanLineColor="@color/blue_normal2"
+        app:qrcv_scanLineSize="1dp"
+        app:qrcv_topOffset="190dp" />
+
+</RelativeLayout>

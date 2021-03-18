@@ -11,20 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.bean.ListSampleDetail;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportContentViewModel;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TestingReportContentActivity extends NavigationActivity  {
@@ -36,28 +34,37 @@ public class TestingReportContentActivity extends NavigationActivity  {
     private ArrayList<ListSampleDetail> infoList = new ArrayList<>();
     private TestingReportContentViewModel viewModel;
 
-    @Override
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_content_activity);
         ButterKnife.bind(this);
         this.setTitle("检测报告内容");
-        initDataListener();
+        observerData();
         initView();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.report_content_activity;
     }
 
-    private void initDataListener() {
+    @Override
+    protected void observerData() {
         viewModel = new ViewModelProvider(this).get(TestingReportContentViewModel.class);
         viewModel.getLoadState().observe(this, loadState -> {
-            if (loadState == LoadState.LOADING) {
-                LSAlert.showProgressHud(TestingReportContentActivity.this, "正在加载数据...");
-            } else {
-                LSAlert.dismissProgressHud();
+            switch (loadState){
+                case LOADING:
+                    LSAlert.showProgressHud(TestingReportContentActivity.this, loadState.getMessage());
+                    break;
+                case SUCCESS:
+                    LSAlert.dismissProgressHud();
+                    break;
+                case FAILURE:
+                    LSAlert.dismissProgressHud();
+                    ToastUtil.showShort(loadState.getMessage());
+                    break;
             }
-        });
-
-        viewModel.getThrowable().observe(this, throwable -> {
-            ToastUtil.showShort(throwable.message);
         });
 
         viewModel.getReportContentLiveData().observe(this, reportContentBean -> {
@@ -85,7 +92,9 @@ public class TestingReportContentActivity extends NavigationActivity  {
     /**
      * 初始化控件和数据
      */
-    private void initView() {
+    @Override
+    protected void initView() {
+        this.setTitle("检测报告内容");
         adapter = new ReportContentInfoAdapter();
         rvTestingReportContent.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rvTestingReportContent.setAdapter(adapter);
@@ -98,17 +107,11 @@ public class TestingReportContentActivity extends NavigationActivity  {
         }
         String Report_id = bundle.getString("Report_id");
         String Checksum = bundle.getString("Checksum");
-        String Token = Content.getToken();
+        String Token = Constants.User.GET_TOKEN();
         params.put("Token", Token);
         params.put("Report_id", Report_id);
         params.put("Checksum", Checksum);
         viewModel.loadData(params);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
     }
 
     @OnClick(R.id.ll_report_conclusion)

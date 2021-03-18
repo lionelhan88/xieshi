@@ -6,23 +6,35 @@ import java.util.Map;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.web.TemplatedWebViewActivity;
+import com.scetia.Pro.common.Util.Constants;
 
 import android.os.Bundle;
 import android.webkit.WebView;
 
 public class QrcodeDetailActivity extends TemplatedWebViewActivity {
 	private WebView sampledetailWebView;
-	private Map<String,String> activtyMapper;
 	String Id = "";
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sample_detail_activity);
+		if(sampledetailWebView == null){
+			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
+		}
+		this.setTitle("扫描详情");
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.sample_detail_activity;
+	}
+
+	@Override
+	protected void initView() {
 		if(sampledetailWebView == null){
 			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
 		}
@@ -36,7 +48,7 @@ public class QrcodeDetailActivity extends TemplatedWebViewActivity {
 		Bundle bundelForData=this.getIntent().getExtras(); 
 		Id = bundelForData.getString("CoreCode");
 		
-		String Token = Content.getToken();
+		String Token =  Constants.User.GET_TOKEN();
 		
 		params.put("Token", Token);
 		params.put("CoreCode", Id);

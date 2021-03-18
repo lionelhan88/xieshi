@@ -18,7 +18,6 @@ public class ResultQueryDetailParameterAdapter extends BaseQuickAdapter<SandPara
     @Override
     protected void convert(BaseViewHolder helper, SandParameterResultBean item) {
         helper.setText(R.id.result_query_detail_paramter_item_name,item.getParameterName()==null?"暂无":item.getParameterName());
-        helper.setText(R.id.result_query_detail_paramter_item_testing,item.getParameterValue()==null?"暂无":item.getParameterValue());
         helper.setText(R.id.result_query_detail_paramter_item_result,item.getParameterResult()==null?"暂无":item.getParameterResult());
     }
 }

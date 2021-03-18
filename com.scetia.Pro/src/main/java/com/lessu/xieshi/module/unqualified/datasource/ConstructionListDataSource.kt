@@ -6,9 +6,9 @@ import com.scetia.Pro.baseapp.uitls.LoadState
 
 import com.scetia.Pro.network.bean.XSResultData
 import com.scetia.Pro.network.manage.XSRetrofit
-import com.lessu.xieshi.http.api.CommonApiService
+import com.lessu.xieshi.http.service.CommonApiService
 import com.lessu.xieshi.module.unqualified.bean.ConstructionData
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
+import com.scetia.Pro.network.bean.ExceptionHandle
 import com.scetia.Pro.network.conversion.ResponseObserver
 import org.json.JSONObject
 import kotlin.collections.HashMap
@@ -55,9 +55,9 @@ class ConstructionListDataSource(private val hashMap: HashMap<String,Any>) : Bas
         jsonObj.put("CurrentPageNo", params.key)
         jsonObj.put("PageSize", params.requestedLoadSize)
         //TODO:请求下一页工程数据列表
-        com.scetia.Pro.network.manage.XSRetrofit.getInstance().getService(CommonApiService::class.java)
+        XSRetrofit.getInstance().getService(CommonApiService::class.java)
                 .getUnqualifiedConstructionData(jsonObj.toString())
-                .compose(com.scetia.Pro.network.manage.XSRetrofit.applyTransformer<XSResultData<ConstructionData>,ConstructionData>())
+                .compose(XSRetrofit.applyTransformer<XSResultData<ConstructionData>,ConstructionData>())
                 .subscribe(object : ResponseObserver<ConstructionData>(){
                     override fun success(t: ConstructionData?) {
                         if(t?.listContent==null){

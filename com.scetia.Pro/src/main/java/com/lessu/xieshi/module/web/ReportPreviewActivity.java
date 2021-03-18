@@ -13,7 +13,7 @@ import android.webkit.WebView;
 public class ReportPreviewActivity extends TemplatedWebViewActivity {
 	private WebView reportpreviewWebView;
 	private Map<String,String> activtyMapper;
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_detail_activity);
@@ -22,6 +22,19 @@ public class ReportPreviewActivity extends TemplatedWebViewActivity {
 		}
 		this.setTitle("批准中报告预览");
 		navigationBar.setBackgroundColor(0xFF3598DC);
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.report_detail_activity;
+	}
+
+	@Override
+	protected void initView() {
+		if(reportpreviewWebView == null){
+			reportpreviewWebView = (WebView) findViewById(R.id.report_detail);
+		}
+		this.setTitle("批准中报告预览");
 	}
 
 	@Override

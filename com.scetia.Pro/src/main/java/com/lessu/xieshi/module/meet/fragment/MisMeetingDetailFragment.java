@@ -18,12 +18,11 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.MeetingUserBeanToMeetingActivity;
 import com.lessu.xieshi.module.meet.event.MisMeetingFragmentToMis;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.scetia.Pro.baseapp.fragment.LazyFragment;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.common.Util.GlideUtil;
@@ -84,13 +83,13 @@ public class MisMeetingDetailFragment extends LazyFragment {
     @Override
     protected void initView() {
         //签到信息
-        curUserId = SPUtil.getSPConfig(Common.USERID, "");
+        curUserId = SPUtil.getSPConfig(Constants.User.USER_ID, "");
         EventBus.getDefault().register(this);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                getMeetingList(Content.getToken(), getArguments().getString("meetingID"),
+                getMeetingList( Constants.User.GET_TOKEN(), getArguments().getString("meetingID"),
                         new ResultResponse() {
                             @Override
                             public void getResult(boolean success, JsonElement result, String errorMsg) {
@@ -215,7 +214,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
             btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
         } else {
             btMeetingIsConfirm.setText("请确认会议通知");
-            btMeetingIsConfirm.setBackgroundResource(R.drawable.text_orange_stroke_bg);
+            btMeetingIsConfirm.setBackgroundResource(R.drawable.orange_round_bg);
         }
     }
 
@@ -227,7 +226,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
      */
     private void requestMeetingConfirm(String meetingID, String userID) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", meetingID.toUpperCase());
         params.put("s2", userID.toUpperCase());
         EasyAPI.apiConnectionAsync(getActivity(), true, false, ApiMethodDescription.get("/ServiceMis.asmx/ConfirmNotify"),

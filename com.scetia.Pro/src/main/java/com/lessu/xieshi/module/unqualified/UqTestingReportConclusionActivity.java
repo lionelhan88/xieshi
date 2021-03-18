@@ -4,14 +4,13 @@ import java.util.HashMap;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.bean.ReportConclusionBean;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportConclusionViewModel;
+import com.scetia.Pro.common.Util.Constants;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,44 +23,48 @@ public class UqTestingReportConclusionActivity extends NavigationActivity {
 	private RecyclerView rvUqTestingReportConclusion;
 	private UqTestingReportConclusionAdapter listAdapter;
 	private TestingReportConclusionViewModel viewModel;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.uq_sample_list_activity);
-		this.setTitle("报告结论");
-		rvUqTestingReportConclusion = findViewById(R.id.rv_uq_testing_report_conclusion);
-		intDataListener();
-		initView();
+	protected int getLayoutId() {
+		return R.layout.uq_sample_list_activity;
 	}
 
-	private void intDataListener() {
+	@Override
+	protected void observerData() {
 		viewModel = new ViewModelProvider(this).get(TestingReportConclusionViewModel.class);
-
 		viewModel.getLoadState().observe(this, loadState -> {
-			if(loadState==LoadState.LOADING){
-				LSAlert.showProgressHud(UqTestingReportConclusionActivity.this,"正在加载...");
-			}else{
-				LSAlert.dismissProgressHud();
+			switch (loadState){
+				case LOADING:
+					LSAlert.showProgressHud(this, loadState.getMessage());
+					break;
+				case SUCCESS:
+					LSAlert.dismissProgressHud();
+					break;
+				case FAILURE:
+					LSAlert.dismissProgressHud();
+					ToastUtil.showShort(loadState.getMessage());
+					break;
 			}
 		});
-
-		viewModel.getThrowable().observe(this, throwable -> ToastUtil.showShort(throwable.message));
 
 		viewModel.getReportConclusionBeansLiveData().observe(this,reportConclusionBeans -> {
 			listAdapter.setNewData(reportConclusionBeans);
 		});
 	}
 
-	private void initView() {
+	@Override
+	protected void initView() {
+		this.setTitle("报告结论");
+		rvUqTestingReportConclusion = findViewById(R.id.rv_uq_testing_report_conclusion);
 		listAdapter = new UqTestingReportConclusionAdapter();
-		rvUqTestingReportConclusion.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+		rvUqTestingReportConclusion.setLayoutManager(new LinearLayoutManager(this));
 		rvUqTestingReportConclusion.setAdapter(listAdapter);
 
 		HashMap<String, Object> params = new HashMap<>();
 		Bundle bundle=getIntent().getExtras();
 		final String Report_ID = bundle.getString("Report_id");
 		String Checksum = bundle.getString("Checksum");
-		String Token = Content.getToken();
+		String Token =  Constants.User.GET_TOKEN();
 		params.put("Report_id", Report_ID);
 		params.put("Checksum", Checksum);
 		params.put("Token", Token);

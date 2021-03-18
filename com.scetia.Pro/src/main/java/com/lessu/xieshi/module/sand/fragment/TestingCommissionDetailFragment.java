@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ActivityNavigator;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -28,6 +29,7 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
+import com.lessu.xieshi.module.sand.adapter.CCNoListAdapter;
 import com.lessu.xieshi.module.sand.adapter.TakePhotosAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedTestingCompanyBean;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
@@ -35,25 +37,25 @@ import com.lessu.xieshi.module.sand.bean.SandSamplerBean;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
 import com.lessu.xieshi.module.sand.viewmodel.SandTestingCommissionDetailViewModel;
 import com.lessu.xieshi.module.sand.viewmodel.TestingCommissionModelFactory;
-import com.lessu.xieshi.photo.XXPhotoUtil;
+import com.lessu.xieshi.view.FullScreenDialog;
 import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 import com.scetia.Pro.baseapp.uitls.GlobalEvent;
-import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.scetia.Pro.common.Util.SPUtil;
+import com.scetia.Pro.common.photo.XXPhotoUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 import static com.lessu.xieshi.module.sand.viewmodel.SandTestingCommissionDetailViewModel.SUPPLIER_INIT;
 import static com.lessu.xieshi.module.sand.viewmodel.SandTestingCommissionDetailViewModel.TESTING_INIT;
@@ -85,7 +87,7 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
     @BindView(R.id.sand_manage_sampling_user)
     TextView sandManageSamplingUser;
     @BindView(R.id.sand_manage_identification)
-    EditText sandManageIdentification;
+    TextView sandManageIdentification;
     @BindView(R.id.sand_manage_sampling_number)
     TextView sandManageSamplingNumber;
     @BindView(R.id.sand_manage_commission_number)
@@ -103,6 +105,7 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
     @BindView(R.id.ll_sand_manage_sampling_time)
     LinearLayout llSandManageSamplingTime;
     private TakePhotosAdapter takePhotosAdapter;
+    private CCNoListAdapter ccNoListAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -122,44 +125,42 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
 
     @Override
     protected void observerData() {
-        viewModel.getLoadDataState().observe(this, loadState -> {
-            if (loadState == LoadState.LOADING) {
-                LSAlert.showProgressHud(requireActivity(), "正在加载...");
-            } else {
-                if (loadState == LoadState.SUCCESS) {
-                    if (viewModel.getTestingCommissionBean().getSamplingMethod() == SUPPLIER_INIT) {
-                        rbSandManageSupplier.setChecked(true);
-                    } else {
-                        rbSandManageTestingCompany.setChecked(true);
-                    }
-                }
-                LSAlert.dismissProgressHud();
-            }
-        });
-
-        viewModel.getPostDataState().observe(this, loadState -> {
+        viewModel.getLoadState().observe(this, loadState -> {
             switch (loadState) {
                 case LOADING:
-                    LSAlert.showProgressHud(requireActivity(), "正在提交...");
+                    LSAlert.showProgressHud(requireActivity(), loadState.getMessage());
                     break;
                 case SUCCESS:
                     LSAlert.dismissProgressHud();
-                    LSAlert.showAlert(requireContext(), "提交成功！");
-                    //TODO:刷新列表页面
-                    EventBusUtil.sendEvent(new GlobalEvent<>(EventBusUtil.D,true));
+                    if (loadState.getCode() == 200) {
+                        //加载检测委托详情成功
+                        if (viewModel.getTestingCommissionBean().getSamplingMethod() == SUPPLIER_INIT) {
+                            rbSandManageSupplier.setChecked(true);
+                        } else {
+                            rbSandManageTestingCompany.setChecked(true);
+                        }
+                    } else if (loadState.getCode() == 204) {
+                        //TODO:刷新列表页面
+                        EventBusUtil.sendEvent(new GlobalEvent<>(EventBusUtil.D, true));
+                        //完成委托
+                        LSAlert.showAlert(requireContext(), "提示", loadState.getMessage(), "确认", false, () -> {
+                            Navigation.findNavController(testingCommissionCompanyName).navigateUp();
+                        });
+
+                    }
                     break;
                 case FAILURE:
                     LSAlert.dismissProgressHud();
+                    ToastUtil.showShort(loadState.getMessage());
                     break;
             }
         });
-        viewModel.getThrowable().observe(this, responseThrowable -> {
-            ToastUtil.showShort(responseThrowable.message);
-        });
+
         //委托单位
         viewModel.getCurCommission().observe(this, bean -> {
             testingCommissionCompanyName.setText(bean.getProductionUnitName());
         });
+
         //检测单位
         viewModel.getTestingCompany().observe(this, bean -> {
             testingCommissionTestingCompany.setText(bean.getDetectionAgencyUnitName());
@@ -179,7 +180,18 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
         //预约取样时间
         viewModel.getOrderSampleDate().observe(this, date -> sandManageSamplingOrderTime.setText(date));
         //唯一性标识号
-        viewModel.getCcNoLiveData().observe(this, ccNo -> sandManageIdentification.setText(ccNo));
+        viewModel.getCcNoText().observe(this, ccNo -> sandManageIdentification.setText(ccNo));
+        //唯一性标识号的资源
+        viewModel.getCcNoLiveData().observe(this, ccNoBeans -> {
+            if (ccNoListAdapter == null) {
+                ccNoListAdapter = new CCNoListAdapter();
+                ccNoListAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    String ccNo = ((TestingCommissionBean.CCNoBean) adapter.getItem(position)).getCcNoStr();
+                    ccNoListAdapter.changeItemState(ccNo, position);
+                });
+            }
+            ccNoListAdapter.setNewData(ccNoBeans);
+        });
         //取样单位类型
         viewModel.getSampleCompanyType().observe(this, integer -> {
             List<SandSamplerBean> samplerBeans = viewModel.getSamplerBeans();
@@ -215,6 +227,9 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
         sandManageTakePhotosRv.setAdapter(takePhotosAdapter);
 
         sandManageSamplingTime.setClickable(false);
+        takePhotosAdapter.setDelClickListener(imageIndex -> {
+            viewModel.deleteSamplingProcess(imageIndex);
+        });
         takePhotosAdapter.setOnSrcClickListener((closeImageView, photoPath) -> {
             if (closeImageView.getCloseImgVisible()) {
                 //已经有照片内容了，点击时放大图片
@@ -223,16 +238,21 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), pair);
                     ActivityNavigator.Extras extras = new ActivityNavigator.Extras.Builder().setActivityOptions(options).build();
                     Bundle bundle = new Bundle();
-                    bundle.putString("detail_photo", photoPath);
+                    bundle.putString("commission_detail_photo", photoPath);
                     Navigation.findNavController(closeImageView).navigate(R.id.action_sandTestingCommissionFragment_to_scalePictureActivity,
                             bundle, null, extras);
                     return;
                 }
                 Intent scaleIntent = new Intent(requireActivity(), ScalePictureActivity.class);
-                scaleIntent.putExtra("detail_photo", photoPath);
+                scaleIntent.putExtra("commission_detail_photo", photoPath);
                 startActivity(scaleIntent);
                 requireActivity().overridePendingTransition(R.anim.acitvity_zoom_open, 0);
             } else {
+                //这里先要判断是否选择委托单位，如果没有选择， 则先选择委托单位才能拍摄照片
+                if (TextUtils.isEmpty(testingCommissionCompanyName.getText().toString())) {
+                    ToastUtil.showShort("请先选择委托单位！");
+                    return;
+                }
                 openCamera();
             }
         });
@@ -252,18 +272,19 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
 
     @Override
     protected void initData() {
+        viewModel.getCCNoSource("");
         Bundle arguments = getArguments();
-        if(arguments!=null){
+        if (arguments != null) {
             String id = arguments.getString("id");
             String flowInfoId = arguments.getString("flowInfoId");
             viewModel.getTestingCommissionBean().setId(id);
             viewModel.getTestingCommissionBean().setFlowInfoId(flowInfoId);
             viewModel.loadSingleInfo(id);
-        }else {
+        } else {
             //加载取样地点数据
             viewModel.loadSampleLocations(-1);
             //委托人
-            viewModel.setCommissionUser(SPUtil.getSPConfig(Common.USER_FULL_NAME, ""));
+            viewModel.setCommissionUser(SPUtil.getSPConfig(Constants.User.KEY_USER_FULL_NAME, ""));
         }
     }
 
@@ -277,8 +298,9 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
     public void addSelectCommission(GlobalEvent event) {
         switch (event.getCode()) {
             case EventBusUtil.A:
-                FlowDeclarationBean data1 = (FlowDeclarationBean) event.getData();
-                viewModel.getCommissionInfo(data1.getId());
+                //选择的委托单位（流向申报记录）
+                FlowDeclarationBean flowDeclarationBean = (FlowDeclarationBean) event.getData();
+                viewModel.getCommissionInfo(flowDeclarationBean.getId());
                 break;
             case EventBusUtil.B:
                 //选择新的检测单位，取样人员也要清空重新选择
@@ -290,25 +312,23 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
                     viewModel.getSamplers(detectionAgencyMemberCode);
                 }
                 break;
-        }
-    }
-
-    //从委托列表页面点击某一项进入详情页面
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void loadSingleInfo(GlobalEvent<TestingCommissionBean> event) {
-        if (event.getCode() == EventBusUtil.C) {
-            EventBusUtil.removeStickyEvent(event);
-            viewModel.setTestingCommissionBean(event.getData());
-            viewModel.loadSingleInfo(event.getData().getId());
+            case EventBusUtil.C:
+                Object data = event.getData();
+                if (data instanceof String) {
+                    //选择唯一性标识号
+                    String ccNo = (String) data;
+                    viewModel.setCCNo(ccNo + ";" + ccNo);
+                }
+                break;
         }
     }
 
     /**
      * 从流向信息记录详情跳转过来进行委托
      */
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void receiveFlowToThis(GlobalEvent<FlowDeclarationBean> event){
-        if(EventBusUtil.E==event.getCode()){
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receiveFlowToThis(GlobalEvent<FlowDeclarationBean> event) {
+        if (EventBusUtil.E == event.getCode()) {
             //禁止选择委托单位
             testingCommissionCompanyName.setClickable(false);
             viewModel.setCurCommission(event.getData());
@@ -320,7 +340,8 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
      */
     private void openCamera() {
         XXPhotoUtil.with(requireActivity()).setCompress(true).setListener((photoPath, photoUri) -> {
-            viewModel.setSamplingProcess("");
+            //拍摄完成后上传照片
+            viewModel.uploadSamplingProcess(viewModel.getTestingCommissionBean().getFlowInfoId(), photoPath);
             takePhotosAdapter.addData(0, photoPath);
             //图片保存成功后判断是否达到了最大数量，如果是，则不再添加照片
             int picCount = takePhotosAdapter.getData().size();
@@ -375,16 +396,16 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
             case R.id.sand_manage_sampling_time:
                 //取样时间暂时不能更改
                 DateUtil.datePicker(getActivity(), (date, v) ->
-                        sandManageSamplingTime.setText(DateUtil.getDate(date)));
+                        sandManageSamplingTime.setText(DateUtil.FORMAT_BAR_YMD(date)));
                 break;
             case R.id.sand_manage_commission_date:
                 DateUtil.datePicker(getActivity(), (date, v) ->
-                        viewModel.setCommissionDate(DateUtil.getDate(date)));
+                        viewModel.setCommissionDate(DateUtil.FORMAT_BAR_YMD(date)));
                 break;
             case R.id.sand_manage_sampling_user:
                 //取样人员
                 List<SandSamplerBean> samplerBeans = viewModel.getSamplerBeans();
-                String msg = "";
+                String msg;
                 if (samplerBeans.size() == 0) {
                     if (viewModel.getSampleCompanyType().getValue() == TESTING_INIT && TextUtils.isEmpty(testingCommissionTestingCompany.getText())) {
                         msg = "请先选择检测单位！";
@@ -403,9 +424,9 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
         }
     }
 
-    @OnTextChanged(R.id.sand_manage_identification)
-    public void ccNoText(CharSequence s) {
-        viewModel.setCCNo(s.toString());
+    @OnClick(R.id.sand_manage_identification)
+    public void selectCCNoDidClick(View view) {
+        Navigation.findNavController(view).navigate(R.id.testingCommissionDetailToIdentification);
     }
 
     @OnClick(R.id.sand_testing_commission_detail_ok)
@@ -446,5 +467,30 @@ public class TestingCommissionDetailFragment extends BaseVMFragment<SandTestingC
             //新增信息
             viewModel.saveTestingCommission();
         }
+    }
+
+    @Override
+    public void leftNavBarClick(View view) {
+        if(!viewModel.isEdit()){
+            //提示用户是否保存
+            LSAlert.showAlert(requireActivity(), "提示", "是否保存已更改的信息", "保存", "取消",
+                    false, new LSAlert.AlertCallback() {
+                        @Override
+                        public void onConfirm() {
+                            if(viewModel.getTestingCommissionBean().getId()!=null){
+                                viewModel.updateTestingCommission();
+                            }else{
+                                viewModel.saveTestingCommission();
+                            }
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            TestingCommissionDetailFragment.super.leftNavBarClick(view);
+                        }
+                    });
+            return;
+        }
+        super.leftNavBarClick(view);
     }
 }

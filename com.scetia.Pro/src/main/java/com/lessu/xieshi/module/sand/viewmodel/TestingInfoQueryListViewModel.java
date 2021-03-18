@@ -5,12 +5,12 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.bean.BuildSandResultData;
 import com.scetia.Pro.network.conversion.ResponseObserver;
-import com.lessu.xieshi.http.api.BuildSandApiService;
+import com.lessu.xieshi.http.service.BuildSandApiService;
 import com.lessu.xieshi.module.sand.bean.TestingQueryResultBean;
 import com.scetia.Pro.network.manage.BuildSandRetrofit;
 
@@ -58,7 +58,6 @@ public class TestingInfoQueryListViewModel extends BaseViewModel {
         params.put("orderBy","consignCreateDate desc");
         params.put("pageIndex",currentPage);
         params.put("pageSize",20);
-        params.put("sampleStatus","");
         if(queryKey!=null){
             params.put("detectionAgencyMemberName",queryKey);
         }
@@ -79,8 +78,7 @@ public class TestingInfoQueryListViewModel extends BaseViewModel {
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadState.postValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
                     }
                 });
     }

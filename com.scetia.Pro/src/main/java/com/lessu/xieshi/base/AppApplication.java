@@ -4,11 +4,12 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 import com.baidu.mapapi.SDKInitializer;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.network.ConstantApi;
 import com.scetia.Pro.baseapp.ShareableApplication;
 import com.lessu.net.ApiBase;
 import com.lessu.net.ApiConnection;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -54,6 +55,7 @@ public class AppApplication extends ShareableApplication {
 
 			@Override
 			public void onViewInitFinished(boolean b) {
+				LogUtil.showLogE("X5WebView初始化==="+b);
 			}
 		});
 	}
@@ -66,9 +68,7 @@ public class AppApplication extends ShareableApplication {
 		ApiConnection.DefaultStandardMessageKey 	= "Message";
 		ApiConnection.DefaultStandardSuccessKey		= "Success";
 		//每次进入程序都要重新默认为电信服务
-		SPUtil.setSPLSUtil("service", Common.TELECOM_SERVICE);
-		Common.setService(Common.TELECOM_SERVICE, ConstantApi.XS_TELECOM_BASE_URL);
-		Common.setService(Common.UNICOM_SERVICE,ConstantApi.XS_UNICOM_BASE_URL);
-		ApiBase.sharedInstance().apiUrl = Common.getService(SPUtil.getSPLSUtil("service",""));
+		SPUtil.setSPLSUtil(Constants.Setting.SERVICE, ConstantApi.XS_TELECOM_BASE_URL);
+		ApiBase.sharedInstance().apiUrl = ConstantApi.XS_TELECOM_BASE_URL;
 	}
 }

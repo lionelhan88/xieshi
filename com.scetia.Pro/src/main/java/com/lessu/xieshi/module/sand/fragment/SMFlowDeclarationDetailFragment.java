@@ -7,12 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.base.BaseVMFragment;
@@ -77,35 +80,30 @@ public class SMFlowDeclarationDetailFragment extends BaseVMFragment<SMFlowDeclar
 
     @Override
     protected void observerData() {
-        viewModel.getLoadMoreState().observe(this, moreState -> {
-            switch (moreState.loadState) {
+        viewModel.getLoadState().observe(this,loadState -> {
+            switch (loadState) {
                 case LOADING:
-                    if (moreState.loadType == 1) {
-                        LSAlert.showProgressHud(requireActivity(), "正在提交...");
-                    } else {
-                        LSAlert.showProgressHud(requireActivity(), "正在加载...");
-                    }
+                    LSAlert.showProgressHud(requireActivity(), loadState.getMessage());
                     break;
                 case SUCCESS:
                     LSAlert.dismissProgressHud();
-                    if (moreState.loadType == 1) {
-                        LSAlert.showAlert(requireActivity(), "提交成功");
+                    if(loadState.getCode()==204){
+                        //完成提交操作成功返回
+                        LSAlert.showAlert(requireActivity(), loadState.getMessage());
                         //当前信息保存成功后，显示“委托”按钮可以让用户立即进行委托
-                        btFlowDeclarationDetailDeclaration.setVisibility(View.VISIBLE);
+                        //如果已经是委托状态就更新后就不能再进行委托了
+                        if(!viewModel.getFlowDeclarationBean().getFlowInfoStatus()
+                                .equals(Constants.FlowDeclaration.COMMISSIONED_STATE)) {
+                            btFlowDeclarationDetailDeclaration.setVisibility(View.VISIBLE);
+                        }
                         EventBusUtil.sendEvent(new GlobalEvent<>(EventBusUtil.D,this));
                     }
                     break;
                 case FAILURE:
                     LSAlert.dismissProgressHud();
-                    if (moreState.loadType == 1) {
-                        LSAlert.showAlert(requireActivity(), "提交失败");
-                    }
+                    ToastUtil.showShort(loadState.getMessage());
                     break;
             }
-        });
-
-        viewModel.getThrowable().observe(this, responseThrowable -> {
-            ToastUtil.showShort(responseThrowable.message);
         });
 
         //监听流向申报数据变化
@@ -355,4 +353,24 @@ public class SMFlowDeclarationDetailFragment extends BaseVMFragment<SMFlowDeclar
         fullScreenDialog.shows();
     }
 
+    @Override
+    public void leftNavBarClick(View view) {
+        if(!viewModel.isEdit()){
+            //提示用户是否保存
+            LSAlert.showAlert(requireActivity(), "提示", "是否保存已更改的信息", "保存", "取消",
+                    false, new LSAlert.AlertCallback() {
+                        @Override
+                        public void onConfirm() {
+                            viewModel.saveFlowDeclaration();
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            SMFlowDeclarationDetailFragment.super.leftNavBarClick(view);
+                        }
+                    });
+            return;
+        }
+        super.leftNavBarClick(view);
+    }
 }

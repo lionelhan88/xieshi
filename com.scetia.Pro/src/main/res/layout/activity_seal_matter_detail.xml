@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll_seal_matter_detail_approve"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_apply_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="张三"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_large"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_apply_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="申请中"
+                    android:textSize="@dimen/text_size_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_apply_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="2020-03-03"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seal_matter_detail_apply_man" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_top_bottom_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/common_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seal_matter_detail_apply_date" />
+
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:id="@+id/seal_matter_detail_flow_types"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seal_matter_detail_top_bottom_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_seal_stamp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seal_matter_detail_flow_types">
+
+                    <CheckBox
+                        android:id="@+id/cb_is_stamp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:buttonTint="@color/blue_normal2"
+                        android:clickable="false"
+                        android:text="盖章：0份"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <TextView
+                        android:id="@+id/seal_matter_detail_line"
+                        android:layout_width="1dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <TextView
+                        android:id="@+id/seal_matter_detail_stamp_sign_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="抬头："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <TextView
+                        android:id="@+id/seal_matter_detail_stamp_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="100dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_gray"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="申请内容"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_apply_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:text="adadasdasdsadasd"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_annex_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="120dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_gray"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="附件"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_large" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_seal_matter_detail_annex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_gray"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="审批结果"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_large" />
+
+            <LinearLayout
+                style="@style/info_show_list_linearLayout"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="审核人" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_review_man"
+                    style="@style/seal_matter_detail_text_content_style"
+                    android:text="李四" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="审核时间" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_review_date"
+                    style="@style/seal_matter_detail_text_content_style"
+                    android:text="2020-03-09" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/info_show_list_linearLayout"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="批准人" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_approve_man"
+                    style="@style/seal_matter_detail_text_content_style"
+                    android:text="王六" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="批准时间" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_approve_date"
+                    style="@style/seal_matter_detail_text_content_style"
+                    android:text="2020-03-09" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/info_show_list_linearLayout"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="盖章人" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_stamp_man"
+                    style="@style/seal_matter_detail_text_content_style"
+                    android:text="赵七" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="盖章时间" />
+
+                <TextView
+                    android:id="@+id/seal_matter_detail_stamp_date"
+                    style="@style/seal_matter_detail_text_content_style"
+                    android:text="2020-03-09" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_seal_matter_detail_approve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_seal_matter_detail_un_approve"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/red_dark"
+            android:text="批准不通过"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_seal_matter_detail_revoke"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/orange2"
+            android:text="撤销"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_seal_matter_detail_approve"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/blue_normal2"
+            android:text="批准"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

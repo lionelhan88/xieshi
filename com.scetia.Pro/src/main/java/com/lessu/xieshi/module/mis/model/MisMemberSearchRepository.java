@@ -1,7 +1,7 @@
 package com.lessu.xieshi.module.mis.model;
 
 import com.google.gson.JsonObject;
-import com.lessu.xieshi.http.api.MisApiService;
+import com.lessu.xieshi.http.service.MisApiService;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
 import com.scetia.Pro.network.base.BaseRetrofitManage;
 import com.scetia.Pro.network.conversion.ResponseObserver;

@@ -22,7 +22,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 
 import com.scetia.Pro.common.R;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DensityUtil;
 import com.scetia.Pro.common.Util.SPUtil;
 
@@ -208,11 +208,17 @@ public class ImageSelectBottomMenu extends DialogFragment {
                 if (!dataColumn.contains("file://")) {
                     dataColumn = "file://" + dataColumn;
                 }
-                SPUtil.setSPConfig(Common.PICNAME, dataColumn);
+                SPUtil.setSPConfig(Constants.User.PIC_NAME, dataColumn);
                 //选相册的返回结果
                 imageSelectListener.takePhoto(dataColumn,uri);
             }
         }
         dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        imageSelectListener = null;
+        super.onDestroy();
     }
 }

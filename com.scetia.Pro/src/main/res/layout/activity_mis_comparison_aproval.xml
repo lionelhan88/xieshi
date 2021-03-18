@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".module.mis.activitys.MisComparisonAprovalActivity">
+    tools:context=".module.mis.activities.MisComparisonAprovalActivity">
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/mis_comparison_list_view"
         android:layout_width="match_parent"

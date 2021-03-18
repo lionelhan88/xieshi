@@ -7,31 +7,30 @@ import android.webkit.WebView;
 import com.google.gson.GsonValidate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.web.TemplatedWebViewActivity;
 import com.lessu.xieshi.module.unqualified.UqTestingReportConclusionActivity;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AuditingDetailActivity extends TemplatedWebViewActivity {
 	private WebView webView;
-	private Map<String,String> activtyMapper;
-	JsonObject json;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.auditing_detail_activity);
+	protected int getLayoutId() {
+		return R.layout.auditing_detail_activity;
+	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("样品信息");
 		if(webView == null){
 			webView = (WebView) findViewById(R.id.auditing_detail);
 		}
-		this.setTitle("样品信息");
-		navigationBar.setBackgroundColor(0xFF3598DC);
 	}
 
 	@Override
@@ -39,8 +38,8 @@ public class AuditingDetailActivity extends TemplatedWebViewActivity {
 		super.onStart();
 		Bundle bundelForData=this.getIntent().getExtras();
 		String sampleId = bundelForData.getString("SampleId");
-		String token = Content.getToken();
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		String token =  Constants.User.GET_TOKEN();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("ConsignId", sampleId);
 		params.put("Token", token);
 		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceRP.asmx/RecordPreviewList"), params, new EasyAPI.ApiFastSuccessCallBack() {
@@ -76,23 +75,6 @@ public class AuditingDetailActivity extends TemplatedWebViewActivity {
 				}
 			}
 		});
-//		String Report_ID = bundelForData.getString("Report_id");
-//		String Checksum = bundelForData.getString("Checksum");
-//		String Sample_ID = bundelForData.getString("Sample_id");
-//		String paramString = "{\"Report_id\":\""+Report_ID+"\",\"Checksum\":\""+Checksum+"\",\"Sample_id\":\""+Sample_ID+"\"}";
-//		params.put("param", paramString);
-//		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription
-//				.soap("http://www.scetia.com/scetia.app.ws", "SampleDetail"),
-//				params, new EasyAPI.ApiFastSuccessCallBack() {
-//					@Override
-//					public void onSuccessJson(JsonElement result) {
-//						String jsonString = result.getAsJsonObject().get("Data").toString();
-//						JsonElement jsonElement = EasyGson.jsonFromString(jsonString);
-//						loadHtmlFile("html/sample_detail.html", "file:///android_asset/html/", jsonElement);
-//		loadHtmlFile("html/verify_detail.html", "file:///android_asset/html/", null);
-//					}
-//				});
-		
 	}
 
 	@Override

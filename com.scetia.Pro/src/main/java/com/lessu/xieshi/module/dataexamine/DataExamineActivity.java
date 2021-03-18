@@ -9,14 +9,13 @@ import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.gson.EasyGson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.xieshi.module.mis.activitys.Content;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.foundation.RegKit;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiBase;
@@ -32,12 +31,11 @@ import com.lessu.xieshi.http.HttpUrlConnect;
 import com.lessu.xieshi.view.ListViewCell;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -45,7 +43,7 @@ import butterknife.OnClick;
 public class DataExamineActivity extends XieShiSlidingMenuActivity implements OnItemClickListener {
 	String itemId = "";
 	ListPageWrapper wrapper;
-	String token =  Content.getToken();
+	String token =   Constants.User.GET_TOKEN();
 	String doneFlag = "";
 	String kindId = "";
 	String typeTitle = "";
@@ -58,29 +56,24 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 	private List<JsonElement> list;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.data_examine_activity);
+	protected int getLayoutId() {
+		return R.layout.data_examine_activity;
+	}
+
+	@Override
+	protected void initView() {
 		this.setTitle("报告批准");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-
-
 		BarButtonItem	searchButtonitem = new BarButtonItem(this , R.drawable.icon_navigation_search );
 		searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");
-
 		navigationBar.setRightBarItem(searchButtonitem);
-
 		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
 		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
-		System.out.println("报告批准。。。"+token);
-		//navigationBar.setLeftBarItem(menuButtonitem);
 	}
 
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-
 		//跳转到搜索页
 		if (itemId == null || itemId.isEmpty()){
 			getDefaultData();
@@ -92,7 +85,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 	}
 
 	private void getData() {
-		// TODO Auto-generated method stub
 		if (doneFlag.equals("1")){
 			findViewById(R.id.handleView).setVisibility(View.GONE);
 		}
@@ -108,21 +100,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 		params.put("ItemId", itemId);
 		params.put("PageSize", 10);
 		params.put("CurrentPageNo", 1);
-		System.out.println("itemId....limian......"+itemId);
-		System.out.println(params);
-	/*	EasyAPI.apiConnectionAsync(DataExamineActivity.this, true, false, ApiMethodDescription.get(uri), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
-
-			@Override
-			public void onSuccessJson(JsonElement result) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public String onFailed(ApiError error) {
-				Toast.makeText(DataExamineActivity.this,"当前没有相对应的数据!",Toast.LENGTH_SHORT).show();
-				return null;
-			}
-		});*/
 		PullToRefreshListView listView = (PullToRefreshListView) findViewById(R.id.listView);
 
 
@@ -132,7 +109,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 			protected ApiMethodDescription onPageGetApiMethodDescription() {
 				// TODO Auto-generated method stub
 				uri = "/ServiceUST.asmx/Get_AuditList";
-				System.out.println("itemId.........."+itemId);
 				if (doneFlag.equals("1")){
 					uri = "/ServiceUST.asmx/Get_AppAuditedList";
 				}
@@ -159,30 +135,24 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 				pageController.setPageinfoAdapter(new PageInfoAdapterInterface(){
 					@Override
 					public PageInfo adapter(JsonElement input) {
-						System.out.println("aaaaaaaaaaaaaa............"+input);
 						PageInfo pageInfo = new PageInfo();
 						JsonObject inputJson = input.getAsJsonObject();
 						boolean resIsSuccess = inputJson.get("Success").getAsBoolean();
 						//返回数据没有内容提示用户
 						if(!resIsSuccess){
 							String message = inputJson.get("Message").getAsString();
-							Toast.makeText(DataExamineActivity.this, message, Toast.LENGTH_SHORT).show();
+							ToastUtil.showShort(message);
 							return pageInfo;
 						}
 						pageInfo.isSuccess = true;
 						JsonArray inputJsonArray = inputJson.get("Data").getAsJsonArray();
-						System.out.println("jsoooooooooooooooooooo..."+inputJsonArray.get(0).toString());
 						int size = inputJsonArray.size();
-						System.out.println("长度。。。。"+size);
 						list = new ArrayList<JsonElement>();
 						for (int i=0;i<size;i++){
 							list.add(inputJsonArray.get(i));
 						}
-
 						pageInfo.listData = list;
-
 						pageInfo.totalPage = pageController.getCurrentPage()+1;
-						System.out.println("pageInfo.totalPage..."+pageInfo.totalPage);
 						return pageInfo;
 					}
 
@@ -228,10 +198,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 			@Override
 			protected void onPageCellSetData(int position, View cell,
 											 Object data) {
-				// TODO Auto-generated method stub
-
-				System.out.println("data......."+data);
-
 				ListViewCell cellview = (ListViewCell) cell;
 				cellview.setPosition(position);
 				if (doneFlag.equals("1")){
@@ -254,10 +220,7 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 		};
 		System.out.println("这里走了没");
 		wrapper.wrap(listView);
-
 		listView.setOnItemClickListener(this);
-
-
 	}
 
 	private void getDefaultData() {
@@ -316,19 +279,14 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 	}
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View cell, int position, long id) {
-
 		List list = wrapper.getPageController().getList();
 		String jsonString = list.get(position-1).toString();
 		String consignId = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("ConSign_ID").getAsString();
-		System.out.println("coudin_id..."+consignId);
-//		if (doneFlag.equals("1")){
 		Intent intent = new Intent(DataExamineActivity.this, ExamineReportDetailActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putString("ConsignId", consignId);
 		intent.putExtras(bundle);
 		startActivity(intent);
-//		}
-
 	}
 
 
@@ -372,7 +330,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 					LSAlert.dismissProgressHud();
 					LSAlert.showAlert(DataExamineActivity.this, alertMessage);
 					arrayList.clear();
-					//wrapper.refreshNoMerge();
 					getData();
 					wrapper.shuaxin();
 				}
@@ -397,7 +354,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 		HttpUrlConnect httpConnect = new HttpUrlConnect(url,handlParams);
 		if (httpConnect.startConnection()){
 			String result = httpConnect.getResultString();
-			System.out.println("里面的结果。。。。"+result);
 			String jsonString = RegKit.match(result, ">(\\{.+\\})</",1);
 
 			JsonObject jsonResult = EasyGson.jsonFromString(jsonString).getAsJsonObject();
@@ -465,36 +421,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 			typeTitle = bundle.getString("TypeTitle");
 			projectTitle = bundle.getString("ProjectTitle");
 			flagTitle = bundle.getString("FlagTitle");
-		}
-	}
-
-//	@Override
-//	public boolean dispatchKeyEvent(KeyEvent event) {
-//		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//			exitBy2Click();
-//			return false;
-//		} else {
-//			return super.dispatchKeyEvent(event);
-//		}
-//	}
-	private static Boolean isExit = false;
-	private void exitBy2Click() {
-		// TODO Auto-generated method stub
-		Timer tExit = null;
-		if (isExit == false) {
-			isExit = true; // 准备�?��
-			Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-			tExit = new Timer();
-			tExit.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					isExit = false; // 取消�?��
-				}
-			}, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任�?
-
-		} else {
-			finish();
-			System.exit(0);
 		}
 	}
 }

@@ -51,7 +51,7 @@ public class DataInteractionActivity extends NavigationActivity implements View.
     private ArrayList<ReceiveSampleInfoBean> xalTallist = new ArrayList();
     private String talxal;
     private ReviewDownloadListAdapter listAdapter;
-
+/*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +74,13 @@ public class DataInteractionActivity extends NavigationActivity implements View.
             }
         };
         initView();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_shujvjiaohu;
     }
+
 
     @Override
     protected void onStart() {
@@ -93,8 +99,25 @@ public class DataInteractionActivity extends NavigationActivity implements View.
         }
     }
 
+    @Override
+    protected void initView() {
+        this.setTitle("数据交互");
+        //设置侧滑菜单
+        dl = findViewById(R.id.dl);
+        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
+        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
+        navigationBar.setLeftBarItem(menuButtonitem);
+        creator = new SwipeMenuCreator() {
 
-    private void initView() {
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                deleteItem.setWidth((130));
+                deleteItem.setIcon(R.drawable.shanchu);
+                menu.addMenuItem(deleteItem);
+            }
+        };
         iv_loding = findViewById(R.id.iv_loding);
         bt_xiazai = findViewById(R.id.bt_xiazai);
         bt_yaopinqveren = findViewById(R.id.bt_yaopinqveren);
@@ -131,7 +154,8 @@ public class DataInteractionActivity extends NavigationActivity implements View.
     /**
      * 获取数据
      */
-    private void initData() {
+    @Override
+    protected void initData() {
         xalTallist.clear();
         Intent intent = getIntent();
         uidstr = intent.getStringExtra("uidstr");

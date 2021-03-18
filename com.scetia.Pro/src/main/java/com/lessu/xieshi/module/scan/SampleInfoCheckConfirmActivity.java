@@ -55,11 +55,13 @@ public class SampleInfoCheckConfirmActivity extends NavigationActivity implement
     private TextView tv_qveshishangbao;
     private String talxal;
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_yangpinqveren;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yangpinqveren);
+    protected void initView() {
         this.setTitle("样品信息确认");
         //设置侧滑菜单
         dl = findViewById(R.id.dl);
@@ -77,10 +79,6 @@ public class SampleInfoCheckConfirmActivity extends NavigationActivity implement
                 menu.addMenuItem(deleteItem);
             }
         };
-        initView();
-        initData();
-    }
-    private void initView() {
         tv_qveshishangbao = findViewById(R.id.tv_qveshishangbao);
         tv_hetongdengjihao = findViewById(R.id.tv_hetongdengjihao);
         tv_shigongdanwei = findViewById(R.id.tv_shigongdanwei);
@@ -112,7 +110,8 @@ public class SampleInfoCheckConfirmActivity extends NavigationActivity implement
         tv_qveshishangbao.setOnClickListener(this);
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         Intent intentGet = getIntent();
         String index=intentGet.getStringExtra("current");
         talxal = intentGet.getStringExtra("talxal");
@@ -223,12 +222,15 @@ public class SampleInfoCheckConfirmActivity extends NavigationActivity implement
                 break;
 
             case R.id.tv_qveshishangbao:
+                if(sampleInfoBeans.size()==0){
+                    ToastUtil.showShort("未有需要上报的信息！");
+                    return;
+                }
                 Intent intentPut = new Intent(SampleInfoCheckConfirmActivity.this, ShenqingshangbaoActivity.class);
                 intentPut.putExtra("talxal", talxal);
                 intentPut.putExtra("sampleid", sampleInfoBeans.get(current).getSample_BsId());
                 startActivity(intentPut);
                 break;
-
             case R.id.tv_qveren:
                 for (int i = 0; i < sampleInfoBeans.size() ; i++) {
                     coreCodeStr=coreCodeStr+ sampleInfoBeans.get(i).getSample_BsId()+";";

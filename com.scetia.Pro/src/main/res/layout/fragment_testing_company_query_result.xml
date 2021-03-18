@@ -29,7 +29,7 @@
             android:id="@+id/testing_company_query_list_counties"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/text_light_gray_stroke_bg"
+            android:background="@drawable/light_gray_frame_bg"
             android:drawableEnd="@drawable/xialamis"
             android:drawablePadding="10dp"
             android:gravity="center"

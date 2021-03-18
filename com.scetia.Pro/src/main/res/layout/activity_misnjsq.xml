@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingLeft="21dp"
     android:paddingRight="21dp"
-    tools:context=".module.mis.activitys.MisAnnualLeaveApplyActivity">
+    tools:context=".module.mis.activities.MisAnnualLeaveApplyActivity">
 
 
     <LinearLayout

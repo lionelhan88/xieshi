@@ -25,7 +25,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -46,6 +45,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppBaseTheme">
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="BAgwg7AXl1KAMG9UbyhTrdw6jw4x3iz0" />
@@ -55,6 +55,7 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -68,144 +69,56 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.mis.activitys.MisGuideActivity"
+            android:name=".module.mis.activities.MisGuideActivity"
             android:launchMode="singleTask" />
-
         <activity android:name=".module.meet.activity.OtherJoinMeetingActivity" />
         <activity android:name=".module.meet.activity.ReplaceActivity" />
         <activity android:name=".module.meet.activity.MisMeetingActivity" />
         <activity android:name=".module.meet.activity.MeetingDetailActivity" />
-        <activity
-            android:name=".module.construction.SampleListActivity"
-            android:label="@string/title_activity_sample_list" />
-        <activity
-            android:name=".base.QRCodeActivity"
-            android:label="@string/title_activity_qrcode" />
-        <activity
-            android:name=".module.web.ReportDetailActivity"
-            android:label="@string/title_activity_report_detail" />
-        <activity
-            android:name=".module.construction.SampleDetailActivity"
-            android:label="@string/title_activity_sample_detail" />
-        <activity
-            android:name=".module.login.ValidateActivity"
-            android:label="@string/title_activity_validate" />
-        <activity
-            android:name=".module.dataauditing.DataAuditingActivity"
-            android:label="@string/title_activity_data_auditing" />
-        <activity
-            android:name=".module.construction.ConstructionListActivity"
-            android:label="@string/title_activity_construction_list" />
-        <activity
-            android:name=".map.ProjectListActivity"
-            android:label="@string/title_activity_project_list" />
-        <activity
-            android:name=".module.dataauditing.DataSearchActivity"
-            android:label="@string/title_activity_data_search" />
-        <activity
-            android:name=".base.XieShiSlidingMenuActivity"
-            android:label="@string/title_activity_xie_shi_sliding_menu" />
-        <activity
-            android:name=".module.dataauditing.AuditingDetailActivity"
-            android:label="@string/title_activity_auditing_detail" />
-        <activity
-            android:name=".module.dataexamine.DataExamineActivity"
-            android:label="@string/title_activity_data_examine" />
-        <activity
-            android:name=".module.todaystatistics.TodayStatisticsActivity"
-            android:label="@string/title_activity_today_statistics" />
-        <activity
-            android:name=".module.construction.ConstructionSearchActivity"
-            android:label="@string/title_activity_construction_search" />
-        <activity
-            android:name=".module.unqualified.UnqualifiedSearchActivity"
-            android:label="@string/title_activity_unqualifield_search" />
-        <activity
-            android:name=".module.unqualified.TestingReportActivity"
-            android:label="@string/title_activity_test_report" />
-        <activity
-            android:name=".module.web.ReportPreviewActivity"
-            android:label="@string/title_activity_report_preview" />
-        <activity
-            android:name=".module.web.RecordPreviewActivity"
-            android:label="@string/title_activity_record_preview" />
-        <activity
-            android:name=".module.dataexamine.ExamineSearchActivity"
-            android:label="@string/title_activity_examine_search" />
-        <activity
-            android:name=".module.dataexamine.ExamineDetailActivity"
-            android:label="@string/title_activity_examine_detail" />
-        <activity
-            android:name=".module.construction.TestConstractActivity"
-            android:label="@string/title_activity_test_constract" />
-        <activity
-            android:name=".module.construction.SampleSearchActivity"
-            android:label="@string/title_activity_sample_search" />
-        <activity
-            android:name=".module.unqualified.TestingReportContentActivity"
-            android:label="@string/title_activity_report_content" />
-        <activity
-            android:name=".module.unqualified.UqTestingReportConclusionActivity"
-            android:label="@string/title_activity_report_content" />
-        <activity
-            android:name=".module.unqualified.SampleDetailActivity"
-            android:label="@string/title_activity_report_content" />
-        <activity
-            android:name=".map.ProjectSearchActivity"
-            android:label="" />
-        <activity
-            android:name=".uploadpicture.UploadPictureActivity"
-            android:label="@string/title_activity_upload_picture" />
-        <activity
-            android:name=".uploadpicture.ImageGalleryActivity"
-            android:label="@string/title_activity_image_gallery" />
-        <activity
-            android:name=".module.dataexamine.ExamineReportDetailActivity"
-            android:label="@string/title_activity_examine_report_detail" />
-        <activity
-            android:name=".module.dataexamine.ExamineSampleListActivity"
-            android:label="@string/title_activity_examine_sample_list" />
-        <activity
-            android:name=".module.dataexamine.ExamineSampleDetailActivity"
-            android:label="@string/title_activity_examine_sample_detail" />
-        <activity
-            android:name=".module.dataexamine.ExamineParamsActivity"
-            android:label="@string/title_activity_examine_params" />
-        <activity
-            android:name=".module.todaystatistics.AdminTodayStatisticsActivity"
-            android:label="@string/title_activity_admin_today_statistics" />
-        <activity
-            android:name=".module.todaystatistics.AdminTodayStatisticsSearchActivity"
-            android:label="@string/title_activity_admin_today_statistics_search" />
-        <activity
-            android:name=".module.construction.QrcodeDetailActivity"
-            android:label="@string/title_activity_qrcode_detail" />
-        <activity
-            android:name=".module.unqualified.UnqualifiedConstructionListActivity"
-            android:label="@string/title_activity_construction_list" />
-        <activity
-            android:name=".module.todaystatistics.TodayStatisticsDetailActivity"
-            android:label="@string/title_activity_today_statistics_detail" />
-        <activity
-            android:name=".set.SettingActivity"
-            android:label="@string/title_activity_setting" />
-        <activity
-            android:name=".set.ServiceActivity"
-            android:label="@string/title_activity_service" />
-        <activity
-            android:name=".set.PasswordActivity"
-            android:label="@string/title_activity_password" />
-        <activity
-            android:name=".set.PasswordCompleteActivity"
-            android:label="@string/title_activity_password_complete" />
-
+        <activity android:name=".module.construction.SampleListActivity" />
+        <activity android:name=".base.QRCodeActivity" />
+        <activity android:name=".module.web.ReportDetailActivity" />
+        <activity android:name=".module.construction.SampleDetailActivity" />
+        <activity android:name=".module.login.ValidateActivity" />
+        <activity android:name=".module.dataauditing.DataAuditingActivity" />
+        <activity android:name=".module.construction.ConstructionListActivity" />
+        <activity android:name=".module.foundationpile.ProjectListActivity" />
+        <activity android:name=".module.dataauditing.DataSearchActivity" />
+        <activity android:name=".base.XieShiSlidingMenuActivity" />
+        <activity android:name=".module.dataauditing.AuditingDetailActivity" />
+        <activity android:name=".module.dataexamine.DataExamineActivity" />
+        <activity android:name=".module.todaystatistics.TodayStatisticsActivity" />
+        <activity android:name=".module.construction.ConstructionSearchActivity" />
+        <activity android:name=".module.unqualified.UnqualifiedSearchActivity" />
+        <activity android:name=".module.unqualified.TestingReportActivity" />
+        <activity android:name=".module.web.ReportPreviewActivity" />
+        <activity android:name=".module.web.RecordPreviewActivity" />
+        <activity android:name=".module.dataexamine.ExamineSearchActivity" />
+        <activity android:name=".module.dataexamine.ExamineDetailActivity" />
+        <activity android:name=".module.construction.TestConstractActivity" />
+        <activity android:name=".module.construction.SampleSearchActivity" />
+        <activity android:name=".module.unqualified.TestingReportContentActivity" />
+        <activity android:name=".module.unqualified.UqTestingReportConclusionActivity" />
+        <activity android:name=".module.unqualified.SampleDetailActivity" />
+        <activity android:name=".module.foundationpile.ProjectSearchActivity" />
+        <activity android:name=".uploadpicture.UploadPictureActivity" />
+        <activity android:name=".uploadpicture.ImageGalleryActivity" />
+        <activity android:name=".module.dataexamine.ExamineReportDetailActivity" />
+        <activity android:name=".module.dataexamine.ExamineSampleListActivity" />
+        <activity android:name=".module.dataexamine.ExamineSampleDetailActivity" />
+        <activity android:name=".module.dataexamine.ExamineParamsActivity" />
+        <activity android:name=".module.todaystatistics.SiteSearchListMapActivity" />
+        <activity android:name=".module.todaystatistics.SiteSearchByConditionActivity"/>
+        <activity android:name=".module.construction.QrcodeDetailActivity" />
+        <activity android:name=".module.unqualified.UnqualifiedConstructionListActivity" />
+        <activity android:name=".module.todaystatistics.TodayStatisticsDetailActivity" />
+        <activity android:name=".set.SettingActivity" />
+        <activity android:name=".set.ServiceActivity" />
+        <activity android:name=".set.PasswordActivity" />
+        <activity android:name=".set.PasswordCompleteActivity" />
         <activity android:name=".module.scan.ScanActivity" />
-        <activity
-            android:name=".module.scan.BluetoothActivity"
-            android:label="BluetoothActivity" />
-        <activity
-            android:name=".module.scan.PrintDataActivity"
-            android:label="PrintDataActivity" />
+        <activity android:name=".module.scan.BluetoothActivity" />
+        <activity android:name=".module.scan.PrintDataActivity" />
         <activity android:name=".module.scan.ShebeixinxiActivity" />
         <activity android:name=".module.scan.DataInteractionActivity" />
         <activity android:name=".module.scan.SampleInfoCheckConfirmActivity" />
@@ -213,27 +126,27 @@
         <activity android:name=".module.scan.ReviewDownloadActivity" />
         <activity android:name=".module.scan.RukuchakanActivity" />
         <activity android:name=".module.scan.YangpinshibieActivity" />
-
-        <activity android:name=".module.mis.activitys.MisMemberSearchActivity" />
-        <activity android:name=".module.mis.activitys.HyDetailActivity" />
-        <activity android:name=".module.mis.activitys.MisCertificateSearchActivity" />
-        <activity android:name=".module.mis.activitys.CertificateDetailActivity" />
-        <activity android:name=".module.mis.activitys.MisPingGuActivity" />
-        <activity android:name=".module.mis.activitys.PingGuDetailActivity" />
-        <activity android:name=".module.mis.activitys.MisNoticesActivity" />
-        <activity android:name=".module.mis.activitys.NoticeDetailActivity" />
-        <activity android:name=".module.mis.activitys.MisAnnualLeaveManageActivity" />
-        <activity android:name=".module.mis.activitys.MisAnnualLeaveApprovalActivity" />
-        <activity android:name=".module.mis.activitys.MisAnnualLeaveApplyActivity" />
+        <activity android:name=".module.mis.activities.MisMemberSearchActivity" />
+        <activity android:name=".module.mis.activities.HyDetailActivity" />
+        <activity android:name=".module.mis.activities.MisCertificateSearchActivity" />
+        <activity android:name=".module.mis.activities.CertificateDetailActivity" />
+        <activity android:name=".module.mis.activities.MisPingGuActivity" />
+        <activity android:name=".module.mis.activities.PingGuDetailActivity" />
+        <activity android:name=".module.mis.activities.MisNoticesActivity" />
+        <activity android:name=".module.mis.activities.NoticeDetailActivity" />
+        <activity android:name=".module.mis.activities.MisAnnualLeaveManageActivity" />
+        <activity android:name=".module.mis.activities.MisAnnualLeaveApprovalActivity" />
+        <activity android:name=".module.mis.activities.MisAnnualLeaveApplyActivity" />
         <activity android:name=".module.weather.WeatherDetailActivity" />
-        <activity android:name=".module.todaystatistics.AdminTodayinfoActivity" />
-        <activity android:name=".module.todaystatistics.XianchangActivity" />
+        <activity android:name=".module.todaystatistics.SiteDetailInfoSearchActivity" />
+        <activity android:name=".module.todaystatistics.SiteSceneBlockActivity" />
         <activity android:name=".module.todaystatistics.XianchangdetailActivity" />
-        <activity android:name=".module.mis.activitys.MisComparisonAprovalActivity" />
-        <activity android:name=".module.mis.activitys.MisComparionObjActivity" />
+        <activity android:name=".module.mis.activities.MisComparisonAprovalActivity" />
+        <activity android:name=".module.mis.activities.MisComparionObjActivity" />
         <activity android:name=".module.training.LearnDataActivity" />
-        <activity android:name=".module.meet.activity.ScalePictureActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".module.meet.activity.ScalePictureActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".module.training.OnlineLearnActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -241,10 +154,15 @@
         <activity android:name=".module.training.TrainingActivity" />
         <activity android:name=".module.meet.activity.MeetingListActivity" />
         <activity android:name=".module.meet.activity.OtherConfirmActivity" />
+
         <activity
             android:name=".module.sand.SandHomeActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".module.mis.activities.SealManageListActivity">
 
+        </activity>
+        <activity android:name=".module.mis.activities.SealMatterDetailActivity"/>
+        <activity android:name=".module.web.WordPreviewActivity"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

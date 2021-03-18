@@ -100,10 +100,6 @@ public class TestingInfoQueryDetailFragment extends BaseVMFragment<TestingInfoQu
             }
         });
 
-        viewModel.getThrowable().observe(this, responseThrowable -> {
-            contentLoadingText.setText(responseThrowable.message);
-        });
-
         viewModel.getSandParameterResult().observe(this, sandParameterResultBeans -> {
             parameterAdapter.setNewData(sandParameterResultBeans);
         });

@@ -92,14 +92,10 @@ public class SandTestingCompanyQueryListFragment extends BaseVMFragment<TestingC
                     break;
                 case FAILURE:
                     LSAlert.dismissProgressHud();
+                    LSAlert.showAlert(requireActivity(), loadState.getMessage());
                     break;
             }
         });
-        viewModel.getThrowable().observe(this, throwable -> {
-            LSAlert.showAlert(requireActivity(), throwable.message);
-        });
-
-
     }
 
     @Override
@@ -135,7 +131,7 @@ public class SandTestingCompanyQueryListFragment extends BaseVMFragment<TestingC
     }
 
     @Override
-    protected void initImmersionBar() {
+    public void initImmersionBar() {
         ImmersionBar.with(this).titleBar(testingInfoQueryToolbar)
                 .navigationBarColor(R.color.light_gray)
                 .navigationBarDarkIcon(true)

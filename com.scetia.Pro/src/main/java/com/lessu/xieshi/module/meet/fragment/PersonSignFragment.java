@@ -10,9 +10,9 @@ import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.MisMeetingFragmentToMis;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.meet.adapter.PersonSignListAdapter;
 import com.scetia.Pro.baseapp.fragment.LazyFragment;
+import com.scetia.Pro.common.Util.Constants;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -44,7 +44,7 @@ public class PersonSignFragment extends LazyFragment {
         misMeetingFragmentRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                getMeetingList(Content.getToken(), getArguments().getString("meetingID"),
+                getMeetingList( Constants.User.GET_TOKEN(), getArguments().getString("meetingID"),
                         new ResultResponse() {
                             @Override
                             public void getResult(boolean success, JsonElement result, String errorMsg) {

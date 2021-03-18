@@ -2,12 +2,12 @@ package com.lessu.xieshi.module.mis.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.scetia.Pro.network.conversion.ResponseObserver
-import com.scetia.Pro.baseapp.uitls.LoadState
-import com.lessu.xieshi.module.mis.activitys.Content
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData
 import com.lessu.xieshi.module.mis.model.MisAnnualLeaveRepository
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
+import com.scetia.Pro.baseapp.uitls.LoadState
+import com.scetia.Pro.common.Util.Constants
+import com.scetia.Pro.network.bean.ExceptionHandle
+import com.scetia.Pro.network.conversion.ResponseObserver
 
 /**
  * created by ljs
@@ -24,7 +24,7 @@ class MisAnnualLeaveDataSource(private val year: String, private val state: Stri
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, MisAnnualLeaveData.AnnualLeaveBean>) {
         retry = null
         loadState.postValue(LoadState.LOAD_INIT)
-        repository.getAnnualLeaveData(Content.getToken(), year, state, 1, params.requestedLoadSize, object : ResponseObserver<MisAnnualLeaveData>() {
+        repository.getAnnualLeaveData(Constants.User.GET_TOKEN(), year, state, 1, params.requestedLoadSize, object : ResponseObserver<MisAnnualLeaveData>() {
             override fun success(t: MisAnnualLeaveData?) {
                 //初始化数据返回成功
                 loadState.postValue(LoadState.SUCCESS)
@@ -55,7 +55,7 @@ class MisAnnualLeaveDataSource(private val year: String, private val state: Stri
         retry = null
         //加载下一页
         loadState.postValue(LoadState.LOADING)
-        repository.getAnnualLeaveData(Content.getToken(), year, state, params.key, params.requestedLoadSize, object : ResponseObserver<MisAnnualLeaveData>() {
+        repository.getAnnualLeaveData(Constants.User.GET_TOKEN(), year, state, params.key, params.requestedLoadSize, object : ResponseObserver<MisAnnualLeaveData>() {
             override fun success(t: MisAnnualLeaveData?) {
                 loadState.postValue(LoadState.SUCCESS)
                 annualLeaveData.postValue(t)

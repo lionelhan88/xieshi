@@ -5,14 +5,17 @@ package com.lessu.xieshi.Utils;
  */
 
 public class Decrypt {
-    public static String  xinpianjiemi(String MaskStr){
-        String TempStr = "";
-        String FirstStr = "";
-        String SecendStr = "";
-        String YusuStr = "";
-        String Yusu1 = "";
-        String Yusu2 = "";
-        TempStr = MaskStr.substring(MaskStr.length() - 15, MaskStr.length());
+    /**
+     * 读取芯片内容
+     * @param MaskStr
+     * @return
+     */
+    public static String chipDecryption(String MaskStr){
+        String TempStr;
+        String FirstStr;
+        String SecendStr;
+        String YusuStr;
+        TempStr = MaskStr.substring(MaskStr.length() - 15);
         //0350F
         FirstStr = TempStr.substring(0, 5);
         //F55485
@@ -26,12 +29,15 @@ public class Decrypt {
             return "2";
         }
     }
-    //新设备读取芯片的解码方式
-    private static String  xinpianjiemi2(String MaskStr){
-        String TempStr = "";
-        String FirstStr = "";
-        String SecendStr = "";
-        String YusuStr = "";
+
+    /**
+     *  新设备读取芯片的解码方式
+     */
+    private static String newChipDecryption(String MaskStr){
+        String TempStr;
+        String FirstStr;
+        String SecendStr;
+        String YusuStr;
         if(MaskStr.length()<42){
             return "2";
         }
@@ -46,15 +52,6 @@ public class Decrypt {
         }else{
             return "2";
         }
-    }
-    public static String padRight(String oriStr, int len, String alexin){
-        int strlen = oriStr.length();
-        if(strlen < len){
-            for(int i=0;i<len-strlen;i++){
-                oriStr = oriStr+alexin;
-            }
-        }
-        return oriStr;
     }
 
     /**
@@ -84,11 +81,6 @@ public class Decrypt {
             src = (src.substring(0, src.length() - 1));
         }
         return src;
-
-//        if (src.endsWith("0")&&src.length()>10)
-//            return delZero(src.substring(0, src.length() - 1));
-//        else
-//            return src;
     }
 
     /**
@@ -96,28 +88,24 @@ public class Decrypt {
      * @param s
      * @return
      */
-    public static String jiexinpian(String s){
+    public static String decodeChip(String s){
         String xinpianjiemi;
         String no0s=delZero(s);
         if(no0s.length()>=15){
-            System.out.println("no0s..."+no0s);
             if(no0s.contains("A0")){
-                xinpianjiemi = xinpianjiemi2(no0s);
+                xinpianjiemi = newChipDecryption(no0s);
             }else {
-                xinpianjiemi = xinpianjiemi(no0s);
+                xinpianjiemi = chipDecryption(no0s);
             }
-            if(isxinpian(xinpianjiemi)){
+            if(isChip(xinpianjiemi)){
                 return xinpianjiemi;
             }else{
                 int i = no0s.lastIndexOf("55");
                 if(i!=-1) {
-                    System.out.println("no0s..."+no0s);
                     String qvchu55 = no0s.substring(0, i);
-                    System.out.println("qvchu55..."+qvchu55);
                     if (qvchu55.length() > 15) {
-                        xinpianjiemi = xinpianjiemi(qvchu55);
-                        System.out.println("2222222......."+xinpianjiemi);
-                        if (isxinpian(xinpianjiemi)) {
+                        xinpianjiemi = chipDecryption(qvchu55);
+                        if (isChip(xinpianjiemi)) {
                             return xinpianjiemi;
                         } else {
                             System.out.println("");
@@ -140,7 +128,7 @@ public class Decrypt {
      * @param s
      * @return
      */
-    public static boolean isxinpian(String s) {
+    public static boolean isChip(String s) {
         System.out.println(s.length());
         String substring = s.substring(0, 1);
         String index = "1";

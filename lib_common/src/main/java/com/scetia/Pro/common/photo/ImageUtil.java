@@ -9,6 +9,8 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
+import android.util.Base64;
 
 import androidx.core.content.FileProvider;
 
@@ -150,5 +152,17 @@ public class ImageUtil {
             bitmap.recycle();
         }
         return file;
+    }
+
+    /**
+     * 图片转换成base64
+     * @param imagePath
+     * @return
+     */
+    public static String imageToBase64ByPath(String imagePath){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        return Base64.encodeToString(baos.toByteArray(),Base64.DEFAULT);
     }
 }

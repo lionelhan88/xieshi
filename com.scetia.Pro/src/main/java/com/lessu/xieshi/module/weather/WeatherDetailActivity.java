@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.weather;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,7 +20,6 @@ import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.weather.bean.DailyForecast;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;
@@ -31,13 +28,11 @@ import com.lessu.xieshi.module.weather.customviews.DailyForecastView;
 import com.lessu.xieshi.module.weather.customviews.ScrollViewEx;
 import com.lessu.xieshi.module.weather.utils.WeatherUtil;
 import com.scetia.Pro.common.Util.GlideUtil;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.lessu.xieshi.R.dimen.y210;
 
@@ -99,31 +94,56 @@ public class WeatherDetailActivity extends NavigationActivity {
     private double m1;
     private double m2;
     private String time;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tianqi);
-        ButterKnife.bind(this);
-        screenWidth = (int) DensityUtil.screenWidth(this);
-        screenHeight = (int) DensityUtil.screenHeight(this);
-        navigationBar.setVisibility(View.GONE);
-        initDataListener();
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_tianqi;
+    }
+
+    @Override
+    protected void initImmersionBar() {
         ImmersionBar.with(this).titleBarMarginTop(rlWeatherTitle)
                 .navigationBarColor(com.lessu.uikit.R.color.light_gray)
                 .navigationBarDarkIcon(true)
                 .init();
     }
 
+    /**
+     * 初始化数据监听，更新UI
+     */
     @Override
-    protected void initImmersionBar() {
-
+    protected void observerData() {
+        viewModel =new  ViewModelProvider(this,new WeatherModelFactory(this.getApplication(),this)).get(WeatherViewModel.class);
+        viewModel.getLoadState().observe(this, loadState -> {
+            switch (loadState){
+                case LOADING:
+                    weatherDetailRefresh.setRefreshing(true);
+                    break;
+                case SUCCESS:
+                    weatherDetailRefresh.setRefreshing(false);
+                    break;
+                case FAILURE:
+                    weatherDetailRefresh.setRefreshing(false);
+                    ToastUtil.showShort(loadState.getMessage());
+                    break;
+            }
+        });
+        //监听背景图片变换，更新UI
+        viewModel.getBackgroundUrl().observe(this, s ->
+                GlideUtil.showImageView(WeatherDetailActivity.this, s, llTqBackfround));
+        viewModel.getTenBeanData().observe(this, this::showFutureTenDays);
+        viewModel.getHourBeanData().observe(this, this::showToadyHour);
     }
+
 
     /**
      * 初始化控件
      */
-    private void initView() {
+    @Override
+    protected void initView() {
+        screenWidth = (int) DensityUtil.screenWidth(this);
+        screenHeight = (int) DensityUtil.screenHeight(this);
+        navigationBar.setVisibility(View.GONE);
         y166height = getResources().getDimensionPixelSize(R.dimen.y166);
         y210height = getResources().getDimensionPixelSize(y210);
         llTqAll.getBackground().setAlpha(0);
@@ -137,51 +157,6 @@ public class WeatherDetailActivity extends NavigationActivity {
             viewModel.refresh();
         });
 
-    }
-    /**
-     * 初始化数据监听，更新UI
-     */
-    private void initDataListener(){
-        viewModel =new  ViewModelProvider(this,new WeatherModelFactory(this.getApplication(),this)).get(WeatherViewModel.class);
-        viewModel.getLoadState().observe(this, new Observer<LoadState>() {
-            @Override
-            public void onChanged(LoadState loadState) {
-                switch (loadState){
-                    case LOADING:
-                        weatherDetailRefresh.setRefreshing(true);
-                        break;
-                    case SUCCESS:
-                    case FAILURE:
-                        weatherDetailRefresh.setRefreshing(false);
-                        break;
-                }
-            }
-        });
-        viewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
-            @Override
-            public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
-                ToastUtil.showShort(throwable.message);
-            }
-        });
-        //监听背景图片变换，更新UI
-        viewModel.getBackgroundUrl().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                GlideUtil.showImageView(WeatherDetailActivity.this, s, llTqBackfround);
-            }
-        });
-        viewModel.getTenBeanData().observe(this, new Observer<Tenbean>() {
-            @Override
-            public void onChanged(Tenbean tenbean) {
-                showFutureTenDays(tenbean);
-            }
-        });
-        viewModel.getHourBeanData().observe(this, new Observer<Hourbean>() {
-            @Override
-            public void onChanged(Hourbean hourbean) {
-                showToadyHour(hourbean);
-            }
-        });
     }
 
     @Override

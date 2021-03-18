@@ -48,8 +48,8 @@ dependencies {
     api rootProject.ext.dependencies.refreshlayout
     api rootProject.ext.dependencies.baseRecyclerView
     api rootProject.ext.dependencies.easySwipeMenuLayout
+    api rootProject.ext.dependencies.qrcode
     annotationProcessor rootProject.ext.annationProcess.glideAnnationProcess
-    api files('libs/zbar.jar')
     testImplementation rootProject.ext.testJunit
     androidTestImplementation rootProject.ext.androidTest
 

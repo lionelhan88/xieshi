@@ -7,18 +7,17 @@ import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
@@ -35,7 +34,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 	String flagTitle = "";
 	private int click;
 
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.examine_search_activity);
@@ -75,12 +74,56 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 	        tv.setText(flagTitle);
 		}
 		getType();
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.examine_search_activity;
+	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("报告批准查询");
+		token =  Constants.User.GET_TOKEN();
+		Type = "0";
+		Bundle bundle = getIntent().getExtras();
+		kindId = bundle.getString("KindId");
+		itemId = bundle.getString("ItemId");
+
+		System.out.println("sousuo....."+itemId);
+		doneFlag = bundle.getString("doneFlag");
+		typeTitle = bundle.getString("TypeTitle");
+		projectTitle = bundle.getString("ProjectTitle");
+		flagTitle = bundle.getString("FlagTitle");
+		if (doneFlag.isEmpty()) {
+			doneFlag="0";
+		}
+		if (!typeTitle.isEmpty()){
+			TextView tv = (TextView)(findViewById(R.id.typeTextView));
+			tv.setText(typeTitle);
+			projectDataBind();
+		}
+		if (!projectTitle.isEmpty()){
+			TextView tv = (TextView)(findViewById(R.id.projectTextView));
+			tv.setText(projectTitle);
+		}
+		if (flagTitle.isEmpty()){
+			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+			tv.setText("否");
+			flagTitle = "否";
+		}
+		else{
+			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+			tv.setText(flagTitle);
+		}
+	}
+
+	@Override
+	protected void initData() {
+		getType();
 	}
 
 	private void getType() {
-		// TODO Auto-generated method stub
-		
-		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("Token", token);
 		params.put("Type", Type);

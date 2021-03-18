@@ -20,7 +20,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.http.api.TraningApiService;
+import com.lessu.xieshi.http.service.TraningApiService;
 import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.scetia.Pro.network.manage.TrainRetrofit;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
@@ -47,7 +47,7 @@ public class OnlineLearnActivity extends NavigationActivity {
     private IX5WebChromeClient.CustomViewCallback mCallBack;
     private ImmersionBar immersionBar;
     private ProgressBar progressBar;
-    @Override
+/*    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_learn);
@@ -55,6 +55,11 @@ public class OnlineLearnActivity extends NavigationActivity {
         navigationBar.setBackgroundColor(0xFF3598DC);
         initView();
         initData();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_online_learn;
     }
 
     @Override
@@ -73,7 +78,9 @@ public class OnlineLearnActivity extends NavigationActivity {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void initView() {
+    @Override
+    protected void initView() {
+        setTitle("在线课程");
         //禁止屏幕休眠
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         onlineWebView =  findViewById(R.id.online_web_view);
@@ -148,7 +155,8 @@ public class OnlineLearnActivity extends NavigationActivity {
             }
         });
     }
-    private void initData() {
+    @Override
+    protected void initData() {
         EventBus.getDefault().register(this);
     }
 

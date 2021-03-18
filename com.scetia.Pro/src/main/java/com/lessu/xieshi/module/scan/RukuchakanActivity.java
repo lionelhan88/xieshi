@@ -1,7 +1,6 @@
 package com.lessu.xieshi.module.scan;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -82,7 +81,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
     private TextView tv_baogaoriqi;
     private TextView tv_beizhu;
 
-    @Override
+  /*  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rukuchakan);
@@ -123,8 +122,48 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
 
         initView();
         initData();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_rukuchakan;
     }
-    private void initView() {
+
+    @Override
+    protected void initView() {
+        this.setTitle("入库查看");
+        //设置侧滑菜单
+        dl = (DragLayout) findViewById(R.id.dl);
+        dl.setDragListener(new DragLayout.DragListener() {
+            @Override
+            public void onOpen() {
+
+            }
+
+            @Override
+            public void onClose() {
+            }
+
+            @Override
+            public void onDrag(float percent) {
+            }
+        });
+
+        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
+        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
+        navigationBar.setLeftBarItem(menuButtonitem);
+        creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                deleteItem.setWidth((130));
+                deleteItem.setIcon(R.drawable.shanchu);
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
         tv_saomiaobianhao = (TextView) findViewById(R.id.tv_saomiaobianhao);
         tv_hetongdengjihao = (TextView) findViewById(R.id.tv_hetongdengjihao);
         tv_weituobianhao = (TextView) findViewById(R.id.tv_weituobianhao);
@@ -192,7 +231,8 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
         ll_shebeixinxi.setOnClickListener(this);
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         Intent intent=getIntent();
         uidstr = intent.getStringExtra("uidstr");
         if(uidstr==null||uidstr.equals("")){
@@ -357,7 +397,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                     //是芯片
                 }else{
                     String s = LongString.bytes2HexString(buffer2);
-                    final String jiexinpian = Decrypt.jiexinpian(s);
+                    final String jiexinpian = Decrypt.decodeChip(s);
                     if(jiexinpian!=null){
                         final ReceiveSampleInfoBean shhujv = getReadData(jiexinpian);
                         runOnUiThread(new Runnable() {

@@ -12,7 +12,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.LongString;
-import com.lessu.xieshi.http.api.TraningApiService;
+import com.lessu.xieshi.http.service.TraningApiService;
 import com.lessu.xieshi.module.training.bean.CourseScore;
 import com.lessu.xieshi.bean.Project;
 import com.lessu.xieshi.module.training.bean.PushToDx;
@@ -48,7 +48,7 @@ public class LearnDataActivity extends NavigationActivity {
      * 没有观看的课程
      */
     private List<CourseScore> noneCourse = new ArrayList<>();
-    @Override
+/*    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_learn);
@@ -56,11 +56,21 @@ public class LearnDataActivity extends NavigationActivity {
         navigationBar.setBackgroundColor(0xFF3598DC);
         initView();
         initData();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_data_learn;
     }
-    private void initView(){
+
+    @Override
+    protected void initView(){
+        setTitle("学习情况");
         dataListView = (ListView) findViewById(R.id.learn_data_list);
     }
-    private void initData(){
+
+    @Override
+    protected void initData(){
         courseScores = new ArrayList<>();
         EventBus.getDefault().register(this);
     }

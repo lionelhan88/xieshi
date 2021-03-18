@@ -12,7 +12,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
@@ -22,6 +21,7 @@ import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.base.QRCodeActivity;
 import com.lessu.xieshi.R;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,18 +35,20 @@ public class SampleListActivity extends NavigationActivity implements OnItemClic
 	String type;
 	String NotFinishedOnly ;
 	String QueryStr;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sample_list_activity);
-		ButterKnife.bind(this);
-		this.setTitle("样品信息查询");
 
+	@Override
+	protected int getLayoutId() {
+		return R.layout.sample_list_activity;
+	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("样品信息查询");
 		BarButtonItem	searchButtonItem = new BarButtonItem(this , R.drawable.icon_navigation_search );
 		searchButtonItem.setOnClickMethod(this,"searchButtonDidClick");
 		navigationBar.setRightBarItem(searchButtonItem);
-
 	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -62,7 +64,7 @@ public class SampleListActivity extends NavigationActivity implements OnItemClic
 			@Override
 			protected void onPageToInit(final PageController pageController) {
 				// TODO Auto-generated method stub
-				String token = Content.getToken();
+				String token =  Constants.User.GET_TOKEN();
 				Bundle bundle = SampleListActivity.this.getIntent().getExtras();
 				String ContractSignNumber = bundle.getString("ContractSignNumber");
 

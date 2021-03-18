@@ -16,9 +16,9 @@ import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.CompanyListToReplace;
 import com.lessu.xieshi.module.meet.event.MisMeetingFragmentToMis;
 import com.lessu.xieshi.module.meet.event.ReplaceSignAddEvent;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.meet.adapter.CompanySignListAdapter;
 import com.scetia.Pro.baseapp.fragment.LazyFragment;
+import com.scetia.Pro.common.Util.Constants;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -49,7 +49,7 @@ public class CompanySignFragment extends LazyFragment {
         EventBus.getDefault().register(this);
         misMeetingFragmentRefresh.setEnableLoadMore(false);
         listAdapter = new CompanySignListAdapter(R.layout.meeting_company_sign_list_item_layout);
-        misFragmentCompanySignRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        misFragmentCompanySignRv.setLayoutManager(new LinearLayoutManager(requireActivity()));
         misFragmentCompanySignRv.setAdapter(listAdapter);
         listAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -64,7 +64,7 @@ public class CompanySignFragment extends LazyFragment {
         misMeetingFragmentRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                getMeetingList(Content.getToken(), getArguments().getString("meetingID"),
+                getMeetingList( Constants.User.GET_TOKEN(), getArguments().getString("meetingID"),
                         new ResultResponse() {
                             @Override
                             public void getResult(boolean success, JsonElement result, String errorMsg) {
@@ -73,7 +73,7 @@ public class CompanySignFragment extends LazyFragment {
                                     return;
                                 }
                                 if (success) {
-                                    listAdapter.setNewData(new ArrayList<MeetingBean.MeetingUserBean>());
+                                    listAdapter.setNewData(new ArrayList<>());
                                     JsonArray data = result.getAsJsonObject().get("Data").getAsJsonArray();
                                     List<MeetingBean> meetingBeans = GsonUtil.JsonToList(data.toString(),MeetingBean.class);
                                     if(meetingBeans.size()==0){

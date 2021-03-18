@@ -6,12 +6,12 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.base.BaseViewModel;
-import com.lessu.xieshi.http.api.BuildSandApiService;
+import com.lessu.xieshi.http.service.BuildSandApiService;
 import com.lessu.xieshi.module.sand.bean.SandParameterResultBean;
 import com.lessu.xieshi.module.sand.bean.TestingQueryResultBean;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.bean.BuildSandResultData;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.manage.BuildSandRetrofit;
@@ -63,14 +63,14 @@ public class TestingInfoQueryDetailViewModel extends BaseViewModel {
                         List<SandParameterResultBean> resultBeans =new ArrayList<>();
                         //得到检测参数的名称
                         String[] parameters = testingQueryResultBean.getParameterNames().split(";");
-                        String[] parameterDetectValuesArray = new String[0];
+                       // String[] parameterDetectValuesArray = new String[0];
                         String[] parameterResultsArray = new String[0];
 
                         //参数检测值
-                        String parameterDetectValues = testingQueryResultBean.getParameterDetectValue();
+                     /*   String parameterDetectValues = testingQueryResultBean.getParameterDetectValue();
                         if (!TextUtils.isEmpty(parameterDetectValues)) {
                             parameterDetectValuesArray = parameterDetectValues.split(";");
-                        }
+                        }*/
 
                         //参数检测结果
                         String parameterResults = testingQueryResultBean.getParameterDetectResult();
@@ -81,9 +81,9 @@ public class TestingInfoQueryDetailViewModel extends BaseViewModel {
                         for (int i = 0; i < parameters.length; i++) {
                             SandParameterResultBean bean = new SandParameterResultBean();
                             bean.setParameterName(parameters[i]);
-                            if (parameterDetectValuesArray.length > i) {
+                        /*    if (parameterDetectValuesArray.length > i) {
                                 bean.setParameterValue(parameterDetectValuesArray[i]);
-                            }
+                            }*/
                             if (parameterResultsArray.length > i) {
                                 bean.setParameterResult(parameterResultsArray[i]);
                             }
@@ -103,8 +103,7 @@ public class TestingInfoQueryDetailViewModel extends BaseViewModel {
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadState.setValue(LoadState.FAILURE);
-                        throwableLiveData.setValue(throwable);
+                        loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
                     }
                 });
     }

@@ -48,7 +48,7 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
     private ObjectAnimator objectAnimator;
     public static final int BLUETOOTH_REQUEST_CODE=1;
     public static final int GPS_REQUEST_CODE=2;
-    public void onCreate(Bundle savedInstanceState) {
+/*    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bluetooth_layout);
         this.setTitle("蓝牙连接");
@@ -56,6 +56,11 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
         handleButtonItem.setOnClickMethod(this,"searchBlueDevices");
         navigationBar.setRightBarItem(handleButtonItem);
         initView();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.bluetooth_layout;
     }
 
     @Override
@@ -67,7 +72,12 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
     /**
      * 初始化按钮
      */
-    private void initView() {
+    @Override
+    protected void initView() {
+        this.setTitle("蓝牙连接");
+        handleButtonItem = new BarButtonItem(this , R.drawable.shuaxinl );
+        handleButtonItem.setOnClickMethod(this,"searchBlueDevices");
+        navigationBar.setRightBarItem(handleButtonItem);
         blueSwitch = this.findViewById(R.id.switch_bluetooth);
         unbindDevices = this.findViewById(R.id.unbondDevices);
         bondDevices = this.findViewById(R.id.bondDevices);

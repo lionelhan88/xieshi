@@ -5,14 +5,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.Utils.Decrypt;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
@@ -78,23 +77,18 @@ public class YangpinshibieActivity extends NavigationActivity {
     private TextView tv_baogaoriqi;
     private TextView tv_beizhu;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yangpinshibie);
-        navigationBar.setBackgroundColor(0xFF3598DC);
+    protected int getLayoutId() {
+        return R.layout.activity_yangpinshibie;
+    }
+
+    @Override
+    protected void initView() {
         this.setTitle("样品识别");
-
-
         BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
         menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
         navigationBar.setLeftBarItem(menuButtonitem);
-
-        initView();
-        initData();
-    }
-
-    private void initView() {
         tv_saomiaobianhao = (TextView) findViewById(R.id.tv_saomiaobianhao);
         tv_hetongdengjihao = (TextView) findViewById(R.id.tv_hetongdengjihao);
         tv_weituobianhao = (TextView) findViewById(R.id.tv_weituobianhao);
@@ -133,7 +127,8 @@ public class YangpinshibieActivity extends NavigationActivity {
 
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         device = bluetoothAdapter.getRemoteDevice(getDeviceAddress());
         //设置当前设备名称
         //deviceName.setText(device.getName());
@@ -213,9 +208,7 @@ public class YangpinshibieActivity extends NavigationActivity {
 
 
     private void Xianshi(ReceiveSampleInfoBean shhujv, String s) {
-
         tv_chakan.setText("识别完成");
-
         tv_rukuchakan.setText(s);
         tv_saomiaobianhao.setText(s);
         tv_hetongdengjihao.setText(shhujv.getContract_SignNo());
@@ -356,7 +349,7 @@ public class YangpinshibieActivity extends NavigationActivity {
                         System.out.println("是芯片");
                         String s = LongString.bytes2HexString(buffer2);
                         System.out.println(s);
-                        final String jiexinpian = Decrypt.jiexinpian(s);
+                        final String jiexinpian = Decrypt.decodeChip(s);
                         System.out.println("jiexixinpian..waimian..." + jiexinpian);
                         if (jiexinpian != null) {
                             System.out.println("jiexixinpian....." + jiexinpian);
@@ -399,7 +392,7 @@ public class YangpinshibieActivity extends NavigationActivity {
         String soapAction1 = "http://tempuri.org/CheckSamplesForJL";
         SoapObject soapObject1 = new SoapObject(nameSpace1, methodName1);
         soapObject1.addProperty("coreCodeStr", s);
-        soapObject1.addProperty("userName", SPUtil.getSPConfig(Common.USERNAME, ""));
+        soapObject1.addProperty("userName", SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""));
 
         SoapSerializationEnvelope envelope1 = new SoapSerializationEnvelope(
                 SoapEnvelope.VER10);

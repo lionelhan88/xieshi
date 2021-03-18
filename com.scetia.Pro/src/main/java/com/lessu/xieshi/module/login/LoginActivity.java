@@ -1,15 +1,11 @@
 package com.lessu.xieshi.module.login;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -18,29 +14,22 @@ import android.widget.TextView;
 import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
-import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.lessu.xieshi.Utils.SettingUtil;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.scetia.Pro.common.Util.SPUtil;
-import com.lessu.xieshi.module.login.bean.LoginUserBean;
 import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
-import com.lessu.xieshi.module.mis.activitys.MisGuideActivity;
+import com.lessu.xieshi.module.mis.activities.MisGuideActivity;
 import com.lessu.xieshi.Utils.UpdateAppUtil;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-/**
- * 当前页面在android9.0后要开启硬件加速，否则输入密码时不会实时显示
- */
 public class LoginActivity extends NavigationActivity {
     private static final int REQUEST_READ_PHONE_STATE = 2;
     @BindView(R.id.tv_login_version)
@@ -52,18 +41,13 @@ public class LoginActivity extends NavigationActivity {
     private LoginViewModel loginViewModel;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.login_activity;
+    }
+
+    @Override
+    protected void initView() {
         navigationBar.setVisibility(View.GONE);
-        ImmersionBar.with(this).titleBar(tvLoginVersion)
-                .navigationBarColor(R.color.light_gray)
-                .navigationBarDarkIcon(true)
-                .init();
-        initData();
-        initDataListener();
-        initRequestAllPermission();
     }
 
     /**
@@ -82,69 +66,69 @@ public class LoginActivity extends NavigationActivity {
     @PermissionDenied
     private void readPhoneStateDenied(int requestCode) {
         if (requestCode == REQUEST_READ_PHONE_STATE) {
-            LSAlert.showAlert(this, "提示", "此应用需要授权电话管理权限，请授权！", "授权", new LSAlert.AlertCallback() {
-                @Override
-                public void onConfirm() {
-                    //TODO:跳转到系统设置页面去授予权限
-                    PermissionSettingPage.start(LoginActivity.this, true);
-                }
+            LSAlert.showAlert(this, "提示", "此应用需要授权电话管理权限，请授权！", "授权", () -> {
+                //TODO:跳转到系统设置页面去授予权限
+                PermissionSettingPage.start(LoginActivity.this, true);
             });
         }
     }
 
     @Override
-    protected void initImmersionBar() {
+    protected View getTitleBar() {
+        return tvLoginVersion;
+    }
+
+
+    @Override
+    protected void observerData() {
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        loginViewModel.getLoadState().observe(this, loadState -> {
+            switch (loadState) {
+                case LOADING:
+                    LSAlert.showProgressHud(LoginActivity.this,  getResources().getString(R.string.login_loading_text));
+                    break;
+                case SUCCESS:
+                    LSAlert.dismissProgressHud();
+                    break;
+                case FAILURE:
+                    LSAlert.dismissProgressHud();
+                    LSAlert.showAlert(LoginActivity.this, "提示", loadState.getMessage());
+                    break;
+            }
+        });
+
+        loginViewModel.getMapLiveData().observe(this, toActivityMap -> {
+            Object o = toActivityMap.get(LoginViewModel.TO_ACTIVITY);
+            if (o instanceof Bundle) {
+                //是第一次登陆，跳转到手机号验证页面
+                Bundle bundle = (Bundle) o;
+                Intent intent = new Intent(LoginActivity.this, ValidateActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 0x01);
+            } else {
+                //不是第一次登陆，直接跳转页面
+                checkUserPower((String) o);
+            }
+        });
     }
 
     /**
      * 初始化数据
      */
-    private void initData() {
+    @Override
+    protected void initData() {
         //显示出版本号
-        String versionName = Common.getVersionName(this);
-        tvLoginVersion.setText(versionName);
-        //拿到本地存储的权限
-        String userPower = SPUtil.getSPConfig(Common.USERPOWER, "");
+        tvLoginVersion.setText(SettingUtil.getVersionName(this));
+        //拿到本地存储的权限码
+        String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
         Intent intent = getIntent();
-        boolean isExit = intent.getBooleanExtra("exit", false);
-        boolean unBind = intent.getBooleanExtra("jiebang", false);
+        boolean isExit = intent.getBooleanExtra(Constants.Setting.EXIT, false);
         //如果之前已经登录，打开程序直接进入主界面
-        if (userPower != null && !userPower.equals("") && !isExit && !unBind) {
+        if (!TextUtils.isEmpty(userPower) && !isExit) {
             checkUserPower(userPower);
+        }else{
+            initRequestAllPermission();
         }
-    }
-
-    /**
-     * 监听数据变化，更新UI界面
-     */
-    private void initDataListener() {
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        loginViewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
-            @Override
-            public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
-                LSAlert.showAlert(LoginActivity.this, "提示", throwable.message);
-            }
-        });
-        loginViewModel.getUserBeanData().observe(this, new Observer<LoginUserBean>() {
-            @Override
-            public void onChanged(LoginUserBean userBean) {
-                dispatchActivity(userBean);
-            }
-        });
-        loginViewModel.getLoadState().observe(this, new Observer<LoadState>() {
-            @Override
-            public void onChanged(LoadState loadState) {
-                switch (loadState) {
-                    case LOADING:
-                        LSAlert.showProgressHud(LoginActivity.this, "正在登陆...");
-                        break;
-                    case FAILURE:
-                    case SUCCESS:
-                        LSAlert.dismissProgressHud();
-                        break;
-                }
-            }
-        });
     }
 
     @OnClick(R.id.loginButton)
@@ -157,58 +141,12 @@ public class LoginActivity extends NavigationActivity {
 
     /**
      * 执行登陆请求
-     *
-     * @param name     用户名
+     * @param name   用户名
      * @param password 密码
      */
     @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE, requestCode = REQUEST_READ_PHONE_STATE)
     private void login(final String name, final String password) {
-        final String deviceId = getDeviceId();
-        loginViewModel.login(name, password, deviceId);
-    }
-
-    /**
-     * 解析用户 权限，跳转对应的菜单界面
-     */
-    private void dispatchActivity(LoginUserBean loginUser) {
-        String userPower = loginUser.getUserPower().equals("（待定）") ? "1" : loginUser.getUserPower();
-        String userName = loginUser.getUserName();
-        String token = loginUser.getToken();
-        String PhoneNumber = loginUser.getPhoneNumber();
-        String userId = loginUser.getUserId();
-        String MemberInfoStr = loginUser.getMemberInfoStr();
-        boolean isFirstLogin = loginUser.isIsFirstLogin();
-        String deviceId = getDeviceId();
-        String password = passWordEditText.getText().toString();
-        SPUtil.setSPLSUtil("PhoneNumber", PhoneNumber);
-        SPUtil.setSPLSUtil("UserName", userName);
-        //TODO:判断是否是第一次登陆，如果是第一次登陆就进入手机验证界面
-        if (isFirstLogin) {
-            Bundle bundle = new Bundle();
-            bundle.putString("token", token);
-            bundle.putString("UserName", userName);
-            bundle.putString("PassWord", password);
-            bundle.putString("DeviceId", deviceId);
-            bundle.putString("UserPower", userPower);
-            Intent intent = new Intent(LoginActivity.this, ValidateActivity.class);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 0x01);
-        } else {
-            SPUtil.setSPLSUtil("Token", token);
-            SPUtil.setSPConfig(Common.USERNAME, userName);
-            SPUtil.setSPConfig(Common.PASSWORD, password);
-            SPUtil.setSPConfig(Common.DEVICEID, deviceId);
-            SPUtil.setSPConfig(Common.USERPOWER, userPower);
-            SPUtil.setSPConfig(Common.USERID, userId);
-            SPUtil.setSPConfig(Common.MEMBERINFOSTR, MemberInfoStr);
-            //存放jwtToken
-            SPUtil.setSPLSUtil(Common.JWT_KEY, loginUser.getJwt());
-            SPUtil.setSPConfig(Common.USER_FULL_NAME, loginUser.getUserFullName());
-            //TODO:去跳转界面
-            checkUserPower(userPower);
-            //这里将自动登录取消，避免用户从登录页面进入后，再次在主菜单界面登录一次
-            SPUtil.setSPConfig(SPUtil.AUTO_LOGIN_KEY, false);
-        }
+        loginViewModel.login(name, password);
     }
 
     /**
@@ -217,22 +155,19 @@ public class LoginActivity extends NavigationActivity {
      * @param userPower
      */
     private void checkUserPower(String userPower) {
-        if (userPower.equals("")) {
+        if (userPower.isEmpty()) {
             LSAlert.showAlert(this, "无角色权限！");
             return;
         }
+        String shortUserPower;
+        //目前测试 建设用砂功能，暂定权限为“1”
         if (userPower.equals("1")) {
-            final String userName = SPUtil.getSPConfig(Common.USERNAME, "");
             Intent intent = new Intent(this, FirstActivity.class);
-            String unMisPower = "";
-            intent.putExtra("userpower", unMisPower);
-            intent.putExtra("username", userName);
             startActivity(intent);
             finish();
             return;
         }
         //新增的权限“比对审批”多一位 2018-10-19
-        String shortUserPower;
         if (userPower.length() == 15) {
             shortUserPower = userPower.substring(9, 15);
         } else if (userPower.length() < 15) {
@@ -241,42 +176,14 @@ public class LoginActivity extends NavigationActivity {
             //新版本新加了权限
             shortUserPower = userPower.substring(16);
         }
-        final String userName = SPUtil.getSPConfig(Common.USERNAME, "");
         Intent intent;
         if (shortUserPower.equals("00000") || shortUserPower.equals("000000")) {
             intent = new Intent(this, FirstActivity.class);
-            String unMisPower = userPower.length() < 15 ? userPower.substring(userPower.length()) : userPower.substring(0, 15);
-            intent.putExtra("userpower", unMisPower);
         } else {
             intent = new Intent(this, MisGuideActivity.class);
-            intent.putExtra("shortuserpower", shortUserPower);
         }
-        intent.putExtra("username", userName);
         startActivity(intent);
         finish();
-    }
-
-    /**
-     * 获取设备的uid号
-     */
-    private String getDeviceId() {
-        //获取存在本地的deviceID
-        String deviceId = SPUtil.getSPConfig(Common.DEVICEID, "");
-        /*如果本地已经存在deviceID，则使用本地的deviceID*/
-        if (deviceId.equals("")) {
-            //如果没有取到本地存储的device_id,就获取系统的IEMI
-            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            //android9以后获取不到IEMI的编码了，可能会发出异常
-            try {
-                deviceId = telephonyManager.getDeviceId();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (deviceId == null || deviceId.equals("")) {
-                deviceId = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-            }
-        }
-        return deviceId;
     }
 
     @Override
@@ -298,7 +205,7 @@ public class LoginActivity extends NavigationActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - time > 2000) {
                 time = System.currentTimeMillis();
-                ToastUtil.showShort("再次点击退出程序");
+                ToastUtil.showShort(getString(R.string.logout_text));
                 return true;
             } else {
                 AppApplication.exit();

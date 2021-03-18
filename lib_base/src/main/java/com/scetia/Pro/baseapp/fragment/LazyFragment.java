@@ -38,10 +38,11 @@ public abstract class LazyFragment extends Fragment {
      * 当前页面的是否可见
      */
     private boolean currentVisibleState;
+    protected boolean isViewCreated = false;
     public interface ResultResponse{
         void getResult(boolean success, JsonElement result, String errorMsg);
     }
-    protected boolean isViewCreated = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

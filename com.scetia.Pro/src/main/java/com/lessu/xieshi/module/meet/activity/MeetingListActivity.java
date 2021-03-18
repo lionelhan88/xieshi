@@ -1,7 +1,6 @@
 package com.lessu.xieshi.module.meet.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +20,7 @@ import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
@@ -29,7 +28,6 @@ import com.lessu.xieshi.module.meet.adapter.MeetingListAdapter;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.meet.event.SendMeetingListToDetail;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.scetia.Pro.common.Util.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MeetingListActivity extends NavigationActivity {
@@ -59,7 +56,7 @@ public class MeetingListActivity extends NavigationActivity {
     private MeetingListAdapter listAdapter;
     private int typeUser = -1;
 
-    @Override
+ /*   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_meeting_list);
@@ -69,12 +66,20 @@ public class MeetingListActivity extends NavigationActivity {
         ButterKnife.bind(this);
         initView();
         initData();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_meeting_list;
     }
 
     /**
      * 初始化控件
      */
-    private void initView() {
+    @Override
+    protected void initView() {
+        EventBus.getDefault().register(this);
+        setTitle("会议安排");
         meetingListRefresh.setColorSchemeResources(R.color.blue_normal2);
         listAdapter = new MeetingListAdapter(R.layout.meeting_list_item_layout);
         meetingRecyclerView.setAdapter(listAdapter);
@@ -108,10 +113,11 @@ public class MeetingListActivity extends NavigationActivity {
     /**
      * 初始化加载值
      */
-    private void initData() {
+    @Override
+    protected void initData() {
         typeUser = getIntent().getIntExtra("type_user", -1);
         //默认日期为当前日期和延后10天
-        meetingListDateSelectStart.setText(DateUtil.getDate(new Date()));
+        meetingListDateSelectStart.setText(DateUtil.FORMAT_BAR_YMD(new Date()));
         meetingListDateSelectEnd.setText(DateUtil.getDayAgo(10));
         getMeetingList(true);
     }
@@ -121,8 +127,8 @@ public class MeetingListActivity extends NavigationActivity {
      */
     private void getMeetingList(final boolean isShowLoading) {
         final HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
-        params.put("s2", SPUtil.getSPConfig(Common.USERID, ""));
+        params.put("Token",  Constants.User.GET_TOKEN());
+        params.put("s2", SPUtil.getSPConfig(Constants.User.USER_ID, ""));
         params.put("s3", meetingListDateSelectStart.getText());
         params.put("s4", meetingListDateSelectEnd.getText());
         params.put("s6", typeUser == 0 ? "0" : "1");
@@ -178,7 +184,7 @@ public class MeetingListActivity extends NavigationActivity {
                 DateUtil.datePicker(this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        meetingListDateSelectStart.setText(DateUtil.getDate(date));
+                        meetingListDateSelectStart.setText(DateUtil.FORMAT_BAR_YMD(date));
                         getMeetingList(true);
                     }
                 });
@@ -187,7 +193,7 @@ public class MeetingListActivity extends NavigationActivity {
                 DateUtil.datePicker(this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        meetingListDateSelectEnd.setText(DateUtil.getDate(date));
+                        meetingListDateSelectEnd.setText(DateUtil.FORMAT_BAR_YMD(date));
                         getMeetingList(true);
                     }
                 });

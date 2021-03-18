@@ -63,7 +63,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
     private String shouwei="";
     private String sampleid;
 
-    @Override
+/*    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shenqingshangbao);
@@ -88,8 +88,33 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
 
         initView();
         initData();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_shenqingshangbao;
     }
-    private void initView() {
+
+    @Override
+    protected void initView() {
+        this.setTitle("申请上报");
+        //设置侧滑菜单
+        dl = (DragLayout) findViewById(R.id.dl);
+        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
+        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
+        navigationBar.setLeftBarItem(menuButtonitem);
+        creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                deleteItem.setWidth((130));
+                deleteItem.setIcon(R.drawable.shanchu);
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
         ll_shenqin = (LinearLayout) findViewById(R.id.ll_shenqin);
         tv_biaoshinum = (TextView) findViewById(R.id.tv_biaoshinum);
         bt_add = (Button) findViewById(R.id.bt_add);
@@ -142,7 +167,8 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
         });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         Intent intentGet = getIntent();
         String talxal = intentGet.getStringExtra("talxal");
         sampleid = intentGet.getStringExtra("sampleid");

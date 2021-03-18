@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.adapter.ConstructionListAdapter;
 import com.lessu.xieshi.module.unqualified.viewmodel.ConstructionListViewModel;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class UnqualifiedConstructionListActivity extends XieShiSlidingMenuActivity {
     @BindView(R.id.rv_construction_list)
@@ -34,17 +33,23 @@ public class UnqualifiedConstructionListActivity extends XieShiSlidingMenuActivi
     private ConstructionListViewModel viewModel;
     private View loadingView;
 
-    @Override
+ /*   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.construction_list_activity);
         ButterKnife.bind(this);
         this.setTitle("工程列表");
-        initDataListener();
+        observerData();
         initView();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.construction_list_activity;
     }
 
-    private void initDataListener() {
+    @Override
+    protected void observerData() {
         viewModel = new ViewModelProvider(this).get(ConstructionListViewModel.class);
         //传入初始化加载的参数
         viewModel.setParams(getParams());
@@ -71,7 +76,7 @@ public class UnqualifiedConstructionListActivity extends XieShiSlidingMenuActivi
     }
 
     private HashMap<String, Object> getParams() {
-        String token = Content.getToken();
+        String token =  Constants.User.GET_TOKEN();
         Bundle bundle = getIntent().getExtras();
         String MemberId = bundle.getString("MemberId");
         String StartDate = bundle.getString("StartDate");
@@ -95,7 +100,9 @@ public class UnqualifiedConstructionListActivity extends XieShiSlidingMenuActivi
     /**
      * 初始化控件
      */
-    private void initView() {
+    @Override
+    protected void initView() {
+        this.setTitle("工程列表");
         listAdapter = new ConstructionListAdapter(viewModel);
         listView.setVisibility(View.GONE);
         rvConstructionList.setVisibility(View.VISIBLE);

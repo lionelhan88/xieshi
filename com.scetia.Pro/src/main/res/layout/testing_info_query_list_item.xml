@@ -91,12 +91,13 @@
 
     <TextView
         android:id="@+id/result_query_item_commission_company"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
         android:text="上海建设检测有限公司"
         android:textColor="@color/grey_11"
         android:textSize="@dimen/text_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/result_query_item_commission_company_label"
         app:layout_constraintTop_toBottomOf="@+id/result_query_item_top_line" />
 

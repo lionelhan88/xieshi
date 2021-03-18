@@ -2,14 +2,7 @@ package com.lessu.xieshi.module.weather.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-
-import com.lessu.xieshi.R;
-import com.lessu.xieshi.module.mis.activitys.Content;
 
 /**
  * Created by fhm on 2017/9/29.

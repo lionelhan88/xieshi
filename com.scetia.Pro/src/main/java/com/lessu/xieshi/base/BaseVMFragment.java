@@ -2,12 +2,14 @@ package com.lessu.xieshi.base;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
 import com.scetia.Pro.baseapp.fragment.BaseFragment;
@@ -57,28 +59,31 @@ public abstract class BaseVMFragment<VM extends ViewModel> extends BaseFragment 
     protected void switchUIPageState(LoadState loadState, SmartRefreshLayout smartRefreshLayout) {
         switch (loadState) {
             case LOAD_INIT:
-                LSAlert.showProgressHud(requireActivity(), "正在加载...");
-                break;
-            case EMPTY:
-                LSAlert.dismissProgressHud();
-                smartRefreshLayout.finishRefresh(true);
-                LSAlert.showAlert(requireActivity(), "暂无相关数据！");
+            case LOADING:
+                LSAlert.showProgressHud(requireActivity(), loadState.getMessage());
                 break;
             case LOAD_INIT_SUCCESS:
                 LSAlert.dismissProgressHud();
                 smartRefreshLayout.finishRefresh(true);
+                break;
+            case EMPTY:
+                LSAlert.dismissProgressHud();
+                smartRefreshLayout.finishRefresh(true);
+                LSAlert.showAlert(requireActivity(), loadState.getMessage());
                 break;
             case NO_MORE:
                 smartRefreshLayout.finishLoadMoreWithNoMoreData();
                 smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true);
                 break;
             case SUCCESS:
+                LSAlert.dismissProgressHud();
                 smartRefreshLayout.finishLoadMore(true);
                 break;
             case FAILURE:
                 LSAlert.dismissProgressHud();
                 smartRefreshLayout.finishLoadMore(false);
                 smartRefreshLayout.finishRefresh(false);
+                ToastUtil.showShort(loadState.getMessage());
                 break;
         }
     }

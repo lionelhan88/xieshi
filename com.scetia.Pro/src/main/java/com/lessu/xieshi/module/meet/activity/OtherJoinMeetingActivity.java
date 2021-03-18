@@ -1,7 +1,6 @@
 package com.lessu.xieshi.module.meet.activity;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,12 +20,11 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.module.meet.MyAutoCompleteView;
 import com.lessu.xieshi.view.SignView;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.adapter.OtherMeetingUserListAdapter;
 import com.lessu.xieshi.module.meet.bean.OtherMeetingBean;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.scetia.Pro.common.Util.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,7 +34,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.baidu.mapapi.BMapManager.getContext;
@@ -64,7 +61,7 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
     private String meetingId;
     private String hyId;
 
-    @Override
+/*    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_join_meeting);
@@ -72,6 +69,38 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
         navigationBar.setTitle("代替参会确认");
         navigationBar.setBackgroundColor(0xFF3598DC);
 
+        otherMeetingJoinName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                otherMeetingBean = adapter.getBeans().get(position);
+            }
+        });
+        //当用户点击输入框时如果列表未展示，则显示列表
+        otherMeetingJoinName.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (!otherMeetingJoinName.isPopupShowing()) {
+                    otherMeetingJoinName.showDropDown();
+                }
+                return false;
+            }
+
+        });
+        meetingId = getIntent().getStringExtra("meeting_id");
+        hyId = getIntent().getStringExtra("hy_id");
+        getCurrentUnitPerson(meetingId, hyId);
+    }*/
+
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_other_join_meeting;
+    }
+
+    @Override
+    protected void initView() {
+        navigationBar.setTitle("代替参会确认");
         otherMeetingJoinName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -126,7 +155,7 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
                     ToastUtil.showShort("请手写您的姓名！");
                     return;
                 }
-                setSubstituteUser(meetingId, SPUtil.getSPConfig(Common.USERID, ""), otherMeetingBean, hyId,
+                setSubstituteUser(meetingId, SPUtil.getSPConfig(Constants.User.USER_ID, ""), otherMeetingBean, hyId,
                         otherMeetingJoinUserHandSign.saveBase64Str());
                 break;
             case R.id.bt_bt_other_meeting_join_reset:
@@ -144,7 +173,7 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
      */
     private void getCurrentUnitPerson(String meetingId, String hyId) {
         final HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         //会议id
         params.put("s1", meetingId);
         //会员号
@@ -215,7 +244,7 @@ public class OtherJoinMeetingActivity extends NavigationActivity {
     private void setSubstituteUser(String meetingId, String userId, final OtherMeetingBean otherMeetingBean, String hyId,
                                    String signImage) {
         final HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         //会议id
         params.put("s1", meetingId);
         //当前用户id

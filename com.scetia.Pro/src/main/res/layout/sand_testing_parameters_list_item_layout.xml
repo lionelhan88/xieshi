@@ -28,7 +28,7 @@
         android:id="@+id/tv_item_parameter_must_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/text_red_round_bg"
+        android:background="@drawable/red_dark_round_bg"
         android:padding="5dp"
         android:text="必检"
         android:textColor="@color/white"

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lessu.navigation.NavigationBar;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.TestingInfoQueryListAdapter;
@@ -75,7 +76,6 @@ public class TestingInfoQueryListFragment extends BaseVMFragment<TestingInfoQuer
 
     @Override
     protected void initView() {
-        navigationBar.setVisibility(View.GONE);
         testingInfoQuerySearch.setIconifiedByDefault(false);
         setUnderLinearTransparent(testingInfoQuerySearch);
         initRecyclerView();
@@ -109,11 +109,13 @@ public class TestingInfoQueryListFragment extends BaseVMFragment<TestingInfoQuer
     }
 
     @Override
-    protected void initImmersionBar() {
-        ImmersionBar.with(this).titleBar(testingInfoQueryToolbar)
-                .navigationBarColor(com.lessu.uikit.R.color.light_gray)
-                .navigationBarDarkIcon(true)
-                .init();
+    protected NavigationBar createTopBarView() {
+        return null;
+    }
+
+    @Override
+    protected View getImmersionBarNavigation() {
+        return testingInfoQueryToolbar;
     }
 
     /**

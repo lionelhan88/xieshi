@@ -54,24 +54,14 @@ public class SMFlowDeclarationListFragment extends BaseVMFragment<SMFlowDeclarat
 
     @Override
     protected void observerData() {
-        viewModel.getLoadDataState().observe(this, loadState -> {
-          switchUIPageState(loadState,sandManageFlowDeclarationRefresh);
+        viewModel.getLoadState().observe(this,loadState -> {
+            switchUIPageState(loadState,sandManageFlowDeclarationRefresh);
         });
 
-        viewModel.getLoadState().observe(this, loadState -> {
-            if (loadState == LoadState.LOADING) {
-                LSAlert.showProgressHud(requireActivity(), "正在删除...");
-            } else {
-                LSAlert.dismissProgressHud();
-            }
-        });
-
-        viewModel.getThrowable().observe(this, responseThrowable -> {
-            ToastUtil.showShort(responseThrowable.message);
-        });
 
         viewModel.getFlowDeclarationLiveData().observe(this, flowDeclarationBeans -> {
-            if (viewModel.getLoadDataState().getValue() == LoadState.LOAD_INIT_SUCCESS) {
+            if (viewModel.getLoadState().getValue() == LoadState.LOAD_INIT_SUCCESS||
+                    viewModel.getLoadState().getValue()==LoadState.EMPTY) {
                 listAdapter.setNewData(flowDeclarationBeans);
             } else {
                 listAdapter.addData(flowDeclarationBeans);

@@ -5,10 +5,11 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 29,
             versionCode      : 3,
-            versionName      : "1.042",
+            versionName      : "1.043",
             applicationId    : "com.scetia.Pro",
             isApplication    : false
     ]
+
     annationProcess = [
             butterknifAnnationProcess: 'com.jakewharton:butterknife-compiler:10.2.3',
             glideAnnationProcess     : 'com.github.bumptech.glide:compiler:4.11.0',
@@ -32,13 +33,17 @@ ext {
             supportV4          : 'androidx.legacy:legacy-support-v4:1.0.0',
             butterknife        : 'com.jakewharton:butterknife:10.2.3',
             gson               : 'com.google.code.gson:gson:2.8.5',
-            immersionbar       : 'com.gyf.immersionbar:immersionbar:3.0.0',
+            immersionbar       : [
+                    // fragment快速实现（可选）
+                    'com.gyf.immersionbar:immersionbar-components:3.0.0',
+                    'com.gyf.immersionbar:immersionbar:3.0.0',
+            ],
             easySwipeMenuLayout: 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4',
             flowlayout         : 'com.hyman:flowlayout-lib:1.1.2',
             multidex           : 'androidx.multidex:multidex:2.0.1',
             tbs                : 'com.tencent.tbs.tbssdk:sdk:43903',
             updateUtilsSDK2    : 'com.teprinciple:updateapputilsx:2.3.0',
-            permissionGood     : 'com.github.wo5813288:PermissionGood:1.0.0',
+            permissionGood     : 'com.github.wo5813288:PermissionGood:1.0.1',
             paging             : 'android.arch.paging:runtime:1.0.1',
             pulltorefreash     : project(':pullToRefreash'),
             mmkv               : 'com.tencent:mmkv-static:1.2.2',

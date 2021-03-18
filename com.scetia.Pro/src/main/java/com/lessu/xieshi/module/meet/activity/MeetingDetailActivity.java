@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.meet.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +16,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
@@ -25,7 +24,6 @@ import com.lessu.xieshi.module.meet.bean.OtherMeetingBean;
 import com.lessu.xieshi.module.meet.event.OtherConfirmEvent;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.meet.event.SendMeetingListToDetail;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.scan.ScanActivity;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.common.Util.GlideUtil;
@@ -38,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -86,24 +83,34 @@ public class MeetingDetailActivity extends NavigationActivity {
     private MeetingBean.MeetingUserBean curMeetingUserBean = new MeetingBean.MeetingUserBean();
     private String curUserId = "";
 
-    @Override
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_detail);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        navigationBar.setBackgroundColor(0xFF3598DC);
         setTitle("会议详情");
         handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
         navigationBar.addRightBarItem(handleButtonItem2);
         handleButtonItem2.setOnClickMethod(this, "scanSign");
         initView();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_meeting_detail;
     }
 
     @SuppressLint("CheckResult")
-    private void initView() {
+    @Override
+    protected void initView() {
+        EventBus.getDefault().register(this);
+        setTitle("会议详情");
+        handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
+        navigationBar.addRightBarItem(handleButtonItem2);
+        handleButtonItem2.setOnClickMethod(this, "scanSign");
         //签到信息
-        curUserId = SPUtil.getSPConfig(Common.USERID, "");
+        curUserId = SPUtil.getSPConfig(Constants.User.USER_ID, "");
         //此处要循环比较,如果当前登录的用户也是参与人员，则也显示签到信息
         if (meetingBean == null) {
             finish();
@@ -130,7 +137,7 @@ public class MeetingDetailActivity extends NavigationActivity {
                     @Override
                     public void accept(MeetingBean.MeetingUserBean meetingUserBean) throws Exception {
                         curMeetingUserBean = meetingUserBean;
-                        initData();
+                        startData();
                     }
                 });
     }
@@ -138,7 +145,7 @@ public class MeetingDetailActivity extends NavigationActivity {
     /**
      * 初始化设置数据
      */
-    private void initData() {
+    private void startData() {
         meetingDetailName.setText(meetingBean.getMeetingName());
         meetingDetailCreateUser.setText(meetingBean.getCreatePerson());
         meetingDetailPhone.setText(meetingBean.getCreatePersonPhone());
@@ -146,12 +153,6 @@ public class MeetingDetailActivity extends NavigationActivity {
         meetingDetailEndDate.setText(meetingBean.getMeetingEndTime());
         meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
-        //加载图片之前清除缓存
-
-        /*ImageLoader.getInstance().clearMemoryCache();
-        ImageLoader.getInstance().clearDiskCache();
-        ImageLoader.getInstance().displayImage(MEETING_DETAIL_IMG,meetingDetailContentImg,
-                ImageloaderUtil.MeetingImageOptions());*/
         Glide.with(this).load(MEETING_DETAIL_IMG).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(meetingDetailContentImg);
         String photoUrl = meetingBean.getMeetingDetailPhoto();
@@ -161,8 +162,6 @@ public class MeetingDetailActivity extends NavigationActivity {
         } else {
             meetingDetailPhoto.setVisibility(View.VISIBLE);
             GlideUtil.showImageViewNoCache(this, photoUrl, meetingDetailPhoto);
-           /* ImageLoader.getInstance().displayImage(photoUrl, meetingDetailPhoto,
-                    ImageloaderUtil.MeetingImageOptions());*/
         }
 
         if (curMeetingUserBean.getUserId() == null || curMeetingUserBean.getUserId().equals("")) {
@@ -185,7 +184,7 @@ public class MeetingDetailActivity extends NavigationActivity {
             btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
         } else {
             btMeetingIsConfirm.setText("请确认会议通知");
-            btMeetingIsConfirm.setBackgroundResource(R.drawable.text_orange_stroke_bg);
+            btMeetingIsConfirm.setBackgroundResource(R.drawable.orange_round_bg);
         }
         meetingDetailJoinUserFullName.setText(curMeetingUserBean.getUserFullName());
         meetingDetailJoinUserPhone.setText(curMeetingUserBean.getTel());
@@ -205,7 +204,7 @@ public class MeetingDetailActivity extends NavigationActivity {
                 btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
             }else{
                 btMeetingIsConfirm.setText("请确认会议通知");
-                btMeetingIsConfirm.setBackgroundResource(R.drawable.text_orange_stroke_bg);
+                btMeetingIsConfirm.setBackgroundResource(R.drawable.orange_round_bg);
             }
         }else{
             if(curMeetingUserBean.getConfirmNotify().equals("1")&&!curMeetingUserBean.getSubstituteUser().equals("")) {
@@ -272,7 +271,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         }
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", scanResult.toUpperCase());
         params.put("s2", userId.toUpperCase());
         params.put("s3", signImage);
@@ -318,7 +317,7 @@ public class MeetingDetailActivity extends NavigationActivity {
      */
     private void requestMeetingConfirm(String meetingID, String userID) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", meetingID);
         params.put("s2", userID);
         EasyAPI.apiConnectionAsync(MeetingDetailActivity.this, true, false, ApiMethodDescription.get("/ServiceMis.asmx/ConfirmNotify"),
@@ -346,7 +345,7 @@ public class MeetingDetailActivity extends NavigationActivity {
      */
     public void scanSign() {
         Intent scanIntent = new Intent(this, ScanActivity.class);
-        scanIntent.putExtra(Common.SCAN_TYPE, Common.SCAN_MEETING_SIGNED);
+        scanIntent.putExtra(Constants.Setting.SCAN_TYPE, Constants.Setting.SCAN_MEETING_SIGNED);
         startActivityForResult(scanIntent, 0x11);
     }
 

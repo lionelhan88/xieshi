@@ -8,12 +8,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.Util.Constants;
+import com.scetia.Pro.network.bean.ExceptionHandle;
+import com.scetia.Pro.lib_map.BaiduMapLifecycle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.lessu.xieshi.lifcycle.BaiduMapLifecycle;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;
 import com.lessu.xieshi.module.weather.utils.Contenttianqi;
@@ -25,7 +26,7 @@ import java.util.Random;
  * Created by fhm on 2017/10/26.
  */
 public class WeatherViewModel extends BaseViewModel {
-    private WeatherRepository repository =new WeatherRepository();
+    private WeatherRepository repository = new WeatherRepository();
     private BaiduMapLifecycle baiduMapLifecycle;
     private static final String BASE_QIN_URL = "http://www.scetia.com/Scetia.AutoUpdate/weather/安卓/清晨/qin";
     private static final String BASE_BAI_URL = "http://www.scetia.com/Scetia.AutoUpdate/weather/安卓/白天/bai";
@@ -35,10 +36,9 @@ public class WeatherViewModel extends BaseViewModel {
             "g", "h", "i", "j", "k"};
 
 
-
     private MutableLiveData<Tenbean> tenBeanData = new MutableLiveData<>();
     private MutableLiveData<Hourbean> hourBeanData = new MutableLiveData<>();
-    private MutableLiveData<String>backgroundUrl = new MutableLiveData<>();
+    private MutableLiveData<String> backgroundUrl = new MutableLiveData<>();
 
     public WeatherViewModel(@NonNull Application application, LifecycleOwner owner) {
         super(application);
@@ -63,33 +63,34 @@ public class WeatherViewModel extends BaseViewModel {
     @Override
     public void onCreate() {
         //一些初始化操作
-       baiduMapLifecycle.setBdLocationListener(new BDLocationListener() {
-           @Override
-           public void onReceiveLocation(BDLocation bdLocation) {
-               // 非空判断
-               if (bdLocation != null) {
-                   // 根据BDLocation 对象获得经纬度以及详细地址信息
-                   double latitude = bdLocation.getLatitude();
-                   double longitude = bdLocation.getLongitude();
-                   String address = bdLocation.getAddrStr();
-                   LogUtil.showLogE(latitude + longitude + address);
-                   getToadyHour(Contenttianqi.gettoken(), String.valueOf(longitude), String.valueOf(latitude));
-               }
-               baiduMapLifecycle.stopLocation();
-           }
+        baiduMapLifecycle.setBdLocationListener(new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                // 非空判断
+                if (bdLocation != null) {
+                    // 根据BDLocation 对象获得经纬度以及详细地址信息
+                    double latitude = bdLocation.getLatitude();
+                    double longitude = bdLocation.getLongitude();
+                    String address = bdLocation.getAddrStr();
+                    LogUtil.showLogE(latitude + longitude + address);
+                    getToadyHour(Constants.User.GET_TOKEN(), String.valueOf(longitude), String.valueOf(latitude));
+                }
+                baiduMapLifecycle.stopLocation();
+            }
 
-           @Override
-           public void onConnectHotSpotMessage(String s, int i) {
+            @Override
+            public void onConnectHotSpotMessage(String s, int i) {
 
-           }
-       });
+            }
+        });
     }
 
     @Override
     public void onStart() {
         loadData();
     }
-    public void refresh(){
+
+    public void refresh() {
         baiduMapLifecycle.startLocation();
         loadData();
     }
@@ -106,16 +107,16 @@ public class WeatherViewModel extends BaseViewModel {
         String url = "";
         if (minuteOfDay > 5 * 60 && minuteOfDay <= 7 * 60) {
             //清晨
-            url =BASE_QIN_URL+A_K[new Random().nextInt(A_K.length-1)]+".png";
+            url = BASE_QIN_URL + A_K[new Random().nextInt(A_K.length - 1)] + ".png";
         } else if (minuteOfDay > 7 * 60 && minuteOfDay <= 17 * 60) {
             //白天
-            url =BASE_BAI_URL+A_K[new Random().nextInt(A_K.length-1)]+".png";
+            url = BASE_BAI_URL + A_K[new Random().nextInt(A_K.length - 1)] + ".png";
         } else if (minuteOfDay > 17 * 60 && minuteOfDay <= 19 * 60) {
             //傍晚
-            url =BASE_BANG_URL+A_K[new Random().nextInt(A_K.length-1)]+".png";
+            url = BASE_BANG_URL + A_K[new Random().nextInt(A_K.length - 1)] + ".png";
         } else {
             //晚上
-            url =BASE_WAN_URL+A_K[new Random().nextInt(A_K.length-1)]+".png";
+            url = BASE_WAN_URL + A_K[new Random().nextInt(A_K.length - 1)] + ".png";
         }
         backgroundUrl.postValue(url);
     }
@@ -123,8 +124,8 @@ public class WeatherViewModel extends BaseViewModel {
     /**
      * 加载数据
      */
-    public void loadData(){
-        getFutureTenDays(Contenttianqi.gettoken());
+    public void loadData() {
+        getFutureTenDays(Constants.User.GET_TOKEN());
         loadState.postValue(LoadState.LOADING);
     }
 
@@ -134,11 +135,12 @@ public class WeatherViewModel extends BaseViewModel {
             public void success(Tenbean tenbean) {
                 setBackground();
                 tenBeanData.postValue(tenbean);
+                loadState.postValue(LoadState.SUCCESS);
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                throwableLiveData.postValue(throwable);
+                loadState.postValue(LoadState.FAILURE.setMessage("天气数据获取失败"));
             }
         });
     }
@@ -148,14 +150,17 @@ public class WeatherViewModel extends BaseViewModel {
             @Override
             public void success(Hourbean hourbean) {
                 hourBeanData.postValue(hourbean);
-                loadState.postValue(LoadState.SUCCESS);
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadState.postValue(LoadState.FAILURE);
-                throwableLiveData.postValue(throwable);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        repository.cancelAllRequest();
+        super.onDestroy();
     }
 }

@@ -10,7 +10,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiBase;
 import com.lessu.xieshi.R;
 import com.scetia.Pro.network.ConstantApi;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.network.manage.XSRetrofit;
 
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ServiceActivity extends NavigationActivity {
-    private String serviceText = "";
+    private String serviceText;
     @BindView(R.id.telecomIcon)
     ImageView telecomIcon;
     @BindView(R.id.telecomButton)
@@ -30,38 +30,34 @@ public class ServiceActivity extends NavigationActivity {
     LinearLayout unicomButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.service_activity);
-        ButterKnife.bind(this);
-        setTitle("选择服务器");
+    protected int getLayoutId() {
+        return R.layout.service_activity;
+    }
 
+    @Override
+    protected void initView() {
+        setTitle("选择服务器");
         BarButtonItem completeButtonItem = new BarButtonItem(this, "完成");
         completeButtonItem.setOnClickMethod(this, "completeButtonDidClick");
         navigationBar.setRightBarItem(completeButtonItem);
 
         BarButtonItem nullButtonItem = new BarButtonItem(this, "");
         navigationBar.setLeftBarItem(nullButtonItem);
-        if (SPUtil.getSPLSUtil("service", "").equals(Common.TELECOM_SERVICE)) {
+        serviceText = SPUtil.GET_SERVICE_API();
+        if (serviceText.equals(ConstantApi.XS_TELECOM_BASE_URL)) {
             //电信
             telecomIcon.setImageResource(R.drawable.icon_service_selected);
-        } else {
+        }else{
             //联通
             unicomIcon.setImageResource(R.drawable.icon_service_selected);
         }
-        serviceText = Common.getService(SPUtil.getSPLSUtil("service", ""));
-
     }
 
     /**
      * “完成”点击事件
      */
     public void completeButtonDidClick() {
-        if (serviceText.contains("h")) {
-            SPUtil.setSPLSUtil("service", "unicom");
-        } else {
-            SPUtil.setSPLSUtil("service", "telecom");
-        }
+        SPUtil.setSPLSUtil(Constants.Setting.SERVICE,serviceText);
         ApiBase.sharedInstance().apiUrl = serviceText;
         XSRetrofit.getInstance().changeBaseUrl("http://" + serviceText + "/");
         setResult(RESULT_OK);

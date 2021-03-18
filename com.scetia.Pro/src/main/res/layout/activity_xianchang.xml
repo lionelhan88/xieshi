@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".module.todaystatistics.XianchangActivity">
+    tools:context=".module.todaystatistics.SiteSceneBlockActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="47dp"

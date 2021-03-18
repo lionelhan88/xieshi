@@ -7,15 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.lessu.foundation.ValidateHelper;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.baseapp.uitls.LoadMoreState;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.Util.Constants;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
-import com.lessu.xieshi.module.login.bean.LoginUserBean;
+import com.lessu.xieshi.module.login.bean.LoginUser;
 import com.lessu.xieshi.module.login.bean.ValidateCodeBean;
 import com.lessu.xieshi.module.login.repository.ValidateRepository;
-import com.lessu.xieshi.module.mis.activitys.Content;
 
 /**
  * created by ljs
@@ -24,7 +23,7 @@ import com.lessu.xieshi.module.mis.activitys.Content;
 public class ValidateViewModel extends BaseViewModel {
     private ValidateRepository repository = new ValidateRepository();
     private MutableLiveData<ValidateCodeBean> validateCodeLiveData = new MutableLiveData<>();
-    private MutableLiveData<LoginUserBean> loginUserLiveData = new MutableLiveData<>();
+    private MutableLiveData<LoginUser> loginUserLiveData = new MutableLiveData<>();
     public ValidateViewModel(@NonNull Application application) {
         super(application);
     }
@@ -33,7 +32,7 @@ public class ValidateViewModel extends BaseViewModel {
         return validateCodeLiveData;
     }
 
-    public MutableLiveData<LoginUserBean> getLoginUserLiveData() {
+    public MutableLiveData<LoginUser> getLoginUserLiveData() {
         return loginUserLiveData;
     }
 
@@ -46,21 +45,20 @@ public class ValidateViewModel extends BaseViewModel {
      */
     public void getPhoneCheckCode(String userName,String password,String deviceId,String phoneNumber){
         if (!ValidateHelper.validatePhone(phoneNumber)) {
-            throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(ExceptionHandle.LOCAL_ERROR,"手机号输入有误！请重新输入"));
+            loadState.setValue(LoadState.FAILURE.setMessage("手机号输入有误！请重新输入"));
             return;
         }
-        loadMoreState.postValue(new LoadMoreState(0,LoadState.LOADING));
+        loadState.setValue(LoadState.LOADING.setMessage("正在获取验证码..."));
         repository.getPhoneCheckCode(userName, password, deviceId, phoneNumber, new ResponseObserver<ValidateCodeBean>() {
             @Override
             public void success(ValidateCodeBean validateCodeBean) {
-                loadMoreState.postValue(new LoadMoreState(0,LoadState.SUCCESS));
+                loadState.setValue(LoadState.SUCCESS);
                 validateCodeLiveData.postValue(validateCodeBean);
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadMoreState.postValue(new LoadMoreState(0,LoadState.FAILURE));
-                throwableLiveData.postValue(throwable);
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }
@@ -70,25 +68,24 @@ public class ValidateViewModel extends BaseViewModel {
      */
     public void validatePhone(String checkCode){
         if (TextUtils.isEmpty(checkCode)) {
-            throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(ExceptionHandle.LOCAL_ERROR,"请输入验证码"));
+            loadState.setValue(LoadState.FAILURE.setMessage("请输入验证码"));
             return;
         }
-        if(TextUtils.isEmpty(Content.getToken())){
-            throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(ExceptionHandle.LOCAL_ERROR,"请重新获取验证码"));
+        if(TextUtils.isEmpty( Constants.User.GET_TOKEN())){
+            loadState.setValue(LoadState.FAILURE.setMessage("请重新获取验证码"));
             return;
         }
-        loadMoreState.postValue(new LoadMoreState(1,LoadState.LOADING));
-        repository.validatePhone(checkCode, new ResponseObserver<LoginUserBean>() {
+        loadState.setValue(LoadState.LOADING.setMessage("正在登陆..."));
+        repository.validatePhone(checkCode, new ResponseObserver<LoginUser>() {
             @Override
-            public void success(LoginUserBean loginUserBean) {
-                loadMoreState.postValue(new LoadMoreState(1,LoadState.SUCCESS));
-                loginUserLiveData.postValue(loginUserBean);
+            public void success(LoginUser loginUser) {
+                loadState.setValue(LoadState.SUCCESS);
+                loginUserLiveData.postValue(loginUser);
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadMoreState.postValue(new LoadMoreState(1,LoadState.SUCCESS));
-                throwableLiveData.postValue(throwable);
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }

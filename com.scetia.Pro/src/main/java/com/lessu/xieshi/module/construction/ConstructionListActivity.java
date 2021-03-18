@@ -12,7 +12,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.page.PageController;
@@ -21,6 +20,7 @@ import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 	ListPageWrapper wrapper;
 	String NotFinishedOnly ;
 	String QueryStr;
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.construction_list_activity);
@@ -45,8 +45,24 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
         
         BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
         menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");	
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.construction_list_activity;
 	}
-	
+
+	@Override
+	protected void initView() {
+		this.setTitle("工地列表");
+		BarButtonItem	searchButtonItem = new BarButtonItem(this , R.drawable.icon_navigation_search );
+		searchButtonItem.setOnClickMethod(this,"searchButtonDidClick");
+		navigationBar.setRightBarItem(searchButtonItem);
+
+		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
+		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
+	}
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -65,10 +81,8 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 
 			@Override
 			protected void onPageToInit(final PageController pageController) {
-				// TODO Auto-generated method stub
-				String token = Content.getToken();
-				
-				HashMap<String, Object> params = new HashMap<String, Object>();
+				String token =  Constants.User.GET_TOKEN();
+				HashMap<String, Object> params = new HashMap<>();
 	            params.put("Token", token);
 	            params.put("NotFinishedOnly", NotFinishedOnly);
 	            params.put("QueryStr", QueryStr);

@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -18,6 +17,7 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.bean.ListSampleDetail;
 import com.lessu.xieshi.bean.SampleDetail;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,16 +30,24 @@ public class SampleDetailActivity extends NavigationActivity {
 	private ArrayList<ListSampleDetail> al;
 	private ListView lv_sample_detail;
 
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sample_detail);
 		lv_sample_detail = (ListView) findViewById(R.id.lv_sample_detail);
-//		if(sampledetailWebView == null){
-//			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
-//		}
 		this.setTitle("样品信息");
 		navigationBar.setBackgroundColor(0xFF3598DC);
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.sample_detail;
+	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("样品信息");
+		lv_sample_detail = (ListView) findViewById(R.id.lv_sample_detail);
 	}
 
 	@Override
@@ -49,7 +57,7 @@ public class SampleDetailActivity extends NavigationActivity {
 		Bundle bundelForData=this.getIntent().getExtras(); 
 		String Id = bundelForData.getString("Id");
 		String MemberCode = bundelForData.getString("MemberCode");
-		String Token = Content.getToken();
+		String Token =  Constants.User.GET_TOKEN();
 		
 		
 		params.put("Token", Token);

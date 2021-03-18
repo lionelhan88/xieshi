@@ -5,42 +5,60 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.gyf.immersionbar.BarParams;
 import com.gyf.immersionbar.ImmersionBar;
+import com.gyf.immersionbar.components.ImmersionFragment;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationBar;
 import com.scetia.Pro.baseapp.R;
-import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends ImmersionFragment {
     public NavigationBar navigationBar;
     private Unbinder unbinder;
-    private LinearLayout rootView;
     protected View contentView;
+    protected ImmersionBar immersionBar;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        OnBackPressedCallback callback = new OnBackPressedCallback(isEnableHandleBack()) {
+            @Override
+            public void handleOnBackPressed() {
+                leftNavBarClick(contentView);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this,callback);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        navigationBar = getTopBarView();
-        rootView = getRootView(navigationBar);
+        navigationBar = createTopBarView();
         contentView = createContentView(inflater, container);
-        initImmersionBar();
+        LinearLayout rootView = createRootView();
+        if (navigationBar != null) {
+            rootView.addView(navigationBar);
+        }
+        rootView.addView(contentView);
         return rootView;
     }
 
@@ -51,37 +69,48 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
-    protected NavigationBar getTopBarView() {
-        NavigationBar navigationBar = new NavigationBar(requireActivity());
+    /**
+     * 创建顶部标题栏
+     *
+     * @return
+     */
+    protected NavigationBar createTopBarView() {
+        NavigationBar navigationBar = new NavigationBar(requireContext());
         navigationBar.setBackgroundColor(topBackgroundColor(R.color.top_bar_background));
         //为页面添加返回按钮
-        BarButtonItem handleButtonItem = new BarButtonItem(requireActivity(), R.drawable.back);
+        BarButtonItem handleButtonItem = new BarButtonItem(requireContext(), R.drawable.back);
         handleButtonItem.setOnClickListener(this::leftNavBarClick);
         navigationBar.setLeftBarItem(handleButtonItem);
         return navigationBar;
     }
 
-    private LinearLayout getRootView(NavigationBar navigationBar) {
-        LinearLayout linearLayout = new LinearLayout(requireActivity());
+    /**
+     * 创建内容的容器View
+     *
+     * @return
+     */
+    private LinearLayout createRootView() {
+        LinearLayout linearLayout = new LinearLayout(requireContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.addView(navigationBar);
         return linearLayout;
     }
 
+    /**
+     * 创建显示具体内容的View
+     *
+     * @param inflater
+     * @param container
+     * @return
+     */
     private View createContentView(LayoutInflater inflater, ViewGroup container) {
-        FrameLayout frameLayout = new FrameLayout(requireActivity());
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        frameLayout.setLayoutParams(layoutParams);
         View contentView = inflater.inflate(getLayoutId(), container, false);
-        frameLayout.addView(contentView);
-        rootView.addView(frameLayout);
         unbinder = ButterKnife.bind(this, contentView);
         return contentView;
     }
 
-
     //布局ID
     protected abstract int getLayoutId();
+
     //初始化控件
     protected abstract void initView();
 
@@ -90,29 +119,57 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-
-    //设置头部标题栏背景
+    /**
+     * 设置标题栏背景颜色
+     * @param colorRes 颜色的资源值
+     * @return
+     */
     protected int topBackgroundColor(@ColorRes int colorRes) {
         return ContextCompat.getColor(requireActivity(), colorRes);
     }
 
-    //设置同步标题
+    /**
+     * 设置标题
+     * @param title 标题内容
+     */
     protected void setTitle(String title) {
         navigationBar.setTitle(title);
     }
 
-
+    /**
+     * 点击返回按键（包括自定义的返回和物理返回按键）
+     * @param view
+     */
     public void leftNavBarClick(View view) {
         Navigation.findNavController(view).navigateUp();
     }
 
-    //设置沉浸式状态栏
-    protected void initImmersionBar() {
-        ImmersionBar.with(this).titleBar(navigationBar)
-                .statusBarColorInt(getResources().getColor(R.color.top_bar_background))
-                .navigationBarColor(R.color.light_gray)
-                .navigationBarDarkIcon(true)
-                .init();
+    @Override
+    public void initImmersionBar() {
+        if (immersionBar == null) {
+            immersionBar = ImmersionBar.with(this)
+                    .titleBar(getImmersionBarNavigation())
+                    .navigationBarColor(getNavigationBarColor())
+                    .navigationBarDarkIcon(navigationBarDarkIcon());
+            immersionBar.init();
+        }
+    }
+
+    protected View getImmersionBarNavigation() {
+        return navigationBar;
+    }
+
+    /**
+     * 底部系统导航栏的背景色
+     *
+     * @return
+     */
+    protected int getNavigationBarColor() {
+        return R.color.light_gray;
+    }
+
+    protected boolean navigationBarDarkIcon() {
+        return true;
     }
 
     //初始化swipeRefresh刷新样式
@@ -140,8 +197,21 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        //这里需要注意，使用沉浸式状态栏框架 ImmersionBar，fragment销毁时要将immersionBar内部持有的 titleBarView赋值为null，
+        //否则因为titleBarView 持有fragment的引用，导致fragment无法被正常回收导致内存泄漏
+        if (immersionBar != null) {
+            immersionBar.getBarParams().titleBarView = null;
+        }
         unbinder.unbind();
+        super.onDestroy();
+    }
+
+    /**
+     * 是否监听物理返回按键
+     * @return 默认不监听
+     */
+    protected boolean isEnableHandleBack(){
+        return true;
     }
 
 }

@@ -28,11 +28,14 @@ import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Size;
 
 /* Import ZBar Class files */
-import net.sourceforge.zbar.ImageScanner;
+import androidx.core.content.ContextCompat;
+
+import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
+import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
-import net.sourceforge.zbar.Config;
+
 
 public class QRCodeActivity extends NavigationActivity {
     private Camera mCamera;
@@ -46,28 +49,29 @@ public class QRCodeActivity extends NavigationActivity {
         System.loadLibrary("iconv");
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.qrcode_activity;
+    }
+
+    @Override
+    protected void initView() {
         this.setTitle("条形码查询");
-        setContentView(R.layout.qrcode_activity);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         autoFocusHandler = new Handler();
         /* Instance barcode scanner */
         scanner = new ImageScanner();
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
 
-        navigationBar.setBackgroundColor(0xFF3598DC);
+        navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
         FrameLayout cameraPreview = (FrameLayout) findViewById(R.id.cameraPreview);
-        cameraPreview.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (barcodeScanned) {
-                    barcodeScanned = false;
-                    mCamera.setPreviewCallback(previewCb);
-                    mCamera.startPreview();
-                    previewing = true;
-                    mCamera.autoFocus(autoFocusCB);
-                }
+        cameraPreview.setOnClickListener(v -> {
+            if (barcodeScanned) {
+                barcodeScanned = false;
+                mCamera.setPreviewCallback(previewCb);
+                mCamera.startPreview();
+                previewing = true;
+                mCamera.autoFocus(autoFocusCB);
             }
         });
     }

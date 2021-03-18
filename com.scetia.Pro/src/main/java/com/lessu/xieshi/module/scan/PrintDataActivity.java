@@ -11,10 +11,10 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -82,10 +82,13 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     private boolean uhfBlueConnect;
     private boolean lianjieshibai;
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.printdata_layout);
-        navigationBar.setBackgroundColor(0xFF3598DC);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.printdata_layout;
+    }
+
+    @Override
+    protected void initView() {
         this.setTitle("标识扫描");
         //设置侧滑菜单
         dl = findViewById(R.id.dl);
@@ -102,15 +105,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 menu.addMenuItem(deleteItem);
             }
         };
-        initView();
-        initData();
-        initSoundPool();
-    }
-
-    /**
-     * 初始化控件
-     */
-    private void initView() {
         LinearLayout ll_shenqingshangbao = findViewById(R.id.ll_shenqingshangbao);
         LinearLayout ll_shenhexiazai = findViewById(R.id.ll_shenhexiazai);
         LinearLayout ll_rukuchakan = findViewById(R.id.ll_rukuchakan);
@@ -210,7 +204,8 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     /**
      * 初始化数据
      */
-    private void initData() {
+    @Override
+    protected void initData() {
         // 一上来就先连接设备
         device = bluetoothAdapter.getRemoteDevice(getDeviceAddress());
         new Thread(new Runnable() {
@@ -246,6 +241,8 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 }
             }
         }).start();
+
+        initSoundPool();
     }
 
     /**
@@ -417,10 +414,9 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         Intent intent = this.getIntent();
         String deviceAdd = SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "");
         //是否存在已经缓存的地址，如果没有缓存的地址，重新获取上一个页面传来的地址
-        if (deviceAdd == null) {
+        if (deviceAdd==null) {
             deviceAdd = intent.getStringExtra("deviceAddress");
             SPUtil.setSPConfig(SPUtil.BLUETOOTH_DEVICE, deviceAdd);
-            LogUtil.showLogD("deviceAddress为null==" + deviceAdd);
         }
         return deviceAdd;
     }
@@ -553,7 +549,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         } else {
                             String s = LongString.bytes2HexString(buffer2);
                             System.out.println(s);
-                            String jiexinpian = Decrypt.jiexinpian(s);
+                            String jiexinpian = Decrypt.decodeChip(s);
                             if (jiexinpian != null) {
                                 if (!Xal.contains(jiexinpian)) {
                                     Xal.add(0, jiexinpian);

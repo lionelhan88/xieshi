@@ -8,7 +8,7 @@ import com.lessu.xieshi.R;
 
 public class PasswordCompleteActivity extends NavigationActivity {
 
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.password_complete_activity);
@@ -23,11 +23,25 @@ public class PasswordCompleteActivity extends NavigationActivity {
         
         BarButtonItem	nullButtonitem = new BarButtonItem(this,"");
         navigationBar.setLeftBarItem(nullButtonitem);
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.password_complete_activity;
+	}
+
+	@Override
+	protected void initView() {
+		setTitle("修改成功");
+		BarButtonItem	completeButtonitem = new BarButtonItem(this ,"完成");
+		completeButtonitem.setOnClickMethod(this,"completeButtonDidClick");
+		navigationBar.setRightBarItem(completeButtonitem);
+
+		BarButtonItem	nullButtonitem = new BarButtonItem(this,"");
+		navigationBar.setLeftBarItem(nullButtonitem);
 	}
 
 	public void completeButtonDidClick(){
-		/*Intent intent =  new Intent(PasswordCompleteActivity.this,SettingActivity.class);
-		startActivity(intent);*/
 		finish();
     }
 }

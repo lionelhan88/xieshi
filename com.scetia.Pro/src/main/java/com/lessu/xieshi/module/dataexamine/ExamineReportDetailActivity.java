@@ -7,42 +7,41 @@ import android.widget.TextView;
 
 import com.google.gson.EasyGson;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.bean.ReportDetail;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ExamineReportDetailActivity extends NavigationActivity {
 	private WebView detailWebView;
 	private Map<String,String> activtyMapper;
 	private String jsonStringSample;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.examine_report_detail_activity);
-		//if(detailWebView == null){
-			//detailWebView = (WebView) findViewById(R.id.detailWebView);
-		//}
-		this.setTitle("报告详情");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.bind(this);
+	protected int getLayoutId() {
+		return R.layout.examine_report_detail_activity;
 	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("报告详情");
+	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		Bundle bundelForData=this.getIntent().getExtras(); 
 		String ConsignId = bundelForData.getString("ConsignId");
-		String Token = Content.getToken();
+		String Token =  Constants.User.GET_TOKEN();
 		
 		params.put("Token", Token);
 		params.put("ConsignId", ConsignId);

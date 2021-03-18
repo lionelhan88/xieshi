@@ -47,7 +47,7 @@
             android:gravity="center"
             android:padding="15dp"
             android:text="本单位其他人员参会"
-            android:textColor="@color/danlan"
+            android:textColor="@color/blue_normal2"
             android:textSize="@dimen/text_size_xlarge" />
     </LinearLayout>
 

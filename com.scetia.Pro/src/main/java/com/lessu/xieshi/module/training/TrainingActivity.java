@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.training;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,13 +20,12 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.module.training.bean.PaidItem;
 import com.lessu.xieshi.bean.Project;
 import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.lessu.xieshi.module.training.bean.TrainingUserInfo;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.scan.ScanActivity;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -62,16 +60,15 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
     private TextView trainLearningTitle;
     private ImageView trainScanLogin,trainLearnOnline,trainTeach;
     private Map<String,String> paidItemMap = new HashMap<>();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_training);
-        setTitle("在线培训");
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        initView();
-        initData();
+    protected int getLayoutId() {
+        return R.layout.activity_training;
     }
-    private void initView(){
+
+    @Override
+    protected void initView(){
+        setTitle("在线培训");
         userName =  findViewById(R.id.training_user_name);
         sgz =  findViewById(R.id.tv_sgz);
         huiyuanhao =  findViewById(R.id.training_huiyuanhao);
@@ -94,20 +91,14 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
         tagAdapter = new TagAdapter<PaidItem>(tags) {
             @Override
             public View getView(FlowLayout parent, int position, PaidItem paidItem) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
                 int betweenDay =-1;
-                try {
-                    Date parse = sdf.parse(paidItem.getEndDate());
-                    if(parse!=null) {
-                        betweenDay = DateUtil.getGapCount(new Date(), parse);
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                Date parse = DateUtil.parseTo(paidItem.getEndDate(), "yyyy-MM-dd");
+                if (parse != null) {
+                    betweenDay = DateUtil.getGapCount(new Date(), parse);
                 }
                 LinearLayout ll = (LinearLayout) LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.learns_tag_item_layout,flowLayout,false);
                 TextView v = ll.findViewById(R.id.learns_tag_item_name);
-                TextView over = ll.findViewById(R.id.learns_tag_item_over);
                 //如果当前日期距离课程结束日期小于等于7天，显示橘黄色,否则显示正常颜色
                 if(betweenDay>=0&&betweenDay<=7){
                     ll.setBackgroundResource(R.drawable.tag_click_background_red);
@@ -131,8 +122,8 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
     /**
      * 初始化数据
      */
-    private void initData(){
-        String mm = SPUtil.getSPConfig(Common.MEMBERINFOSTR,"");
+    protected void initData(){
+        String mm = SPUtil.getSPConfig(Constants.User.MEMBER_INFO_STR,"");
         if(!mm.equals("")){
             String[] mms = mm.split("\\|");
             huiyuanhao.setText(mms[0]);
@@ -150,7 +141,7 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
         tvDay.setText(dates[2]);
         tvMonthYear.setText(dates[1]+"，"+dates[0]);
         final HashMap<String,Object> params = new HashMap<>();
-        params.put("token", Content.getToken());
+        params.put("token",  Constants.User.GET_TOKEN());
         EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post("/ServiceEAT.asmx/GetPaidContinuedEducationInfo")
                 , params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                     @Override

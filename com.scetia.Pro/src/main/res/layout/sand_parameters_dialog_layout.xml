@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/full_screen_dialog_bg"
     android:orientation="vertical">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flow_declaration_detail_parameter_rv"
         android:layout_width="match_parent"

@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
@@ -21,7 +26,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
@@ -32,7 +37,6 @@ import com.lessu.xieshi.module.meet.fragment.CompanySignFragment;
 import com.lessu.xieshi.module.meet.fragment.MisMeetingDetailFragment;
 import com.lessu.xieshi.module.meet.fragment.PersonSignFragment;
 import com.lessu.xieshi.module.meet.fragment.ReplaceSignFragment;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.xieshi.module.scan.ScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,10 +48,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -76,25 +80,12 @@ public class MisMeetingActivity extends NavigationActivity {
     private MeetingBean curMeetingBean;
     private MeetingBean.MeetingUserBean curMeetingUserBean;
     private CustomDialog customDialog;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_meeting);
-        ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
-        navigationBar.addRightBarItem(handleButtonItem2);
-        handleButtonItem2.setVisibility(View.GONE);
-        handleButtonItem2.setOnClickMethod(this, "scanSign");
-        BarButtonItem qCode = new BarButtonItem(this, R.drawable.icon_q_code);
-        navigationBar.addRightBarItem(qCode);
-        qCode.setOnClickMethod(this, "showSignQCode");
 
-        setTitle("会议详情");
-        initFragment();
-        initView();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_mis_meeting;
     }
+
     private void initFragment(){
         meetingID = getIntent().getStringExtra("meetingID");
         Bundle bundle1 = new Bundle();
@@ -117,7 +108,19 @@ public class MisMeetingActivity extends NavigationActivity {
         fragments.add(replaceSignFragment);
         misMeetingViewPager.setOffscreenPageLimit(2);
     }
-    private void initView(){
+
+    @Override
+    protected void initView(){
+        setTitle("会议详情");
+        EventBus.getDefault().register(this);
+        handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
+        navigationBar.addRightBarItem(handleButtonItem2);
+        handleButtonItem2.setVisibility(View.GONE);
+        handleButtonItem2.setOnClickMethod(this, "scanSign");
+        BarButtonItem qCode = new BarButtonItem(this, R.drawable.icon_q_code);
+        navigationBar.addRightBarItem(qCode);
+        qCode.setOnClickMethod(this, "showSignQCode");
+        initFragment();
         misMeetingViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -175,27 +178,20 @@ public class MisMeetingActivity extends NavigationActivity {
     /**
      * 点击显示二维码
      */
-    @SuppressLint("CheckResult")
     public void showSignQCode(){
-        Observable.just("ScetiaMeetingCode:"+meetingID)
-                .map(new Function<String, Bitmap>() {
-                    @Override
-                    public Bitmap apply(String s) throws Exception {
-                        //生成图片是耗时操作，异步执行
-                        return QRCodeEncoder.syncEncodeQRCode(s, (int) DensityUtil.screenWidth(MisMeetingActivity.this)/3*2);
-                    }
+        Disposable subscribe = Observable.just("ScetiaMeetingCode:" + meetingID)
+                .map(s -> {
+                    //生成图片是耗时操作，异步执行
+                    return QRCodeEncoder.syncEncodeQRCode(s, (int) DensityUtil.screenWidth(MisMeetingActivity.this) / 3 * 2);
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Bitmap>() {
-                    @Override
-                    public void accept(Bitmap bitmap) throws Exception {
-                        //得到bitmap结果
-                        View view = LayoutInflater.from(MisMeetingActivity.this)
-                                .inflate(R.layout.dialog_q_code_layout,null,false);
-                        ImageView qCodeImage = view.findViewById(R.id.dialog_q_code_image);
-                        qCodeImage.setImageBitmap(bitmap);
-                        LSAlert.showTransparentDialog(MisMeetingActivity.this,"",view,"",null);
-                    }
+                .subscribe(bitmap -> {
+                    //得到bitmap结果
+                    View view = LayoutInflater.from(MisMeetingActivity.this)
+                            .inflate(R.layout.dialog_q_code_layout, null, false);
+                    ImageView qCodeImage = view.findViewById(R.id.dialog_q_code_image);
+                    qCodeImage.setImageBitmap(bitmap);
+                    LSAlert.showTransparentDialog(MisMeetingActivity.this, "", view, "", null);
                 });
 
     }
@@ -204,9 +200,10 @@ public class MisMeetingActivity extends NavigationActivity {
      */
     public void scanSign() {
         Intent scanIntent = new Intent(this, ScanActivity.class);
-        scanIntent.putExtra(Common.SCAN_TYPE,Common.SCAN_MEETING_SIGNED);
+        scanIntent.putExtra(Constants.Setting.SCAN_TYPE, Constants.Setting.SCAN_MEETING_SIGNED);
         startActivityForResult(scanIntent,0x12);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -254,7 +251,7 @@ public class MisMeetingActivity extends NavigationActivity {
             return;
         }
         HashMap<String,Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", scanResult.toUpperCase());
         params.put("s2", userId.toUpperCase());
         params.put("s3",signImage);

@@ -54,36 +54,31 @@ public class SandSalesTargetListFragment extends BaseVMFragment<SandSalesTargetL
 
     @Override
     protected void observerData() {
-        viewModel.getLoadState().observe(this, loadState -> {
+        viewModel.getDeleteDataState().observe(this, loadState -> {
             if (loadState == LoadState.LOADING) {
                 LSAlert.showProgressHud(requireActivity(), "正在删除...");
             } else {
                 LSAlert.dismissProgressHud();
             }
+            if(loadState==LoadState.FAILURE){
+                ToastUtil.showShort(loadState.getMessage());
+            }
         });
 
-        viewModel.getLoadDataState().observe(this, loadState -> {
+        viewModel.getLoadState().observe(this, loadState -> {
             switchUIPageState(loadState,sandSalesTargetListRefresh);
         });
-
-        viewModel.getThrowable().observe(this, responseThrowable -> {
-            ToastUtil.showShort(responseThrowable.message);
-        });
-
 
         viewModel.getItemPosition().observe(this, integer -> {
             listAdapter.remove(integer);
         });
 
-        viewModel.getAddedSanSalesTargetLiveData().observe(this, new Observer<List<AddedSandSalesTargetBean>>() {
-            @Override
-            public void onChanged(List<AddedSandSalesTargetBean> addedSandSalesTargetBeans) {
-                if (viewModel.getLoadDataState().getValue() == LoadState.LOAD_INIT_SUCCESS||
-                        viewModel.getLoadDataState().getValue()==LoadState.EMPTY) {
-                    listAdapter.setNewData(addedSandSalesTargetBeans);
-                } else {
-                    listAdapter.addData(addedSandSalesTargetBeans);
-                }
+        viewModel.getAddedSanSalesTargetLiveData().observe(this, addedSandSalesTargetBeans -> {
+            if (viewModel.getLoadState().getValue() == LoadState.LOAD_INIT_SUCCESS||
+                    viewModel.getLoadState().getValue()==LoadState.EMPTY) {
+                listAdapter.setNewData(addedSandSalesTargetBeans);
+            } else {
+                listAdapter.addData(addedSandSalesTargetBeans);
             }
         });
     }
@@ -102,7 +97,7 @@ public class SandSalesTargetListFragment extends BaseVMFragment<SandSalesTargetL
             viewModel.refresh();
         });
         sandSalesTargetListRefresh.setOnLoadMoreListener(refreshLayout -> {
-            viewModel.loadData(false);
+            viewModel.loadMoreData();
         });
 
         listAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -132,8 +127,7 @@ public class SandSalesTargetListFragment extends BaseVMFragment<SandSalesTargetL
 
     @Override
     protected void initData() {
-        viewModel.setPageIndex(0);
-        viewModel.loadData(true);
+       viewModel.loadInitData();
     }
 
     @Override
@@ -144,8 +138,7 @@ public class SandSalesTargetListFragment extends BaseVMFragment<SandSalesTargetL
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addSalesSuccess(GlobalEvent<Boolean> event){
         if(event.getCode()==EventBusUtil.A){
-            viewModel.setPageIndex(0);
-            viewModel.loadData(false);
+            viewModel.refresh();
         }
     }
 

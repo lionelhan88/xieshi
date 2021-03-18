@@ -35,14 +35,16 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
+            //是否优化zip
+            zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-       /* debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        debug{
             signingConfig signingConfigs.release
-        }*/
+        }
     }
     applicationVariants.all { variant ->
         def buildType = variant.buildType.name
@@ -67,10 +69,14 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    aspectjx {
+        exclude 'com.squareup.leakcanary'
     }
 }
 
@@ -78,7 +84,6 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation rootProject.ext.dependencies.photoview
-    implementation rootProject.ext.dependencies.qrcode
     implementation rootProject.ext.dependencies.supportV4
     implementation rootProject.ext.dependencies.flowlayout
     implementation rootProject.ext.dependencies.tbs
@@ -96,7 +101,8 @@ dependencies {
     implementation project(':lib_common')
     implementation project(':lib_map')
     implementation files('libs/uhfreaderapi.jar')
+    compile files('libs/zbar.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 
 }

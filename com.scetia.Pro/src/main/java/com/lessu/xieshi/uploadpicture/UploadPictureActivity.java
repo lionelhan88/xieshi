@@ -20,13 +20,13 @@ import android.widget.Toast;
 import com.google.gson.EasyGson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.photo.ImageUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
@@ -42,7 +42,7 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 	JsonArray list = new JsonArray();
 	int nowUploadIndex = -1;
 	int position = -1;
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.upload_picture_activity);
@@ -56,14 +56,29 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 
 		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
 		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
-		//navigationBar.setLeftBarItem(menuButtonitem);
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.upload_picture_activity;
 	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("图片上传");
+		ListView listView = (ListView) findViewById(R.id.listView);
+		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
+		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
+		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
+	}
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		String token = Content.getToken();
+		String token =  Constants.User.GET_TOKEN();
 		params.put("Token", token);
 		params.put("TaskName", "");
 		params.put("ProjectName", "");
@@ -223,8 +238,8 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 						byte[] imgByte = baos.toByteArray();
 
 						String imgByteString = Base64.encodeToString(imgByte,Base64.DEFAULT);
-						HashMap<String, Object> params = new HashMap<String, Object>();
-						String token = Content.getToken();
+						HashMap<String, Object> params = new HashMap<>();
+						String token =  Constants.User.GET_TOKEN();
 						String taskID = list.get(position).getAsJsonObject().get("TaskID").getAsString();
 						String imgIndex = String.valueOf(nowUploadIndex);
 						imgIndex = String.valueOf(nowUploadIndex+1);

@@ -1,7 +1,11 @@
 package com.lessu.xieshi.module.sand.bean;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Objects;
 
 /**
  * created by ljs
@@ -199,5 +203,33 @@ public class FlowDeclarationBean {
 
     public void setSalesVolume(String salesVolume) {
         this.salesVolume = salesVolume;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlowDeclarationBean that = (FlowDeclarationBean) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(flowInfoNo, that.flowInfoNo) &&
+                Objects.equals(customerUnitName, that.customerUnitName) &&
+                Objects.equals(shipName, that.shipName) &&
+                Objects.equals(salesVolume, that.salesVolume) &&
+                Objects.equals(sampleName, that.sampleName) &&
+                Objects.equals(flowInfoStatus, that.flowInfoStatus) &&
+                Objects.equals(createDatetime, that.createDatetime) &&
+                Objects.equals(putOnRecordsPassport, that.putOnRecordsPassport) &&
+                Objects.equals(productionUnitName, that.productionUnitName) &&
+                Objects.equals(terminalName, that.terminalName) &&
+                Objects.equals(sampleID, that.sampleID) &&
+                Objects.equals(specID, that.specID) &&
+                Objects.equals(parameterIDs, that.parameterIDs) &&
+                Objects.equals(customerUnitMemberCode, that.customerUnitMemberCode) &&
+                Objects.equals(SalesVolumePost, that.SalesVolumePost);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, flowInfoNo, customerUnitName, shipName, salesVolume, sampleName, flowInfoStatus, createDatetime, putOnRecordsPassport, productionUnitName, terminalName, sampleID, specID, parameterIDs, customerUnitMemberCode, SalesVolumePost);
     }
 }

@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.google.gson.EasyGson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DensityUtil;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
@@ -43,6 +43,7 @@ public class SampleDetailActivity extends NavigationActivity {
 	private ListView lv_yangpinxinxi;
 	private ArrayList<ListSampleDetail> al;
 
+/*
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +57,24 @@ public class SampleDetailActivity extends NavigationActivity {
         navigationBar.setRightBarItem(handleButtonItem);
         dataRequest();
 	}
+*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.sample_detail_activity;
+	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("样品信息");
+		tv_bianhao = (TextView) findViewById(R.id.tv_bianhao);
+		tv_hege = (TextView) findViewById(R.id.tv_hege);
+		lv_yangpinxinxi = (ListView) findViewById(R.id.lv_yangpinxinxi);
+		BarButtonItem	handleButtonItem = new BarButtonItem(this , "处理" );
+		handleButtonItem.setOnClickMethod(this,"handleButtonDidClick");
+		navigationBar.setRightBarItem(handleButtonItem);
+		dataRequest();
+	}
 
 	private void dataRequest() {
 		HashMap<String, Object> params = new HashMap<>();
@@ -63,9 +82,7 @@ public class SampleDetailActivity extends NavigationActivity {
 		String Report_ID = bundelForData.getString("Report_id");
 		String Checksum = bundelForData.getString("Checksum");
 		String Sample_ID = bundelForData.getString("Sample_id");
-		String Token = Content.getToken();
-		
-		
+		String Token =  Constants.User.GET_TOKEN();
 		params.put("Token", Token);
 		params.put("Report_id", Report_ID);
 		params.put("Checksum", Checksum);
@@ -179,8 +196,7 @@ public class SampleDetailActivity extends NavigationActivity {
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
 								HashMap<String, Object> params = new HashMap<>();
-						 		
-						 		String Token = Content.getToken();
+						 		String Token = Constants.User.GET_TOKEN();
 						 		params.put("Token", Token);
 						 		params.put("ExecContent", contentEditText.getText().toString());
 						 		ExecContent = contentEditText.getText().toString();

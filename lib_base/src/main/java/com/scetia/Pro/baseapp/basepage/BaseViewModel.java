@@ -7,9 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.scetia.Pro.baseapp.lifecycle.IBaseLifecycle;
-import com.scetia.Pro.baseapp.uitls.LoadMoreState;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 /**
  * created by ljs
@@ -18,9 +16,6 @@ import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 public abstract class BaseViewModel extends AndroidViewModel implements IBaseLifecycle {
     //单一状态的加载
     protected MutableLiveData<LoadState> loadState;
-    //多种状态的加载
-    protected MutableLiveData<LoadMoreState> loadMoreState = new MutableLiveData<>();
-    protected MutableLiveData<ExceptionHandle.ResponseThrowable> throwableLiveData = new MutableLiveData<>();
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
@@ -33,13 +28,7 @@ public abstract class BaseViewModel extends AndroidViewModel implements IBaseLif
         return loadState;
     }
 
-    public MutableLiveData<LoadMoreState> getLoadMoreState() {
-        return loadMoreState;
-    }
 
-    public MutableLiveData<ExceptionHandle.ResponseThrowable> getThrowable() {
-        return throwableLiveData;
-    }
     @Override
     public void onCreate() {
 

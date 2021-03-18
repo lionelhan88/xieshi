@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -19,38 +21,81 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.uikit.R;
+import com.scetia.Pro.common.Util.Constants;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.lang.reflect.Field;
+
+import butterknife.ButterKnife;
+
 /**
  * Created by lessu on 14-7-31.
  */
-public class NavigationActivity extends FragmentActivity  {
-    public NavigationBar navigationBar;
+public abstract class NavigationActivity extends FragmentActivity {
+    protected NavigationBar navigationBar;
+    private ImmersionBar immersionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //强制竖屏显示
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setNavigationBar(new NavigationBar(this));
-        addTitleBarHandle();
         super.onCreate(savedInstanceState);
+        if (getLayoutId() > 0) {
+            setContentView(getLayoutId());
+        }
+        //绑定控件
+        ButterKnife.bind(this);
+        //沉浸式标题栏
         initImmersionBar();
+        observerData();
+        initView();
+        initData();
+        if(isRegisterEventBus()){
+            EventBus.getDefault().register(this);
+        }
     }
-
+    protected boolean isRegisterEventBus(){
+        return false;
+    }
     /**
      * 添加顶部标题栏菜单按钮
      */
-    private void addTitleBarHandle(){
+    protected NavigationBar initNavigationBar() {
         //为页面添加返回按钮
+        NavigationBar navigationBar = new NavigationBar(this);
         BarButtonItem handleButtonItem = new BarButtonItem(this, R.drawable.back);
-        handleButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                leftNavBarClick();
-            }
-        });
+        handleButtonItem.setOnClickListener(view -> leftNavBarClick());
         navigationBar.setLeftBarItem(handleButtonItem);
-        navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
+        navigationBar.setBackgroundColor(ContextCompat.getColor(this, R.color.top_bar_background));
+        return navigationBar;
     }
 
+    protected abstract int getLayoutId();
+
+    /**
+     * 监听数据变化，更新UI
+     */
+    protected void observerData() {
+
+    }
+
+    /**
+     * 初始化控件
+     */
+    protected void initView() {
+
+    }
+
+    /**
+     * 初始化数据
+     */
+    protected void initData() {
+
+    }
 
     @Override
     public void setContentView(int layoutResID) {
@@ -66,67 +111,88 @@ public class NavigationActivity extends FragmentActivity  {
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         LinearLayout layoutView = new LinearLayout(this);
         layoutView.setOrientation(LinearLayout.VERTICAL);
-        layoutView.addView(getNavigationBar());
+        navigationBar = initNavigationBar();
+        if (navigationBar != null) {
+            layoutView.addView(navigationBar);
+        }
         layoutView.addView(view);
         view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        if (params!=null) {
+        if (params != null) {
             super.setContentView(layoutView, params);
-        }else{
+        } else {
             super.setContentView(layoutView);
         }
     }
 
     @Override
     public void setTitle(CharSequence title) {
-    	super.setTitle(title);
-    	if(title.length() > 9){
-    		getNavigationBar().setTitle(title.subSequence(0, 9) + "...");
-    	}else{
-    		getNavigationBar().setTitle(title);
-    	}
+        super.setTitle(title);
+        if (title.length() > 9) {
+            navigationBar.setTitle(title.subSequence(0, 9) + "...");
+        } else {
+            navigationBar.setTitle(title);
+        }
     }
 
     /**
      * 左上角返回按钮
      */
-    protected void leftNavBarClick(){
+    protected void leftNavBarClick() {
         finish();
     }
 
     /**
      * 设置沉浸式状态栏
      */
-    protected void initImmersionBar(){
-        ImmersionBar.with(this).titleBar(navigationBar)
-                .navigationBarColor(R.color.light_gray)
-                .navigationBarDarkIcon(true)
-                .init();
-    }
-    public void setLeftNavigationItem(String title,View.OnClickListener listener){
-    	BarButtonItem barButtonItem = new BarButtonItem(this, title);
-    	barButtonItem.setOnClickListener(listener);
-    	getNavigationBar().setLeftBarItem(barButtonItem);
-    }
-    public void setRightNavigationItem(String title,View.OnClickListener listener){
-    	BarButtonItem barButtonItem = new BarButtonItem(this, title);
-    	barButtonItem.setOnClickListener(listener);
-    	getNavigationBar().setRightBarItem(barButtonItem);
+    protected void initImmersionBar() {
+        if (immersionBar == null) {
+            immersionBar = ImmersionBar.with(this)
+                    .titleBar(getTitleBar())
+                    .navigationBarColor(R.color.light_gray)
+                    .navigationBarDarkIcon(true)
+                    ;
+            immersionBar.init();
+        }
     }
 
-	public NavigationBar getNavigationBar() {
-		return navigationBar;
-	}
+    protected View getTitleBar() {
+        return navigationBar;
+    }
 
-	public void setNavigationBar(NavigationBar navigationBar) {
-		this.navigationBar = navigationBar;
-	}
-
-    protected void startOtherActivity(Class<? extends Activity> cls){
-        Intent intent = new Intent(this,cls);
+    protected void startOtherActivity(Class<? extends Activity> cls) {
+        Intent intent = new Intent(this, cls);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (immersionBar!=null){
+            immersionBar.getBarParams().titleBarView = null;
+        }
+        if(isRegisterEventBus()){
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroy();
+    }
+    /**
+     * 设置SearchView下划线透明
+     **/
+    protected void setUnderLinearTransparent(SearchView searchView) {
+        try {
+            Class<?> argClass = searchView.getClass();
+            Field ownField = argClass.getDeclaredField("mSearchPlate");
+            ownField.setAccessible(true);
+            View mView = (View) ownField.get(searchView);
+            if (mView != null) {
+                mView.setBackgroundColor(Color.TRANSPARENT);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * 不允许APP的字体随系统改变
+     *
      * @return
      */
     @Override
@@ -165,7 +231,7 @@ public class NavigationActivity extends FragmentActivity  {
      */
     private boolean isShouldHideInput(View v, MotionEvent event) {
         if (v != null && (v instanceof EditText)) {
-            int[] l = { 0, 0 };
+            int[] l = {0, 0};
             v.getLocationInWindow(l);
             int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
                     + v.getWidth();
@@ -184,6 +250,7 @@ public class NavigationActivity extends FragmentActivity  {
 
     /**
      * 多种隐藏软件盘方法的其中一种
+     *
      * @param token
      */
     private void hideSoftInput(IBinder token) {

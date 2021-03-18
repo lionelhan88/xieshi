@@ -5,7 +5,7 @@ import com.scetia.Pro.baseapp.uitls.LoadState
 import com.scetia.Pro.network.conversion.ResponseObserver
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean
 import com.lessu.xieshi.module.sand.repository.SandTestingCompanyQueryListRepository
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
+import com.scetia.Pro.network.bean.ExceptionHandle
 
 /**
  * created by ljs

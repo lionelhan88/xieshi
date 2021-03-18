@@ -12,7 +12,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.page.PageController;
@@ -20,6 +19,7 @@ import com.lessu.net.page.PageInfoAdapterInterface;
 import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.R;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,15 +28,25 @@ import java.util.List;
 public class TestConstractActivity extends NavigationActivity implements OnItemClickListener {
 	ListPageWrapper wrapper;
 	String type="";
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_constract_activity);
 
 		this.setTitle("检测合同");
 		navigationBar.setBackgroundColor(0xFF3598DC);
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.test_constract_activity;
 	}
-	
+
+	@Override
+	protected void initView() {
+		this.setTitle("检测合同");
+	}
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -56,7 +66,7 @@ public class TestConstractActivity extends NavigationActivity implements OnItemC
 			@Override
 			protected void onPageToInit(final PageController pageController) {
 				// TODO Auto-generated method stub
-				String token = Content.getToken();
+				String token =  Constants.User.GET_TOKEN();
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				Bundle bundelForData=TestConstractActivity.this.getIntent().getExtras(); 
 				String projectId = bundelForData.getString("ProjectId");
@@ -112,10 +122,7 @@ public class TestConstractActivity extends NavigationActivity implements OnItemC
 		};
 		
 		wrapper.wrap(listView);
-			
 		listView.setOnItemClickListener(this);
-		
-       // ButterKnife.bind(this);
 	}
 	
 	@Override

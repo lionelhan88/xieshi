@@ -54,28 +54,16 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
     @Override
     protected void observerData() {
         viewModel.getLoadState().observe(this, loadState -> {
-            if (loadState == LoadState.LOADING) {
-                LSAlert.showProgressHud(requireActivity(), "正在删除...");
-            } else {
-                LSAlert.dismissProgressHud();
-            }
+            switchUIPageState(loadState, sandSalesTargetListRefresh);
         });
-
-        viewModel.getLoadDataState().observe(this, loadState -> {
-            switchUIPageState(loadState,sandSalesTargetListRefresh);
-        });
-
-        viewModel.getThrowable().observe(this, responseThrowable -> {
-            ToastUtil.showShort(responseThrowable.message);
-        });
-
 
         viewModel.getItemPosition().observe(this, integer -> {
             listAdapter.remove(integer);
         });
 
         viewModel.getAddedSanSalesTargetLiveData().observe(this, addedTestingCompanyBeans -> {
-            if (viewModel.getLoadDataState().getValue() == LoadState.LOAD_INIT_SUCCESS) {
+            if (viewModel.getLoadState().getValue() == LoadState.LOAD_INIT_SUCCESS
+                    || viewModel.getLoadState().getValue() == LoadState.EMPTY) {
                 listAdapter.setNewData(addedTestingCompanyBeans);
             } else {
                 listAdapter.addData(addedTestingCompanyBeans);
@@ -90,7 +78,7 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
         listAdapter = viewModel.getListAdapter();
         Bundle arguments = getArguments();
         listAdapter.setCanSwipe(arguments == null);
-        sandSalesTargetListFab.setVisibility(arguments==null?View.VISIBLE:View.GONE);
+        sandSalesTargetListFab.setVisibility(arguments == null ? View.VISIBLE : View.GONE);
         if (arguments == null) {
             listAdapter.setOnItemChildClickListener((adapter, view, position) -> {
                 if (view.getId() == R.id.right) {
@@ -124,14 +112,13 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
             viewModel.refresh();
         });
         sandSalesTargetListRefresh.setOnLoadMoreListener(refreshLayout -> {
-            viewModel.loadData(false);
+            viewModel.loadMoreData();
         });
     }
 
     @Override
     protected void initData() {
-        viewModel.setPageIndex(0);
-        viewModel.loadData(true);
+        viewModel.loadDataInit();
     }
 
     @Override
@@ -140,10 +127,9 @@ public class SandTestingCompanyListFragment extends BaseVMFragment<SandTestingCo
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void addTestingCompanySuccess(GlobalEvent<Boolean> event){
-        if(event.getCode()==EventBusUtil.A){
-            viewModel.setPageIndex(0);
-            viewModel.loadData(false);
+    public void addTestingCompanySuccess(GlobalEvent<Boolean> event) {
+        if (event.getCode() == EventBusUtil.A) {
+            viewModel.refresh();
         }
     }
 

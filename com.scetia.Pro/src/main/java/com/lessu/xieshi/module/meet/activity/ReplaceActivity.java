@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.meet.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -27,7 +26,7 @@ import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.bean.MeetingCompanyBean;
 import com.lessu.xieshi.module.meet.event.CompanyListToReplace;
 import com.lessu.xieshi.module.meet.event.ReplaceSignAddEvent;
-import com.lessu.xieshi.module.mis.activitys.Content;
+import com.scetia.Pro.common.Util.Constants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ReplaceActivity extends NavigationActivity {
@@ -68,12 +66,11 @@ public class ReplaceActivity extends NavigationActivity {
     private List<MeetingCompanyBean> meetingCompanyBeans;
     private String meetingID;
     private MeetingBean.MeetingUserBean meetingUserBean;
-    @Override
+  /*  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relpace);
         ButterKnife.bind(this);
-        navigationBar.setBackgroundColor(0xFF3598DC);
         setTitle("手动签到");
         initView();
         meetingID = getIntent().getStringExtra("meetingID");
@@ -81,11 +78,23 @@ public class ReplaceActivity extends NavigationActivity {
             getCompanyList(meetingID);
         }
         EventBus.getDefault().register(this);
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_relpace;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        setTitle("手动签到");
         meetingCompanyBeans = new ArrayList<>();
         listAdapter = new MeetingCompanyListAdapter(this, meetingCompanyBeans);
+        meetingID = getIntent().getStringExtra("meetingID");
+        if (meetingID != null) {
+            getCompanyList(meetingID);
+        }
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -218,7 +227,7 @@ public class ReplaceActivity extends NavigationActivity {
      */
     private void getHandSignImage(String meetingID, String hyCode, String userName) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", meetingID);
         params.put("s2", hyCode);
         params.put("s4", userName);
@@ -248,7 +257,7 @@ public class ReplaceActivity extends NavigationActivity {
      */
     private void getCompanyList(String meetingID) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", meetingID);
         EasyAPI.apiConnectionAsync(ReplaceActivity.this, true, false,
                 ApiMethodDescription.get("/ServiceMis.asmx/GetMemberList"), params, new EasyAPI.ApiFastSuccessCallBack() {
@@ -276,7 +285,7 @@ public class ReplaceActivity extends NavigationActivity {
     private void requestSign(String meetingID, String hyCode, String hyName, String userName, String userPhone
             , String signImage, final MeetingBean.MeetingUserBean meetingUserBean) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("Token", Content.getToken());
+        params.put("Token",  Constants.User.GET_TOKEN());
         params.put("s1", meetingID);
         //如果会员编号为“其他”,传入"-"，并且 s6传入单位名称
         if(hyCode.equals("-")){

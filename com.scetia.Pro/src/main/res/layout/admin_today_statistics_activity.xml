@@ -5,28 +5,19 @@
     android:layout_height="match_parent"
     android:background="@color/common_background"
     android:orientation="vertical"
-    tools:context=".module.todaystatistics.AdminTodayStatisticsActivity">
+    tools:context=".module.todaystatistics.SiteSearchListMapActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2">
 
-        <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
-        <!--android:id="@+id/listView"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:footerDividersEnabled="false"-->
-        <!--android:dividerHeight="0dp"-->
-        <!--android:divider="@null"-->
-        <!--&gt;-->
-        <!--</com.handmark.pulltorefresh.library.PullToRefreshListView>-->
         <ListView
             android:id="@+id/lv_ditu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            android:listSelector="@drawable/dianjibeijing"/>
+            android:listSelector="@drawable/dianjibeijing" />
 
         <RelativeLayout
             android:id="@+id/rl_map"
@@ -42,10 +33,10 @@
                 android:id="@+id/zcv_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp" />
 
             <Button
                 android:id="@+id/bt_sousuo"
@@ -63,9 +54,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-
                 android:layout_marginTop="60dp"
+
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -93,13 +84,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_xialaliebiao"
+                    android:id="@+id/ll_near_by_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:visibility="gone">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -114,6 +106,7 @@
                         android:text="不限"
                         android:textColor="#333333"
                         android:textSize="12sp" />
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -134,7 +127,7 @@
                         android:background="@drawable/xian" />
 
                     <TextView
-                        android:id="@+id/tv_3"
+                        android:id="@+id/tv_2"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center"
@@ -148,7 +141,7 @@
                         android:background="@drawable/xian" />
 
                     <TextView
-                        android:id="@+id/tv_5"
+                        android:id="@+id/tv_3"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center"
@@ -160,20 +153,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@drawable/xian"
-                        android:visibility="gone"/>
-
-                    <TextView
-                        android:id="@+id/tv_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="10公里"
-                        android:textColor="#333333"
-                        android:textSize="12sp"
-                        android:visibility="gone"/>
-
-
-
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -184,8 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="200dp"
+                android:layout_marginRight="20dp"
                 android:background="#ffffff"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -193,7 +173,8 @@
                 <TextView
                     android:id="@+id/tv_daohangtitle"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="35dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="上海浦东"
@@ -268,29 +249,6 @@
                             android:textColor="#ffffff" />
 
                     </RelativeLayout>
-                    <!--<Button-->
-                    <!--android:id="@+id/bt_danghang"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:background="@drawable/anniu"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textColor="#ffffff"-->
-                    <!--android:text="导航"-->
-                    <!--android:drawableLeft="@drawable/daohang"-->
-                    <!--android:paddingLeft="50dp"-->
-                    <!--android:paddingRight="50dp"-->
-                    <!--/>-->
-                    <!--<Button-->
-                    <!--android:layout_marginLeft="2dp"-->
-                    <!--android:background="@drawable/anniu"-->
-                    <!--android:textColor="#ffffff"-->
-                    <!--android:id="@+id/bt_qvxiao"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="信息查询"-->
-                    <!--android:drawableLeft="@drawable/xinxichaxuna"-->
-                    />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

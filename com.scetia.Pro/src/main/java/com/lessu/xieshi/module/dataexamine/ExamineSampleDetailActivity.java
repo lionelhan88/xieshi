@@ -16,13 +16,24 @@ import java.util.Map;
 import butterknife.ButterKnife;
 
 public class ExamineSampleDetailActivity extends NavigationActivity {
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.examine_sample_detail_activity);
 		this.setTitle("样品详情");
 		ButterKnife.bind(this);
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.examine_sample_detail_activity;
 	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("样品详情");
+	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();

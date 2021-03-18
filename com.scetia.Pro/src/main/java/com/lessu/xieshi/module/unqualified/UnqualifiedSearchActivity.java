@@ -14,12 +14,12 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
@@ -74,27 +73,24 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 	TextView tvManageUnitIDTextView;
 	@BindView(R.id.UqExecStatusTextView)
 	TextView tvUqExecStatusTextView;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.unqualified_search_activity);
-		ButterKnife.bind(this);
-		this.setTitle("不合格信息查询");
-		initView();
-		initData();
+	protected int getLayoutId() {
+		return R.layout.unqualified_search_activity;
 	}
 
 	/**
 	 * 初始化控件
 	 */
-	private void initView(){
-		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
+	@Override
+	protected void initView(){
+		this.setTitle("不合格信息查询");
+		BarButtonItem	homeItem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
+		homeItem.setOnClickMethod(this,"menuButtonDidClick");
 		Date today = new Date();
-		String todayString = DateUtil.getDate(today);
+		String todayString = DateUtil.FORMAT_BAR_YMD(today);
 		//初始化设置当天日期为截至日期
 		tvProjectEndDate.setText(todayString);
-
 		tvReportCreateEndDate.setText(todayString);
 		//工程检测起始日期默认为前一个月
 		String preTodayString = DateUtil.getMonthAgo(-1);
@@ -104,20 +100,20 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		tvReportCreateStartDate.setText(reportCreateDate);
 		Intent intent = getIntent();
 		if(intent!=null){
-			String projectid = intent.getStringExtra("projectId");
 			String projectName = intent.getStringExtra("projectName");
-			String projctArea = intent.getStringExtra("projectArea");
+			String projectArea = intent.getStringExtra("projectArea");
 			etProjectName.setText(projectName);
-			tvProjectAreaTextView.setText(projctArea);
+			tvProjectAreaTextView.setText(projectArea);
 		}
 	}
 
 	/**
 	 * 初始化数据
 	 */
-	private void initData(){
+	@Override
+	protected void initData(){
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("Token", Content.getToken());
+		params.put(Constants.User.XS_TOKEN,  Constants.User.GET_TOKEN());
 		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceSource.asmx/BHGItemSource"), params, new EasyAPI.ApiFastSuccessCallBack() {
 			@Override
 			public void onSuccessJson(JsonElement result) {
@@ -146,7 +142,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		DateUtil.datePicker(this, new OnTimeSelectListener() {
 			@Override
 			public void onTimeSelect(Date date, View v) {
-				tvReportCreateStartDate.setText(DateUtil.getDate(date));
+				tvReportCreateStartDate.setText(DateUtil.FORMAT_BAR_YMD(date));
 			}
 		});
 	}
@@ -156,7 +152,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		DateUtil.datePicker(this, new OnTimeSelectListener() {
 			@Override
 			public void onTimeSelect(Date date, View v) {
-				tvReportCreateEndDate.setText(DateUtil.getDate(date));
+				tvReportCreateEndDate.setText(DateUtil.FORMAT_BAR_YMD(date));
 			}
 		});
 	}
@@ -213,7 +209,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 				, position -> {
 					tvTestingType.setText(nameString[position]);
 					HashMap<String, Object> params = new HashMap<>();
-					params.put("Token", Content.getToken());
+					params.put("Token",  Constants.User.GET_TOKEN());
 					params.put("Condition", idString[position]);
 					System.out.println(params);
 					EasyAPI.apiConnectionAsync(UnqualifiedSearchActivity.this, true, false, ApiMethodDescription.get("/ServiceSource.asmx/ItemItemSource"), params, new EasyAPI.ApiFastSuccessCallBack() {
@@ -295,7 +291,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		DateUtil.datePicker(this, new OnTimeSelectListener() {
 			@Override
 			public void onTimeSelect(Date date, View v) {
-				tvProjectStartDate.setText(DateUtil.getDate(date));
+				tvProjectStartDate.setText(DateUtil.FORMAT_BAR_YMD(date));
 			}
 		});
 	}
@@ -305,7 +301,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		DateUtil.datePicker(this, new OnTimeSelectListener() {
 			@Override
 			public void onTimeSelect(Date date, View v) {
-				tvProjectEndDate.setText(DateUtil.getDate(date));
+				tvProjectEndDate.setText(DateUtil.FORMAT_BAR_YMD(date));
 			}
 		});
 	}

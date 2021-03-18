@@ -26,4 +26,9 @@ public class MyAutoCompleteView extends androidx.appcompat.widget.AppCompatAutoC
     public boolean enoughToFilter() {
         return true;
     }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
 }

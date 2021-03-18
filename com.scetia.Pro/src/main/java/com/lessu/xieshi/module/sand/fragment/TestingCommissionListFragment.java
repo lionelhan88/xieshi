@@ -31,7 +31,6 @@ import butterknife.OnClick;
  * on 2020/11/10
  */
 public class TestingCommissionListFragment extends BaseVMFragment<TestingCommissionListViewModel> {
-    public static final String TESTING_COMMISSION_INFO_ID = "info_id";
     @BindView(R.id.sand_sales_target_list_rv)
     RecyclerView sandSalesTargetListRv;
     @BindView(R.id.sand_sales_target_list_refresh)
@@ -49,25 +48,14 @@ public class TestingCommissionListFragment extends BaseVMFragment<TestingCommiss
 
     @Override
     protected void observerData() {
-        viewModel.getLoadDatState().observe(this,loadState -> {
+        viewModel.getLoadState().observe(this,loadState -> {
             switchUIPageState(loadState,sandSalesTargetListRefresh);
         });
 
-        viewModel.getLoadState().observe(this,loadState -> {
-            if(loadState==LoadState.LOADING){
-                LSAlert.showProgressHud(requireContext(),"正在删除...");
-            }else{
-                LSAlert.dismissProgressHud();
-            }
-        });
-
-        viewModel.getThrowable().observe(this,responseThrowable -> {
-            ToastUtil.showShort(responseThrowable.message);
-        });
         //数据列表加载成功
         viewModel.getTestingCommissionLiveData().observe(this,testingCommissionBeans -> {
-            if(viewModel.getLoadDatState().getValue()== LoadState.LOAD_INIT_SUCCESS
-            ||viewModel.getLoadDatState().getValue()== LoadState.EMPTY){
+            if(viewModel.getLoadState().getValue()== LoadState.LOAD_INIT_SUCCESS
+            ||viewModel.getLoadState().getValue()== LoadState.EMPTY){
                 //初始化数据成功，需要重新刷新数据
                 listAdapter.setNewData(testingCommissionBeans);
             }else{
@@ -88,6 +76,10 @@ public class TestingCommissionListFragment extends BaseVMFragment<TestingCommiss
         listAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId()==R.id.right){
                 TestingCommissionBean bean = (TestingCommissionBean) adapter.getItem(position);
+                if(bean.getSampleStatus().equals("已送样")){
+                    LSAlert.showAlert(requireContext(),"当前委托已送样，不能删除！");
+                    return;
+                }
                 LSAlert.showAlert(requireActivity(), "", "确定要删除吗？", "删除", () -> {
                     viewModel.delCommission(bean.getId(),position);
                 });
@@ -96,7 +88,6 @@ public class TestingCommissionListFragment extends BaseVMFragment<TestingCommiss
                 Bundle bundle = new Bundle();
                 bundle.putString("id",bean.getId());
                 bundle.putString("flowInfoId",bean.getFlowInfoId());
-             //   EventBusUtil.sendStickyEvent(new GlobalEvent<>(EventBusUtil.C,bean));
                 Navigation.findNavController(view).navigate(R.id.actionCommissionListToDetail,bundle);
             }
         });

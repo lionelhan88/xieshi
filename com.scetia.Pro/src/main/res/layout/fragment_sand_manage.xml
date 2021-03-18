@@ -196,4 +196,35 @@
             app:layout_constraintStart_toEndOf="@+id/sand_manage_entrusted_registration"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_info_qrcode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/stroke_bottom_line"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_entrusted_registration1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_info_query"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="扫一扫"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_entrusted_registration1"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

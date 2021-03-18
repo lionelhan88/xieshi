@@ -1,7 +1,6 @@
 package com.lessu.xieshi.module.scan;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Vibrator;
 
 import androidx.core.content.ContextCompat;
@@ -13,8 +12,8 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.http.api.TraningApiService;
-import com.scetia.Pro.common.Util.Common;
+import com.lessu.xieshi.http.service.TraningApiService;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
@@ -47,11 +46,14 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
     private ZXingView zXingView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
-        navigationBar.setBackgroundColor(ContextCompat.getColor(this, R.color.black_transparent));
+    protected int getLayoutId() {
+        return R.layout.activity_scan;
+    }
+
+    @Override
+    protected void initView() {
         this.setTitle("扫一扫");
+        navigationBar.setBackgroundColor(ContextCompat.getColor(this, R.color.black_transparent));
         zXingView = findViewById(R.id.zxingview);
         zXingView.setDelegate(this);
         EventBus.getDefault().register(this);
@@ -81,7 +83,7 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
             return;
         }
         //如果扫描的二维码不是签到二维码，提示用户
-        if (getIntent().getStringExtra(Common.SCAN_TYPE) != null && !result.contains("ScetiaMeetingCode")) {
+        if (getIntent().getStringExtra(Constants.Setting.SCAN_TYPE) != null && !result.contains("ScetiaMeetingCode")) {
             LSAlert.showAlert(this, "提示", "无效签到扫描，请联系协会工作人员！",
                     "确定", false, new LSAlert.AlertCallback() {
                         @Override
@@ -148,7 +150,7 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
                         }
                     });
         } else if (result.contains("ScetiaMeetingCode")) {
-            if (getIntent().getStringExtra(Common.SCAN_TYPE) == null) {
+            if (getIntent().getStringExtra(Constants.Setting.SCAN_TYPE) == null) {
                 LSAlert.showAlert(this, "提示", "请在会议现场页面中，使用右上角扫码签到",
                         "确定", false, new LSAlert.AlertCallback() {
                             @Override
@@ -168,9 +170,9 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
             HashMap<String, Object> params = new HashMap<>();
             params.put("s1", result);
             //传入UserId
-            params.put("s2", SPUtil.getSPConfig(Common.USERID, ""));
+            params.put("s2", SPUtil.getSPConfig(Constants.User.USER_ID, ""));
             //传入userName
-            params.put("s3", SPUtil.getSPConfig(Common.USERNAME, ""));
+            params.put("s3", SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""));
             EasyAPI.apiConnectionAsync(this, true, false,
                     ApiMethodDescription.get("/ServiceMis.asmx/ScanLogin"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                         @Override
@@ -239,9 +241,10 @@ public class ScanActivity extends XieShiSlidingMenuActivity implements QRCodeVie
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
         //销毁二维码扫描控件
+        zXingView.stopSpot();
         zXingView.onDestroy();
+        super.onDestroy();
     }
 }

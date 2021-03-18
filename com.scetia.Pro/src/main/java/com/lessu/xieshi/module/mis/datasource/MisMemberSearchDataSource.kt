@@ -2,12 +2,12 @@ package com.lessu.xieshi.module.mis.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.scetia.Pro.network.conversion.ResponseObserver
-import com.scetia.Pro.baseapp.uitls.LoadState
-import com.lessu.xieshi.module.mis.activitys.Content
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData
 import com.lessu.xieshi.module.mis.model.MisMemberSearchRepository
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
+import com.scetia.Pro.baseapp.uitls.LoadState
+import com.scetia.Pro.common.Util.Constants
+import com.scetia.Pro.network.bean.ExceptionHandle
+import com.scetia.Pro.network.conversion.ResponseObserver
 
 /**
  * created by ljs
@@ -28,7 +28,7 @@ class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSo
         loadState.postValue(LoadState.LOAD_INIT)
         retry = null
         //初始化数据加载
-        model.search(Content.getToken(), queryKey, 1, params.requestedLoadSize, object : ResponseObserver<MisMemberSearchResultData?>() {
+        model.search(Constants.User.GET_TOKEN(), queryKey, 1, params.requestedLoadSize, object : ResponseObserver<MisMemberSearchResultData?>() {
             override fun success(misMemberSearchResultData: MisMemberSearchResultData?) {
                 loadState.postValue(LoadState.SUCCESS)
                 val list = misMemberSearchResultData?.listContent!!
@@ -62,7 +62,7 @@ class MisMemberSearchDataSource(private val queryKey: String?) : PageKeyedDataSo
         }
         loadState.postValue(LoadState.LOADING)
         retry = null
-        model.search(Content.getToken(), queryKey, params.key, params.requestedLoadSize, object : ResponseObserver<MisMemberSearchResultData?>() {
+        model.search(Constants.User.GET_TOKEN(), queryKey, params.key, params.requestedLoadSize, object : ResponseObserver<MisMemberSearchResultData?>() {
             override fun success(t: MisMemberSearchResultData?) {
                 loadState.postValue(LoadState.SUCCESS)
                 val list = t?.listContent!!

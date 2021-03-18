@@ -2,108 +2,124 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#f3f3f3"
+    android:background="@color/white_smoke"
     android:orientation="horizontal"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="15dp">
+    android:paddingTop="15dp"
+    android:paddingRight="15dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:background="#ffffff">
+        android:paddingLeft="10dp">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:background="#ffffff">
+
             <ImageView
                 android:id="@+id/image_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:src="@drawable/tuoyuan"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:src="@drawable/tuoyuan" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/image_1"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/light_gray1" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:background="#ffffff">
+
             <ImageView
                 android:id="@+id/image_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tuoyuan1"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:src="@drawable/tuoyuan1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_above="@+id/image_2"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@color/light_gray1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_below="@+id/image_2"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"/>
+                android:background="@color/light_gray1" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:background="#ffffff">
+
             <ImageView
                 android:id="@+id/image_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tuoyuan1"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:src="@drawable/tuoyuan1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_above="@+id/image_3"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@color/light_gray1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_below="@+id/image_3"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"/>
+                android:background="@color/light_gray1" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:background="#ffffff">
+
             <ImageView
                 android:id="@+id/image_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tuoyuan1"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:src="@drawable/tuoyuan1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_above="@+id/image_4"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@color/light_gray1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_below="@+id/image_4"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"/>
+                android:background="@color/light_gray1" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="33dp"
@@ -113,22 +129,24 @@
                 android:id="@+id/image_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tuoyuan1"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:src="@drawable/tuoyuan1" />
+
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray1"
                 android:layout_above="@+id/image_5"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@color/light_gray1" />
         </RelativeLayout>
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="33dp"
@@ -143,7 +161,7 @@
                 android:drawablePadding="3dp"
                 android:text="检测机构:"
                 android:textColor="#666666"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/projectNameTextView"
@@ -169,7 +187,7 @@
                 android:drawablePadding="3dp"
                 android:text="会员号:"
                 android:textColor="#666666"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/tv_huiyuanhao"
@@ -195,7 +213,7 @@
                 android:drawablePadding="3dp"
                 android:text="设备编号:"
                 android:textColor="#666666"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/tv_shebeibianhao"
@@ -206,6 +224,7 @@
                 android:textColor="#333333"
                 android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="33dp"
@@ -220,17 +239,20 @@
                 android:drawablePadding="3dp"
                 android:text="工程名称:"
                 android:textColor="#666666"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/tv_project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="14dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="2013"
                 android:textColor="#333333"
                 android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="33dp"
@@ -245,7 +267,7 @@
                 android:drawablePadding="3dp"
                 android:text="桩号:"
                 android:textColor="#666666"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/tv_zhaunghao"

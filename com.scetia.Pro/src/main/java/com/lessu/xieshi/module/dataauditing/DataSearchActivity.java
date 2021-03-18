@@ -3,18 +3,17 @@ package com.lessu.xieshi.module.dataauditing;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
+import com.scetia.Pro.common.Util.Constants;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -32,7 +31,7 @@ public class DataSearchActivity extends XieShiSlidingMenuActivity {
 	String typeTitle = "";
 	String projectTitle = "";
 	String flagTitle = "";
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.data_search_activity);
@@ -69,6 +68,51 @@ public class DataSearchActivity extends XieShiSlidingMenuActivity {
 			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
 	        tv.setText(flagTitle);
 		}
+		getType();
+	}*/
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.data_search_activity;
+	}
+
+	@Override
+	protected void initView() {
+		this.setTitle("记录审核查询");
+		token =  Constants.User.GET_TOKEN();
+		Type = "1";
+		Bundle bundle = getIntent().getExtras();
+		kindId = bundle.getString("KindId");
+		itemId = bundle.getString("ItemId");
+		doneFlag = bundle.getString("doneFlag");
+		typeTitle = bundle.getString("TypeTitle");
+		projectTitle = bundle.getString("ProjectTitle");
+		flagTitle = bundle.getString("FlagTitle");
+		if (doneFlag.isEmpty()) {
+			doneFlag="0";
+		}
+		if (!typeTitle.isEmpty()){
+			TextView tv = (TextView)(findViewById(R.id.typeTextView));
+			tv.setText(typeTitle);
+			projectDataBind();
+		}
+		if (!projectTitle.isEmpty()){
+			TextView tv = (TextView)(findViewById(R.id.projectTextView));
+			tv.setText(projectTitle);
+		}
+		if (flagTitle.isEmpty()){
+			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+			tv.setText("否");
+			flagTitle = "否";
+		}
+		else{
+			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+			tv.setText(flagTitle);
+		}
+	}
+
+	@Override
+	protected void initData() {
 		getType();
 	}
 

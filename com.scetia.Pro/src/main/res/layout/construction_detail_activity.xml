@@ -13,8 +13,9 @@
         android:layout_marginRight="10dp"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:footerDividersEnabled="false"/>
+        android:footerDividersEnabled="false" />
 
-    <include layout="@layout/project_query_project_testing_item_layout"
-        android:visibility="gone"/>
+    <include
+        layout="@layout/project_query_project_testing_item_layout"
+        android:visibility="gone" />
 </LinearLayout>

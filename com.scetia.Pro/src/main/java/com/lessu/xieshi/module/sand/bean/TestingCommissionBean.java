@@ -2,6 +2,9 @@ package com.lessu.xieshi.module.sand.bean;
 
 import com.contrarywind.interfaces.IPickerViewData;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Objects;
 
 /**
  * created by ljs
@@ -200,5 +203,45 @@ public class TestingCommissionBean {
         public String getPickerViewText() {
             return samplingLocationName;
         }
+    }
+    public static class CCNoBean{
+        @SerializedName("TWNo")
+        String ccNoStr;
+
+        public String getCcNoStr() {
+            return ccNoStr;
+        }
+
+        public void setCcNoStr(String ccNoStr) {
+            this.ccNoStr = ccNoStr;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestingCommissionBean bean = (TestingCommissionBean) o;
+        return samplingMethod == bean.samplingMethod &&
+                samplingLocation == bean.samplingLocation &&
+                Objects.equals(id, bean.id) &&
+                Objects.equals(sampleName, bean.sampleName) &&
+                Objects.equals(sampler, bean.sampler) &&
+                Objects.equals(samplingTime, bean.samplingTime) &&
+                Objects.equals(consignUnit, bean.consignUnit) &&
+                Objects.equals(principal, bean.principal) &&
+                Objects.equals(commissionDate, bean.commissionDate) &&
+                Objects.equals(sampleStatus, bean.sampleStatus) &&
+                Objects.equals(flowInfoId, bean.flowInfoId) &&
+                Objects.equals(detectionAgencyMemberCode, bean.detectionAgencyMemberCode) &&
+                Objects.equals(appointmentSamplingTime, bean.appointmentSamplingTime) &&
+                Objects.equals(samplingProcess, bean.samplingProcess) &&
+                Objects.equals(samplerCerNo, bean.samplerCerNo) &&
+                Objects.equals(ccNo, bean.ccNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, sampleName, sampler, samplingTime, consignUnit, principal, commissionDate, sampleStatus, flowInfoId, detectionAgencyMemberCode, samplingMethod, appointmentSamplingTime, samplingLocation, samplingProcess, samplerCerNo, ccNo);
     }
 }

@@ -5,17 +5,14 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.base.BaseViewModel;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
 import com.lessu.xieshi.module.sand.repository.SandSalesTargetListRepository;
 
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * created by ljs
@@ -26,7 +23,7 @@ public class SandSalesTargetListViewModel extends BaseViewModel {
     private int currentPageIndex = DEFAULT_PAGE_INDEX;
     private SandSalesTargetListRepository repository = new SandSalesTargetListRepository();
 
-    private MutableLiveData<LoadState> loadDataState = new MutableLiveData<>();
+    private MutableLiveData<LoadState> deleteDataState = new MutableLiveData<>();
 
     private MutableLiveData<List<AddedSandSalesTargetBean>> addedSanSalesTargetLiveData = new MutableLiveData<>();
 
@@ -43,38 +40,46 @@ public class SandSalesTargetListViewModel extends BaseViewModel {
         return addedSanSalesTargetLiveData;
     }
 
-    public MutableLiveData<LoadState> getLoadDataState() {
-        return loadDataState;
+    public MutableLiveData<LoadState> getDeleteDataState() {
+        return deleteDataState;
     }
+
 
     public MutableLiveData<Integer> getItemPosition() {
         return itemPosition;
     }
 
-    public void setPageIndex(int pageIndex) {
-        currentPageIndex = pageIndex;
+    /**
+     * 初始化加载数据
+     */
+    public void loadInitData(){
+        currentPageIndex = DEFAULT_PAGE_INDEX;
+        loadState.postValue(LoadState.LOAD_INIT);
+        loadData();
     }
-
     /**
      * 刷新数据
      */
     public void refresh() {
         currentPageIndex = DEFAULT_PAGE_INDEX;
-        loadData(false);
+        loadData();
     }
 
-    public void loadData(boolean isInit) {
-        if (currentPageIndex == DEFAULT_PAGE_INDEX && isInit) {
-            //第一页初始化
-            loadDataState.postValue(LoadState.LOAD_INIT);
-        }
+    /**
+     * 加载更多数据
+     */
+    public void loadMoreData(){
+        loadData();
+    }
+
+    private void loadData() {
         repository.loadAddedSanSalesTarget(currentPageIndex, new ResponseObserver<List<AddedSandSalesTargetBean>>() {
             @Override
             public void success(List<AddedSandSalesTargetBean> addedSandSalesTargetBeans) {
                 if (addedSandSalesTargetBeans.size() == 0) {
-                    loadDataState.postValue(currentPageIndex == DEFAULT_PAGE_INDEX ? LoadState.EMPTY : LoadState.NO_MORE);
+                    loadState.postValue(currentPageIndex == DEFAULT_PAGE_INDEX ? LoadState.EMPTY : LoadState.NO_MORE);
                 } else {
-                    loadDataState.postValue(currentPageIndex == DEFAULT_PAGE_INDEX ? LoadState.LOAD_INIT_SUCCESS : LoadState.SUCCESS);
+                    loadState.postValue(currentPageIndex == DEFAULT_PAGE_INDEX ? LoadState.LOAD_INIT_SUCCESS : LoadState.SUCCESS);
                     currentPageIndex++;
                 }
                 addedSanSalesTargetLiveData.postValue(addedSandSalesTargetBeans);
@@ -82,34 +87,28 @@ public class SandSalesTargetListViewModel extends BaseViewModel {
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadDataState.postValue(LoadState.FAILURE);
-                throwableLiveData.postValue(throwable);
+                loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }
-
 
     /**
      * 删除已经添加的销售对象
      */
     public void delAddedSanSalesTarget(AddedSandSalesTargetBean bean, int position) {
-        loadState.postValue(LoadState.LOADING);
-        repository.delAddedSanSalesTarget(bean, new ResponseObserver<Response<ResponseBody>>() {
+        deleteDataState.postValue(LoadState.LOADING);
+        repository.delAddedSanSalesTarget(bean, new ResponseObserver<Object>() {
             @Override
-            public void success(Response<ResponseBody> responseBodyResponse) {
-                if (responseBodyResponse.code() == 204) {
-                    loadState.postValue(LoadState.SUCCESS);
-                    itemPosition.postValue(position);
-                } else {
-                    loadState.postValue(LoadState.FAILURE);
-                    throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(ExceptionHandle.LOCAL_ERROR, "删除失败！"));
-                }
+            public void success(Object o) {
+                //删除成功
+                deleteDataState.setValue(LoadState.SUCCESS);
+                itemPosition.postValue(position);
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadState.postValue(LoadState.FAILURE);
-                throwableLiveData.postValue(throwable);
+                //删除失败
+                deleteDataState.setValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }

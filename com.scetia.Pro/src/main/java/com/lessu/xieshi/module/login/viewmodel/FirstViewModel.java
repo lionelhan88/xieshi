@@ -7,27 +7,28 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.lessu.xieshi.module.login.repository.LoginRepository;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.Util.Constants;
+import com.scetia.Pro.network.bean.ExceptionHandle;
+import com.scetia.Pro.lib_map.BaiduMapLifecycle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
-import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.lessu.xieshi.module.login.bean.LoginUserBean;
-import com.lessu.xieshi.module.login.repository.FirstModel;
-import com.lessu.xieshi.lifcycle.BaiduMapLifecycle;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
-import com.lessu.xieshi.module.weather.utils.Contenttianqi;
 
 import java.text.DecimalFormat;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * created by ljs
  * on 2020/11/20
  */
-public class FirstViewModel extends BaseViewModel {
-    private FirstModel model = new FirstModel();
+public class FirstViewModel extends LoginViewModel {
+    private LoginRepository model = new LoginRepository();
     private BaiduMapLifecycle baiduMapLifecycle;
+    private MutableLiveData<Hourbean.DataBean> hourBeanData = new MutableLiveData<>();
+
     public FirstViewModel(Application application, LifecycleOwner owner) {
         super(application);
         baiduMapLifecycle = new BaiduMapLifecycle(application);
@@ -35,17 +36,9 @@ public class FirstViewModel extends BaseViewModel {
         owner.getLifecycle().addObserver(baiduMapLifecycle);
     }
 
-    private MutableLiveData<LoginUserBean> userBeanData = new MutableLiveData<>();
-    private MutableLiveData<Hourbean.DataBean> hourBeanData = new MutableLiveData<>();
-
-    public MutableLiveData<LoginUserBean> getUserBeanData() {
-        return userBeanData;
-    }
-
     public MutableLiveData<Hourbean.DataBean> getHourBeanData() {
         return hourBeanData;
     }
-
 
     @Override
     public void onCreate() {
@@ -62,7 +55,7 @@ public class FirstViewModel extends BaseViewModel {
                     final String longformat = df.format(longitude);
                     final String city = bdLocation.getCity().substring(0, bdLocation.getCity().length() - 1);
                     LogUtil.showLogE("firstActivity---"+bdLocation.getAddrStr());
-                    getHourWeather(city, Contenttianqi.gettoken(), longformat, latiformat);
+                    getHourWeather(city, Constants.User.GET_TOKEN(), longformat, latiformat);
                 }
                 baiduMapLifecycle.stopLocation();
             }
@@ -70,29 +63,6 @@ public class FirstViewModel extends BaseViewModel {
             @Override
             public void onConnectHotSpotMessage(String s, int i) {
 
-            }
-        });
-    }
-
-    /**
-     * 执行登录
-     * @param userName
-     * @param password
-     * @param deviceId
-     */
-    public void login(String userName, String password, String deviceId) {
-        loadState.postValue(LoadState.LOADING);
-        model.login(userName, password, deviceId, new ResponseObserver<LoginUserBean>() {
-            @Override
-            public void success(LoginUserBean loginUserBean) {
-                loadState.postValue(LoadState.SUCCESS);
-                userBeanData.postValue(loginUserBean);
-            }
-
-            @Override
-            public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadState.postValue(LoadState.FAILURE);
-                throwableLiveData.postValue(throwable);
             }
         });
     }
@@ -121,5 +91,11 @@ public class FirstViewModel extends BaseViewModel {
                 //首页的天气数据如果获取失败，不必处理
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        model.cancelAllRequest();
+        super.onDestroy();
     }
 }

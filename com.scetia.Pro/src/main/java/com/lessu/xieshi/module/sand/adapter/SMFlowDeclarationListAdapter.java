@@ -8,14 +8,15 @@ import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
 
+import static com.scetia.Pro.common.Util.Constants.FlowDeclaration.COMMISSIONED_STATE;
+import static com.scetia.Pro.common.Util.Constants.FlowDeclaration.UN_COMMISSION_STATE;
+
 /**
  * created by ljs
  * on 2020/10/28
  */
 public class SMFlowDeclarationListAdapter extends BaseQuickAdapter<FlowDeclarationBean, BaseViewHolder> {
-    private static final String COMMISSIONED_STATE = "已委托";
-    private static final String UN_COMMISSION_STATE = "未委托";
-    private boolean isCanSlide = false;
+    private boolean isCanSlide;
     //被选中的项的下标
     private int selectedPosition = -1;
     public SMFlowDeclarationListAdapter() {
@@ -48,7 +49,9 @@ public class SMFlowDeclarationListAdapter extends BaseQuickAdapter<FlowDeclarati
             helper.setText(R.id.sm_flow_declaration_declare_commission_state,UN_COMMISSION_STATE);
             helper.setTextColor(R.id.sm_flow_declaration_declare_commission_state,
                     mContext.getResources().getColor(R.color.red_dark));
-            easySwipeMenuLayout.setCanLeftSwipe(true);
+            if(isCanSlide) {
+                easySwipeMenuLayout.setCanLeftSwipe(true);
+            }
         }
         if(helper.getAdapterPosition()==selectedPosition){
             helper.itemView.setBackgroundResource(R.drawable.text_blue_round_bg);

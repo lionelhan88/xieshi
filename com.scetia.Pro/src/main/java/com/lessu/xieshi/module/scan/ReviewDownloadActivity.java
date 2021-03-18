@@ -50,15 +50,15 @@ public class ReviewDownloadActivity extends NavigationActivity implements View.O
     private ArrayList<ReceiveSampleInfoBean> sampleInfoList = new ArrayList<>();
     private ImageView iv_shenheloding;
     private ReviewDownloadListAdapter listAdapter;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shenhexiazai);
-        this.setTitle("审核下载");
-        initView();
-        initData();
+    protected int getLayoutId() {
+        return R.layout.activity_shenhexiazai;
     }
-    private void initView() {
+
+    @Override
+    protected void initView() {
+        setTitle("审核下载");
         dl = findViewById(R.id.dl);
         BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
         menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
@@ -108,7 +108,8 @@ public class ReviewDownloadActivity extends NavigationActivity implements View.O
     }
 
     @SuppressLint("CheckResult")
-    private void initData() {
+    @Override
+    protected void initData() {
         Intent intent=getIntent();
         uidstr = intent.getStringExtra("uidstr");
         if(uidstr==null|| uidstr.equals("")){

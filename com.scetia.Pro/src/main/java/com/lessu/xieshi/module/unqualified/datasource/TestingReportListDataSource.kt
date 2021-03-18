@@ -6,9 +6,9 @@ import com.scetia.Pro.baseapp.uitls.LoadState
 import com.scetia.Pro.network.conversion.ResponseObserver
 import com.scetia.Pro.network.bean.XSResultData
 import com.scetia.Pro.network.manage.XSRetrofit
-import com.lessu.xieshi.http.api.CommonApiService
+import com.lessu.xieshi.http.service.CommonApiService
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle
+import com.scetia.Pro.network.bean.ExceptionHandle
 import org.json.JSONObject
 import kotlin.collections.HashMap
 

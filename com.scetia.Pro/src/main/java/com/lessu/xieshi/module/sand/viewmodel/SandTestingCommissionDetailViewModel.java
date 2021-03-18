@@ -1,6 +1,7 @@
 package com.lessu.xieshi.module.sand.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
@@ -11,42 +12,47 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.model.LatLng;
 import com.google.gson.Gson;
-import com.lessu.xieshi.module.sand.bean.TestingCompanyBean;
-import com.lessu.xieshi.module.sand.bean.TestingQueryResultBean;
+import com.google.gson.JsonObject;
+import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.module.sand.repository.SMFlowDeclarationDetailRepository;
+import com.lessu.xieshi.module.sand.repository.TestingCommissionRepository;
+import com.lessu.xieshi.module.sand.repository.TestingCompanyListRepository;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.baseapp.uitls.LoadMoreState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.Util.SPUtil;
+import com.scetia.Pro.common.photo.ImageUtil;
+import com.scetia.Pro.network.bean.ExceptionHandle;
+import com.scetia.Pro.lib_map.BaiduMapLifecycle;
 import com.scetia.Pro.network.bean.BuildSandResultData;
+import com.scetia.Pro.network.bean.XSResultData;
 import com.scetia.Pro.network.conversion.ResponseObserver;
-import com.lessu.xieshi.http.api.BuildSandApiService;
-import com.lessu.xieshi.http.api.SourceApiService;
-import com.lessu.xieshi.lifcycle.BaiduMapLifecycle;
+import com.lessu.xieshi.http.service.BuildSandApiService;
+import com.lessu.xieshi.http.service.SourceApiService;
 import com.lessu.xieshi.module.sand.adapter.TakePhotosAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedTestingCompanyBean;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
 import com.lessu.xieshi.module.sand.bean.SandSamplerBean;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
 import com.scetia.Pro.network.manage.BuildSandRetrofit;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
+import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * created by ljs
@@ -55,10 +61,10 @@ import retrofit2.Response;
 public class SandTestingCommissionDetailViewModel extends BaseViewModel {
     public static final int SUPPLIER_INIT = 2;
     public static final int TESTING_INIT = 1;
+    private TestingCommissionRepository repository = new TestingCommissionRepository();
+    private SMFlowDeclarationDetailRepository smRepository = new SMFlowDeclarationDetailRepository();
     private TestingCommissionBean testingCommissionBean = new TestingCommissionBean();
-    private MutableLiveData<LoadState> loadDataState = new MutableLiveData<>();
-    private MutableLiveData<LoadState> postDataState = new MutableLiveData<>();
-
+    private TestingCommissionBean oldTestingCommissionBean = new TestingCommissionBean();
     //保存当前的委托单位（流向申报）
     private MutableLiveData<FlowDeclarationBean> curCommission;
     //保存当前选择的检测单位
@@ -78,24 +84,22 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
     //委托日期
     private MutableLiveData<String> commissionDate;
     //唯一性标识号
-    private MutableLiveData<String> ccNoLiveData = new MutableLiveData<>();
+    private MutableLiveData<String> ccNoText = new MutableLiveData<>();
     //取样地点数据列表
     private List<String> sampleLocationDatas;
     private SparseArray<String> sampleLocationSparse = new SparseArray<>();
     private TakePhotosAdapter takePhotosAdapter;
     //当前取样单位的类型，默认时供应商
     private MutableLiveData<Integer> sampleCompanyType = new MutableLiveData<>(SUPPLIER_INIT);
+    private MutableLiveData<List<TestingCommissionBean.CCNoBean>> ccNoLiveData;
     private BaiduMapLifecycle baiduMapLifecycle;
+    private List<String> uploadProcess = new ArrayList<>();
 
     public SandTestingCommissionDetailViewModel(@NonNull Application application, LifecycleOwner lifecycleOwner) {
         super(application);
         baiduMapLifecycle = new BaiduMapLifecycle(application);
         lifecycleOwner.getLifecycle().addObserver(baiduMapLifecycle);
         lifecycleOwner.getLifecycle().addObserver(this);
-    }
-
-    public void setTestingCommissionBean(TestingCommissionBean testingCommissionBean) {
-        this.testingCommissionBean = testingCommissionBean;
     }
 
     public TestingCommissionBean getTestingCommissionBean() {
@@ -203,7 +207,7 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
 
     public MutableLiveData<String> getSampleDate() {
         if (sampleDate == null) {
-            String date = DateUtil.getDate(new Date());
+            String date = DateUtil.FORMAT_BAR_YMD(new Date());
             sampleDate = new MutableLiveData<>(date);
             testingCommissionBean.setSamplingTime(date);
         }
@@ -251,7 +255,7 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
 
     public MutableLiveData<String> getCommissionDate() {
         if (commissionDate == null) {
-            commissionDate = new MutableLiveData<>(DateUtil.getDate(new Date()));
+            commissionDate = new MutableLiveData<>(DateUtil.FORMAT_BAR_YMD(new Date()));
         }
         return commissionDate;
     }
@@ -280,33 +284,71 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
     }
 
     /**
-     * 设置取样过程
-     *
-     * @param process
-     */
-    public void setSamplingProcess(String process) {
-        testingCommissionBean.setSamplingProcess(process);
-    }
-
-    /**
      * 设置唯一性标识号
      *
      * @param ccNo
      */
     public void setCCNo(String ccNo) {
         testingCommissionBean.setCcNo(ccNo);
+        ccNoText.setValue(ccNo);
     }
 
-    public MutableLiveData<String> getCcNoLiveData() {
+    public MutableLiveData<List<TestingCommissionBean.CCNoBean>> getCcNoLiveData() {
+        if (ccNoLiveData == null) {
+            ccNoLiveData = new MutableLiveData<>();
+        }
         return ccNoLiveData;
     }
 
-    public MutableLiveData<LoadState> getLoadDataState() {
-        return loadDataState;
+    public MutableLiveData<String> getCcNoText() {
+        return ccNoText;
     }
 
-    public MutableLiveData<LoadState> getPostDataState() {
-        return postDataState;
+    /**
+     * 显示取样的图片
+     *
+     * @param sampling
+     */
+    private void showSamplingProcess(String sampling) {
+        if (TextUtils.isEmpty(sampling)) {
+            return;
+        }
+        if (!sampling.contains(";")) {
+            uploadProcess.add(0, sampling);
+        } else {
+            String[] split = sampling.split(";");
+            uploadProcess.addAll(0, Arrays.asList(split));
+        }
+        takePhotosAdapter.addData(0, uploadProcess);
+    }
+
+    /**
+     * 删除取样的图片
+     *
+     * @param imageIndex
+     */
+    public void deleteSamplingProcess(int imageIndex) {
+        String item = takePhotosAdapter.getItem(imageIndex);
+        uploadProcess.remove(imageIndex);
+        if (item.contains("http")) {
+            removeIndexPool.add(Integer.valueOf(item.substring(item.lastIndexOf("_") + 1, item.lastIndexOf("_") + 2)));
+        }
+        setCommissionSamplingProcess();
+    }
+
+    /**
+     * 设置取样过程
+     */
+    private void setCommissionSamplingProcess() {
+        if (uploadProcess.size() == 0) {
+            testingCommissionBean.setSamplingProcess("");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String imagePath : uploadProcess) {
+            sb.append(imagePath).append(";");
+        }
+        testingCommissionBean.setSamplingProcess(sb.substring(0, sb.length() - 1));
     }
 
     @Override
@@ -334,76 +376,16 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
     }
 
     /**
-     * 获取取样地点资源
-     *
-     * @param sampleLocation 取样地点的id号 如果是-1则只获取全部的资源不获取指定id的对应名称
-     */
-    public void loadSampleLocations(int sampleLocation) {
-        BuildSandRetrofit.getInstance().getService(SourceApiService.class)
-                .getSampleLocation()
-                .compose(BuildSandRetrofit.<BuildSandResultData<List<TestingCommissionBean.SampleLocation>>, List<TestingCommissionBean.SampleLocation>>applyTransformer())
-                .subscribe(new ResponseObserver<List<TestingCommissionBean.SampleLocation>>() {
-                    @Override
-                    public void success(List<TestingCommissionBean.SampleLocation> sampleLocations) {
-                        if (sampleLocationDatas == null) {
-                            sampleLocationDatas = new ArrayList<>();
-                        } else {
-                            sampleLocationDatas.clear();
-                        }
-                        for (int i = 0; i < sampleLocations.size(); i++) {
-                            sampleLocationDatas.add(sampleLocations.get(i).getSamplingLocationName());
-                            sampleLocationSparse.put(i + 1, sampleLocations.get(i).getSamplingLocationName());
-                        }
-                        //获取指定id对应的取样地点名称
-                        if (sampleLocationSparse.size() > 0 && sampleLocation > 0) {
-                            setSampleLocation(sampleLocation);
-                        }
-                    }
-
-                    @Override
-                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
-
-                    }
-                });
-    }
-
-    /**
-     * 获取取样人资源，
-     * 如果取样单位是“供应商”则直接获取，memberCode=null
-     * 如果取样单位是“检测单位”则需要根据选择的检测单位会员编号获取取样人员 memberCode!=null
-     */
-    public void getSamplers(String memberCode) {
-        SourceApiService service = BuildSandRetrofit.getInstance().getService(SourceApiService.class);
-        Observable<BuildSandResultData<List<SandSamplerBean>>> supplierSampler;
-        if (memberCode == null) {
-            supplierSampler = service.getSupplierSampler();
-        } else {
-            supplierSampler = service.getTestingSampler(memberCode);
-        }
-        supplierSampler.compose(BuildSandRetrofit.<BuildSandResultData<List<SandSamplerBean>>, List<SandSamplerBean>>applyTransformer())
-                .subscribe(new ResponseObserver<List<SandSamplerBean>>() {
-                    @Override
-                    public void success(List<SandSamplerBean> sandSamplerBeans) {
-                        samplerBeans.clear();
-                        samplerBeans.addAll(sandSamplerBeans);
-                    }
-
-                    @Override
-                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        throwableLiveData.postValue(throwable);
-                    }
-                });
-    }
-
-    /**
      * 保存当前的委托信息
      */
     public void saveTestingCommission() {
         RequestBody body;
-        postDataState.postValue(LoadState.LOADING);
+        loadState.postValue(LoadState.LOADING.setMessage("正在提交..."));
         Gson gson = new Gson().newBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String jsonStr = gson.toJson(testingCommissionBean);
         if (testingCommissionBean.getSamplingMethod() == 1) {
+            testingCommissionBean.setSamplingProcess("");
+            String jsonStr = gson.toJson(testingCommissionBean);
+            //检测单位
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(jsonStr);
@@ -413,23 +395,79 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
             }
             body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
         } else {
+            //供应商;
+            String jsonStr = gson.toJson(testingCommissionBean);
             body = RequestBody.create(MediaType.parse("application/json"), jsonStr);
         }
 
         BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
                 .addTestingCommission(body)
                 .compose(BuildSandRetrofit.<BuildSandResultData<TestingCommissionBean>, TestingCommissionBean>applyTransformer())
-                .subscribe(new ResponseObserver<TestingCommissionBean>() {
+                .observeOn(Schedulers.io())
+                .flatMap((Function<TestingCommissionBean, ObservableSource<XSResultData<Integer>>>) bean -> {
+                    testingCommissionBean.setId(bean.getId());
+                    JsonObject param = new JsonObject();
+                    param.addProperty("UnitId", Constants.User.GET_BOUND_UNIT_ID());
+                    param.addProperty("UserName", SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""));
+                    String ccNo = testingCommissionBean.getCcNo();
+                    param.addProperty("TWNo", ccNo.substring(0, ccNo.lastIndexOf(";")));
+                    return XSRetrofit.getInstance().getService(BuildSandApiService.class).setTTMState(param.toString());
+                })
+                .compose(XSRetrofit.<XSResultData<Integer>, Integer>applyTransformer())
+                .subscribe(new ResponseObserver<Integer>() {
                     @Override
-                    public void success(TestingCommissionBean bean) {
-                        postDataState.postValue(LoadState.SUCCESS);
-                        testingCommissionBean.setId(bean.getId());
+                    public void success(Integer integer) {
+                        cloneOld(testingCommissionBean);
+                        loadState.setValue(LoadState.SUCCESS.setCode(204).setMessage("提交成功"));
                     }
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        postDataState.postValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
+                    }
+                });
+    }
+
+    /**
+     * 更新检测委托
+     */
+    public void updateTestingCommission() {
+        RequestBody body;
+        loadState.postValue(LoadState.LOADING.setMessage("正在提交..."));
+        Gson gson = new Gson().newBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String jsonStr = gson.toJson(testingCommissionBean);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(jsonStr);
+            jsonObject.put("appointmentSamplingTime", testingCommissionBean.getAppointmentSamplingTime());
+            jsonObject.remove("flowInfoId");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
+        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
+                .putTestingCommissionInfo(testingCommissionBean.getId(), body)
+                .compose(BuildSandRetrofit.applyTransformer())
+                .observeOn(Schedulers.io())
+                .flatMap((Function<Object, ObservableSource<XSResultData<Integer>>>) bean -> {
+                    JsonObject param = new JsonObject();
+                    param.addProperty("UnitId", Constants.User.GET_BOUND_UNIT_ID());
+                    param.addProperty("UserName", SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""));
+                    String ccNo = testingCommissionBean.getCcNo();
+                    param.addProperty("TWNo", ccNo.substring(0, ccNo.lastIndexOf(";")));
+                    return XSRetrofit.getInstance().getService(BuildSandApiService.class).setTTMState(param.toString());
+                })
+                .compose(XSRetrofit.<XSResultData<Integer>, Integer>applyTransformer())
+                .subscribe(new ResponseObserver<Integer>() {
+                    @Override
+                    public void success(Integer integer) {
+                        cloneOld(testingCommissionBean);
+                        loadState.setValue(LoadState.SUCCESS.setCode(204).setMessage("提交成功"));
+                    }
+
+                    @Override
+                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
                     }
                 });
     }
@@ -438,55 +476,123 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
      * 获取委托记录的详细信息
      */
     public void loadSingleInfo(String singleId) {
-        loadDataState.postValue(LoadState.LOADING);
-        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getTestingCommissionInfo(singleId)
-                .compose(BuildSandRetrofit.<BuildSandResultData<TestingCommissionBean>, TestingCommissionBean>applyTransformer())
-                .subscribe(new ResponseObserver<TestingCommissionBean>() {
-                    @Override
-                    public void success(TestingCommissionBean bean) {
-                        //设置前一个页面传来的ID和flowInfoId
-                        bean.setFlowInfoId(testingCommissionBean.getFlowInfoId());
-                        bean.setId(testingCommissionBean.getId());
-                        testingCommissionBean = bean;
-                        //根据检测单位编号获取检测单位名称
-                        getTestingCompanies(bean.getDetectionAgencyMemberCode());
-                        //根据详情的流向记录id获取委托单位
-                        getCommissionInfo(bean.getFlowInfoId());
-                        //取样地点
-                        loadSampleLocations(testingCommissionBean.getSamplingLocation());
-                        //取样人员
-                        SandSamplerBean sandSamplerBean = new SandSamplerBean();
-                        sandSamplerBean.setSamplerCerNo(testingCommissionBean.getSamplerCerNo());
-                        sandSamplerBean.setSamplerName(testingCommissionBean.getSampler());
-                        setCurSampler(sandSamplerBean);
+        loadState.postValue(LoadState.LOADING.setMessage("正在加载数据..."));
+        repository.getSingleInfo(singleId, new ResponseObserver<TestingCommissionBean>() {
+            @Override
+            public void success(TestingCommissionBean bean) {
+                //设置前一个页面传来的ID和flowInfoId
+                bean.setFlowInfoId(testingCommissionBean.getFlowInfoId());
+                bean.setId(testingCommissionBean.getId());
+                testingCommissionBean = bean;
+                //根据检测单位编号获取检测单位名称
+                getTestingCompanies(bean.getDetectionAgencyMemberCode());
+                //根据详情的流向记录id获取委托单位
+                getCommissionInfo(bean.getFlowInfoId());
+                //取样地点
+                loadSampleLocations(testingCommissionBean.getSamplingLocation());
+                //取样人员
+                SandSamplerBean sandSamplerBean = new SandSamplerBean();
+                sandSamplerBean.setSamplerCerNo(testingCommissionBean.getSamplerCerNo());
+                sandSamplerBean.setSamplerName(testingCommissionBean.getSampler());
+                setCurSampler(sandSamplerBean);
 
-                        //取样日期
-                        String samplingTime = testingCommissionBean.getSamplingTime();
-                        if (samplingTime.contains("T")) {
-                            samplingTime = samplingTime.substring(0, samplingTime.lastIndexOf("T"));
-                        }
-                        sampleDate.setValue(samplingTime);
+                //取样日期
+                String samplingTime = testingCommissionBean.getSamplingTime();
+                if (samplingTime.contains("T")) {
+                    samplingTime = samplingTime.substring(0, samplingTime.lastIndexOf("T"));
+                }
+                sampleDate.setValue(samplingTime);
 
-                        //委托人
-                        commissionUser.setValue(testingCommissionBean.getPrincipal());
+                //委托人
+                commissionUser.setValue(testingCommissionBean.getPrincipal());
+                //取样过程
+                showSamplingProcess(testingCommissionBean.getSamplingProcess());
+                //唯一性标识号
+                ccNoText.setValue(testingCommissionBean.getCcNo());
+                String appointmentSamplingTime = testingCommissionBean.getAppointmentSamplingTime();
+                if (appointmentSamplingTime.contains("T")) {
+                    appointmentSamplingTime = appointmentSamplingTime.replace("T", " ");
+                }
+                setOrderSampleDate(appointmentSamplingTime);
+                cloneOld(testingCommissionBean);
+                loadState.postValue(LoadState.SUCCESS.setCode(200));
+            }
 
-                        //唯一性标识号
-                        ccNoLiveData.setValue(testingCommissionBean.getCcNo());
-                        String appointmentSamplingTime = testingCommissionBean.getAppointmentSamplingTime();
-                        if (appointmentSamplingTime.contains("T")) {
-                            appointmentSamplingTime = appointmentSamplingTime.replace("T", " ");
-                        }
-                        setOrderSampleDate(appointmentSamplingTime);
-                        loadDataState.postValue(LoadState.SUCCESS);
-                    }
+            @Override
+            public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
+            }
+        });
+    }
 
-                    @Override
-                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadDataState.postValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
-                    }
-                });
+    /**
+     * 获取取样地点资源
+     *
+     * @param sampleLocation 取样地点的id号 如果是-1则只获取全部的资源不获取指定id的对应名称
+     */
+    public void loadSampleLocations(int sampleLocation) {
+        repository.getSampleLocation(new ResponseObserver<List<TestingCommissionBean.SampleLocation>>() {
+            @Override
+            public void success(List<TestingCommissionBean.SampleLocation> sampleLocations) {
+                if (sampleLocationDatas == null) {
+                    sampleLocationDatas = new ArrayList<>();
+                } else {
+                    sampleLocationDatas.clear();
+                }
+                for (int i = 0; i < sampleLocations.size(); i++) {
+                    sampleLocationDatas.add(sampleLocations.get(i).getSamplingLocationName());
+                    sampleLocationSparse.put(i + 1, sampleLocations.get(i).getSamplingLocationName());
+                }
+                //获取指定id对应的取样地点名称
+                if (sampleLocationSparse.size() > 0 && sampleLocation > 0) {
+                    setSampleLocation(sampleLocation);
+                }
+            }
+
+            @Override
+            public void failure(ExceptionHandle.ResponseThrowable throwable) {
+
+            }
+        });
+    }
+
+    /**
+     * 获取取样人资源，
+     * 如果取样单位是“供应商”则直接获取，memberCode=null
+     * 如果取样单位是“检测单位”则需要根据选择的检测单位会员编号获取取样人员 memberCode!=null
+     */
+    public void getSamplers(String memberCode) {
+        repository.getSamplers(memberCode, new ResponseObserver<List<SandSamplerBean>>() {
+            @Override
+            public void success(List<SandSamplerBean> sandSamplerBeans) {
+                samplerBeans.clear();
+                samplerBeans.addAll(sandSamplerBeans);
+            }
+
+            @Override
+            public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
+            }
+        });
+    }
+
+    /**
+     * 获取唯一性标识
+     */
+    public void getCCNoSource(String key) {
+        loadState.setValue(LoadState.LOADING);
+        repository.getCCNos(key, new ResponseObserver<List<TestingCommissionBean.CCNoBean>>() {
+            @Override
+            public void success(List<TestingCommissionBean.CCNoBean> ccNoBeans) {
+                ccNoLiveData.setValue(ccNoBeans);
+                loadState.setValue(LoadState.SUCCESS.setCode(200));
+            }
+
+            @Override
+            public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
+            }
+        });
     }
 
     /**
@@ -495,21 +601,18 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
      * @param flowInfoId 流向记录的id
      */
     public void getCommissionInfo(String flowInfoId) {
-        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getSMFlowDeclarationInfo(flowInfoId)
-                .compose(BuildSandRetrofit.<BuildSandResultData<FlowDeclarationBean>, FlowDeclarationBean>applyTransformer())
-                .subscribe(new ResponseObserver<FlowDeclarationBean>() {
-                    @Override
-                    public void success(FlowDeclarationBean bean) {
-                        bean.setId(flowInfoId);
-                        setCurCommission(bean);
-                    }
+        smRepository.getFlowDeclarationInfo(flowInfoId, new ResponseObserver<FlowDeclarationBean>() {
+            @Override
+            public void success(FlowDeclarationBean bean) {
+                bean.setId(flowInfoId);
+                setCurCommission(bean);
+            }
 
-                    @Override
-                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        throwableLiveData.postValue(throwable);
-                    }
-                });
+            @Override
+            public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
+            }
+        });
     }
 
     /**
@@ -519,7 +622,7 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
      */
     private void getTestingCompanies(String memberCode) {
         BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .getAddedTestingCompanies(500, 0, "detectionAgencyCounties")
+                .getAddedTestingCompanies(0, 500, "detectionAgencyCounties")
                 .compose(BuildSandRetrofit.<BuildSandResultData<List<AddedTestingCompanyBean>>, List<AddedTestingCompanyBean>>applyTransformer())
                 .map(addedTestingCompanyBeans -> {
                     HashMap<String, AddedTestingCompanyBean> map = new HashMap<>();
@@ -543,37 +646,47 @@ public class SandTestingCommissionDetailViewModel extends BaseViewModel {
         });
     }
 
-    /**
-     * 更新检测委托
-     */
-    public void updateTestingCommission() {
-        RequestBody body;
-        postDataState.postValue(LoadState.LOADING);
-        Gson gson = new Gson().newBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String jsonStr = gson.toJson(testingCommissionBean);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(jsonStr);
-            jsonObject.put("appointmentSamplingTime", testingCommissionBean.getAppointmentSamplingTime());
-            jsonObject.remove("flowInfoId");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
-        BuildSandRetrofit.getInstance().getService(BuildSandApiService.class)
-                .putTestingCommissionInfo(testingCommissionBean.getId(), body)
-                .compose(BuildSandRetrofit.<Response<Object>, Object>applyTransformer())
-                .subscribe(new ResponseObserver<Object>() {
-                    @Override
-                    public void success(Object responseBody) {
-                        postDataState.setValue(LoadState.SUCCESS);
-                    }
+    private List<Integer> removeIndexPool = new ArrayList<>();
 
-                    @Override
-                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        postDataState.setValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
-                    }
-                });
+    /**
+     * 上传取样过程
+     *
+     * @param id        当前这一组图片的id
+     * @param photoPath 图片的本地路径
+     */
+    public void uploadSamplingProcess(String id, String photoPath) {
+        loadState.setValue(LoadState.LOADING.setMessage("正在上传..."));
+        int imageIndex;
+        if (removeIndexPool.size() > 0) {
+            imageIndex = removeIndexPool.get(0);
+            removeIndexPool.remove(0);
+        } else {
+            imageIndex = takePhotosAdapter.getData().size();
+        }
+        repository.uploadSamplingProcess(id, imageIndex, photoPath, new ResponseObserver<String>() {
+            @Override
+            public void success(String uploadImagePath) {
+                loadState.setValue(LoadState.SUCCESS);
+                uploadProcess.add(0, uploadImagePath);
+                setCommissionSamplingProcess();
+            }
+
+            @Override
+            public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
+            }
+        });
+    }
+    /**
+     * 是否编辑过信息，提示用户是否需要保存
+     * @return
+     */
+    public boolean isEdit(){
+        return testingCommissionBean.equals(oldTestingCommissionBean);
+    }
+
+    private void cloneOld(TestingCommissionBean testingCommissionBean){
+        String s = GsonUtil.toJsonStr(testingCommissionBean);
+        oldTestingCommissionBean = GsonUtil.JsonToObject(s,TestingCommissionBean.class);
     }
 }

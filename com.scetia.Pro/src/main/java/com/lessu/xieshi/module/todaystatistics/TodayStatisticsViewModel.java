@@ -6,14 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.JsonObject;
-import com.lessu.xieshi.base.BaseViewModel;
 import com.lessu.xieshi.bean.TodayStatisticsBean;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.common.Util.Constants;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.bean.XSResultData;
-import com.lessu.xieshi.http.api.CommonApiService;
-import com.lessu.xieshi.module.mis.activitys.Content;
+import com.lessu.xieshi.http.service.CommonApiService;
 import com.scetia.Pro.network.manage.XSRetrofit;
 
 /**
@@ -32,7 +32,7 @@ public class TodayStatisticsViewModel extends BaseViewModel {
 
     public void loadData(String type, String date){
         JsonObject param = new JsonObject();
-        param.addProperty("Token", Content.getToken());
+        param.addProperty("Token",  Constants.User.GET_TOKEN());
         param.addProperty("Type", type);
         param.addProperty("SummDate",date);
         loadState.postValue(LoadState.LOADING);
@@ -44,8 +44,7 @@ public class TodayStatisticsViewModel extends BaseViewModel {
                     public void success(TodayStatisticsBean todayStatisticsBean) {
                         TodayStatisticsBean.JsonContentBean jsonContent = todayStatisticsBean.getJsonContent();
                         if(jsonContent.getItemList().size()==0){
-                            loadState.postValue(LoadState.FAILURE);
-                            throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(3000,""));
+                            loadState.postValue(LoadState.FAILURE.setCode(3000));
                             return;
                         }
                         todayStatisticsLiveData.postValue(todayStatisticsBean);
@@ -54,8 +53,7 @@ public class TodayStatisticsViewModel extends BaseViewModel {
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadState.postValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
                     }
                 });
     }

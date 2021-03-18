@@ -16,10 +16,12 @@ import java.util.Set;
 /**
  * Created by lessu on 14-7-15.
  */
-public  abstract class ShareableApplication extends Application implements Application.ActivityLifecycleCallbacks {
+public abstract class ShareableApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private static Application sharedApplication;
-    private static HashMap<String,Activity> activityHashMap = new HashMap<>();
+    private static HashMap<String, Activity> activityHashMap = new HashMap<>();
+
     public abstract void init();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -29,21 +31,23 @@ public  abstract class ShareableApplication extends Application implements Appli
         init();
     }
 
-    public static Application getInstance(){
+    public static Application getInstance() {
         return sharedApplication;
     }
-    public static Activity getActivity(String key){
-        if (activityHashMap.containsKey(key)){
+
+    public static Activity getActivity(String key) {
+        if (activityHashMap.containsKey(key)) {
             return activityHashMap.get(key);
         }
         return null;
     }
+
     /**
      * 退出程序，清空栈
      */
-    public static void  exit(){
+    public static void exit() {
         Set<Map.Entry<String, Activity>> entries = activityHashMap.entrySet();
-        for (Map.Entry<String,Activity> entry :entries){
+        for (Map.Entry<String, Activity> entry : entries) {
             Activity value = entry.getValue();
             value.finish();
         }
@@ -53,10 +57,9 @@ public  abstract class ShareableApplication extends Application implements Appli
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         //如果当前 集合中不存在此activity则存入
-        if(!activityHashMap.containsKey(activity.getLocalClassName())){
-            activityHashMap.put(activity.getLocalClassName(),activity);
+        if (!activityHashMap.containsKey(activity.getLocalClassName())) {
+            activityHashMap.put(activity.getLocalClassName(), activity);
         }
-
     }
 
     @Override
@@ -86,8 +89,6 @@ public  abstract class ShareableApplication extends Application implements Appli
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
-        if(activityHashMap.containsKey(activity.getLocalClassName())){
-            activityHashMap.remove(activity.getLocalClassName());
-        }
+        activityHashMap.remove(activity.getLocalClassName());
     }
 }

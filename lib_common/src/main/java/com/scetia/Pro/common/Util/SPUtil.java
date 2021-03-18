@@ -88,4 +88,13 @@ public class SPUtil {
         }
     }
 
+    public static String GET_SERVICE_API(){
+        return getSPLSUtil(Constants.Setting.SERVICE,"");
+    }
+
+    public static void clearData(){
+        mmkv1.clear().clear();
+        mmkv2.clear().clear();
+    }
+
 }

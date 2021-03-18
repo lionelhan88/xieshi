@@ -8,9 +8,9 @@ import androidx.lifecycle.Transformations;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.sand.bean.TestingCompanyBean;
 import com.lessu.xieshi.module.sand.datasource.SandTestingCompanyQueryListDataFactory;
@@ -87,8 +87,7 @@ public class TestingCompanyQueryListViewModel extends BaseViewModel {
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                loadState.postValue(LoadState.FAILURE);
-                throwableLiveData.postValue(throwable);
+                loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }

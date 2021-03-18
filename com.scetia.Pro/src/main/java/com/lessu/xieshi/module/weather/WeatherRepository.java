@@ -1,6 +1,8 @@
 package com.lessu.xieshi.module.weather;
 
 import com.google.gson.Gson;
+import com.lessu.xieshi.Utils.GsonUtil;
+import com.scetia.Pro.network.base.BaseRepository;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;
@@ -12,14 +14,12 @@ import java.util.HashMap;
  * created by ljs
  * on 2020/12/2
  */
-public class WeatherRepository {
+public class WeatherRepository extends BaseRepository {
     public void getFutureTenDays(String token, ResponseObserver<Tenbean> callBack) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
-        XSRetrofit.getInstance().getService(WeatherApiService.class)
-                .getFutureTenDays(new Gson().toJson(params))
-                .compose(XSRetrofit.<Tenbean, Tenbean>applyTransformer())
-                .subscribe(callBack);
+        requestApi(XSRetrofit.getInstance().getService(WeatherApiService.class)
+                .getFutureTenDays(GsonUtil.mapToJsonStr(params)), callBack);
     }
 
     public void getToadyHour(String token, String JD, String WD, ResponseObserver<Hourbean> callBack) {
@@ -27,9 +27,7 @@ public class WeatherRepository {
         params.put("Token", token);
         params.put("JD", JD);
         params.put("WD", WD);
-        XSRetrofit.getInstance().getService(WeatherApiService.class)
-                .getToadyHour(new Gson().toJson(params))
-                .compose(XSRetrofit.<Hourbean, Hourbean>applyTransformer())
-                .subscribe(callBack);
+        requestApi(   XSRetrofit.getInstance().getService(WeatherApiService.class)
+                .getToadyHour(GsonUtil.mapToJsonStr(params)),callBack);
     }
 }

@@ -1,7 +1,7 @@
 package com.lessu.xieshi.set;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.google.gson.JsonElement;
@@ -10,37 +10,55 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.common.Util.Common;
+import com.lessu.xieshi.Utils.ToastUtil;
+import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.scetia.Pro.common.Util.SPUtil;
 
 import java.util.HashMap;
 
-import butterknife.ButterKnife;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class PasswordActivity extends XieShiSlidingMenuActivity {
 
+	@BindView(R.id.oldPasswordEditText)
+	EditText etPassWordOld;
+	@BindView(R.id.newPasswordEditText)
+	EditText etPassWordNew;
+	@BindView(R.id.comfirmPasswordEditText)
+	EditText etPassWordConfirm;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.password_activity);
-		
-		navigationBar.setBackgroundColor(0xFF3598DC);
-		
-		setTitle("密码修改");
-		
-		ButterKnife.bind(PasswordActivity.this);
+	protected int getLayoutId() {
+		return R.layout.password_activity;
 	}
-	
+
+	@Override
+	protected void initView() {
+		setTitle("密码修改");
+	}
+
 	@OnClick(R.id.commitButton)
 	public void commitButtonDidClick(){
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		String userName = SPUtil.getSPLSUtil("UserName","");
-		String passWordOld = ((EditText)findViewById(R.id.oldPasswordEditText)).getText().toString();
-		final String passWordNew = ((EditText)findViewById(R.id.newPasswordEditText)).getText().toString();
-		String passWordComfirm = ((EditText)findViewById(R.id.comfirmPasswordEditText)).getText().toString();
-		if (!passWordNew.equals(passWordComfirm)){
+		HashMap<String, Object> params = new HashMap<>();
+		String userName = SPUtil.getSPLSUtil(Constants.User.KEY_USER_NAME,"");
+		String passWordOld = etPassWordOld.getText().toString();
+		String passWordNew = etPassWordNew.getText().toString();
+		String passWordConfirm = etPassWordConfirm.getText().toString();
+		if(TextUtils.isEmpty(passWordOld)){
+			ToastUtil.showShort("请输入原密码");
+			return;
+		}
+		if(TextUtils.isEmpty(passWordNew)){
+			ToastUtil.showShort("请输入新密码");
+			return;
+		}
+		if(TextUtils.isEmpty(passWordConfirm)){
+			ToastUtil.showShort("请再次输入新密码");
+			return;
+		}
+
+		if (!passWordNew.equals(passWordConfirm)){
 			LSAlert.showAlert(PasswordActivity.this, "您输入两次密码不相同！");
 			return;
 		}
@@ -53,7 +71,7 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 			public void onSuccessJson(JsonElement result) {
 				boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
 				if(success) {
-					SPUtil.setSPConfig(Common.PASSWORD, passWordNew);
+					SPUtil.setSPConfig(Constants.User.KEY_PASSWORD, passWordNew);
 					Intent intent = new Intent(PasswordActivity.this, PasswordCompleteActivity.class);
 					startActivity(intent);
 					finish();
@@ -65,7 +83,6 @@ public class PasswordActivity extends XieShiSlidingMenuActivity {
 			
 			@Override
 			public String onFailed(ApiError error) {
-				// TODO Auto-generated method stub
 				LSAlert.showAlert(PasswordActivity.this, error.errorMeesage);
 				return null;
 			}

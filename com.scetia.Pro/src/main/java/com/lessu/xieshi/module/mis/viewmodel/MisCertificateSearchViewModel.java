@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.bean.XSResultData;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.lessu.xieshi.http.api.MisApiService;
+import com.lessu.xieshi.http.service.MisApiService;
 import com.lessu.xieshi.module.mis.bean.CertificateBean;
 import com.scetia.Pro.network.manage.XSRetrofit;
 
@@ -44,8 +44,7 @@ public class MisCertificateSearchViewModel extends BaseViewModel {
                     public void success(CertificateBean bean) {
                         if(bean.getCertificateNumber()==null){
                             //输入的证书比编号不正确
-                            loadState.postValue(LoadState.FAILURE);
-                            throwableLiveData.postValue(new ExceptionHandle.ResponseThrowable(0,"请输入正确的证书编号！"));
+                            loadState.postValue(LoadState.FAILURE.setMessage("请输入正确的证书编号！"));
                         }else{
                             certificateBeanData.postValue(bean);
                             loadState.postValue(LoadState.SUCCESS);
@@ -54,8 +53,7 @@ public class MisCertificateSearchViewModel extends BaseViewModel {
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadState.postValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
                     }
                 });
     }

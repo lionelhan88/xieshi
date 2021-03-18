@@ -1,13 +1,11 @@
 package com.lessu.xieshi.module.todaystatistics;
 
 import android.app.DatePickerDialog;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.bean.TodayStatisticsBean;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,60 +37,54 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 	private Calendar cal = Calendar.getInstance();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.today_statistics_activity);
-		this.setTitle("今日统计");
-		initDataListener();
-		initView();
+	protected int getLayoutId() {
+		return R.layout.today_statistics_activity;
 	}
 
-	private void initDataListener() {
+	@Override
+	protected void observerData() {
 		viewModel = new ViewModelProvider(this).get(TodayStatisticsViewModel.class);
-		viewModel.getLoadState().observe(this, new Observer<LoadState>() {
-			@Override
-			public void onChanged(LoadState loadState) {
-				if(loadState==LoadState.LOADING){
-					LSAlert.showProgressHud(TodayStatisticsActivity.this,"正在加载...");
-				}else{
+		viewModel.getLoadState().observe(this, loadState -> {
+			switch (loadState){
+				case LOADING:
+					LSAlert.showProgressHud(TodayStatisticsActivity.this,loadState.getMessage());
+					break;
+				case SUCCESS:
 					LSAlert.dismissProgressHud();
-				}
-			}
-		});
-		viewModel.getThrowable().observe(this, new Observer<ExceptionHandle.ResponseThrowable>() {
-			@Override
-			public void onChanged(ExceptionHandle.ResponseThrowable throwable) {
-				if(throwable.code==3000) {
-					LSAlert.showAlert(TodayStatisticsActivity.this,"无相关记录！");
-					adapter.setNewData(new ArrayList<>());
-					tv_gcyanshouyp.setText("");
-					tv_jdchoujianyp.setText("");
-					tv_feigcyanshouyp.setText("");
-					tv_tongjishijian.setText("");
-				}else{
-					LSAlert.showAlert(TodayStatisticsActivity.this,throwable.message);
-				}
+					break;
+				case FAILURE:
+					LSAlert.dismissProgressHud();
+					if(loadState.getCode()==3000) {
+						LSAlert.showAlert(TodayStatisticsActivity.this,"无相关记录！");
+						adapter.setNewData(new ArrayList<>());
+						tv_gcyanshouyp.setText("");
+						tv_jdchoujianyp.setText("");
+						tv_feigcyanshouyp.setText("");
+						tv_tongjishijian.setText("");
+					}else{
+						LSAlert.showAlert(TodayStatisticsActivity.this,loadState.getMessage());
+					}
+					break;
 			}
 		});
 
-		viewModel.getTodayStatisticsLiveData().observe(this, new Observer<TodayStatisticsBean>() {
-			@Override
-			public void onChanged(TodayStatisticsBean todayStatisticsBean) {
-				TodayStatisticsBean.JsonContentBean jsonContent = todayStatisticsBean.getJsonContent();
-				tv_gcyanshouyp.setText(jsonContent.getDay_ImportSampleCount()+"");
-				tv_jdchoujianyp.setText(jsonContent.getDay_JdSample()+"");
-				tv_feigcyanshouyp.setText(jsonContent.getDay_JdSample()+"");
-				String[] split = jsonContent.getRecordTime().split("\\s+");
-				tv_tongjishijian.setText(split[0]);
-				adapter.setNewData(jsonContent.getItemList());
-			}
+		viewModel.getTodayStatisticsLiveData().observe(this, todayStatisticsBean -> {
+			TodayStatisticsBean.JsonContentBean jsonContent = todayStatisticsBean.getJsonContent();
+			tv_gcyanshouyp.setText(jsonContent.getDay_ImportSampleCount()+"");
+			tv_jdchoujianyp.setText(jsonContent.getDay_JdSample()+"");
+			tv_feigcyanshouyp.setText(jsonContent.getDay_JdSample()+"");
+			String[] split = jsonContent.getRecordTime().split("\\s+");
+			tv_tongjishijian.setText(split[0]);
+			adapter.setNewData(jsonContent.getItemList());
 		});
 	}
 
 	/**
 	 * 初始化控件
 	 */
-	private void initView() {
+	@Override
+	protected void initView() {
+		this.setTitle("今日统计");
 		tv_qianyitian = findViewById(R.id.tv_qianyitian);
 		tv_houyitian = findViewById(R.id.tv_houyitian);
 		ll_riqi = findViewById(R.id.ll_riqi);

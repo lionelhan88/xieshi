@@ -1,6 +1,7 @@
 package com.scetia.Pro.lib_map;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -10,6 +11,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 
+
 /**
  * created by ljs
  * on 2020/11/4
@@ -17,11 +19,8 @@ import com.baidu.location.LocationClientOption;
 public class BaiduMapLifecycle implements LifecycleObserver {
     private LocationClient mLocClient;
     private BDLocationListener bdLocationListener;
+    private LocationClientOption option;
 
-    public void setBdLocationListener(BDLocationListener bdLocationListener) {
-        this.bdLocationListener = bdLocationListener;
-        mLocClient.registerLocationListener(bdLocationListener);
-    }
 
     public BaiduMapLifecycle(Context context) {
         initClientLocal(context);
@@ -30,9 +29,9 @@ public class BaiduMapLifecycle implements LifecycleObserver {
     /**
      * 初始化badidu地图监听
      */
-    public void initClientLocal(Context context){
+    public void initClientLocal(Context context) {
         mLocClient = new LocationClient(context);
-        LocationClientOption option = new LocationClientOption();
+        option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式 高精
         option.setOpenGps(true);// 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
@@ -42,14 +41,32 @@ public class BaiduMapLifecycle implements LifecycleObserver {
     }
 
     /**
+     * 谁知坐标获取监听事件
+     * @param bdLocationListener 监听回调接口
+     */
+    public void setBdLocationListener(BDLocationListener bdLocationListener) {
+        this.bdLocationListener = bdLocationListener;
+        mLocClient.registerLocationListener(bdLocationListener);
+    }
+
+    /**
+     * 设置获取坐标的时间间隔
+     *
+     * @param timeMillion 时间（毫秒）
+     */
+    public void setOptionScanSpan(int timeMillion) {
+        option.setScanSpan(timeMillion);
+    }
+
+    /**
      * 开启监听
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void startLocation(){
+    public void startLocation() {
         mLocClient.start();
     }
 
-    public void stopLocation(){
+    public void stopLocation() {
         mLocClient.stop();
     }
 
@@ -57,10 +74,11 @@ public class BaiduMapLifecycle implements LifecycleObserver {
      * 页面退出解除位置监听
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    public void stopBaiduMap(){
-        if(mLocClient!=null){
+    public void stopBaiduMap() {
+        if (mLocClient != null) {
             mLocClient.stop();
             mLocClient.unRegisterLocationListener(bdLocationListener);
+            bdLocationListener = null;
             mLocClient = null;
         }
     }

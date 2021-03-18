@@ -13,18 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lessu.xieshi.module.mis.activitys.Content;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.unqualified.adapter.TestingReportListAdapter;
 import com.lessu.xieshi.module.unqualified.bean.TestingReportData;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportListViewModel;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class TestingReportActivity extends NavigationActivity {
     @BindView(R.id.rv_construction_list)
@@ -36,7 +35,7 @@ public class TestingReportActivity extends NavigationActivity {
     private TestingReportListViewModel viewModel;
     private TestingReportListAdapter listAdapter;
     private View loadingView;
-    @Override
+  /*  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.construction_list_activity);
@@ -44,14 +43,19 @@ public class TestingReportActivity extends NavigationActivity {
         this.setTitle("检测报告");
         initDataListener();
         initView();
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.construction_list_activity;
     }
 
     /**
      * 监听数据变化，更新UI
      */
-    private void initDataListener() {
+    @Override
+    protected void observerData() {
         viewModel = new ViewModelProvider(this).get(TestingReportListViewModel.class);
-        viewModel.setQueryKey(getParams());
         viewModel.getPageLoadState().observe(this, new Observer<LoadState>() {
             @Override
             public void onChanged(LoadState loadState) {
@@ -76,8 +80,34 @@ public class TestingReportActivity extends NavigationActivity {
         });
     }
 
+    /**
+     * 初始化控件
+     */
+    @Override
+    protected void initView() {
+        this.setTitle("检测报告");
+        listAdapter = new TestingReportListAdapter(viewModel);
+        listView.setVisibility(View.GONE);
+        rvTestingReportList.setVisibility(View.VISIBLE);
+        rvTestingReportList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvTestingReportList.setAdapter(listAdapter);
+        listAdapter.setAdapterItemClickListener((position, testingReportBean) -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("Report_id", testingReportBean.getReport_ID());
+            bundle.putString("Checksum", testingReportBean.getIdentifyingCode());
+            Intent intent = new Intent(TestingReportActivity.this, TestingReportContentActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    protected void initData() {
+        viewModel.setQueryKey(getParams());
+    }
+
     private HashMap<String,Object> getParams(){
-        String token = Content.getToken();
+        String token =  Constants.User.GET_TOKEN();
         Bundle bundle = TestingReportActivity.this.getIntent().getExtras();
         String ProjectName = bundle.getString("ProjectName");
         String ProjectArea = bundle.getString("ProjectArea");
@@ -106,22 +136,5 @@ public class TestingReportActivity extends NavigationActivity {
         params.put("UqExecStatus", UqExecStatus);
         return params;
     }
-    /**
-     * 初始化控件
-     */
-    private void initView() {
-        listAdapter = new TestingReportListAdapter(viewModel);
-        listView.setVisibility(View.GONE);
-        rvTestingReportList.setVisibility(View.VISIBLE);
-        rvTestingReportList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvTestingReportList.setAdapter(listAdapter);
-        listAdapter.setAdapterItemClickListener((position, testingReportBean) -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("Report_id", testingReportBean.getReport_ID());
-            bundle.putString("Checksum", testingReportBean.getIdentifyingCode());
-            Intent intent = new Intent(TestingReportActivity.this, TestingReportContentActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        });
-    }
+
 }

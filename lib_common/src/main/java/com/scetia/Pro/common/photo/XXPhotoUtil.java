@@ -26,19 +26,17 @@ public class XXPhotoUtil {
     private String photoSavePath;
     private boolean isCompress;
     private ImageSelectBottomMenu.ImageSelectListener listener;
-    private  static XXPhotoUtil instance;
     private SoftReference<FragmentActivity> weakReference;
     private XXPhotoUtil(FragmentActivity context){
         weakReference = new SoftReference<>(context);
         //图片默认的名字
-         photoName = "XS_"+ DateUtil.pictureDate(new Date());
+         photoName = "XS_"+ DateUtil.FORMAT_UNDERLINE_YMDHMS(new Date());
         //图片默认的存储地址
         photoSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath()+"/XIESHI";
     }
 
     public static XXPhotoUtil with(FragmentActivity context){
-        instance=new XXPhotoUtil(context);
-        return instance;
+        return new XXPhotoUtil(context);
     }
 
 

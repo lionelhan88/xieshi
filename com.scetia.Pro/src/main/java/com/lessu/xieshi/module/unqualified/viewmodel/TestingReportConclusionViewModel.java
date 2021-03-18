@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.base.BaseViewModel;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.bean.XSResultData;
-import com.lessu.xieshi.http.api.CommonApiService;
+import com.lessu.xieshi.http.service.CommonApiService;
 import com.lessu.xieshi.module.unqualified.bean.ReportConclusionBean;
 import com.scetia.Pro.network.manage.XSRetrofit;
 
@@ -50,8 +50,7 @@ public class TestingReportConclusionViewModel extends BaseViewModel {
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadState.postValue(LoadState.FAILURE);
-                        throwableLiveData.postValue(throwable);
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
                     }
                 });
     }

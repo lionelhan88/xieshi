@@ -9,7 +9,7 @@ import androidx.lifecycle.Transformations;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.lessu.xieshi.base.BaseViewModel;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.lessu.xieshi.module.mis.datasource.MisAnnualLeaveDataFactory;

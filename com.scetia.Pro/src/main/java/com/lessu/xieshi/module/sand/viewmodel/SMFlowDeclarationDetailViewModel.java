@@ -5,10 +5,10 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.lessu.xieshi.Utils.GsonUtil;
+import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.lessu.xieshi.base.BaseViewModel;
-import com.scetia.Pro.baseapp.uitls.LoadMoreState;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
+import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.sand.adapter.TestingParametersListAdapter;
 import com.lessu.xieshi.module.sand.bean.FlowDeclarationBean;
@@ -19,9 +19,6 @@ import com.lessu.xieshi.module.sand.repository.SMFlowDeclarationDetailRepository
 
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * created by ljs
@@ -45,10 +42,8 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
 
     private TestingParametersListAdapter listAdapter;
 
-    //当前操作加载状态
-    private LoadMoreState moreStateBean = new LoadMoreState();
-
     private FlowDeclarationBean flowDeclarationBean;
+    private FlowDeclarationBean oldFlowDeclarationBean;
 
     private MutableLiveData<FlowDeclarationBean> flowDeclarationLiveData = new MutableLiveData<>();
 
@@ -68,6 +63,7 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
     public FlowDeclarationBean getFlowDeclarationBean() {
         if (flowDeclarationBean == null) {
             flowDeclarationBean = new FlowDeclarationBean();
+            cloneOld(flowDeclarationBean);
         }
         return flowDeclarationBean;
     }
@@ -103,9 +99,7 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
 
     //获取建设用砂流向申报的详细信息
     public void loadInitFlowDeclaration(String flowId){
-        moreStateBean.loadState = LoadState.LOADING;
-        moreStateBean.loadType = 0;
-        loadMoreState.postValue(moreStateBean);
+        loadState.setValue(LoadState.LOADING);
         repository.getFlowDeclarationInfo(flowId, new ResponseObserver<FlowDeclarationBean>() {
             @Override
             public void success(FlowDeclarationBean bean) {
@@ -117,20 +111,19 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
                 flowDeclarationBean.setParameterIDs(bean.getParameterIDs());
                 flowDeclarationBean.setCustomerUnitMemberCode(bean.getCustomerUnitMemberCode());
                 flowDeclarationBean.setSalesVolumePost(bean.getSalesVolume());
+                cloneOld(flowDeclarationBean);
                 flowDeclarationLiveData.setValue(flowDeclarationBean);
                 loadSandItemParameters(flowDeclarationBean.getSampleID());
-                moreStateBean.loadState = LoadState.SUCCESS;
-                loadMoreState.postValue(moreStateBean);
+                loadState.setValue(LoadState.SUCCESS.setCode(200).setMessage("加载数据成功"));
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                moreStateBean.loadState = LoadState.FAILURE;
-                loadMoreState.postValue(moreStateBean);
-                throwableLiveData.postValue(throwable);
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }
+
     /**
      * 加载建设用砂样品数据
      */
@@ -138,23 +131,18 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
         if (sanSampleLiveData.getValue() != null) {
             return;
         }
-        moreStateBean.loadState = LoadState.LOADING;
-        moreStateBean.loadType = 0;
-        loadMoreState.postValue(moreStateBean);
+        loadState.setValue(LoadState.LOADING);
         //建设用砂样品名称
         repository.getSandSamples(new ResponseObserver<List<SandSampleBean>>() {
             @Override
             public void success(List<SandSampleBean> sandSampleBeans) {
-                moreStateBean.loadState = LoadState.SUCCESS;
-                loadMoreState.postValue(moreStateBean);
+                loadState.setValue(LoadState.SUCCESS.setCode(200).setMessage("加载数据成功"));
                 sanSampleLiveData.postValue(sandSampleBeans);
             }
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                moreStateBean.loadState = LoadState.FAILURE;
-                loadMoreState.postValue(moreStateBean);
-                throwableLiveData.postValue(throwable);
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }
@@ -184,7 +172,7 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
 
             @Override
             public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                throwableLiveData.postValue(throwable);
+                loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
             }
         });
     }
@@ -193,48 +181,35 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
      * 保存流向申报
      */
     public void saveFlowDeclaration() {
-        moreStateBean.loadState = LoadState.LOADING;
-        moreStateBean.loadType = 1;
-        loadMoreState.postValue(moreStateBean);
+        loadState.setValue(LoadState.LOADING.setMessage("正在提交..."));
         if(flowDeclarationBean.getId()==null){
             repository.saveFlowDeclaration(flowDeclarationBean, new ResponseObserver<FlowDeclarationBean>() {
                 @Override
                 public void success(FlowDeclarationBean bean) {
                     //保存流向申报成功，赋值返回的id
                     flowDeclarationBean.setId(bean.getId());
+                    //提交成功后，也要赋值给旧对象，用来比较是否有信息更改
+                    cloneOld(flowDeclarationBean);
                     //提交成功
-                    moreStateBean.loadState = LoadState.SUCCESS;
-                    loadMoreState.postValue(moreStateBean);
+                    loadState.setValue(LoadState.SUCCESS.setCode(204).setMessage("提交成功"));
                 }
 
                 @Override
                 public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                    moreStateBean.loadState = LoadState.FAILURE;
-                    loadMoreState.postValue(moreStateBean);
-                    //提交失败，错误信息展示到前台给用户
-                    throwableLiveData.postValue(throwable);
+                  loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
                 }
             });
         }else{
-           repository.updateFlowDeclaration(flowDeclarationBean, new ResponseObserver<Response<ResponseBody>>() {
+           repository.updateFlowDeclaration(flowDeclarationBean, new ResponseObserver<Object>() {
                @Override
-               public void success(Response<ResponseBody> responseBodyResponse) {
-                   if(responseBodyResponse.code()==204){
-                       //提交成功
-                       moreStateBean.loadState = LoadState.SUCCESS;
-                   }else{
-                       moreStateBean.loadState = LoadState.FAILURE;
-                   }
-                   loadMoreState.postValue(moreStateBean);
-
+               public void success(Object o) {
+                   cloneOld(flowDeclarationBean);
+                   loadState.setValue(LoadState.SUCCESS.setCode(204).setMessage("提交成功"));
                }
 
                @Override
                public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                   moreStateBean.loadState = LoadState.FAILURE;
-                   loadMoreState.postValue(moreStateBean);
-                   //提交失败，错误信息展示到前台给用户
-                   throwableLiveData.postValue(throwable);
+                   loadState.setValue(LoadState.FAILURE.setMessage(throwable.message));
                }
            });
         }
@@ -271,5 +246,18 @@ public class SMFlowDeclarationDetailViewModel extends BaseViewModel {
             }
             curSandSpecBean.postValue(bean);
         }
+    }
+
+    /**
+     * 是否编辑过信息，提示用户是否需要保存
+     * @return
+     */
+    public boolean isEdit(){
+        return flowDeclarationBean.equals(oldFlowDeclarationBean);
+    }
+
+    private void cloneOld(FlowDeclarationBean flowDeclarationBean){
+        String s = GsonUtil.toJsonStr(flowDeclarationBean);
+        oldFlowDeclarationBean = GsonUtil.JsonToObject(s,FlowDeclarationBean.class);
     }
 }

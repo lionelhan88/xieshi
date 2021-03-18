@@ -13,15 +13,18 @@ import android.webkit.WebView;
 public class RecordPreviewActivity extends TemplatedWebViewActivity {
 	private WebView recordpreviewWebView;
 	private Map<String,String> activtyMapper;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.report_detail_activity);
+	protected int getLayoutId() {
+		return R.layout.report_detail_activity;
+	}
+
+	@Override
+	protected void initView() {
 		if(recordpreviewWebView == null){
 			recordpreviewWebView = (WebView) findViewById(R.id.report_detail);
 		}
 		this.setTitle("审核中记录预览");
-		navigationBar.setBackgroundColor(0xFF3598DC);
 	}
 
 	@Override

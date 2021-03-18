@@ -1,7 +1,8 @@
 package com.scetia.Pro.network.bean;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
-import com.scetia.Pro.common.exceptionhandle.ExceptionHandle;
 import com.scetia.Pro.network.response.IResultData;
 
 /**
@@ -54,6 +55,9 @@ public class XSResultData<T> implements IResultData<T> {
     @Override
     public T handleData() {
         if(success){
+            if(data==null){
+                throw new ExceptionHandle.ResultException(getCode(), !TextUtils.isEmpty(getMessage())?getMessage():"暂无数据！");
+            }
             return data;
         }else{
             throw new ExceptionHandle.ResultException(getCode(), getMessage());
