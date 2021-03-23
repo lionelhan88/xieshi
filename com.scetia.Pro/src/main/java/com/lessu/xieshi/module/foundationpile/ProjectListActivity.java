@@ -196,7 +196,7 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
                         for (int i = 0; i < foundationPileBeans.size(); i++) {
                             FoundationPileBean bean = foundationPileBeans.get(i);
                             if (bean.isMap()) {
-                                makMarkListAtMap(bean, i);
+                                makeMarkListAtMap(bean, i);
                             }
                         }
                         listAdapter.setNewData(foundationPileBeans);
@@ -219,7 +219,7 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
      * @param foundationPileBean 工程对象
      * @param position 当前项的索引
      */
-    private void makMarkListAtMap(FoundationPileBean foundationPileBean, int position) {
+    private void makeMarkListAtMap(FoundationPileBean foundationPileBean, int position) {
         if (position == 0) {
             //设定中心点坐标
             LatLng centerLat = new LatLng(foundationPileBean.getX(), foundationPileBean.getY());

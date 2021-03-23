@@ -11,17 +11,13 @@
 9-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml
 10
 11    <application>
-11-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:6:5-9:19
+11-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:6:5-8:19
 12        <uses-library
 12-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:7:9-87
 13            android:name="org.apache.http.legacy"
 13-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:7:23-60
 14            android:required="false" />
 14-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:7:61-85
-15
-16        <activity android:name="com.lessu.activity.WebViewActivity" />
-16-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:8:9-70
-16-->D:\androidwork\CompanyWork\xieshi\lSUIKit\src\main\AndroidManifest.xml:8:19-68
-17    </application>
-18
-19</manifest>
+15    </application>
+16
+17</manifest>

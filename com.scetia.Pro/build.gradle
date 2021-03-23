@@ -42,9 +42,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        debug{
+      /*  debug{
             signingConfig signingConfigs.release
-        }
+        }*/
     }
     applicationVariants.all { variant ->
         def buildType = variant.buildType.name
