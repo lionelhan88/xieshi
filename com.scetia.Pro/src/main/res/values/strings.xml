@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">建设检测</string>
     <string-array name="arrayAntiQ">
         <item>0</item>
         <item>1</item>
@@ -38,8 +39,6 @@
     <string name="tvTagCount">次数</string>
     <string name="btClear">清空数据</string>
 
-
-    <string name="app_name" translatable="false">建设检测</string>
     <string name="logout_text">再按一次退出</string>
     <string-array name="arrayBank">
         <item>RESERVED</item>

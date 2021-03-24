@@ -1,10 +1,9 @@
 package com.lessu.xieshi.module.todaystatistics;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.core.content.ContextCompat;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -25,34 +24,31 @@ import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
-import com.baidu.mapapi.navi.BaiduMapNavigation;
-import com.baidu.mapapi.navi.NaviParaOption;
 import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
-import com.google.gson.JsonElement;
 import com.lessu.navigation.BarButtonItem;
-import com.lessu.net.ApiError;
-import com.lessu.net.ApiMethodDescription;
-import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.GsonUtil;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.bean.SiteSearchProject;
+import com.lessu.xieshi.http.service.CommonApiService;
 import com.lessu.xieshi.module.todaystatistics.adapter.SiteSearchListMapAdapter;
 import com.lessu.xieshi.view.ZoomControlsView;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.lib_map.BaiduMapLifecycle;
 import com.scetia.Pro.lib_map.MapUtil;
+import com.scetia.Pro.network.bean.ExceptionHandle;
+import com.scetia.Pro.network.bean.XSResultData;
+import com.scetia.Pro.network.conversion.ResponseObserver;
+import com.scetia.Pro.network.manage.XSRetrofit;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -99,12 +95,13 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
     private boolean isFirstInto = true;
     //当前列表总页数
     private int pageCount;
+    private int currentPageNo=1;
+    private int oldCurPageNo=1;
     private boolean rangeListIsOpen = false;
-    private SiteSearchProject siteSearchProject;
     private SiteSearchListMapAdapter listMapAdapter;
     private BaiduMap mBaiduMap;
     private String token;
-    private List<SiteSearchProject.DataBean.ListContentBean> listContent;
+    private List<SiteSearchProject.DataBean.ListContentBean> siteProjectItems;
     static {
         System.loadLibrary("locSDK7a");
     }
@@ -149,6 +146,27 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
         getLifecycle().addObserver(baiduMapLifecycle);
         ZoomControlsView mapViewZoomControl = findViewById(R.id.zcv_zoom);
         mapViewZoomControl.setMapView(mapView);
+        mBaiduMap.setOnMarkerClickListener(marker -> {
+            final int index = marker.getZIndex();
+            SiteSearchProject.DataBean.ListContentBean siteProjectItem = siteProjectItems.get(index);
+            String title = siteProjectItem.getProjectName();
+            String address = siteProjectItem.getProjectAddress();
+            llNavigation.setVisibility(View.VISIBLE);
+            tvNavigationTitle.setText(title);
+            tvNavigationAddress.setText(address);
+            rlNavigation.setOnClickListener(v -> navigationByBaiduMap(index));
+            rlInfoQuery.setOnClickListener(v -> {
+                llNavigation.setVisibility(View.GONE);
+                Intent intent = new Intent(this, SiteDetailInfoSearchActivity.class);
+                intent.putExtra("projectid", siteProjectItem.getProjectId());
+                //工地名称
+                intent.putExtra("projectName", siteProjectItem.getProjectName());
+                //工地区县
+                intent.putExtra("projectArea", siteProjectItem.getProjectRegion());
+                startActivity(intent);
+            });
+            return false;
+        });
     }
 
     /**
@@ -168,7 +186,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
      * @param pageIndex 当前传入的页数
      * @param range     范围条件
      */
-    private void ConnectNeta(final int pageIndex, int range) {
+    private void getSiteProjectByRange(final int pageIndex, int range) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
         params.put("Type", 1);
@@ -187,127 +205,94 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
         }
         params.put("PageSize", 10);
         params.put("CurrentPageNo", pageIndex);
-        System.out.println("params....." + params);
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceTS.asmx/ManageUnitTodayStatisProjectList"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
-            @Override
-            public void onSuccessJson(JsonElement result) {
-                siteSearchProject = GsonUtil.JsonToObject(result.toString(), SiteSearchProject.class);
-                System.out.println("connect----a" + result);
-                if (siteSearchProject.isSuccess()) {
-                    pageCount = siteSearchProject.getData().getPageCount();
-                    listContent = siteSearchProject.getData().getListContent();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mBaiduMap.clear();
-                            for (int i = 0; i < listContent.size(); i++) {
-                                String projectCoordinates = listContent.get(i).getProjectCoordinates();
-                                if (projectCoordinates != null && !projectCoordinates.equals("")) {
-                                    //这里是服务器未传工地的经纬度信息，保证列表信息可以刷出来，不确定这种写法是否ok,
-                                    //因为没有经纬度信息，附近几公里的功能失效，用户点了没反应！！加载进去后主界面地图空白！！！
-                                    System.out.println("mylocation..." + projectCoordinates);
-                                    String[] split = projectCoordinates.split(",");
-                                    double x = Double.parseDouble(split[1]);
-                                    double y = Double.parseDouble(split[0]);
-                                    if (i == 0) {
-                                        //设定中心点坐标
-                                        LatLng cenpt = new LatLng(x, y);
-                                        //定义地图状态
-                                        MapStatus mMapStatus = new MapStatus.Builder()
-                                                .target(cenpt)
-                                                .build();
-                                        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-                                        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                                        //改变地图状态
-                                        mBaiduMap.setMapStatus(mMapStatusUpdate);
-                                    }
-                                    //定义Maker坐标点
-                                    LatLng point = new LatLng(x, y);
-                                    //构建Marker图标
-                                    BitmapDescriptor bitmap = BitmapDescriptorFactory
-                                            .fromResource(R.drawable.icon_gcoding);
-                                    //构建MarkerOption，用于在地图上添加Marker
-                                    OverlayOptions option = new MarkerOptions()
-                                            .position(point).zIndex(i)
-                                            .icon(bitmap);
-                                    //在地图上添加Marker，并显示
-                                    Marker marker = (Marker) mBaiduMap.addOverlay(option);
-                                }
-                            }
-                            tvNumberOfPages.setText(pageIndex + "/" + pageCount);
-                            if (siteSearchProject.getData().getCurrentPageNo() == 1) {
-                                btnLastPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_disable));
-                                btnLastPage.setClickable(false);
-                            } else {
-                                btnLastPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_enable));
-                                btnLastPage.setClickable(true);
-                            }
-                            if (siteSearchProject.getData().getCurrentPageNo() == siteSearchProject.getData().getPageCount()) {
-                                btnNextPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_disable));
-                                btnNextPage.setClickable(false);
-                            } else {
-                                btnNextPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_enable));
-                                btnNextPage.setClickable(true);
-                            }
-
-                            mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-
-                                @Override
-                                public boolean onMarkerClick(Marker arg0) {
-                                    final int i = arg0.getZIndex();
-                                    String title = listContent.get(i).getProjectName();
-                                    String address = listContent.get(i).getProjectAddress();
-                                    llNavigation.setVisibility(View.VISIBLE);
-                                    tvNavigationTitle.setText(title);
-                                    tvNavigationAddress.setText(address);
-                                    rlNavigation.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            navigationByBaiduMap(i);
-                                        }
-                                    });
-                                    rlInfoQuery.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            llNavigation.setVisibility(View.GONE);
-                                            Intent intenta = new Intent(SiteSearchListMapActivity.this, SiteDetailInfoSearchActivity.class);
-                                            intenta.putExtra("projectid", listContent.get(i).getProjectId());
-                                            //工地名称
-                                            intenta.putExtra("projectName", listContent.get(i).getProjectName());
-                                            //工地区县
-                                            intenta.putExtra("projectArea", listContent.get(i).getProjectRegion());
-                                            startActivity(intenta);
-                                        }
-                                    });
-                                    return false;
-                                }
-                            });
-                            listMapAdapter.setNewData(listContent);
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            notData();
-                            Toast.makeText(SiteSearchListMapActivity.this, siteSearchProject.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-            }
-
-            @Override
-            public String onFailed(ApiError error) {
-                runOnUiThread(new Runnable() {
+        LSAlert.showProgressHud(this);
+        XSRetrofit.getInstance().getService(CommonApiService.class)
+                .getSiteProject(GsonUtil.mapToJsonStr(params))
+                .compose(XSRetrofit.<XSResultData<SiteSearchProject.DataBean>, SiteSearchProject.DataBean>applyTransformer())
+                .subscribe(new ResponseObserver<SiteSearchProject.DataBean>() {
                     @Override
-                    public void run() {
-                        notData();
+                    public void success(SiteSearchProject.DataBean dataBean) {
+                        LSAlert.dismissProgressHud();
+                        mBaiduMap.clear();
+                        List<SiteSearchProject.DataBean.ListContentBean> listContent = dataBean.getListContent();
+                        siteProjectItems = listContent;
+                        makeMarkListAtMap(listContent);
+                        listMapAdapter.setNewData(listContent);
+                        currentPageNo = dataBean.getCurrentPageNo();
+                        oldCurPageNo = currentPageNo;
+                        pageCount = dataBean.getPageCount();
+                        tvNumberOfPages.setText(currentPageNo + "/" + pageCount);
+                        if (currentPageNo == 1) {
+                            btnLastPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_disable));
+                            btnLastPage.setClickable(false);
+                        } else {
+                            btnLastPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_enable));
+                            btnLastPage.setClickable(true);
+                        }
+                        if (currentPageNo ==pageCount) {
+                            btnNextPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_disable));
+                            btnNextPage.setClickable(false);
+                        } else {
+                            btnNextPage.setTextColor(ContextCompat.getColor(SiteSearchListMapActivity.this,R.color.site_search_list_map_btn_page_enable));
+                            btnNextPage.setClickable(true);
+                        }
+                    }
+
+                    @Override
+                    public void failure(ExceptionHandle.ResponseThrowable throwable) {
+                        if(throwable.code==2000){
+                            //查询成功，没有数据
+                            pageCount = 0;
+                            currentPageNo=0;
+                            oldCurPageNo=0;
+                            notData();
+                        }
+                        //网络连接失败返回前一页
+                        if(currentPageNo>oldCurPageNo){
+                            currentPageNo--;
+                        }else  if(currentPageNo<oldCurPageNo){
+                            currentPageNo++;
+                        }
+                        LSAlert.dismissProgressHud();
+                        ToastUtil.showShort(throwable.message);
                     }
                 });
-                return error.errorMeesage;
+    }
+
+    /**
+     * 地图上标注工程坐标
+     */
+    private void makeMarkListAtMap(List<SiteSearchProject.DataBean.ListContentBean> siteProjectList) {
+        for (int i = 0; i < siteProjectList.size(); i++) {
+            String projectCoordinates = siteProjectList.get(i).getProjectCoordinates();
+            if(!TextUtils.isEmpty(projectCoordinates)){
+                //因为没有经纬度信息，附近几公里的功能失效，用户点了没反应！！加载进去后主界面地图空白！！！
+                String[] split = projectCoordinates.split(",");
+                double x = Double.parseDouble(split[1]);
+                double y = Double.parseDouble(split[0]);
+                if (i == 0) {
+                    //设定中心点坐标
+                    LatLng centerPoint = new LatLng(x, y);
+                    //定义地图状态
+                    MapStatus mMapStatus = new MapStatus.Builder().target(centerPoint).build();
+                    //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+                    MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                    //改变地图状态
+                    mBaiduMap.setMapStatus(mMapStatusUpdate);
+                }
+                //定义Maker坐标点
+                LatLng point = new LatLng(x, y);
+                //构建Marker图标
+                BitmapDescriptor bitmap = BitmapDescriptorFactory
+                        .fromResource(R.drawable.icon_gcoding);
+                //构建MarkerOption，用于在地图上添加Marker
+                OverlayOptions option = new MarkerOptions()
+                        .position(point).zIndex(i)
+                        .icon(bitmap);
+                //在地图上添加Marker，并显示
+                mBaiduMap.addOverlay(option);
             }
-        });
+        }
     }
 
     /**
@@ -316,7 +301,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
     private void notData() {
         mBaiduMap.clear();
         listMapAdapter.clear();
-        tvNumberOfPages.setText(0 + "/" + 0);
+        tvNumberOfPages.setText(currentPageNo + "/" + pageCount);
         btnLastPage.setTextColor(0xff8f8f8f);
         btnLastPage.setClickable(false);
         btnNextPage.setTextColor(0xff8f8f8f);
@@ -349,10 +334,10 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
                 rangeListIsOpen = false;
                 break;
             case R.id.bt_shangyiye:
-                ConnectNeta(siteSearchProject.getData().getCurrentPageNo() - 1, rangeIndex);
+                getSiteProjectByRange(--currentPageNo, rangeIndex);
                 break;
             case R.id.bt_xiayiye:
-                ConnectNeta(siteSearchProject.getData().getCurrentPageNo() + 1, rangeIndex);
+                getSiteProjectByRange(++currentPageNo, rangeIndex);
                 break;
             case R.id.bt_sousuo:
                 //点击了地图上的查询按钮，进入查询页面
@@ -380,7 +365,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
                 llNearByList.setVisibility(View.GONE);
                 rangeListIsOpen = false;
                 rangeIndex = 1;
-                ConnectNeta(1, rangeIndex);
+                getSiteProjectByRange(1, rangeIndex);
                 break;
             case R.id.tv_2:
                 //修改 2018-10-23 由公里改为2公里
@@ -389,7 +374,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
                 llNearByList.setVisibility(View.GONE);
                 rangeListIsOpen = false;
                 rangeIndex = 2;
-                ConnectNeta(1, rangeIndex);
+                getSiteProjectByRange(1, rangeIndex);
                 break;
             case R.id.tv_3:
                 //修改 2018-10-23 由5公里改为3公里
@@ -398,7 +383,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
                 llNearByList.setVisibility(View.GONE);
                 rangeListIsOpen = false;
                 rangeIndex = 3;
-                ConnectNeta(1, rangeIndex);
+                getSiteProjectByRange(1, rangeIndex);
                 break;
             case R.id.tv_max:
                 tvNearBy.setText("附近:不限");
@@ -406,19 +391,21 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
                 llNearByList.setVisibility(View.GONE);
                 rangeListIsOpen = false;
                 rangeIndex = -1;
-                ConnectNeta(1, rangeIndex);
-                break;
-            case R.id.ll_spinner:
-                if (!rangeListIsOpen) {
-                    ivDropDown.setBackgroundResource(R.drawable.xiala1);
-                    llNearByList.setVisibility(View.VISIBLE);
-                } else {
-                    ivDropDown.setBackgroundResource(R.drawable.xialaa);
-                    llNearByList.setVisibility(View.GONE);
-                }
-                rangeListIsOpen = !rangeListIsOpen;
+                getSiteProjectByRange(1, rangeIndex);
                 break;
         }
+    }
+
+    @OnClick(R.id.ll_spinner)
+    public void rangeListDidClick(){
+        if (!rangeListIsOpen) {
+            ivDropDown.setBackgroundResource(R.drawable.xiala1);
+            llNearByList.setVisibility(View.VISIBLE);
+        } else {
+            ivDropDown.setBackgroundResource(R.drawable.xialaa);
+            llNearByList.setVisibility(View.GONE);
+        }
+        rangeListIsOpen = !rangeListIsOpen;
     }
 
     /**
@@ -430,13 +417,13 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
      */
     @OnItemClick(R.id.lv_ditu)
     public void onItemClick(AdapterView<?> adapter, View cell, int position, long id) {
-        String projectId = listContent.get(position).getProjectId();
+        String projectId = siteProjectItems.get(position).getProjectId();
         Intent intent = new Intent(SiteSearchListMapActivity.this, SiteDetailInfoSearchActivity.class);
         //工地名称
         intent.putExtra(Constants.Site.KEY_PROJECT_ID, projectId);
-        intent.putExtra(Constants.Site.KEY_PROJECT_NAME, listContent.get(position).getProjectName());
+        intent.putExtra(Constants.Site.KEY_PROJECT_NAME, siteProjectItems.get(position).getProjectName());
         //工地区县
-        intent.putExtra(Constants.Site.KEY_PROJECT_AREA, listContent.get(position).getProjectRegion());
+        intent.putExtra(Constants.Site.KEY_PROJECT_AREA, siteProjectItems.get(position).getProjectRegion());
         startActivity(intent);
     }
 
@@ -445,14 +432,11 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
      * 刷新下一页
      */
     public void searchButtonDidClick() {
-        if (siteSearchProject.getData().getPageCount() == 1) {
-            Toast.makeText(SiteSearchListMapActivity.this, "当前没有更多新内容!", Toast.LENGTH_SHORT).show();
+        if (pageCount == 1||(currentPageNo==pageCount&&currentPageNo!=0)) {
+            ToastUtil.showShort("当前没有更多新内容!");
+            return;
         }
-        int currentpage = siteSearchProject.getData().getCurrentPageNo();
-        if (currentpage == siteSearchProject.getData().getPageCount()) {
-            currentpage = 0;
-        }
-        ConnectNeta(currentpage + 1, rangeIndex);
+        getSiteProjectByRange(++currentPageNo, rangeIndex);
     }
 
     @Override
@@ -469,9 +453,10 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
             jiancedanwei = bundle.getString("jiancedanwei");
             tvNearBy.setText("附近:不限");
             rangeIndex = -1;
+            currentPageNo = 1;
             ivDropDown.setBackgroundResource(R.drawable.xialaa);
             llNearByList.setVisibility(View.GONE);
-            ConnectNeta(1, rangeIndex);
+            getSiteProjectByRange(currentPageNo, rangeIndex);
         }
     }
 
@@ -523,7 +508,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
      * @param position 点击项的索引
      */
     private void navigationByBaiduMap(int position) {
-        String projectCoordinates = listContent.get(position).getProjectCoordinates();
+        String projectCoordinates = siteProjectItems.get(position).getProjectCoordinates();
         String[] split = projectCoordinates.split(",");
         double x = Double.parseDouble(split[1]);
         double y = Double.parseDouble(split[0]);
@@ -562,7 +547,7 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
             myLocation = new LatLng(x, y);
             LogUtil.showLogD("我的位置====>" + myLocation + "," + location.getLocType());
             if (isFirstInto) {
-                ConnectNeta(1, rangeIndex);
+                getSiteProjectByRange(1, rangeIndex);
                 isFirstInto = false;
             }
             MyLocationData locData = new MyLocationData.Builder()

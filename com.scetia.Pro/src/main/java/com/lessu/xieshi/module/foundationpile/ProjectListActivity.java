@@ -62,10 +62,10 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
      */
     public static final int SEARCH_REQUEST_CODE = 3;
     private BaiduMap mBaiduMap;
-    Boolean isFirstLoc = true;
-    String memberCode = "";
-    String hour = "4";
-    LatLng myLocation;
+    private Boolean isFirstLoc = true;
+    private String memberCode = "";
+    private String hour = "4";
+    private LatLng myLocation;
     @BindView(R.id.bmapView)
     MapView mMapView;
     @BindView(R.id.listView)

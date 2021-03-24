@@ -20,6 +20,7 @@ import com.tencent.smtt.sdk.QbSdk;
 public class AppApplication extends ShareableApplication {
 	public static String muidstr;
 	public static boolean isGLY=false;
+
 	@Override
 	public void init() {
 		initQBWeb();

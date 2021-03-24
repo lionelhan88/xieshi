@@ -1,6 +1,7 @@
 package com.lessu.xieshi.http.service;
 
 import com.lessu.xieshi.bean.ReportContentBean;
+import com.lessu.xieshi.bean.SiteSearchProject;
 import com.lessu.xieshi.bean.TodayStatisticsBean;
 import com.lessu.xieshi.module.foundationpile.FoundationPileBean;
 import com.scetia.Pro.network.bean.XSResultData;
@@ -70,5 +71,9 @@ public interface CommonApiService {
      */
     @GET("ServiceStake.asmx/GetMapList")
     Observable<XSResultData<List<FoundationPileBean>>> getFoundationPile(@Query("param") String param);
+
+    //工地查询
+    @GET("ServiceTS.asmx/ManageUnitTodayStatisProjectList")
+    Observable<XSResultData<SiteSearchProject.DataBean>> getSiteProject(@Query("param") String param);
 
 }
