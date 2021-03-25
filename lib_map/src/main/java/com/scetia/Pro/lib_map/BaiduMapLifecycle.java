@@ -10,6 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.MapView;
 
 
 /**
@@ -20,10 +21,15 @@ public class BaiduMapLifecycle implements LifecycleObserver {
     private LocationClient mLocClient;
     private BDLocationListener bdLocationListener;
     private LocationClientOption option;
-
+    private MapView mapView;
 
     public BaiduMapLifecycle(Context context) {
         initClientLocal(context);
+    }
+
+    public BaiduMapLifecycle(Context context, MapView mapView) {
+        initClientLocal(context);
+        this.mapView = mapView;
     }
 
     /**
@@ -42,6 +48,7 @@ public class BaiduMapLifecycle implements LifecycleObserver {
 
     /**
      * 谁知坐标获取监听事件
+     *
      * @param bdLocationListener 监听回调接口
      */
     public void setBdLocationListener(BDLocationListener bdLocationListener) {
@@ -66,6 +73,20 @@ public class BaiduMapLifecycle implements LifecycleObserver {
         mLocClient.start();
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume() {
+        if (mapView != null) {
+            mapView.onResume();
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void onPause() {
+        if (mapView != null) {
+            mapView.onPause();
+        }
+    }
+
     public void stopLocation() {
         mLocClient.stop();
     }
@@ -75,6 +96,10 @@ public class BaiduMapLifecycle implements LifecycleObserver {
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void stopBaiduMap() {
+        if (mapView != null) {
+            mapView.onDestroy();
+            mapView = null;
+        }
         if (mLocClient != null) {
             mLocClient.stop();
             mLocClient.unRegisterLocationListener(bdLocationListener);

@@ -108,7 +108,7 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
         //开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         //开是定位初始化
-        BaiduMapLifecycle baiduMapLifecycle = new BaiduMapLifecycle(this);
+        BaiduMapLifecycle baiduMapLifecycle = new BaiduMapLifecycle(this,mMapView);
         ProjectListMapLocationListener locationListener = new ProjectListMapLocationListener();
         //设置定位监听回调
         baiduMapLifecycle.setBdLocationListener(locationListener);
@@ -314,26 +314,9 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
-        mMapView = null;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        mMapView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        mMapView.onPause();
+        super.onDestroy();
     }
 
     public void menuButtonDidClick() {

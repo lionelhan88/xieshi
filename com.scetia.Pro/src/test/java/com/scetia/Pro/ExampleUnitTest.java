@@ -36,4 +36,8 @@ public class ExampleUnitTest {
         Date date1 = DateUtil.parseTo("2021-03-08", "yyyy-MM-dd");
         System.out.println(DateUtil.FORMAT_BAR_YMD(date1)+"");
     }
+
+    @Test
+    public void testThreadPool(){
+    }
 }

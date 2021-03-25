@@ -31,7 +31,6 @@ public class LSAlert {
         void onConfirm();
 
         default void onCancel() {
-
         }
     }
 
@@ -213,14 +212,14 @@ public class LSAlert {
     }
 
 
-    public static ProgressDialog progressDialog;
+    private static ProgressDialog progressDialog;
 
     public static void setProgressDialog(ProgressDialog progress) {
         progressDialog = progress;
     }
 
     public static int progressHudCount = 0;
-    protected static List<String> progressHudText = new ArrayList<String>();
+    protected static List<String> progressHudText = new ArrayList<>();
     public static void showProgressHud(Context context){
         showProgressHud(context,"正在加载数据...");
     }
@@ -233,17 +232,12 @@ public class LSAlert {
             progressDialog.setCancelable(false);
             progressDialog.setInverseBackgroundForced(false);
             progressDialog.setTitle(text);
-
             progressDialog.show();
-
-            progressHudText.add(text);
-            progressHudCount++;
         } else {
             progressDialog.setTitle(text);
-            progressHudText.add(text);
-            progressHudCount++;
         }
-
+        progressHudText.add(text);
+        progressHudCount++;
     }
 
     public static void dismissProgressHud() {

@@ -1,32 +1,50 @@
 package com.lessu.xieshi.module.todaystatistics;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lessu.navigation.NavigationActivity;
+import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.ToastUtil;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SiteSearchByConditionActivity extends NavigationActivity implements View.OnClickListener {
-    String projectName = "";
-    String projectArea = "";
-    String baogaobianhao = "";
-    String jianshedanwei = "";
-    String shigongdanwei = "";
-    String jianlidanwei = "";
-    String jiancedanwei = "";
+public class SiteSearchByConditionActivity extends NavigationActivity {
+
+    @BindView(R.id.statistics_search_site_name)
+    EditText statisticsSearchSiteName;
+    @BindView(R.id.statistics_search_site_area)
+    TextView statisticsSearchSiteArea;
+    @BindView(R.id.statistics_search_report_no)
+    EditText statisticsSearchReportNo;
+    @BindView(R.id.statistics_search_build_name)
+    EditText statisticsSearchBuildName;
+    @BindView(R.id.statistics_search_construction_name)
+    EditText statisticsSearchConstructionName;
+    @BindView(R.id.statistics_search_supervision_name)
+    EditText statisticsSearchSupervisionName;
+    @BindView(R.id.statistics_search_testing_name)
+    EditText statisticsSearchTestingName;
+    @BindView(R.id.cb_statistics_site_all)
+    CheckBox cbStatisticsSiteAll;
+    @BindView(R.id.btn_statistics_search_confirm)
+    Button btnStatisticsSearchConfirm;
+    private String projectName = "";
+    private String projectArea = "";
+    private String baogaobianhao = "";
+    private String jianshedanwei = "";
+    private String shigongdanwei = "";
+    private String jianlidanwei = "";
+    private String jiancedanwei = "";
     private int xianshistage = -1;
-    private int rangeindex;
+    private int rangeIndex;
     private String currentLocation;
-    private CheckBox cb_xainshi;
 
     @Override
     protected int getLayoutId() {
@@ -36,6 +54,14 @@ public class SiteSearchByConditionActivity extends NavigationActivity implements
     @Override
     protected void initView() {
         this.setTitle("工地搜索");
+        xianshistage = 1;
+        cbStatisticsSiteAll.setOnCheckedChangeListener((compoundButton, b) -> {
+            xianshistage = b?2:1;
+        });
+    }
+
+    @Override
+    protected void initData() {
         Bundle bundle = getIntent().getExtras();
         projectName = bundle.getString("ProjectName");
         projectArea = bundle.getString("ProjectArea");
@@ -44,84 +70,50 @@ public class SiteSearchByConditionActivity extends NavigationActivity implements
         shigongdanwei = bundle.getString("shigongdanwei");
         jianlidanwei = bundle.getString("jianlidanwei");
         jiancedanwei = bundle.getString("jiancedanwei");
-        rangeindex = bundle.getInt("range");
+        rangeIndex = bundle.getInt("range");
         currentLocation = bundle.getString("CurrentLocation");
-        TextView tv1 = findViewById(R.id.projectNameTextView);
-        tv1.setText(projectName);
-        Button bt_qveren = findViewById(R.id.bt_qveren);
-        bt_qveren.setOnClickListener(this);
+        statisticsSearchSiteName.setText(projectName);
+        statisticsSearchSiteArea.setText(projectArea);
+        statisticsSearchReportNo.setText(baogaobianhao);
+        statisticsSearchBuildName.setText(jianshedanwei);
+        statisticsSearchConstructionName.setText(shigongdanwei);
+        statisticsSearchSupervisionName.setText(jianlidanwei);
+        statisticsSearchTestingName.setText(jiancedanwei);
+    }
 
-        TextView tv2 = findViewById(R.id.projectAreaTextView);
-        tv2.setText(projectArea);
-        TextView tv3 = findViewById(R.id.baogaobianhao);
-        tv3.setText(baogaobianhao);
-        TextView tv4 = findViewById(R.id.jianshedanwei);
-        tv4.setText(jianshedanwei);
-        TextView tv5 = findViewById(R.id.shigongdanwei);
-        tv5.setText(shigongdanwei);
-        TextView tv6 = findViewById(R.id.jianlidanwei);
-        tv6.setText(jianlidanwei);
-        TextView tv7 = findViewById(R.id.jiancedanwei);
-        tv7.setText(jiancedanwei);
-
-        cb_xainshi = findViewById(R.id.cb_xainshi);
-        xianshistage = 1;
-        cb_xainshi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    /**
+     * 工地所属区县点击事件
+     */
+    @OnClick(R.id.statistics_search_site_area)
+    protected void projectAreaButtonDidClick() {
+        final String[] itemString = {"金山区", "崇明县", "浦东新区", "南汇区", "闵行区", "卢湾区", "徐汇区", "奉贤区", "宝山区", "杨浦区", "普陀区", "黄浦区", "青浦区", "松江区", "外省市", "闸北区", "长宁区", "嘉定区", "静安区", "虹口区"};
+        LSAlert.showDialogSingleChoice(this, "工程区县", android.R.drawable.ic_dialog_info, itemString, "取消", new LSAlert.SelectItemCallback() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    xianshistage = 2;
-                } else {
-                    xianshistage = 1;
-                }
+            public void selectItem(int position) {
+                statisticsSearchSiteArea.setText(itemString[position]);
             }
         });
     }
 
-    @OnClick(R.id.ProjectAreaButton)
-    protected void ProjectAreaButtonDidClick() {
-        final String[] itemString = {"金山区", "崇明县", "浦东新区", "南汇区", "闵行区", "卢湾区", "徐汇区", "奉贤区", "宝山区", "杨浦区", "普陀区", "黄浦区", "青浦区", "松江区", "外省市", "闸北区", "长宁区", "嘉定区", "静安区", "虹口区"};
-        final String[] valueString = itemString;
-        new AlertDialog.Builder(this)
-                .setTitle("工程区县")
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .setSingleChoiceItems(itemString, 0,
-                        (dialog, which) -> {
-                            TextView tv = findViewById(R.id.projectAreaTextView);
-                            tv.setText(itemString[which]);
-                            projectArea = valueString[which];
-                            dialog.dismiss();
-                        }
-                )
-                .setNegativeButton("取消", null)
-                .show();
-    }
-
-    @Override
-    public void onClick(View view) {
-
+    /**
+     * 确认按钮点击事件
+     */
+    @OnClick(R.id.btn_statistics_search_confirm)
+    public void btnStatisticsSearchConfirmClick(){
         Bundle bundle = new Bundle();
-
-        TextView tv1 = findViewById(R.id.projectNameTextView);
-        projectName = tv1.getText().toString();
+        projectName = statisticsSearchSiteName.getText().toString();
         bundle.putString("ProjectName", projectName);
-        TextView tv2 = findViewById(R.id.projectAreaTextView);
-        projectArea = tv2.getText().toString();
+        projectArea = statisticsSearchSiteArea.getText().toString();
         bundle.putString("ProjectArea", projectArea);
-        TextView tv3 = findViewById(R.id.baogaobianhao);
-        baogaobianhao = tv3.getText().toString();
+        baogaobianhao = statisticsSearchReportNo.getText().toString();
         bundle.putString("baogaobianhao", baogaobianhao);
-        TextView tv4 = findViewById(R.id.jianshedanwei);
-        jianshedanwei = tv4.getText().toString();
+        jianshedanwei = statisticsSearchBuildName.getText().toString();
         bundle.putString("jianshedanwei", jianshedanwei);
-        TextView tv5 = findViewById(R.id.shigongdanwei);
-        shigongdanwei = tv5.getText().toString();
+        shigongdanwei = statisticsSearchConstructionName.getText().toString();
         bundle.putString("shigongdanwei", shigongdanwei);
-        TextView tv6 = findViewById(R.id.jianlidanwei);
-        jianlidanwei = tv6.getText().toString();
+        jianlidanwei = statisticsSearchSupervisionName.getText().toString();
         bundle.putString("jianlidanwei", jianlidanwei);
-        TextView tv7 = findViewById(R.id.jiancedanwei);
-        jiancedanwei = tv7.getText().toString();
+        jiancedanwei = statisticsSearchTestingName.getText().toString();
         bundle.putString("jiancedanwei", jiancedanwei);
         bundle.putBoolean("sousuo", true);
         if (xianshistage == 1) {
@@ -129,10 +121,9 @@ public class SiteSearchByConditionActivity extends NavigationActivity implements
             finish();
         } else if (xianshistage == 2) {
             bundle.putBoolean("isxianshall", true);
-            bundle.putInt("DistanceRange", rangeindex);
-            System.out.println("发送。。。。。。。。。" + rangeindex);
+            bundle.putInt("DistanceRange", rangeIndex);
             bundle.putString("CurrentLocation", currentLocation);
-            Intent intent = new Intent(SiteSearchByConditionActivity.this, TodayStatisticsDetailActivity.class);
+            Intent intent = new Intent(this, TodayStatisticsDetailActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         } else {

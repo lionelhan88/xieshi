@@ -38,7 +38,6 @@
     <string name="tvTagLen">长度</string>
     <string name="tvTagCount">次数</string>
     <string name="btClear">清空数据</string>
-
     <string name="logout_text">再按一次退出</string>
     <string-array name="arrayBank">
         <item>RESERVED</item>
@@ -55,7 +54,7 @@
 
     //登录
     <string name="btn_login_text">登录</string>
-    <string name="login_loading_text">正在登录...</string>
+    <string name="login_loading_text">正在登录…</string>
 
     //年假管理
     <string name="apply_date_select">选择</string>
@@ -88,7 +87,6 @@
         <item>运输车</item>
         <item>运输船</item>
     </string-array>
-
     <string-array name="testing_info_query_result_sample_state">
         <item>未送样</item>
         <item>已送样</item>
@@ -126,4 +124,6 @@
         <item>徐汇区</item>
         <item>虹口区</item>
     </string-array>
+    //工地查询-条件搜索
+    <string name="statistics_search_site_name" translatable="false">工地名称</string>
 </resources>
