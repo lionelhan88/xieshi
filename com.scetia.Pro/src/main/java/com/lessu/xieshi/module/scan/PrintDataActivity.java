@@ -1,28 +1,14 @@
 package com.lessu.xieshi.module.scan;
-
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Build;
-
-import androidx.appcompat.app.AlertDialog;
-
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +22,8 @@ import com.lessu.xieshi.Utils.FileUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Decrypt;
+import com.lessu.xieshi.module.scan.adapter.PrintDataNoListAdapter;
+import com.lessu.xieshi.module.scan.util.BluetoothHelper;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.Utils.ToastUtil;
@@ -44,15 +32,14 @@ import com.lessu.xieshi.view.DragLayout;
 import com.raylinks.Function;
 import com.raylinks.ModuleControl;
 import com.scetia.Pro.common.Util.SPUtil;
-
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import butterknife.BindView;
 
 public class PrintDataActivity extends NavigationActivity implements View.OnClickListener {
 
@@ -62,26 +49,28 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
     private boolean isReading = true;
     private static byte flagCrc;
     private boolean isConnection = false;
-    private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    public static BluetoothSocket bluetoothSocket = null;
-    private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    public BluetoothDevice device;
-    private static InputStream inputStream;
     private SoundPool soundPool;
     private ArrayList<String> Tal = new ArrayList<>();
     private ArrayList<String> Xal = new ArrayList<>();
-    private TMAdapter madaptertiaoma;
-    private XPAdapter madapterxinpian;
     private SwipeMenuCreator creator;
-    private DragLayout dl;
-    private TextView tv_tiaoma_num;
-    private TextView tv_xinpian_num;
     private String uidStr;
     private int j = 1;
     // 标识是jar方法连接的蓝牙
     private boolean uhfBlueConnect;
     private boolean lianjieshibai;
-
+    private boolean isFirstIn = true;
+    private PrintDataNoListAdapter barCodeNoListAdapter;
+    private PrintDataNoListAdapter chipNoListAdapter;
+    @BindView(R.id.dl)
+    DragLayout dl;
+    @BindView(R.id.tv_tiaoma_num)
+    TextView tvBarCodeNum;
+    @BindView(R.id.tv_xinpian_num)
+    TextView tvChipNum;
+    @BindView(R.id.lv_tiaoma)
+    SwipeMenuListView barCodeListView;
+    @BindView(R.id.lv_xinpian)
+    SwipeMenuListView chipListView;
     @Override
     protected int getLayoutId() {
         return R.layout.printdata_layout;
@@ -89,97 +78,58 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
 
     @Override
     protected void initView() {
-        this.setTitle("标识扫描");
-        //设置侧滑菜单
-        dl = findViewById(R.id.dl);
-        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
-        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
-        navigationBar.setLeftBarItem(menuButtonitem);
-        creator = new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                deleteItem.setWidth((130));
-                deleteItem.setIcon(R.drawable.shanchu);
-                menu.addMenuItem(deleteItem);
-            }
+        setTitle("标识扫描");
+        BarButtonItem menuButtonItem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
+        menuButtonItem.setOnClickMethod(this, "menuButtonDidClick");
+        navigationBar.setLeftBarItem(menuButtonItem);
+        creator = menu -> {
+            SwipeMenuItem deleteItem = new SwipeMenuItem(
+                    getApplicationContext());
+            deleteItem.setWidth((130));
+            deleteItem.setIcon(R.drawable.shanchu);
+            menu.addMenuItem(deleteItem);
         };
-        LinearLayout ll_shenqingshangbao = findViewById(R.id.ll_shenqingshangbao);
-        LinearLayout ll_shenhexiazai = findViewById(R.id.ll_shenhexiazai);
-        LinearLayout ll_rukuchakan = findViewById(R.id.ll_rukuchakan);
-        LinearLayout ll_shebeixinxi = findViewById(R.id.ll_shebeixinxi);
-        SeekBar sb_scan = findViewById(R.id.sb_scan);
-        TextView tv_baocun = findViewById(R.id.tv_baocun);
-        TextView tv_duqv = findViewById(R.id.tv_duqv);
-        TextView tv_qingchu = findViewById(R.id.tv_qingchu);
-        TextView tv_shujvjiaohu = findViewById(R.id.tv_shujvjiaohu);
-        tv_tiaoma_num = findViewById(R.id.tv_tiaoma_num);
-        tv_xinpian_num = findViewById(R.id.tv_xinpian_num);
-        SwipeMenuListView lv_tiaoma = findViewById(R.id.lv_tiaoma);
-        SwipeMenuListView lv_xinpian = findViewById(R.id.lv_xinpian);
-
-        lv_tiaoma.setMenuCreator(creator);
-        lv_xinpian.setMenuCreator(creator);
-        lv_tiaoma.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        barCodeListView.setMenuCreator(creator);
+        chipListView.setMenuCreator(creator);
+        barCodeListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 if (index == 0) {
                     Tal.remove(position);
-                    madaptertiaoma.notifyDataSetChanged();
-                    tv_tiaoma_num.setText(String.valueOf(Tal.size()));
+                    barCodeNoListAdapter.notifyDataSetChanged();
+                    tvBarCodeNum.setText(String.valueOf(Tal.size()));
                 }
                 return false;
             }
         });
-        lv_xinpian.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                if (index == 0) {// delete
-                    Xal.remove(position);
-                    madapterxinpian.notifyDataSetChanged();
-                    tv_xinpian_num.setText(String.valueOf(Xal.size()));
-                }
-                return false;
+        chipListView.setOnMenuItemClickListener((position, menu, index) -> {
+            if (index == 0) {// delete
+                Xal.remove(position);
+                chipNoListAdapter.notifyDataSetChanged();
+                tvChipNum.setText(String.valueOf(Xal.size()));
             }
+            return false;
         });
 
-        lv_tiaoma.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-        lv_xinpian.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-        madaptertiaoma = new TMAdapter();
-        madapterxinpian = new XPAdapter();
-        lv_tiaoma.setAdapter(madaptertiaoma);
-        lv_tiaoma.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
-                //长按删除当前项
-                AlertDialog.Builder builder = new AlertDialog.Builder(PrintDataActivity.this);
-                builder.setTitle("提示");
-                builder.setMessage("是否删除" + Tal.get(pos) + "?");
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Tal.remove(pos);
-                        dialogInterface.dismiss();
-                        madaptertiaoma.notifyDataSetChanged();
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                builder.show();
-                return false;
-            }
-        });
-        lv_xinpian.setAdapter(madapterxinpian);
+        barCodeListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+        chipListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+        barCodeNoListAdapter = new PrintDataNoListAdapter(Tal);
+        chipNoListAdapter = new PrintDataNoListAdapter(Xal);
+        barCodeListView.setAdapter(barCodeNoListAdapter);
+        chipListView.setAdapter(chipNoListAdapter);
         //已扫条码数
-        tv_tiaoma_num.setText(String.valueOf(Tal.size()));
+        tvBarCodeNum.setText(String.valueOf(Tal.size()));
         //已读芯片数
-        tv_xinpian_num.setText(String.valueOf(Xal.size()));
+        tvChipNum.setText(String.valueOf(Xal.size()));
 
+        LinearLayout ll_shenqingshangbao = findViewById(R.id.ll_shenqingshangbao);
+        LinearLayout ll_shenhexiazai = findViewById(R.id.ll_shenhexiazai);
+        LinearLayout ll_rukuchakan = findViewById(R.id.ll_rukuchakan);
+        LinearLayout ll_shebeixinxi = findViewById(R.id.ll_shebeixinxi);
+        TextView tv_baocun = findViewById(R.id.tv_baocun);
+        TextView tv_duqv = findViewById(R.id.tv_duqv);
+        TextView tv_qingchu = findViewById(R.id.tv_qingchu);
+        TextView tv_shujvjiaohu = findViewById(R.id.tv_shujvjiaohu);
         ll_shenqingshangbao.setOnClickListener(this);
         ll_shenhexiazai.setOnClickListener(this);
         ll_rukuchakan.setOnClickListener(this);
@@ -206,8 +156,8 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
      */
     @Override
     protected void initData() {
-        // 一上来就先连接设备
-        device = bluetoothAdapter.getRemoteDevice(getDeviceAddress());
+        initSoundPool();
+        BluetoothHelper.getInstance().getBluetoothDevice(getDeviceAddress());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -241,8 +191,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 }
             }
         }).start();
-
-        initSoundPool();
     }
 
     /**
@@ -312,16 +260,14 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
      * 获取设备编号
      */
     private void getUid() {
-        if (!SPUtil.getSPConfig(getDeviceAddress(), "").equals("")) {
+        if (!SPUtil.getSPConfig(getDeviceAddress(), "").isEmpty()) {
             uidStr = SPUtil.getSPConfig(getDeviceAddress(), "");
             AppApplication.muidstr = uidStr;
-            LogUtil.showLogE("从本地缓存获取的设备uid==" + uidStr);
             return;
         }
+
         try {
-            if (bluetoothSocket != null) {
-                bluetoothSocket.close();
-            }
+            BluetoothHelper.getInstance().closeSocket();
             /*
               这里使用jar包中提供的方法连接蓝牙，因为要获取设备uid，必须要使用jar包
               中提供的方法，获取uid之前先要UhfReaderConnect连接蓝牙才可以
@@ -426,25 +372,16 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
      */
     public boolean connect() {
         if (!isConnection) {
-            try {
-                //如果在搜寻蓝牙设备就关闭搜寻
-                if (bluetoothAdapter.isDiscovering()) {
-                    bluetoothAdapter.isDiscovering();
-                }
-                bluetoothSocket = device.createRfcommSocketToServiceRecord(uuid);
-                bluetoothSocket.connect();
-                isConnection = true;
-            } catch (Exception e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        isConnection = false;
-                        Toast.makeText(PrintDataActivity.this, "连接失败!", Toast.LENGTH_SHORT).show();
-                    }
+            String deviceName = BluetoothHelper.getInstance().connectDevice();
+            if (deviceName == null) {
+                runOnUiThread(() -> {
+                    isConnection = false;
+                    Toast.makeText(PrintDataActivity.this, "连接失败!", Toast.LENGTH_SHORT).show();
                 });
                 return false;
             }
-            toastAlert(device.getName() + "连接成功!");
+            toastAlert(deviceName + "连接成功!");
+            isConnection = true;
         }
         return true;
     }
@@ -466,13 +403,11 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
      */
     private void read() {
         if (this.isConnection) {
-            System.out.println("开始打印！！");
             try {
-                inputStream = bluetoothSocket.getInputStream();
+                InputStream inputStream = BluetoothHelper.getInstance().getInputStream();
                 String Ts;
                 String Ts1 = null;
                 String Ts2;
-
                 boolean saolebiedetiaoma = false;
                 byte[] buffer = new byte[1024];
                 byte[] buffer2;
@@ -482,7 +417,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     do {
                         bytes = inputStream.read(buffer);
                     } while (bytes <= 0);
-                    buffer2 = (byte[]) buffer.clone();
+                    buffer2 = buffer.clone();
                     //清空缓存
                     Arrays.fill(buffer, (byte) 0);
                     //将缓冲区读取的字节数组转为字符串
@@ -491,86 +426,86 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                     Pattern p = Pattern.compile("\\s*|\t|\r|\n");
                     Matcher m = p.matcher(ceshishujv);
                     ceshishujv = m.replaceAll("").trim();
+                    if (ceshishujv.isEmpty()) {
+                        continue;
+                    }
                     //条形码
-                    if (!ceshishujv.equals("")) {
-                        if (ceshishujv.matches("^[0-9]*$")) {
-                            System.out.println("是条形码");
-                            if (ceshishujv.length() < 10) {
-                                if (Ts1 == null || Ts1.equals("")) {
-                                    Ts1 = new String(buffer2, 0, ceshishujv.length());
-                                    if (saolebiedetiaoma) {
-                                        Ts1 = null;
-                                        saolebiedetiaoma = false;
-                                    }
-                                } else {
-                                    Ts2 = new String(buffer2, 0, ceshishujv.length());
-                                    Log.e("PrintDataActivity", "Ts1..else..." + Ts1 + "，Ts2..else..." + Ts2);
-                                    Ts = Ts1 + Ts2;
-                                    String substring = Ts.substring(0, 1);
-                                    if (Ts.length() == 10 && substring.equals("1")) {
-                                        if (!Tal.contains(Ts)) {
-                                            Tal.add(0, Ts);
-                                            playSoundPool(false);
-                                        } else {
-                                            playSoundPool(true);
-                                        }
-                                        Ts1 = null;
-                                        FileUtil.baocunauto(Tal, Xal);
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                madaptertiaoma.notifyDataSetChanged();
-                                                tv_tiaoma_num.setText(String.valueOf(Tal.size()));
-                                            }
-                                        });
-
+                    if (ceshishujv.matches("^[0-9]*$")) {
+                        if (ceshishujv.length() < 10) {
+                            if (Ts1 == null || Ts1.equals("")) {
+                                Ts1 = new String(buffer2, 0, ceshishujv.length());
+                                if (saolebiedetiaoma) {
+                                    Ts1 = null;
+                                    saolebiedetiaoma = false;
+                                }
+                            } else {
+                                Ts2 = new String(buffer2, 0, ceshishujv.length());
+                                LogUtil.showLogE("PrintDataActivity==>" + Ts1 + "..else..." + Ts1 + "，Ts2..else..." + Ts2);
+                                Ts = Ts1 + Ts2;
+                                String substring = Ts.substring(0, 1);
+                                if (Ts.length() == 10 && substring.equals("1")) {
+                                    if (!Tal.contains(Ts)) {
+                                        Tal.add(0, Ts);
+                                        playSoundPool(false);
                                     } else {
-                                        Ts1 = null;
-                                        saolebiedetiaoma = true;
+                                        playSoundPool(true);
                                     }
-                                }
-                            } else if (ceshishujv.length() == 10) {
-                                if (!Tal.contains(ceshishujv)) {
-                                    Tal.add(0, ceshishujv);
-                                    playSoundPool(false);
-                                } else {
-                                    playSoundPool(true);
-                                }
-                                FileUtil.baocunauto(Tal, Xal);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        madaptertiaoma.notifyDataSetChanged();
-                                        tv_tiaoma_num.setText(String.valueOf(Tal.size()));
-                                    }
-                                });
-                            }
-                            //是芯片
-                        } else {
-                            String s = LongString.bytes2HexString(buffer2);
-                            System.out.println(s);
-                            String jiexinpian = Decrypt.decodeChip(s);
-                            if (jiexinpian != null) {
-                                if (!Xal.contains(jiexinpian)) {
-                                    Xal.add(0, jiexinpian);
+                                    Ts1 = null;
+                                    FileUtil.baocunauto(Tal, Xal);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            FileUtil.baocunauto(Tal, Xal);
+                                            barCodeNoListAdapter.notifyDataSetChanged();
+                                            tvBarCodeNum.setText(String.valueOf(Tal.size()));
                                         }
                                     });
-                                    playSoundPool(false);
+
                                 } else {
-                                    playSoundPool(true);
+                                    Ts1 = null;
+                                    saolebiedetiaoma = true;
                                 }
+                            }
+                        } else if (ceshishujv.length() == 10) {
+                            if (!Tal.contains(ceshishujv)) {
+                                Tal.add(0, ceshishujv);
+                                playSoundPool(false);
+                            } else {
+                                playSoundPool(true);
+                            }
+                            FileUtil.baocunauto(Tal, Xal);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    barCodeNoListAdapter.notifyDataSetChanged();
+                                    tvBarCodeNum.setText(String.valueOf(Tal.size()));
+                                }
+                            });
+                        }
+                        //是芯片
+                    } else {
+                        String s = LongString.bytes2HexString(buffer2);
+                        System.out.println(s);
+                        String jiexinpian = Decrypt.decodeChip(s);
+                        if (jiexinpian != null) {
+                            if (!Xal.contains(jiexinpian)) {
+                                Xal.add(0, jiexinpian);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        madapterxinpian.notifyDataSetChanged();
-                                        tv_xinpian_num.setText(String.valueOf(Xal.size()));
+                                        FileUtil.baocunauto(Tal, Xal);
                                     }
                                 });
+                                playSoundPool(false);
+                            } else {
+                                playSoundPool(true);
                             }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chipNoListAdapter.notifyDataSetChanged();
+                                    tvChipNum.setText(String.valueOf(Xal.size()));
+                                }
+                            });
                         }
                     }
                 }
@@ -664,10 +599,10 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
             case R.id.tv_qingchu:
                 Xal.clear();
                 Tal.clear();
-                madaptertiaoma.notifyDataSetChanged();
-                tv_tiaoma_num.setText(String.valueOf(Tal.size()));
-                madapterxinpian.notifyDataSetChanged();
-                tv_xinpian_num.setText(String.valueOf(Xal.size()));
+                barCodeNoListAdapter.notifyDataSetChanged();
+                tvBarCodeNum.setText(String.valueOf(Tal.size()));
+                chipNoListAdapter.notifyDataSetChanged();
+                tvChipNum.setText(String.valueOf(Xal.size()));
                 break;
             case R.id.tv_shujvjiaohu:
                 getUid();
@@ -700,7 +635,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 path = UriUtils.getPath(this, uri);
             }
             if (path == null) {
-                Toast.makeText(this, "文件路径为空！", Toast.LENGTH_LONG).show();
+                ToastUtil.showShort("文件路径为空！");
                 return;
             }
             File file = new File(path);
@@ -712,7 +647,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         String[] splitTiaoma = split[0].split(",");
                         Tal.clear();
                         Xal.clear();
-                        System.out.println("split[0]..........." + split[0]);
+                        LogUtil.showLogE("split[0]..........." + split[0]);
                         for (String s : splitTiaoma) {
                             if (s.length() == 10) {
                                 Tal.add(s);
@@ -724,11 +659,11 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                             String[] splitxinpian = split[1].split(",");
                             Xal.addAll(Arrays.asList(splitxinpian));
                         }
-                        madaptertiaoma.notifyDataSetChanged();
-                        tv_tiaoma_num.setText(String.valueOf(Tal.size()));
+                        barCodeNoListAdapter.notifyDataSetChanged();
+                        tvBarCodeNum.setText(String.valueOf(Tal.size()));
 
-                        madapterxinpian.notifyDataSetChanged();
-                        tv_xinpian_num.setText(String.valueOf(Xal.size()));
+                        chipNoListAdapter.notifyDataSetChanged();
+                        tvChipNum.setText(String.valueOf(Xal.size()));
                     } else {
                         Toast.makeText(PrintDataActivity.this, "所选文件无内容", Toast.LENGTH_SHORT).show();
                     }
@@ -740,96 +675,32 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
         }
     }
 
-
-    private class TMAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return Tal.size();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isReading = true;
+        if (!isFirstIn) {
+            new Thread() {
+                @Override
+                public void run() {
+                    read();
+                }
+            }.start();
         }
-
-        @Override
-        public Object getItem(int i) {
-            return Tal.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(final int i, View view, ViewGroup viewGroup) {
-            ViewHoldertiaoma holder;
-            if (view == null) {
-                holder = new ViewHoldertiaoma();
-                view = View.inflate(PrintDataActivity.this, R.layout.item_scanlistview, null);
-                holder.tv = (TextView) view.findViewById(R.id.tv_scanlistview);
-                view.setTag(holder);
-            } else {
-                holder = (ViewHoldertiaoma) view.getTag();
-            }
-            holder.tv.setText(Tal.get(i));
-            return view;
-        }
+        isFirstIn = false;
     }
 
-    static class ViewHoldertiaoma {
-        TextView tv;
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isReading = false;
     }
-
-
-    private class XPAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return Xal.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return Xal.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            ViewHolderxinpian holder;
-            if (view == null) {
-                holder = new ViewHolderxinpian();
-                view = View.inflate(PrintDataActivity.this, R.layout.item_scanlistview, null);
-                holder.tv = (TextView) view.findViewById(R.id.tv_scanlistview);
-                view.setTag(holder);
-            } else {
-                holder = (ViewHolderxinpian) view.getTag();
-            }
-            holder.tv.setText(Xal.get(i));
-            return view;
-        }
-    }
-
-    static class ViewHolderxinpian {
-        TextView tv;
-    }
-
 
     @Override
     protected void onDestroy() {
         isReading = false;
-        try {
-            if (bluetoothSocket != null) {
-                bluetoothSocket.close();
-            }
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BluetoothHelper.getInstance().closeInputStream();
+        BluetoothHelper.getInstance().closeSocket();
         if (soundPool != null) {
             soundPool.release();
         }

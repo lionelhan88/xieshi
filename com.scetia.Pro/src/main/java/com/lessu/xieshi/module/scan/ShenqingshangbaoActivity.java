@@ -63,33 +63,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
     private String shouwei="";
     private String sampleid;
 
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shenqingshangbao);
-        this.setTitle("申请上报");
-        //设置侧滑菜单
-        dl = (DragLayout) findViewById(R.id.dl);
-        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
-        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
-        navigationBar.setLeftBarItem(menuButtonitem);
-        creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                deleteItem.setWidth((130));
-                deleteItem.setIcon(R.drawable.shanchu);
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-
-        initView();
-        initData();
-    }*/
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_shenqingshangbao;
@@ -515,11 +488,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                     HttpTransportSE transport2 = new HttpTransportSE(endPoint2);
                                     try {
                                         transport1.call(soapAction2, envelope2);
-                                    } catch (IOException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    } catch (XmlPullParserException e) {
-                                        // TODO Auto-generated catch block
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                     SoapObject object2 = (SoapObject) envelope2.bodyIn;
@@ -549,7 +518,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        ToastUtil.showShort("您上报了多条样品的标识数据，请检查后再试");
+                                        ToastUtil.showShort("您上报了多条样品的标识数据，\n请检查后再试");
                                     }
                                 });
 

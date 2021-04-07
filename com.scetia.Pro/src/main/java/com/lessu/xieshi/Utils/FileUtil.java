@@ -46,16 +46,10 @@ public  class FileUtil {
         }
         try {
             File autosavefile = new File(file, "autosave.txt");
-            System.out.println(autosavefile);
-
             fopauto = new FileOutputStream(autosavefile);
-
-            LogUtil.showLogD("一开始写入文件222222");
             if (!autosavefile.exists()) {
-                LogUtil.showLogD("一开始写入文件333333");
                 autosavefile.createNewFile();
             }
-            LogUtil.showLogD("写入文件");
             for (int i = 0; i < Tal.size(); i++) {
                 byte[] contentInBytes = Tal.get(i).getBytes();
                 fopauto.write(contentInBytes);
@@ -96,15 +90,10 @@ public  class FileUtil {
         try {
             File cacheDirectory = new File(file, getTxtName()+".txt");
             ToastUtil.showShort( cacheDirectory.toString());
-            System.out.println(cacheDirectory);
-
             fop = new FileOutputStream(cacheDirectory);
-            LogUtil.showLogD("一开始写入文件222222");
             if (!cacheDirectory.exists()) {
-                LogUtil.showLogD("一开始写入文件333333");
                 cacheDirectory.createNewFile();
             }
-            System.out.println("写入文件");
             for (int i = 0; i < Tal.size(); i++) {
                 byte[] contentInBytes = Tal.get(i).getBytes();
                 fop.write(contentInBytes);
@@ -124,8 +113,9 @@ public  class FileUtil {
             e.printStackTrace();
         }finally {
             try {
-                assert fop != null;
-                fop.close();
+               if(fop!=null) {
+                   fop.close();
+               }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -51,30 +51,6 @@ public class DataInteractionActivity extends NavigationActivity implements View.
     private ArrayList<ReceiveSampleInfoBean> xalTallist = new ArrayList();
     private String talxal;
     private ReviewDownloadListAdapter listAdapter;
-/*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shujvjiaohu);
-        this.setTitle("数据交互");
-        //设置侧滑菜单
-        dl = findViewById(R.id.dl);
-        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
-        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
-        navigationBar.setLeftBarItem(menuButtonitem);
-        creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                deleteItem.setWidth((130));
-                deleteItem.setIcon(R.drawable.shanchu);
-                menu.addMenuItem(deleteItem);
-            }
-        };
-        initView();
-    }*/
 
     @Override
     protected int getLayoutId() {

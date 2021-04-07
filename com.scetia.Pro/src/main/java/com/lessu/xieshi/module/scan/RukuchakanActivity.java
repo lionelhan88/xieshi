@@ -3,7 +3,6 @@ package com.lessu.xieshi.module.scan;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,12 +11,18 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
+import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.Utils.Decrypt;
 import com.lessu.xieshi.Utils.LongString;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
+import com.lessu.xieshi.module.scan.util.BluetoothHelper;
+import com.lessu.xieshi.module.scan.util.HandleScanData;
 import com.lessu.xieshi.view.DragLayout;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
+import com.scetia.Pro.network.bean.ExceptionHandle;
+import com.scetia.Pro.network.conversion.ResponseObserver;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -26,12 +31,9 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.lessu.xieshi.module.scan.PrintDataActivity.bluetoothSocket;
 
 public class RukuchakanActivity extends NavigationActivity implements View.OnClickListener {
     private DragLayout dl;
@@ -40,12 +42,8 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
     private LinearLayout ll_shenhexiazai;
     private LinearLayout ll_rukuchakan;
     private LinearLayout ll_shebeixinxi;
-    private SeekBar sb_scan;
     private String uidstr;
-    private static InputStream inputStream;
-    private static OutputStream outputStream;
     private boolean isReading = true;
-    private boolean isReadingReady = true;
     private TextView tv_rukuchakan;
     private TextView tv_chakan;
     private TextView tv_saomiaobianhao;
@@ -80,50 +78,8 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
     private TextView tv_weituoriqi;
     private TextView tv_baogaoriqi;
     private TextView tv_beizhu;
-
-  /*  @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rukuchakan);
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        this.setTitle("入库查看");
-        //设置侧滑菜单
-        dl = (DragLayout) findViewById(R.id.dl);
-        dl.setDragListener(new DragLayout.DragListener() {
-            @Override
-            public void onOpen() {
-
-            }
-
-            @Override
-            public void onClose() {
-            }
-
-            @Override
-            public void onDrag(float percent) {
-            }
-        });
-
-        BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
-        menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
-        navigationBar.setLeftBarItem(menuButtonitem);
-        creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                deleteItem.setWidth((130));
-                deleteItem.setIcon(R.drawable.shanchu);
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-
-        initView();
-        initData();
-    }*/
-
+    private ReceiveSampleInfoBean receiveSampleInfoBean;
+    private   HandleScanData handleScanData;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_rukuchakan;
@@ -133,22 +89,7 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
     protected void initView() {
         this.setTitle("入库查看");
         //设置侧滑菜单
-        dl = (DragLayout) findViewById(R.id.dl);
-        dl.setDragListener(new DragLayout.DragListener() {
-            @Override
-            public void onOpen() {
-
-            }
-
-            @Override
-            public void onClose() {
-            }
-
-            @Override
-            public void onDrag(float percent) {
-            }
-        });
-
+        dl = findViewById(R.id.dl);
         BarButtonItem menuButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_menu);
         menuButtonitem.setOnClickMethod(this, "menuButtonDidClick");
         navigationBar.setLeftBarItem(menuButtonitem);
@@ -164,67 +105,44 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
             }
         };
 
-        tv_saomiaobianhao = (TextView) findViewById(R.id.tv_saomiaobianhao);
-        tv_hetongdengjihao = (TextView) findViewById(R.id.tv_hetongdengjihao);
-        tv_weituobianhao = (TextView) findViewById(R.id.tv_weituobianhao);
-        tv_yangpinbianhao = (TextView) findViewById(R.id.tv_yangpinbianhao);
-        tv_biaoshibianhao = (TextView) findViewById(R.id.tv_biaoshibianhao);
-        tv_baogaobianhao = (TextView) findViewById(R.id.tv_baogaobianhao);
-        tv_baojianbianhao = (TextView) findViewById(R.id.tv_baojianbianhao);
-        tv_yangpinzhuangtai = (TextView) findViewById(R.id.tv_yangpinzhuangtai);
-        tv_jiancejieguo = (TextView) findViewById(R.id.tv_jiancejieguo);
-        tv_rukugongchengmingchen = (TextView) findViewById(R.id.tv_rukugongchengmingchen);
-        tv_gongchenbuwei = (TextView) findViewById(R.id.tv_gongchenbuwei);
-        tv_gongchendizhi = (TextView) findViewById(R.id.tv_gongchendizhi);
-        tv_suoshuqvxian = (TextView) findViewById(R.id.tv_suoshuqvxian);
-        tv_jiancezhonglei = (TextView) findViewById(R.id.tv_jiancezhonglei);
-        tv_jiancexiangmu = (TextView) findViewById(R.id.tv_jiancexiangmu);
-        tv_rukuyangpiningchen = (TextView) findViewById(R.id.tv_rukuyangpiningchen);
-        tv_chanpinbiaozhun = (TextView) findViewById(R.id.tv_chanpinbiaozhun);
-        tv_jiancecanshu = (TextView) findViewById(R.id.tv_jiancecanshu);
-        tv_guigemingchen = (TextView) findViewById(R.id.tv_guigemingchen);
-        tv_qiangdudengji = (TextView) findViewById(R.id.tv_qiangdudengji);
-        tv_shigongdanwei = (TextView) findViewById(R.id.tv_shigongdanwei);
-        tv_jianshedanwei = (TextView) findViewById(R.id.tv_jianshedanwei);
-        tv_jianlidanwei = (TextView) findViewById(R.id.tv_jianlidanwei);
-        tv_jiancedanwei = (TextView) findViewById(R.id.tv_jiancedanwei);
-        tv_beianzhenghao = (TextView) findViewById(R.id.tv_beianzhenghao);
-        tv_shengchanchangjia = (TextView) findViewById(R.id.tv_shengchanchangjia);
-        tv_zhizuoriqi = (TextView) findViewById(R.id.tv_zhizuoriqi);
-        tv_linqi = (TextView) findViewById(R.id.tv_linqi);
-        tv_dengjiriqi = (TextView) findViewById(R.id.tv_dengjiriqi);
-        tv_weituoriqi = (TextView) findViewById(R.id.tv_weituoriqi);
-        tv_baogaoriqi = (TextView) findViewById(R.id.tv_baogaoriqi);
-        tv_beizhu = (TextView) findViewById(R.id.tv_beizhu);
-
-
-
-
-        tv_rukuchakan = (TextView) findViewById(R.id.tv_rukuchakan);
-        tv_chakan = (TextView) findViewById(R.id.tv_chakan);
-
-        ll_shenqingshangbao = (LinearLayout) findViewById(R.id.ll_shenqingshangbao);
-        ll_shenhexiazai = (LinearLayout) findViewById(R.id.ll_shenhexiazai);
-        ll_rukuchakan = (LinearLayout) findViewById(R.id.ll_rukuchakan);
-        ll_shebeixinxi = (LinearLayout) findViewById(R.id.ll_shebeixinxi);
-        sb_scan = (SeekBar) findViewById(R.id.sb_scan);
-        sb_scan.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
+        tv_saomiaobianhao = findViewById(R.id.tv_saomiaobianhao);
+        tv_hetongdengjihao = findViewById(R.id.tv_hetongdengjihao);
+        tv_weituobianhao = findViewById(R.id.tv_weituobianhao);
+        tv_yangpinbianhao = findViewById(R.id.tv_yangpinbianhao);
+        tv_biaoshibianhao = findViewById(R.id.tv_biaoshibianhao);
+        tv_baogaobianhao = findViewById(R.id.tv_baogaobianhao);
+        tv_baojianbianhao = findViewById(R.id.tv_baojianbianhao);
+        tv_yangpinzhuangtai = findViewById(R.id.tv_yangpinzhuangtai);
+        tv_jiancejieguo = findViewById(R.id.tv_jiancejieguo);
+        tv_rukugongchengmingchen = findViewById(R.id.tv_rukugongchengmingchen);
+        tv_gongchenbuwei = findViewById(R.id.tv_gongchenbuwei);
+        tv_gongchendizhi = findViewById(R.id.tv_gongchendizhi);
+        tv_suoshuqvxian = findViewById(R.id.tv_suoshuqvxian);
+        tv_jiancezhonglei = findViewById(R.id.tv_jiancezhonglei);
+        tv_jiancexiangmu = findViewById(R.id.tv_jiancexiangmu);
+        tv_rukuyangpiningchen = findViewById(R.id.tv_rukuyangpiningchen);
+        tv_chanpinbiaozhun = findViewById(R.id.tv_chanpinbiaozhun);
+        tv_jiancecanshu = findViewById(R.id.tv_jiancecanshu);
+        tv_guigemingchen = findViewById(R.id.tv_guigemingchen);
+        tv_qiangdudengji = findViewById(R.id.tv_qiangdudengji);
+        tv_shigongdanwei = findViewById(R.id.tv_shigongdanwei);
+        tv_jianshedanwei = findViewById(R.id.tv_jianshedanwei);
+        tv_jianlidanwei = findViewById(R.id.tv_jianlidanwei);
+        tv_jiancedanwei = findViewById(R.id.tv_jiancedanwei);
+        tv_beianzhenghao = findViewById(R.id.tv_beianzhenghao);
+        tv_shengchanchangjia = findViewById(R.id.tv_shengchanchangjia);
+        tv_zhizuoriqi = findViewById(R.id.tv_zhizuoriqi);
+        tv_linqi = findViewById(R.id.tv_linqi);
+        tv_dengjiriqi = findViewById(R.id.tv_dengjiriqi);
+        tv_weituoriqi = findViewById(R.id.tv_weituoriqi);
+        tv_baogaoriqi = findViewById(R.id.tv_baogaoriqi);
+        tv_beizhu = findViewById(R.id.tv_beizhu);
+        tv_rukuchakan = findViewById(R.id.tv_rukuchakan);
+        tv_chakan = findViewById(R.id.tv_chakan);
+        ll_shenqingshangbao = findViewById(R.id.ll_shenqingshangbao);
+        ll_shenhexiazai = findViewById(R.id.ll_shenhexiazai);
+        ll_rukuchakan = findViewById(R.id.ll_rukuchakan);
+        ll_shebeixinxi = findViewById(R.id.ll_shebeixinxi);
         ll_shenqingshangbao.setOnClickListener(this);
         ll_shenhexiazai.setOnClickListener(this);
         ll_rukuchakan.setOnClickListener(this);
@@ -238,51 +156,67 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
         if(uidstr==null||uidstr.equals("")){
             uidstr = AppApplication.muidstr;
         }
-        new Thread(new Runnable() {
+        handleScanData = new HandleScanData();
+        handleScanData.startReadingByNetWork(new HandleScanData.CallBackListener() {
+            @Override
+            public void success(ReceiveSampleInfoBean readData) {
+                showInfo(readData,readData.getCodeNumber());
+            }
+
+            @Override
+            public void failure(String msg) {
+                tv_chakan.setText(msg);
+            }
+        });
+      /*  new Thread(new Runnable() {
             @Override
             public void run() {
                 read();
             }
-        }).start();
+        }).start();*/
     }
 
-    private void Xianshi(ReceiveSampleInfoBean shhujv, String s) {
+    /**
+     * 显示数据详情
+     * @param bean
+     * @param codeNumber 标识号
+     */
+    private void showInfo(ReceiveSampleInfoBean bean, String codeNumber) {
         tv_chakan.setText("识别完成");
-        tv_rukuchakan.setText(s);
-        tv_saomiaobianhao.setText(s);
-        tv_hetongdengjihao.setText(shhujv.getContract_SignNo());
-        tv_weituobianhao.setText(shhujv.getConSign_ID());
-        tv_yangpinbianhao.setText(shhujv.getSample_ID());
-        tv_biaoshibianhao.setText(shhujv.getSample_BsId());
-        tv_baogaobianhao.setText(shhujv.getReportNumber());
-        tv_baojianbianhao.setText(shhujv.getBuildingReportNumber());
-        tv_yangpinzhuangtai.setText(shhujv.getSample_Status());
-        tv_jiancejieguo.setText(shhujv.getExam_Result());
-        tv_rukugongchengmingchen.setText(shhujv.getProjectName());
-        tv_gongchenbuwei.setText(shhujv.getProJect_Part());
-        tv_gongchendizhi.setText(shhujv.getProjectAddress());
-        tv_suoshuqvxian.setText(shhujv.getAreaKey());
-        tv_jiancezhonglei.setText(shhujv.getKindName());
-        tv_jiancexiangmu.setText(shhujv.getItemName());
-        tv_rukuyangpiningchen.setText(shhujv.getSampleName());
-        tv_chanpinbiaozhun.setText(shhujv.getSampleJudge());
-        tv_jiancecanshu.setText(shhujv.getExam_Parameter_Cn());
-        tv_guigemingchen.setText(shhujv.getSpecName());
-        tv_qiangdudengji.setText(shhujv.getGradeName());
-        tv_shigongdanwei.setText(shhujv.getBuildUnitName());
-        tv_jianshedanwei.setText(shhujv.getConstructUnitName());
-        tv_jianlidanwei.setText(shhujv.getSuperviseUnitName());
-        tv_jiancedanwei.setText(shhujv.getDetectionUnitName());
-        tv_beianzhenghao.setText(shhujv.getRecord_Certificate());
-        tv_shengchanchangjia.setText(shhujv.getProduce_Factory());
-        tv_zhizuoriqi.setText(shhujv.getMolding_Date());
-        tv_linqi.setText(shhujv.getAgeTime());
-        tv_dengjiriqi.setText(shhujv.getCreateDateTime());
-        tv_weituoriqi.setText(shhujv.getDetectonDate());
-        tv_baogaoriqi.setText(shhujv.getReportDate());
-        tv_beizhu.setText(shhujv.getMemo());
+        tv_rukuchakan.setText(codeNumber);
+        tv_saomiaobianhao.setText(codeNumber);
+        tv_hetongdengjihao.setText(bean.getContract_SignNo());
+        tv_weituobianhao.setText(bean.getConSign_ID());
+        tv_yangpinbianhao.setText(bean.getSample_ID());
+        tv_biaoshibianhao.setText(bean.getSample_BsId());
+        tv_baogaobianhao.setText(bean.getReportNumber());
+        tv_baojianbianhao.setText(bean.getBuildingReportNumber());
+        tv_yangpinzhuangtai.setText(bean.getSample_Status());
+        tv_jiancejieguo.setText(bean.getExam_Result());
+        tv_rukugongchengmingchen.setText(bean.getProjectName());
+        tv_gongchenbuwei.setText(bean.getProJect_Part());
+        tv_gongchendizhi.setText(bean.getProjectAddress());
+        tv_suoshuqvxian.setText(bean.getAreaKey());
+        tv_jiancezhonglei.setText(bean.getKindName());
+        tv_jiancexiangmu.setText(bean.getItemName());
+        tv_rukuyangpiningchen.setText(bean.getSampleName());
+        tv_chanpinbiaozhun.setText(bean.getSampleJudge());
+        tv_jiancecanshu.setText(bean.getExam_Parameter_Cn());
+        tv_guigemingchen.setText(bean.getSpecName());
+        tv_qiangdudengji.setText(bean.getGradeName());
+        tv_shigongdanwei.setText(bean.getBuildUnitName());
+        tv_jianshedanwei.setText(bean.getConstructUnitName());
+        tv_jianlidanwei.setText(bean.getSuperviseUnitName());
+        tv_jiancedanwei.setText(bean.getDetectionUnitName());
+        tv_beianzhenghao.setText(bean.getRecord_Certificate());
+        tv_shengchanchangjia.setText(bean.getProduce_Factory());
+        tv_zhizuoriqi.setText(bean.getMolding_Date());
+        tv_linqi.setText(bean.getAgeTime());
+        tv_dengjiriqi.setText(bean.getCreateDateTime());
+        tv_weituoriqi.setText(bean.getDetectonDate());
+        tv_baogaoriqi.setText(bean.getReportDate());
+        tv_beizhu.setText(bean.getMemo());
     }
-
 
     public void menuButtonDidClick() {
         if (dl.getStatus() != DragLayout.Status.Close) {
@@ -290,7 +224,6 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
         } else {
             dl.open();
         }
-
     }
 
     @Override
@@ -302,15 +235,12 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 startActivity(intent1);
                 finish();
                 break;
-
             case R.id.ll_shenhexiazai:
                 startActivity(new Intent(RukuchakanActivity.this, ReviewDownloadActivity.class));
                 finish();
                 break;
-
             case R.id.ll_rukuchakan:
                 break;
-
             case R.id.ll_shebeixinxi:
                 Intent intent = new Intent();
                 intent.putExtra("uidstr", uidstr);
@@ -319,27 +249,25 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 break;
         }
     }
-    String s="";
-    public void read() {
-        try {
-            inputStream = bluetoothSocket.getInputStream();
-            outputStream=bluetoothSocket.getOutputStream();
 
-            String Ts1 = null;
-            String Ts2;
-            String Ts;
-            boolean saolebiedetiaoma = false;
-            byte[] buffer = new byte[1024];
-            byte[] buffer2 = new byte[1024];
+    /**
+     * 准备读取蓝牙数据
+     */
+    public void read() {
+        String receiveData="";
+        String receiveDataFirst="";
+        String receiveDataSecond="";
+        try {
+            InputStream inputStream = BluetoothHelper.getInstance().getInputStream();
+            byte[] buffer = new byte[64];
+            byte[] buffer2;
             //这里会一直等待读取
             while (isReading) {
-                if(!isReadingReady) continue;
                 int bytes;
                 do {
-                    bytes = this.inputStream.read(buffer);
+                    bytes = inputStream.read(buffer);
                 } while(bytes <= 0);
-                isReadingReady = false;
-                buffer2 = (byte[])buffer.clone();
+                buffer2 = buffer.clone();
                 //清空缓存
                 Arrays.fill(buffer, (byte) 0);
                 //将缓冲区读取的字节数组转为字符串
@@ -348,79 +276,46 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 Pattern p = Pattern.compile("\\s*|\t|\r|\n");
                 Matcher m = p.matcher(ceshishujv);
                 ceshishujv = m.replaceAll("").trim();
+                if(ceshishujv.isEmpty()){
+                    continue;
+                }
                 //条形码
                 if(ceshishujv.matches("[0-9]*")){
-                    if(bytes<10){
-                        if (Ts1 == null || Ts1.equals("")){
-                            Ts1 = new String(buffer2,0,bytes);
-                            if(saolebiedetiaoma) {
-                                Ts1=null;
-                                saolebiedetiaoma=false;
-                            }
-                        }else{
-                            Ts2 = new String(buffer2,0,bytes);
-                            System.out.println("ruku...Ts1..else..."+Ts1);
-                            System.out.println("ruku...Ts2..else..."+Ts2);
-                            Ts=Ts1+Ts2;
-                            String substring = Ts.substring(0, 1);
-                            if(Ts.length()==10&&substring.equals("1")){
-                                s=Ts;
-                                Ts1=null;
-                                final ReceiveSampleInfoBean shhujv = getReadData(s);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Xianshi(shhujv,s);
-                                    }
-                                });
-                            }else{
-                                Ts1=null;
-                                saolebiedetiaoma = true;
-                            }
-                        }
-                        isReadingReady = true;
+                    if(ceshishujv.length()==1){
+                        receiveDataFirst = ceshishujv;
+                        receiveData = receiveDataFirst+receiveDataSecond;
+                    } else if(ceshishujv.length()==9){
+                        receiveDataSecond = ceshishujv;
+                        receiveData = receiveDataFirst+receiveDataSecond;
                     } else if (ceshishujv.length()== 10) {
-                        final ReceiveSampleInfoBean shhujv = getReadData(ceshishujv);
-                        s = ceshishujv;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(shhujv!=null) {
-                                    Xianshi(shhujv, s);
-                                }else{
-                                    tv_chakan.setText("未能获取信息");
-                                }
-                            }
-                        });
-                        isReadingReady = true;
+                        receiveData = ceshishujv;
                     }
-                    //是芯片
+                    LogUtil.showLogE(receiveDataFirst+"==="+receiveDataSecond);
                 }else{
+                    //芯片
                     String s = LongString.bytes2HexString(buffer2);
-                    final String jiexinpian = Decrypt.decodeChip(s);
-                    if(jiexinpian!=null){
-                        final ReceiveSampleInfoBean shhujv = getReadData(jiexinpian);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(shhujv!=null) {
-                                    Xianshi(shhujv, jiexinpian);
-                                }else{
-                                    tv_chakan.setText("未能获取信息");
-                                }
-                            }
-                        });
-                    }
-                    isReadingReady = true;
+                    receiveData= Decrypt.decodeChip(s);
+                }
+                LogUtil.showLogE("需要的数据==>"+receiveData);
+                if(receiveData!=null&&receiveData.length()==10){
+                    String finalReceiveData = receiveData;
+                    receiveSampleInfoBean = getReadData(finalReceiveData);
+                    runOnUiThread(() -> {
+                        if(receiveSampleInfoBean!=null) {
+                            showInfo(receiveSampleInfoBean, finalReceiveData);
+                        }else{
+                            tv_chakan.setText("未能获取信息");
+                        }
+                    });
+                    receiveData = "";
+                    receiveDataFirst="";
+                    receiveDataSecond = "";
                 }
             }
         } catch (IOException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(RukuchakanActivity.this,"连接断开了，请重新连接",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+            runOnUiThread(() -> {
+                Toast.makeText(RukuchakanActivity.this,"连接断开了，请重新连接",Toast.LENGTH_SHORT).show();
+                finish();
             });
         }
     }
@@ -459,7 +354,6 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
             e.printStackTrace();
             return null;
         }
-        System.out.println("waimian...."+shujvsoap.toString());
         SoapObject soap3=(SoapObject)shujvsoap.getProperty(0);
         ReceiveSampleInfoBean info=new ReceiveSampleInfoBean();
         if(soap3.toString().contains("Contract_SignNo")){
@@ -562,5 +456,8 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
     protected void onDestroy() {
         super.onDestroy();
         isReading = false;
+        if(handleScanData!=null){
+            handleScanData.stopRead();
+        }
     }
 }

@@ -41,6 +41,15 @@ public class ReceiveSampleInfoBean implements Serializable{
 
     public int RetStatus;////0为正常1为未登记 2为已确认 3异常 4 缺失（数量为RETSTATUS 第2位开始截取）
     public String memberCode;// 会员编号
+    private String codeNumber;
+
+    public String getCodeNumber() {
+        return codeNumber;
+    }
+
+    public void setCodeNumber(String codeNumber) {
+        this.codeNumber = codeNumber;
+    }
 
     public String getProjectName() {
         return ProjectName;

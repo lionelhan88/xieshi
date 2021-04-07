@@ -48,16 +48,6 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
     private ObjectAnimator objectAnimator;
     public static final int BLUETOOTH_REQUEST_CODE=1;
     public static final int GPS_REQUEST_CODE=2;
-/*    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.bluetooth_layout);
-        this.setTitle("蓝牙连接");
-        handleButtonItem = new BarButtonItem(this , R.drawable.shuaxinl );
-        handleButtonItem.setOnClickMethod(this,"searchBlueDevices");
-        navigationBar.setRightBarItem(handleButtonItem);
-        initView();
-    }*/
-
     @Override
     protected int getLayoutId() {
         return R.layout.bluetooth_layout;
