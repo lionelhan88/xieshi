@@ -46,15 +46,17 @@ public class ScalePictureActivity extends NavigationActivity {
         //启用放大图片
         String photoUrl = getIntent().getStringExtra("detail_photo");
         String commissionDetailPhoto = getIntent().getStringExtra("commission_detail_photo");
-        if (photoUrl != null && photoUrl.contains("Scetia_Meet_Gonggao")) {
-            navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
-            setTitle("会议内容");
-            scaleBackground.setBackgroundColor(getResources().getColor(R.color.white));
-            scalePictureImage.post(()->{
-                GlideUtil.showImageViewNoCache(this,photoUrl,scalePictureImage);
+        if (photoUrl != null) {
+            if (photoUrl.contains("Scetia_Meet_Gonggao")) {
+                navigationBar.setBackgroundColor(ContextCompat.getColor(this, R.color.top_bar_background));
+                setTitle("会议内容");
+                scaleBackground.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+            scalePictureImage.post(() -> {
+                GlideUtil.showImageViewNoCache(this, photoUrl, scalePictureImage);
             });
         }
-        if(commissionDetailPhoto!=null){
+        if (commissionDetailPhoto != null) {
             //设置图片正在加载动画
             Glide.with(this).
                     asGif().
@@ -84,7 +86,7 @@ public class ScalePictureActivity extends NavigationActivity {
         back();
     }
 
-    private void back(){
+    private void back() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAfterTransition();
         } else {
@@ -95,6 +97,6 @@ public class ScalePictureActivity extends NavigationActivity {
 
     @Override
     protected void leftNavBarClick() {
-      back();
+        back();
     }
 }
