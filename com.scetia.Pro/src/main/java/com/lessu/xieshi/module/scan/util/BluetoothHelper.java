@@ -45,13 +45,11 @@ public class BluetoothHelper {
     }
 
     public BluetoothDevice getBluetoothDevice(String deviceAddress) {
-        if(mBluetoothDevice==null){
-            mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(deviceAddress);
-        }
+        mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(deviceAddress);
         return mBluetoothDevice;
     }
 
-    public String connectDevice(){
+    public String connectDevice() {
         try {
             mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(uuid);
             mBluetoothSocket.connect();
@@ -59,11 +57,11 @@ public class BluetoothHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       return null;
+        return null;
     }
 
-    public void closeSocket(){
-        if(mBluetoothSocket!=null){
+    public void closeSocket() {
+        if (mBluetoothSocket != null) {
             try {
                 mBluetoothSocket.close();
             } catch (IOException e) {
@@ -72,8 +70,8 @@ public class BluetoothHelper {
         }
     }
 
-    public void closeInputStream(){
-        if(mInputStream!=null){
+    public void closeInputStream() {
+        if (mInputStream != null) {
             try {
                 mInputStream.close();
             } catch (IOException e) {

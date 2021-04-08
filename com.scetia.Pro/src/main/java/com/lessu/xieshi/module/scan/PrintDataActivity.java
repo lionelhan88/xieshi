@@ -381,6 +381,7 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                 return false;
             }
             toastAlert(deviceName + "连接成功!");
+
             isConnection = true;
         }
         return true;
