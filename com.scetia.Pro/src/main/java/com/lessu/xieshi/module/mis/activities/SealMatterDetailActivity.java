@@ -93,7 +93,7 @@ public class SealMatterDetailActivity extends NavigationActivity {
 
     @Override
     protected void initView() {
-        setTitle("事项详情");
+        setTitle(getResources().getString(R.string.seal_matter_detail_name));
     }
 
     @Override

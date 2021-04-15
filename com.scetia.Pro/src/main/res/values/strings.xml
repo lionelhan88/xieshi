@@ -87,6 +87,7 @@
         <item>运输车</item>
         <item>运输船</item>
     </string-array>
+
     <string-array name="testing_info_query_result_sample_state">
         <item>未送样</item>
         <item>已送样</item>
@@ -126,4 +127,9 @@
     </string-array>
     //工地查询-条件搜索
     <string name="statistics_search_site_name" translatable="false">工地名称</string>
+
+    //事项审批
+    <string name="seal_matter_list_name">事项列表</string>
+    <string name="seal_matter_detail_name">事项详情</string>
+
 </resources>

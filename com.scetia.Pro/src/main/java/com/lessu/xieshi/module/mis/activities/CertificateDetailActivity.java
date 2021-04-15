@@ -25,24 +25,6 @@ public class CertificateDetailActivity extends NavigationActivity {
     private TextView tv_miszszhichen;
     private TextView tv_miszsxiangmu;
 
- /*   @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zsdetail);
-        navigationBar.setBackgroundColor(ContextCompat.getColor(this, R.color.top_bar_background));
-        this.setTitle("证书信息");
-        handleButtonItem = new BarButtonItem(this, R.drawable.back);
-        handleButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        navigationBar.setLeftBarItem(handleButtonItem);
-        initView();
-
-        initData();
-    }*/
 
     @Override
     protected int getLayoutId() {
@@ -55,17 +37,17 @@ public class CertificateDetailActivity extends NavigationActivity {
         handleButtonItem = new BarButtonItem(this, R.drawable.back);
         handleButtonItem.setOnClickListener(view -> finish());
         navigationBar.setLeftBarItem(handleButtonItem);
-        tv_miszszhuangtai = (TextView) findViewById(R.id.tv_miszszhuangtai);
-        tv_miszsname = (TextView) findViewById(R.id.tv_miszsname);
-        tv_miszssex = (TextView) findViewById(R.id.tv_miszssex);
-        tv_miszsdanweiname = (TextView) findViewById(R.id.tv_miszsdanweiname);
-        tv_miszsidcard = (TextView) findViewById(R.id.tv_miszsidcard);
-        tv_miszsmobile = (TextView) findViewById(R.id.tv_miszsmobile);
-        tv_miszsscholl = (TextView) findViewById(R.id.tv_miszsscholl);
-        tv_miszszhuanye = (TextView) findViewById(R.id.tv_miszszhuanye);
-        tv_miszsxueli = (TextView) findViewById(R.id.tv_miszsxueli);
-        tv_miszszhichen = (TextView) findViewById(R.id.tv_miszszhichen);
-        tv_miszsxiangmu = (TextView) findViewById(R.id.tv_miszsxiangmu);
+        tv_miszszhuangtai = findViewById(R.id.tv_miszszhuangtai);
+        tv_miszsname = findViewById(R.id.tv_miszsname);
+        tv_miszssex = findViewById(R.id.tv_miszssex);
+        tv_miszsdanweiname = findViewById(R.id.tv_miszsdanweiname);
+        tv_miszsidcard = findViewById(R.id.tv_miszsidcard);
+        tv_miszsmobile = findViewById(R.id.tv_miszsmobile);
+        tv_miszsscholl = findViewById(R.id.tv_miszsscholl);
+        tv_miszszhuanye = findViewById(R.id.tv_miszszhuanye);
+        tv_miszsxueli = findViewById(R.id.tv_miszsxueli);
+        tv_miszszhichen = findViewById(R.id.tv_miszszhichen);
+        tv_miszsxiangmu = findViewById(R.id.tv_miszsxiangmu);
 
     }
 
@@ -92,8 +74,6 @@ public class CertificateDetailActivity extends NavigationActivity {
                 certificateItemName = certificateItemName + "\n" + certificateItemItemNames.get(i).getCertificateItemName();
             }
         }
-        System.out.println(certificateItemName);
-
         tv_miszszhuangtai.setText(certificateState);
         tv_miszsname.setText(name);
         tv_miszssex.setText(sex);

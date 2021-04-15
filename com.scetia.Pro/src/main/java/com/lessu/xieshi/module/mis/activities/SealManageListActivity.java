@@ -67,7 +67,7 @@ public class SealManageListActivity extends NavigationActivity {
 
     @Override
     protected void initView() {
-        setTitle("事项列表");
+        setTitle(getResources().getString(R.string.seal_matter_list_name));
         sealManageListSearchView.setIconifiedByDefault(false);
         setUnderLinearTransparent(sealManageListSearchView);
         viewModel = new ViewModelProvider(this).get(SealManageListViewModel.class);
