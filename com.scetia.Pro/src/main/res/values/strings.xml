@@ -19,6 +19,8 @@
         <item>14</item>
         <item>15</item>
     </string-array>
+    <string name="loading_data_text">正在加载数据…</string>
+    <string name="posting_data_text">正在提交数据…</string>
     <!-- devlist -->
     <string name="btDisconnect">断开连接</string>
     <string name="rbPairedDev">已配对设备</string>
@@ -131,5 +133,8 @@
     //事项审批
     <string name="seal_matter_list_name">事项列表</string>
     <string name="seal_matter_detail_name">事项详情</string>
+    <string name="member_text">会员号：</string>
+    <string name="appling_text">申请中</string>
+    <string name="approvel_text">已批准</string>
 
 </resources>

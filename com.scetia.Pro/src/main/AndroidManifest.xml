@@ -163,6 +163,8 @@
         </activity>
         <activity android:name=".module.mis.activities.SealMatterDetailActivity"/>
         <activity android:name=".module.web.WordPreviewActivity"/>
+        <activity android:name=".module.mis.activities.EvaluationComparisonPrintActivity"/>
+        <activity android:name=".module.mis.activities.EvaluationComparisonDetailActivity"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

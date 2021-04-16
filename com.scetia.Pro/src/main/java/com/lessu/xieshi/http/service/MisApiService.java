@@ -1,5 +1,6 @@
 package com.lessu.xieshi.http.service;
 
+import com.lessu.xieshi.module.mis.bean.EvaluationComparisonBean;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.module.mis.bean.CertificateBean;
@@ -10,7 +11,10 @@ import com.lessu.xieshi.module.mis.bean.NoticeBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -82,4 +86,21 @@ public interface MisApiService {
      */
     @GET("ServiceMis.asmx/YzApprove")
     Observable<XSResultData<Object>> approveSealMatter(@Query("param") String param);
+
+    /**
+     * 获取评估证书打印申请列表
+     * @param params
+     * @return
+     */
+    @GET("ServiceMis.asmx/ZSQuery")
+    Observable<XSResultData<EvaluationComparisonBean>> getEvaluationComparisonByQuery(@Query("param") String params);
+
+    /**
+     * 获取评估证书打印申请列表
+     * @param params
+     * @return
+     */
+    @POST("ServiceMis.asmx/ZSApprove")
+    @FormUrlEncoded
+    Observable<XSResultData<Object>> postApproveEvaluationComparison(@Field("param") String params);
 }

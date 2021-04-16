@@ -97,7 +97,7 @@ public class MisGuideActivity extends NavigationActivity {
                         LSAlert.showAlert(MisGuideActivity.this, "提示", loadState.getMessage() + "\n是否重新登录？"
                                 , "确定", false, () -> SettingUtil.loginOut(this));
                     } else if (loadState.getCode() == ExceptionHandle.NETWORK_ERROR) {
-                        LSAlert.showAlert(MisGuideActivity.this, "提示", loadState.getMessage(), "重试", "退出",false
+                        LSAlert.showAlert(MisGuideActivity.this, "提示", loadState.getMessage(), "重试", "退出", false
                                 , new LSAlert.AlertCallback() {
                                     @Override
                                     public void onConfirm() {
@@ -143,16 +143,24 @@ public class MisGuideActivity extends NavigationActivity {
      * @param shortUserPower 权限
      */
     private void initMenu(String shortUserPower) {
-        MisGuideBean huiyuanbean = new MisGuideBean(R.drawable.huiyuanxinxi, "会员信息查询", MisMemberSearchActivity.class);
-        MisGuideBean zhenshubean = new MisGuideBean(R.drawable.zhengshuxinxi, "证书信息查询", MisCertificateSearchActivity.class);
-        MisGuideBean pinguchaxunbean = new MisGuideBean(R.drawable.pingguchaxun, "评估信息查询", MisPingGuActivity.class);
-        MisGuideBean xinxibean = new MisGuideBean(R.drawable.xinxitongzhi, "信息通知", MisNoticesActivity.class);
-        MisGuideBean nianjiashenqinbean = new MisGuideBean(R.drawable.nianjiashenqing, "年假管理", MisAnnualLeaveManageActivity.class);
+        MisGuideBean memberInfoSearch = new MisGuideBean(R.drawable.huiyuanxinxi, "会员信息查询", MisMemberSearchActivity.class);
+        MisGuideBean certificateInfoSearch = new MisGuideBean(R.drawable.zhengshuxinxi, "证书信息查询", MisCertificateSearchActivity.class);
+        MisGuideBean evaluationInfoSearch = new MisGuideBean(R.drawable.pingguchaxun, "评估信息查询", MisPingGuActivity.class);
+        MisGuideBean notice = new MisGuideBean(R.drawable.xinxitongzhi, "信息通知", MisNoticesActivity.class);
+        MisGuideBean annualManage = new MisGuideBean(R.drawable.nianjiashenqing, "年假管理", MisAnnualLeaveManageActivity.class);
         //2018-10-16新增功能模块 “比对审批”
         MisGuideBean comparisonApproval = new MisGuideBean(R.drawable.shujubidui, "比对审批", MisComparisonAprovalActivity.class);
         MisGuideBean meetingManager = new MisGuideBean(R.drawable.icon_mis_meeting, "会议安排", MeetingListActivity.class);
         MisGuideBean sealManager = new MisGuideBean(R.drawable.ic_mis_matter_approve, "事项审批", SealManageListActivity.class);
-        char s1 = shortUserPower.charAt(0);
+        MisGuideBean evaluation = new MisGuideBean(R.drawable.ic_evaluation_comparison, "证书打印", EvaluationComparisonPrintActivity.class);
+        char s1 = shortUserPower.charAt(1);
+        char s2 = shortUserPower.charAt(2);
+        char s3 = shortUserPower.charAt(3);
+        char s4 = shortUserPower.charAt(4);
+        char s5 = shortUserPower.charAt(5);
+        char s6 = shortUserPower.charAt(0);
+        char s7 = shortUserPower.charAt(6);
+      /*  char s1 = shortUserPower.charAt(0);
         char s2 = shortUserPower.charAt(1);
         char s3 = shortUserPower.charAt(2);
         char s4 = shortUserPower.charAt(3);
@@ -160,38 +168,39 @@ public class MisGuideActivity extends NavigationActivity {
         char s6 = '0';
         char s7 = '0';
         if (shortUserPower.length() == 7) {
-            s6 = shortUserPower.charAt(0);
             s1 = shortUserPower.charAt(1);
             s2 = shortUserPower.charAt(2);
             s3 = shortUserPower.charAt(3);
             s4 = shortUserPower.charAt(4);
             s5 = shortUserPower.charAt(5);
+            s6 = shortUserPower.charAt(0);
             s7 = shortUserPower.charAt(6);
-        }
+        }*/
         if (s1 == '1') {
-            menuArray.add(huiyuanbean);
+            menuArray.add(memberInfoSearch);
         }
         if (s2 == '1') {
-            menuArray.add(zhenshubean);
+            menuArray.add(certificateInfoSearch);
         }
         if (s3 == '1') {
-            menuArray.add(pinguchaxunbean);
+            menuArray.add(evaluationInfoSearch);
         }
         if (s4 == '1') {
-            menuArray.add(xinxibean);
+            menuArray.add(notice);
         }
         if (s5 == '1') {
-            menuArray.add(nianjiashenqinbean);
+            menuArray.add(annualManage);
         }
         if (s6 == '1') {
             //新增的权限“比对审批”
             menuArray.add(comparisonApproval);
         }
-        if(s7=='1'){
+        if (s7 == '1') {
             menuArray.add(sealManager);
         }
-        //会议安排暂时隐藏
         menuArray.add(meetingManager);
+        //测试阶段，加入“评估打印”
+        menuArray.add(evaluation);
 
         for (int i = menuArray.size() - 1; i >= 0; i--) {
             addItemView(menuArray.get(i));

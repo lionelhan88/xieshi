@@ -39,11 +39,11 @@ public class Constants {
 
         public static String GET_TOKEN() {
             //秘书长token
-            //String testToken = "69D28D31-F25B-4A3A-8981-043670CA943A";
+            String testToken = "69D28D31-F25B-4A3A-8981-043670CA943A";
             //郑健
             //String testToken = "DFDDF84F-699B-45DA-A625-3AF9032681AA";
-            //return testToken;
-            return SPUtil.getSPLSUtil(XS_TOKEN, "");
+            return testToken;
+            //return SPUtil.getSPLSUtil(XS_TOKEN, "");
         }
     }
 
@@ -111,13 +111,32 @@ public class Constants {
 
     //工地信息相关
     public static class Site {
-        public static final String KEY_PROJECT_ID="projectid";
-        public static final String KEY_PROJECT_NAME="projectName";
-        public static final String KEY_PROJECT_AREA="projectArea";
+        public static final String KEY_PROJECT_ID = "projectid";
+        public static final String KEY_PROJECT_NAME = "projectName";
+        public static final String KEY_PROJECT_AREA = "projectArea";
         //材料查询
-        public static final int SITE_INFO_SEARCH_BY_MATERIAL =0;
+        public static final int SITE_INFO_SEARCH_BY_MATERIAL = 0;
         //工程查询
         public static final int SITE_INFO_SEARCH_BY_PROJECT = 1;
+    }
+
+    //评估批准打印相关
+    public static class EvaluationComparison {
+        public static final String REQUEST_PARAM_KEY_MEMBER_NAME_NO="s1";
+        //0申请中 1已批准
+        public static final String REQUEST_PARAM_KEY_STATE="s2";
+        //申请中
+        public static final int STATE_APPLYING = 0;
+        //已批准
+        public static final int STATE_APPROVED = 1;
+        //全部
+        public static final String STATE_ALL = "";
+
+        public static final String KEY_APPROVE_TYPE = "key_approve_type";
+        public static final String KEY_CONTENT_BEAN = "key_content_bean";
+
+        public static final String APPROVE_DISABLE="0";
+        public static final String APPROVE_ENABLE="1";
     }
 
 
