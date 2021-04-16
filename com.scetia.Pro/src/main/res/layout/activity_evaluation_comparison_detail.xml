@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_evaluation_comparison_detail_approve"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="会员号" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_member_no"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="单位名称" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_member_name"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="状态" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_state"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="过期日期" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_expired_date"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/info_show_list_linearLayout"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="申请类型" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_apply_type"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="类型" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_type"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="补/换发日期" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_reissue_date"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="备注" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_remarks"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/info_show_list_linearLayout"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="申请人" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_apply_man"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/seal_matter_detail_text_label_style"
+                    android:text="申请日期" />
+
+                <TextView
+                    android:id="@+id/evaluation_comparison_detail_apply_date"
+                    style="@style/evaluation_comparison_content_style" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_evaluation_comparison_detail_approve"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/blue_normal2"
+        android:text="批准"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

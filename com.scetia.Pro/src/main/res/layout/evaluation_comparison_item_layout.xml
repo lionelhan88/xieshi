@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@drawable/select_bottom_line">
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_member_no_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/member_text"
+        android:textColor="@color/grey_dim"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_member_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_dim"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintLeft_toRightOf="@+id/evaluation_comparison_item_member_no_label"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1000" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="申请中" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_member_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_member_no"
+        tools:text="上海建洋建设工程质量检测有限公司上海建洋建设工程质量检测有限公司" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_apply_type_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_11"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_member_name"
+        android:text="申请类型：" />
+
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_apply_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_11"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintLeft_toRightOf="@+id/evaluation_comparison_item_apply_type_label"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_member_name"
+        tools:text="证书" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_11"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintRight_toLeftOf="@+id/evaluation_comparison_item_type"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_member_name"
+        android:text="类型：" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_11"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_member_name"
+        android:text="-"
+        tools:text="换发" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_expired_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_11"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_apply_type_label"
+        android:text="过期日期：" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_expired_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_11"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintLeft_toRightOf="@+id/evaluation_comparison_item_expired_date_label"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_apply_type_label"
+        tools:text="2020/11/30" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_remarks_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_dim"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_expired_date_label"
+        android:text="备注：" />
+
+    <TextView
+        android:id="@+id/evaluation_comparison_item_remarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/grey_dim"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintLeft_toRightOf="@+id/evaluation_comparison_item_remarks_label"
+        app:layout_constraintTop_toBottomOf="@+id/evaluation_comparison_item_expired_date_label"
+        tools:text="2020-11-30" />
+</androidx.constraintlayout.widget.ConstraintLayout>
