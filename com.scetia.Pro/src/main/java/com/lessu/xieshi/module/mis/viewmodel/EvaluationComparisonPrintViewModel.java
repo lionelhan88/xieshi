@@ -42,12 +42,11 @@ public class EvaluationComparisonPrintViewModel extends BaseViewModel {
         return approveState;
     }
 
-    public void loadData(boolean isRefresh, HashMap<String,Object> params){
-        if(isRefresh){
+    public void loadData(boolean showLoading, HashMap<String,Object> params){
+        if(showLoading){
             loadState.setValue(LoadState.LOADING);
         }
         params.put(Constants.User.XS_TOKEN,Constants.User.GET_TOKEN());
-        LogUtil.showLogE(GsonUtil.mapToJsonStr(params));
         XSRetrofit.getInstance().getService(MisApiService.class)
                 .getEvaluationComparisonByQuery(GsonUtil.mapToJsonStr(params))
                 .compose(XSRetrofit.<XSResultData<EvaluationComparisonBean>, EvaluationComparisonBean>applyTransformer())

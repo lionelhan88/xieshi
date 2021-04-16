@@ -39,11 +39,11 @@ public class Constants {
 
         public static String GET_TOKEN() {
             //秘书长token
-            String testToken = "69D28D31-F25B-4A3A-8981-043670CA943A";
+            //String testToken = "69D28D31-F25B-4A3A-8981-043670CA943A";
             //郑健
             //String testToken = "DFDDF84F-699B-45DA-A625-3AF9032681AA";
-            return testToken;
-            //return SPUtil.getSPLSUtil(XS_TOKEN, "");
+            //return testToken;
+            return SPUtil.getSPLSUtil(XS_TOKEN, "");
         }
     }
 
@@ -70,7 +70,6 @@ public class Constants {
         public static final String KEY_SEAL_MATTER_TYPE = "s1";
         public static final String KEY_SEAL_MANAGE_BEAN = "key_seal_manage_bean";
         public static final String KEY_YZ_FJ_BEAN = "key_yz_fj_bean";
-        public static final String STATE_ALL = "";
         //申请中
         public static final int STATE_APPLYING = 0;
         //已审核
@@ -120,7 +119,7 @@ public class Constants {
         public static final int SITE_INFO_SEARCH_BY_PROJECT = 1;
     }
 
-    //评估批准打印相关
+    //证书打印批准打印相关
     public static class EvaluationComparison {
         public static final String REQUEST_PARAM_KEY_MEMBER_NAME_NO="s1";
         //0申请中 1已批准
