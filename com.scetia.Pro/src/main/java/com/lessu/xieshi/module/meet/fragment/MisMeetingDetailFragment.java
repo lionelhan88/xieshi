@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -185,7 +186,10 @@ public class MisMeetingDetailFragment extends LazyFragment {
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().displayImage(MEETING_DETAIL_IMG,meetingDetailContentImg,
                 ImageloaderUtil.MeetingImageOptions());*/
-        Glide.with(this).load(MEETING_DETAIL_IMG).override(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+        Glide.with(this).load(MEETING_DETAIL_IMG).
+                override(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(meetingDetailContentImg);
         String photoUrl = meetingBean.getMeetingDetailPhoto();
         if (photoUrl == null || photoUrl.equals("")) {

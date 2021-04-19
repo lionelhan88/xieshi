@@ -200,7 +200,7 @@ public class MisGuideActivity extends NavigationActivity {
         }
         menuArray.add(meetingManager);
         //测试阶段，加入“评估打印”
-        menuArray.add(evaluation);
+        //menuArray.add(evaluation);
 
         for (int i = menuArray.size() - 1; i >= 0; i--) {
             addItemView(menuArray.get(i));

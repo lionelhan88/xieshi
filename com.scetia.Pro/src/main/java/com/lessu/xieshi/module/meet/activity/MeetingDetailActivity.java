@@ -1,5 +1,6 @@
 package com.lessu.xieshi.module.meet.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
@@ -8,7 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
+import com.good.permission.annotation.PermissionDenied;
+import com.good.permission.annotation.PermissionNeed;
+import com.good.permission.util.PermissionSettingPage;
 import com.google.gson.JsonElement;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
@@ -16,6 +21,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.set.SettingActivity;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
@@ -83,19 +89,6 @@ public class MeetingDetailActivity extends NavigationActivity {
     private MeetingBean.MeetingUserBean curMeetingUserBean = new MeetingBean.MeetingUserBean();
     private String curUserId = "";
 
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meeting_detail);
-        ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
-        setTitle("会议详情");
-        handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
-        navigationBar.addRightBarItem(handleButtonItem2);
-        handleButtonItem2.setOnClickMethod(this, "scanSign");
-        initView();
-    }*/
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_meeting_detail;
@@ -153,7 +146,10 @@ public class MeetingDetailActivity extends NavigationActivity {
         meetingDetailEndDate.setText(meetingBean.getMeetingEndTime());
         meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
-        Glide.with(this).load(MEETING_DETAIL_IMG).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+        Glide.with(this).load(MEETING_DETAIL_IMG)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(meetingDetailContentImg);
         String photoUrl = meetingBean.getMeetingDetailPhoto();
         if (photoUrl == null || photoUrl.equals("")) {
@@ -343,12 +339,20 @@ public class MeetingDetailActivity extends NavigationActivity {
     /**
      * 点击开启扫码签到
      */
+    @PermissionNeed(Manifest.permission.CAMERA)
     public void scanSign() {
         Intent scanIntent = new Intent(this, ScanActivity.class);
         scanIntent.putExtra(Constants.Setting.SCAN_TYPE, Constants.Setting.SCAN_MEETING_SIGNED);
         startActivityForResult(scanIntent, 0x11);
     }
-
+    /**
+     * 如果用户永久拒绝了，就要打开
+     */
+    @PermissionDenied
+    private void shouldOpenScan(int requestCode) {
+        LSAlert.showDialog(this, "提示", "请在系统设置中打开相机权限！", "去设置", "不设置",
+                () -> PermissionSettingPage.start(this, true));
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

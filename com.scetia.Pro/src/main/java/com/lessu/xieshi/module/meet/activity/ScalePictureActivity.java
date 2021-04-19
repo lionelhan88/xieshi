@@ -52,9 +52,7 @@ public class ScalePictureActivity extends NavigationActivity {
                 setTitle("会议内容");
                 scaleBackground.setBackgroundColor(getResources().getColor(R.color.white));
             }
-            scalePictureImage.post(() -> {
-                GlideUtil.showImageViewNoCache(this, photoUrl, scalePictureImage);
-            });
+            GlideUtil.showImageViewNoCache(this, photoUrl, scalePictureImage);
         }
         if (commissionDetailPhoto != null) {
             //设置图片正在加载动画

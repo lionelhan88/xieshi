@@ -34,16 +34,6 @@ public class OtherConfirmActivity extends NavigationActivity {
     Button otherConfirmBtOk;
     private String meetingId;
     private String userId;
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_other_confirm_layout);
-        ButterKnife.bind(this);
-        navigationBar.setTitle("会议确认");
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        meetingId = getIntent().getStringExtra("meeting_id");
-        userId = getIntent().getStringExtra("user_id");
-    }*/
 
     @Override
     protected int getLayoutId() {
@@ -78,7 +68,12 @@ public class OtherConfirmActivity extends NavigationActivity {
                         if (resultCode == 1) {
                             //确认成功,更改确认状态
                             EventBus.getDefault().post(new OtherConfirmEvent(userName,phone));
-                            finish();
+                            LSAlert.showAlert(OtherConfirmActivity.this, "", "确认通知成功", "确认", false, new LSAlert.AlertCallback() {
+                                @Override
+                                public void onConfirm() {
+                                    finish();
+                                }
+                            });
                         } else {
                             //确认失败
                             LSAlert.showAlert(OtherConfirmActivity.this, "确认失败！");
