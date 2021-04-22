@@ -221,7 +221,7 @@ public class LearnDataActivity extends NavigationActivity {
                 viewHolder.learn_data_item_sign_date.setText(courseScore.getFirstEnterTime());
                 boolean finish = courseScore.isFinish();
                 if (finish) {
-                    viewHolder.learn_data_item_result.setTextColor(getResources().getColor(R.color.textcolor));
+                    viewHolder.learn_data_item_result.setTextColor(getResources().getColor(R.color.blue_normal2));
                     viewHolder.learn_data_item_result.setText("符合要求");
                 } else {
                     viewHolder.learn_data_item_result.setTextColor(getResources().getColor(android.R.color.holo_red_light));

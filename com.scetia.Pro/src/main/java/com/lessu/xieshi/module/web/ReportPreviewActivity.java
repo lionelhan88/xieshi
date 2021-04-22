@@ -12,17 +12,6 @@ import android.webkit.WebView;
 
 public class ReportPreviewActivity extends TemplatedWebViewActivity {
 	private WebView reportpreviewWebView;
-	private Map<String,String> activtyMapper;
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.report_detail_activity);
-		if(reportpreviewWebView == null){
-			reportpreviewWebView = (WebView) findViewById(R.id.report_detail);
-		}
-		this.setTitle("批准中报告预览");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-	}*/
 
 	@Override
 	protected int getLayoutId() {
@@ -64,21 +53,6 @@ public class ReportPreviewActivity extends TemplatedWebViewActivity {
 
 	@Override
 	public boolean onReceiveEvent(String event, Map<String, String> params) {
-		
-//		if (event != null){
-//			if (event.equalsIgnoreCase("sampleList")){
-//				Intent intent = new Intent (ReportDetailActivity.this, SampleListActivity.class);
-//				Bundle bundle = new Bundle();  
-//				Bundle bundelForData=this.getIntent().getExtras(); 
-//				String Report_ID = bundelForData.getString("Report_id");
-//				String Checksum = bundelForData.getString("Checksum");
-//				bundle.putString("Report_id", Report_ID);
-//				bundle.putString("Checksum", Checksum);
-//				intent.putExtras(bundle);
-//				startActivity(intent);  
-//				return true;
-//			}
-//		}
 		return false;
 	}
 

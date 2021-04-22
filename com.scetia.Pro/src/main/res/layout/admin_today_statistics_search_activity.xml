@@ -105,7 +105,7 @@
             android:id="@+id/cb_statistics_site_all"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y101"
-            android:background="@drawable/stroke_bottom_line"
+            android:background="@drawable/light_gray_underline_with_white_bg"
             android:button="@null"
             android:drawableRight="@drawable/checkbox_selector_in"
             android:paddingLeft="17dp"

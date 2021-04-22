@@ -33,15 +33,6 @@ public class UnqualifiedConstructionListActivity extends XieShiSlidingMenuActivi
     private ConstructionListViewModel viewModel;
     private View loadingView;
 
- /*   @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.construction_list_activity);
-        ButterKnife.bind(this);
-        this.setTitle("工程列表");
-        observerData();
-        initView();
-    }*/
 
     @Override
     protected int getLayoutId() {

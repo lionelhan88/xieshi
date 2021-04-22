@@ -12,7 +12,6 @@ import android.webkit.WebView;
 
 public class RecordPreviewActivity extends TemplatedWebViewActivity {
 	private WebView recordpreviewWebView;
-	private Map<String,String> activtyMapper;
 
 	@Override
 	protected int getLayoutId() {

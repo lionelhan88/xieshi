@@ -1,92 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#3598DC"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
+
     <LinearLayout
-        android:clickable="true"
-        android:layout_marginTop="68dp"
-        android:background="@drawable/sekector_scanitem"
         android:id="@+id/ll_shenqingshangbao"
         android:layout_width="match_parent"
         android:layout_height="94dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/sekector_scanitem"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:background="@drawable/shenqingshangbao"/>
+            android:background="@drawable/shenqingshangbao" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
             android:layout_marginLeft="16dp"
-            android:text="申请上报"/>
+            android:text="申请上报"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/sekector_scanitem"
         android:id="@+id/ll_shenhexiazai"
         android:layout_width="match_parent"
         android:layout_height="94dp"
+        android:background="@drawable/sekector_scanitem"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:background="@drawable/shenhexiazai"/>
+            android:background="@drawable/shenhexiazai" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
             android:layout_marginLeft="16dp"
-            android:text="审核下载"/>
+            android:text="审核下载"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/sekector_scanitem"
         android:id="@+id/ll_rukuchakan"
         android:layout_width="match_parent"
         android:layout_height="94dp"
+        android:background="@drawable/sekector_scanitem"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:background="@drawable/rukuchakan"/>
+            android:background="@drawable/rukuchakan" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
             android:layout_marginLeft="16dp"
-            android:text="入库查看"/>
+            android:text="入库查看"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/sekector_scanitem"
         android:id="@+id/ll_shebeixinxi"
         android:layout_width="match_parent"
         android:layout_height="94dp"
+        android:background="@drawable/sekector_scanitem"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:background="@drawable/shebeixinxi"/>
+            android:background="@drawable/shebeixinxi" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
             android:layout_marginLeft="16dp"
-            android:text="设备信息"/>
+            android:text="设备信息"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,39 +104,32 @@
         android:layout_height="94dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
             android:layout_marginLeft="32dp"
-            android:text="功率扫描设置"/>
+            android:text="功率扫描设置"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
         <SeekBar
-            android:layout_margin="10dp"
-            android:thumb="@drawable/yuana"
             android:id="@+id/sb_scan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:max="100"
             android:progress="30"
-            />
+            android:thumb="@drawable/yuana" />
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#ffffff"
             android:layout_marginLeft="32dp"
-            android:text="弱              强"/>
-
-
-
+            android:text="弱              强"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>

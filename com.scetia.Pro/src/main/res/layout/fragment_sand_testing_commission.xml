@@ -113,7 +113,7 @@
             android:id="@+id/sand_manage_sampling_process_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/stroke_bottom_line"
+            android:background="@drawable/light_gray_underline_with_white_bg"
             android:orientation="vertical">
 
             <LinearLayout

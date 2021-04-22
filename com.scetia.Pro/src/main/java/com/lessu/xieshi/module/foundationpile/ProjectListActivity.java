@@ -270,7 +270,7 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
         llMapButton.setBackgroundResource(R.drawable.juxing);
         tvMapText.setTextColor(this.getResources().getColor(R.color.white));
         llProjectButton.setBackgroundResource(R.drawable.yuanjiaojuxing);
-        tvProjectText.setTextColor(this.getResources().getColor(R.color.textcolor));
+        tvProjectText.setTextColor(this.getResources().getColor(R.color.blue_normal2));
         ivMap.setBackgroundResource(R.drawable.ditu1);
         ivProject.setBackgroundResource(R.drawable.zuijin);
         listView.setVisibility(View.GONE);
@@ -283,7 +283,7 @@ public class ProjectListActivity extends XieShiSlidingMenuActivity {
     protected void projectButtonDidClick() {
         mMapView.setVisibility(View.GONE);
         llMapButton.setBackgroundResource(R.drawable.yuanjiaojuxing);
-        tvMapText.setTextColor(this.getResources().getColor(R.color.textcolor));
+        tvMapText.setTextColor(this.getResources().getColor(R.color.blue_normal2));
         llProjectButton.setBackgroundResource(R.drawable.juxing);
         tvProjectText.setTextColor(this.getResources().getColor(R.color.white));
         ivMap.setBackgroundResource(R.drawable.ditu);

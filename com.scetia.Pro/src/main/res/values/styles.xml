@@ -13,6 +13,7 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_from_left_to_right</item>
     </style>
 
+    <!-- 登录页面全屏-->
     <style name="LoginTheme" parent="@style/AppBaseTheme">
         <item name="android:windowDisablePreview">true</item>
     </style>
@@ -32,7 +33,7 @@
     </style>
 
     <!--seekbar-->
-    <style name="CustomeSeekBarStyle" parent="@android:style/Widget.SeekBar">
+    <style name="CustomSeekBarStyle" parent="@android:style/Widget.SeekBar">
         <item name="android:maxHeight">8.0dip</item>
         <item name="android:indeterminateOnly">false</item>
         <item name="android:indeterminateDrawable">
@@ -69,7 +70,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">40dp</item>
-        <item name="android:background">@drawable/select_bottom_line</item>
+        <item name="android:background">@drawable/press_with_light_gray_underline_bg</item>
         <item name="android:orientation">horizontal</item>
 
     </style>
@@ -78,7 +79,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">50dp</item>
-        <item name="android:background">@drawable/select_bottom_line</item>
+        <item name="android:background">@drawable/press_with_light_gray_underline_bg</item>
         <item name="android:orientation">horizontal</item>
 
     </style>
@@ -146,6 +147,7 @@
         <item name="android:paddingEnd">10dp</item>
     </style>
     //工地查询-搜索界面
+
     <style name="statistics_search_linear_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/y100</item>
@@ -153,14 +155,16 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:paddingStart">17dp</item>
         <item name="android:paddingEnd">7dp</item>
-        <item name="android:background">@drawable/stroke_bottom_line</item>
+        <item name="android:background">@drawable/light_gray_underline_with_white_bg</item>
     </style>
+
     <style name="statistics_search_text_label_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/light_gray2</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
+
     <style name="statistics_search_text_content_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -173,6 +177,7 @@
     </style>
 
     //评估批准打印
+
     <style name="evaluation_comparison_content_style" parent="info_show_list_right">
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>

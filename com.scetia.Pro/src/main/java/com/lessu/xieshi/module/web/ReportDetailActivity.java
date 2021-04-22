@@ -14,17 +14,6 @@ import android.webkit.WebView;
 
 public class ReportDetailActivity extends TemplatedWebViewActivity {
 	private WebView reportdetailWebView;
-	private Map<String,String> activtyMapper;
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.report_detail_activity);
-		if(reportdetailWebView == null){
-			reportdetailWebView = (WebView) findViewById(R.id.report_detail);
-		}
-		this.setTitle("检测报告");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-	}*/
 
 	@Override
 	protected int getLayoutId() {

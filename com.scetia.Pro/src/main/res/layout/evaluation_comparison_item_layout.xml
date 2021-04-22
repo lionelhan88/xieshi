@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="@drawable/select_bottom_line">
+    android:background="@drawable/press_with_light_gray_underline_bg">
 
     <TextView
         android:id="@+id/evaluation_comparison_item_member_no_label"

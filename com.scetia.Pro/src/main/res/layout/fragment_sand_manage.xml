@@ -9,7 +9,7 @@
         android:id="@+id/sand_manage_provider_search"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView
@@ -41,7 +41,7 @@
         android:id="@+id/sand_manage_sales_manage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView
@@ -73,7 +73,7 @@
         android:id="@+id/sand_manage_testing_manage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView
@@ -105,7 +105,7 @@
         android:id="@+id/sand_manage_flow_declaration"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView
@@ -137,7 +137,7 @@
         android:id="@+id/sand_manage_testing_commission"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView
@@ -169,7 +169,7 @@
         android:id="@+id/sand_manage_info_query"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView
@@ -200,7 +200,7 @@
         android:id="@+id/sand_manage_info_qrcode"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stroke_bottom_line"
+        android:background="@drawable/light_gray_underline_with_white_bg"
         android:paddingStart="10dp">
 
         <ImageView

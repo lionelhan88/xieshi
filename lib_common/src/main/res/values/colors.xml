@@ -2,7 +2,6 @@
 <resources>
     <color name="top_bar_background">@color/blue_normal2</color>
     <color name="common_background">#E5E5E5</color>
-    <color name="textcolor">@color/blue_normal2</color>
     <color name="mis_meeting_tab_title_color">#63CFC2</color>
     <color name="today_statics_list_title_color">#73C4ED</color>
     <color name="replace_sign_confirm_color">#CAD7F8</color>
@@ -20,6 +19,11 @@
     <color name="seal_matter_state_review">@color/blue_light1</color>
     <color name="seal_matter_state_approved">@color/green_dark</color>
     <color name="seal_matter_state_stamp">@color/blue_normal2</color>
+
+    //不合格信息查询
+    <color name="unqualified_search_label_color">@color/light_gray2</color>
+
+
 
     <color name="blue_normal1">#5D9CEC</color>
     <color name="blue_normal2">#3598DC</color>

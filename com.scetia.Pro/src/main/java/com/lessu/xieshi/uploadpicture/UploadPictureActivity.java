@@ -42,21 +42,6 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 	JsonArray list = new JsonArray();
 	int nowUploadIndex = -1;
 	int position = -1;
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.upload_picture_activity);
-		ListView listView = (ListView) findViewById(R.id.listView);
-		listView.setAdapter(adapter);
-
-		listView.setOnItemClickListener(this);
-
-		this.setTitle("图片上传");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-
-		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
-	}*/
 
 	@Override
 	protected int getLayoutId() {

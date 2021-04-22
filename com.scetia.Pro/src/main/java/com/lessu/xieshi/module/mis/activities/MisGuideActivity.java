@@ -160,6 +160,10 @@ public class MisGuideActivity extends NavigationActivity {
         char s5 = shortUserPower.charAt(5);
         char s6 = shortUserPower.charAt(0);
         char s7 = shortUserPower.charAt(6);
+        char s8 = '0';
+        if (shortUserPower.length() >= 8) {
+            s8 = shortUserPower.charAt(7);
+        }
       /*  char s1 = shortUserPower.charAt(0);
         char s2 = shortUserPower.charAt(1);
         char s3 = shortUserPower.charAt(2);
@@ -199,8 +203,10 @@ public class MisGuideActivity extends NavigationActivity {
             menuArray.add(sealManager);
         }
         menuArray.add(meetingManager);
-        //测试阶段，加入“评估打印”
-        //menuArray.add(evaluation);
+        if (s8 == '1') {
+            //测试阶段，加入“评估打印”
+            menuArray.add(evaluation);
+        }
 
         for (int i = menuArray.size() - 1; i >= 0; i--) {
             addItemView(menuArray.get(i));

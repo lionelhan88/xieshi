@@ -265,7 +265,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		tv_cailiao.setTextColor(this.getResources().getColor(R.color.white));
 		findViewById(R.id.iv_cailiao).setBackgroundResource(R.drawable.cailiao);
 		TextView tv_gongcheng = findViewById(R.id.tv_gongcheng);
-		tv_gongcheng.setTextColor(this.getResources().getColor(R.color.textcolor));
+		tv_gongcheng.setTextColor(this.getResources().getColor(R.color.blue_normal2));
 		findViewById(R.id.iv_gongcheng).setBackgroundResource(R.drawable.gongcheng2);
 		findViewById(R.id.projectView).setVisibility(View.GONE);
 		findViewById(R.id.ll_gongchen).setBackgroundColor(Color.TRANSPARENT);
@@ -277,7 +277,7 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 		findViewById(R.id.projectView).setVisibility(View.VISIBLE);
 		findViewById(R.id.ll_gongchen).setBackgroundResource(R.drawable.anniu);
 		TextView tv_cailiao = findViewById(R.id.tv_cailiao);
-		tv_cailiao.setTextColor(this.getResources().getColor(R.color.textcolor));
+		tv_cailiao.setTextColor(this.getResources().getColor(R.color.blue_normal2));
 		findViewById(R.id.iv_cailiao).setBackgroundResource(R.drawable.cailiao1);
 		TextView tv_gongcheng = findViewById(R.id.tv_gongcheng);
 		tv_gongcheng.setTextColor(this.getResources().getColor(R.color.white));
