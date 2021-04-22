@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/projectView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="17dp"
+        android:paddingEnd="7dp"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="检测项目"
+            android:textColor="@color/unqualified_search_label_color"
+            android:textSize="@dimen/text_size_small" />
+
+        <LinearLayout
+            android:id="@+id/CheckItemButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/CheckItemTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/orange2"
+                android:textSize="@dimen/text_size_small" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="14dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/xialacaidan" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="17dp"
+        android:paddingEnd="7dp"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始日期"
+            android:textColor="@color/unqualified_search_label_color"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/StartDateEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="2014-12-01"
+            android:textColor="#f78320"
+            android:textSize="@dimen/text_size_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="17dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束日期"
+            android:textColor="@color/unqualified_search_label_color"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/EndDateEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="2014-12-08"
+            android:textColor="@color/orange2"
+            android:textSize="@dimen/text_size_small" />
+
+    </LinearLayout>
+    <AbsoluteLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="17dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查询权限"
+                android:textColor="#ababab"
+                android:textSize="@dimen/text_size_small" />
+
+            <EditText
+                android:id="@+id/QueryPowerEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="#f78320"
+                android:textSize="@dimen/text_size_small" />
+
+        </LinearLayout>
+    </AbsoluteLayout>
+    <Button
+        android:id="@+id/bt_project_ok"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:background="@drawable/yuanjiaojuxing1"
+        android:text="确定"
+        android:textColor="@color/white" />
+
+</LinearLayout>

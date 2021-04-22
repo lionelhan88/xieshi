@@ -35,15 +35,6 @@ public class TestingReportActivity extends NavigationActivity {
     private TestingReportListViewModel viewModel;
     private TestingReportListAdapter listAdapter;
     private View loadingView;
-  /*  @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.construction_list_activity);
-        ButterKnife.bind(this);
-        this.setTitle("检测报告");
-        initDataListener();
-        initView();
-    }*/
 
     @Override
     protected int getLayoutId() {
