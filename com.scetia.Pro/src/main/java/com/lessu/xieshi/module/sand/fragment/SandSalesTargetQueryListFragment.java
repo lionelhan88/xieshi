@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.navigation.NavigationBar;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.CompanyQueryResultListAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;

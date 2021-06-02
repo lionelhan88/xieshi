@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.http.service.MisApiService;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.scetia.Pro.baseapp.basepage.BaseViewModel;

@@ -3,7 +3,7 @@ package com.lessu.xieshi.module.mis.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.SealManageUtil;
+import com.lessu.xieshi.utils.SealManageUtil;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.scetia.Pro.common.Util.Constants;
 

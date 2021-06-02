@@ -2,14 +2,13 @@ package com.lessu.xieshi.base;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.uikit.views.LSAlert;
 import com.scetia.Pro.baseapp.fragment.BaseFragment;

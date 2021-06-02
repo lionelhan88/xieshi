@@ -1,6 +1,5 @@
 package com.lessu.xieshi.module.training;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.LongString;
+import com.lessu.xieshi.utils.LongString;
 import com.lessu.xieshi.http.service.TraningApiService;
 import com.lessu.xieshi.module.training.bean.CourseScore;
 import com.lessu.xieshi.bean.Project;

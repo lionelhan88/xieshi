@@ -5,12 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.http.service.MisApiService;
 import com.lessu.xieshi.module.mis.bean.EvaluationComparisonBean;
 import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
-import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.bean.XSResultData;

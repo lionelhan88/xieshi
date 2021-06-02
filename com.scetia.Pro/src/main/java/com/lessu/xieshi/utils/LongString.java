@@ -1,4 +1,4 @@
-package com.lessu.xieshi.Utils;
+package com.lessu.xieshi.utils;
 
 import android.text.TextUtils;
 

@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.scan;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,7 +20,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.view.DragLayout;
 import com.scetia.Pro.common.Util.SPUtil;
 
@@ -29,9 +28,7 @@ import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShenqingshangbaoActivity extends NavigationActivity implements View.OnClickListener {

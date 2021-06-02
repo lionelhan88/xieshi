@@ -1,11 +1,10 @@
 package com.lessu.xieshi.module.scan.util;
 
-import com.lessu.xieshi.Utils.Decrypt;
-import com.lessu.xieshi.Utils.LongString;
+import com.lessu.xieshi.utils.Decrypt;
+import com.lessu.xieshi.utils.LongString;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
-import com.scetia.Pro.network.bean.ExceptionHandle;
-import com.scetia.Pro.network.conversion.ResponseObserver;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;

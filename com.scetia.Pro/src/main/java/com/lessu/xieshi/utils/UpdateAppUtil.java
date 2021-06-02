@@ -1,30 +1,18 @@
-package com.lessu.xieshi.Utils;
+package com.lessu.xieshi.utils;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.Settings;
-import android.view.View;
-import android.widget.TextView;
 
-import com.good.permission.annotation.PermissionNeed;
-import com.good.permission.util.PermissionUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.R;
 
 import java.util.HashMap;
 
 import constant.UiType;
-import listener.OnInitUiListener;
-import listener.UpdateDownloadListener;
 import model.UiConfig;
 import model.UpdateConfig;
 import update.UpdateAppUtils;

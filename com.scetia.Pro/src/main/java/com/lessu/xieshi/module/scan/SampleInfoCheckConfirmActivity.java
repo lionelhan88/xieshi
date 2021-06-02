@@ -2,7 +2,7 @@ package com.lessu.xieshi.module.scan;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,7 +16,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.lessu.xieshi.view.DragLayout;
 

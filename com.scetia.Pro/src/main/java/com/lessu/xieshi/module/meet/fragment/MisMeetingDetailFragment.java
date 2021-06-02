@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;

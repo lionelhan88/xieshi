@@ -19,7 +19,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.weather.bean.DailyForecast;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
 import com.lessu.xieshi.module.weather.bean.Tenbean;

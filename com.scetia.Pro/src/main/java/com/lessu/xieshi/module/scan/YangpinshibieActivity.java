@@ -12,8 +12,8 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.scetia.Pro.common.Util.Constants;
-import com.lessu.xieshi.Utils.Decrypt;
-import com.lessu.xieshi.Utils.LongString;
+import com.lessu.xieshi.utils.Decrypt;
+import com.lessu.xieshi.utils.LongString;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.scetia.Pro.common.Util.SPUtil;
 

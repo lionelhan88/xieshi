@@ -24,8 +24,8 @@ import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.refreashAndLoad.page.ListPageWrapper;
 import com.lessu.xieshi.R;
 import com.scetia.Pro.common.Util.Constants;
-import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.GsonUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.mis.bean.Misnjbean;
 import com.scetia.Pro.common.Util.SPUtil;
 

@@ -15,7 +15,7 @@ import com.lessu.xieshi.R;
 import com.lessu.xieshi.http.service.TraningApiService;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.baseapp.uitls.LogUtil;
-import com.lessu.xieshi.Utils.LongString;
+import com.lessu.xieshi.utils.LongString;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.module.training.bean.PushToDx;
 import com.lessu.xieshi.module.training.bean.TrainingUserInfo;

@@ -17,14 +17,14 @@ import com.good.permission.util.PermissionSettingPage;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.SettingUtil;
+import com.lessu.xieshi.utils.SettingUtil;
 import com.scetia.Pro.common.Util.Constants;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
 import com.lessu.xieshi.module.mis.activities.MisGuideActivity;
-import com.lessu.xieshi.Utils.UpdateAppUtil;
+import com.lessu.xieshi.utils.UpdateAppUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -1,10 +1,9 @@
-package com.lessu.xieshi.Utils;
+package com.lessu.xieshi.utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;

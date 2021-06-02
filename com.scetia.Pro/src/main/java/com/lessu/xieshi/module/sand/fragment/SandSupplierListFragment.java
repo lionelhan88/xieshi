@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.sand.fragment;
 
 
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,16 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lessu.navigation.BarButtonItem;
-import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.SandProviderListAdapter;
 import com.lessu.xieshi.module.sand.bean.SandSupplierBean;
 import com.lessu.xieshi.module.sand.viewmodel.SandSupplierListViewModel;
 import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 import com.scetia.Pro.baseapp.uitls.GlobalEvent;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 
 import butterknife.BindView;
 

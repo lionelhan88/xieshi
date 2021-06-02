@@ -14,7 +14,7 @@ import com.lessu.navigation.NavigationActivity;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.bean.ListSampleDetail;
 import com.lessu.xieshi.bean.SampleDetail;
 import com.scetia.Pro.common.Util.Constants;

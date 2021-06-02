@@ -2,14 +2,12 @@ package com.lessu.xieshi.module.sand.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.Utils.ToastUtil;
 import com.lessu.xieshi.module.sand.bean.TestingCommissionBean;
 import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 import com.scetia.Pro.baseapp.uitls.GlobalEvent;

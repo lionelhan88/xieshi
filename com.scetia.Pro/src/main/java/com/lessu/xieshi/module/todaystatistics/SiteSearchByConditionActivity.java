@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;

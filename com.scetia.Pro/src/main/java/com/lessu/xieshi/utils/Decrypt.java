@@ -1,4 +1,4 @@
-package com.lessu.xieshi.Utils;
+package com.lessu.xieshi.utils;
 
 /**
  * Created by fhm on 2016/12/8.

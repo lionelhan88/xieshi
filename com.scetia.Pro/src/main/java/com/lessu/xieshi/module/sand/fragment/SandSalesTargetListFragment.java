@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.sand.fragment;
 
 import android.view.View;
 
-import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +11,7 @@ import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.BaseVMFragment;
 import com.lessu.xieshi.module.sand.adapter.SandSalesManageListAdapter;
 import com.lessu.xieshi.module.sand.bean.AddedSandSalesTargetBean;
@@ -23,8 +22,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;

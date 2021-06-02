@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.mis.adapter.SealManageListAdapter;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.lessu.xieshi.module.mis.viewmodel.SealManageListViewModel;

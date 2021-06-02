@@ -21,7 +21,8 @@ android {
     signingConfigs {
         release {
             try {
-                storeFile file("D:\\APP签名和打包\\xieshi path\\Scetia_Pro.jks")
+
+                storeFile file("../kestore/Scetia_Pro.jks")
                 storePassword "xieshi123"
                 keyAlias "xieshi123"
                 keyPassword "xieshi123"

@@ -1,10 +1,9 @@
 package com.lessu.xieshi.module.login.repository;
 
 import com.google.gson.JsonObject;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.module.weather.WeatherApiService;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
-import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.network.base.BaseRepository;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.base.BaseRetrofitManage;
