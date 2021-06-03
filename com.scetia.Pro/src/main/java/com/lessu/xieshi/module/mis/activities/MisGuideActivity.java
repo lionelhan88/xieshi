@@ -16,7 +16,7 @@ import com.good.permission.util.PermissionSettingPage;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.utils.SettingUtil;
+import com.lessu.xieshi.utils.DeviceUtil;
 import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
@@ -94,14 +94,17 @@ public class MisGuideActivity extends NavigationActivity {
                     LSAlert.dismissProgressHud();
                     if (loadState.getCode() == 3000) {
                         LSAlert.showAlert(MisGuideActivity.this, "提示", loadState.getMessage() + "\n是否重新登录？"
-                                , "确定", false, () -> SettingUtil.loginOut(this));
+                                , "确定", false, () -> DeviceUtil.loginOut(this));
                     } else if (loadState.getCode() == ExceptionHandle.NETWORK_ERROR) {
                         LSAlert.showAlert(MisGuideActivity.this, "提示", loadState.getMessage(), "重试", "退出", false
                                 , new LSAlert.AlertCallback() {
                                     @Override
                                     public void onConfirm() {
-                                        firstViewModel.login(SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""),
-                                                SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""));
+                                        firstViewModel.login(
+                                                SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""),
+                                                SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""),
+                                                DeviceUtil.getDeviceId(MisGuideActivity.this)
+                                        );
                                     }
 
                                     @Override
@@ -126,7 +129,7 @@ public class MisGuideActivity extends NavigationActivity {
             String userName = SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "");
             String password = SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, "");
             //如果开启自动登录，进入页面需要自动登录
-            firstViewModel.login(userName, password);
+            firstViewModel.login(userName, password,DeviceUtil.getDeviceId(this));
         } else {
             String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
             if (!userPower.equals("")) {

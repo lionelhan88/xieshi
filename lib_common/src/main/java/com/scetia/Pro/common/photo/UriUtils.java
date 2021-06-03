@@ -73,9 +73,7 @@ public class UriUtils {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
-                        split[1]
-                };
+                final String[] selectionArgs = new String[] {split[1]};
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
         } else if ("content".equalsIgnoreCase(uri.getScheme())) {
@@ -168,7 +166,7 @@ public class UriUtils {
                                        String[] selectionArgs) {
 
         Cursor cursor = null;
-        final String column = "_data";
+        final String column = MediaStore.Images.Media.DATA;
         final String[] projection = {
                 column
         };

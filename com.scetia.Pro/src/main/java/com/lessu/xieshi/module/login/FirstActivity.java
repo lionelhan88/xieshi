@@ -18,7 +18,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.utils.SettingUtil;
+import com.lessu.xieshi.utils.DeviceUtil;
 import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.ToastUtil;
@@ -155,14 +155,14 @@ public class FirstActivity extends NavigationActivity {
                     LSAlert.dismissProgressHud();
                     if (loadState.getCode() == 3000) {
                         LSAlert.showAlert(FirstActivity.this, "提示", loadState.getMessage() + "\n需要重新登录"
-                                , "确定", false, () -> SettingUtil.loginOut(this));
+                                , "确定", false, () -> DeviceUtil.loginOut(this));
                     } else if (loadState.getCode() == ExceptionHandle.NETWORK_ERROR) {
                         LSAlert.showAlert(FirstActivity.this, "提示", loadState.getMessage(), "重试", "退出",false
                                 , new LSAlert.AlertCallback() {
                                     @Override
                                     public void onConfirm() {
                                         firstViewModel.login(SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""),
-                                                SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""));
+                                                SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""),DeviceUtil.getDeviceId(FirstActivity.this));
                                     }
 
                                     @Override
@@ -199,7 +199,7 @@ public class FirstActivity extends NavigationActivity {
         if (SPUtil.getSPConfig(SPUtil.AUTO_LOGIN_KEY, false)) {
             String password = SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, "");
             //如果开启自动登录，进入页面需要自动登录
-            firstViewModel.login(userName, password);
+            firstViewModel.login(userName, password,DeviceUtil.getDeviceId(this));
         } else {
             String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
             if (!userPower.equals("")) initMenu(userPower);

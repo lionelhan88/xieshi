@@ -16,7 +16,7 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.uikit.views.LSAlert.DialogCallback;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.utils.SettingUtil;
+import com.lessu.xieshi.utils.DeviceUtil;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.UpdateAppUtil;
@@ -44,7 +44,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
     @Override
     protected void initView() {
         setTitle("设置");
-        settingAppVersionName.setText(SettingUtil.getVersionName(this));
+        settingAppVersionName.setText(DeviceUtil.getVersionName(this));
         serviceTextView.setText(SPUtil.GET_SERVICE_API().equals(ConstantApi.XS_TELECOM_BASE_URL) ? "电信服务器" : "联通服务器");
     }
 
@@ -72,7 +72,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
                         return;
                     }
                     SPUtil.clearData();
-                    SettingUtil.loginOut(SettingActivity.this);
+                    DeviceUtil.loginOut(SettingActivity.this);
                 }
             });
         });
@@ -96,7 +96,7 @@ public class SettingActivity extends XieShiSlidingMenuActivity {
               new DialogCallback() {
                   @Override
                   public void onConfirm() {
-                      SettingUtil.loginOut(SettingActivity.this);
+                      DeviceUtil.loginOut(SettingActivity.this);
                   }
               });
     }

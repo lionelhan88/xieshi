@@ -17,7 +17,8 @@ import com.good.permission.util.PermissionSettingPage;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.utils.SettingUtil;
+import com.lessu.xieshi.utils.DeviceUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
@@ -118,7 +119,7 @@ public class LoginActivity extends NavigationActivity {
     @Override
     protected void initData() {
         //显示出版本号
-        tvLoginVersion.setText(SettingUtil.getVersionName(this));
+        tvLoginVersion.setText(DeviceUtil.getVersionName(this));
         //拿到本地存储的权限码
         String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
         Intent intent = getIntent();
@@ -132,21 +133,13 @@ public class LoginActivity extends NavigationActivity {
     }
 
     @OnClick(R.id.loginButton)
+    @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE, requestCode = REQUEST_READ_PHONE_STATE)
     public void loginButtonDidPress() {
         //登陆接口访问
         final String userName = userNameEditText.getText().toString();
         final String password = passWordEditText.getText().toString();
-        login(userName, password);
-    }
-
-    /**
-     * 执行登陆请求
-     * @param name   用户名
-     * @param password 密码
-     */
-    @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE, requestCode = REQUEST_READ_PHONE_STATE)
-    private void login(final String name, final String password) {
-        loginViewModel.login(name, password);
+        final String deviceID = DeviceUtil.getDeviceId(this);
+        loginViewModel.login(userName, password,deviceID);
     }
 
     /**
@@ -193,7 +186,8 @@ public class LoginActivity extends NavigationActivity {
             if (RESULT_OK == resultCode) {
                 String userName1 = data.getStringExtra("userName");
                 String password1 = data.getStringExtra("password");
-                login(userName1, password1);
+                final String deviceID = DeviceUtil.getDeviceId(this);
+                loginViewModel.login(userName1, password1,deviceID);
             }
         }
     }

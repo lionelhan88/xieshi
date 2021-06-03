@@ -10,7 +10,9 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.lessu.xieshi.utils.DeviceUtil;
 import com.scetia.Pro.baseapp.basepage.BaseViewModel;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.network.bean.ExceptionHandle;
@@ -41,13 +43,13 @@ public class LoginViewModel extends BaseViewModel {
         return mapLiveData;
     }
 
-    public void login(String userName, String password) {
+    public void login(String userName, String password,String deviceID) {
         if(TextUtils.isEmpty(userName) ||TextUtils.isEmpty(password)){
             loadState.setValue(LoadState.FAILURE.setMessage("账号或密码不能为空"));
             return;
         }
+        curDeviceId = deviceID;
         loadState.postValue(LoadState.LOADING);
-        curDeviceId = getDeviceId();
         model.login(userName, password, curDeviceId, new ResponseObserver<LoginUser>() {
             @Override
             public void success(LoginUser loginUser) {
@@ -105,28 +107,5 @@ public class LoginViewModel extends BaseViewModel {
             map.put(TO_ACTIVITY,userPower);
         }
         mapLiveData.setValue(map);
-    }
-
-    /**
-     * 获取设备的uid号
-     */
-    private String getDeviceId() {
-        //获取存在本地的deviceID
-        String deviceId = SPUtil.getSPConfig(Constants.User.KEY_DEVICE_ID, "");
-        /*如果本地已经存在deviceID，则使用本地的deviceID*/
-        if (TextUtils.isEmpty(deviceId)) {
-            //如果没有取到本地存储的device_id,就获取系统的IEMI
-            TelephonyManager telephonyManager = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
-            //android9以后获取不到IEMI的编码了，可能会发出异常
-            try {
-                deviceId = telephonyManager.getDeviceId();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (TextUtils.isEmpty(deviceId)) {
-                deviceId = Settings.System.getString(getApplication().getContentResolver(), Settings.Secure.ANDROID_ID);
-            }
-        }
-        return deviceId;
     }
 }
