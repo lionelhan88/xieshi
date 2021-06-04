@@ -164,6 +164,12 @@ public abstract class NavigationActivity extends FragmentActivity {
         startActivity(intent);
     }
 
+    protected void startOtherActivity(Class<? extends Activity> cls,boolean finish) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+        if (finish) finish();
+    }
+
     @Override
     protected void onDestroy() {
         if (immersionBar!=null){
@@ -259,4 +265,5 @@ public abstract class NavigationActivity extends FragmentActivity {
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
 }

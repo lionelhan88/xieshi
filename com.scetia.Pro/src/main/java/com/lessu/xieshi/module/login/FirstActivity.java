@@ -2,34 +2,24 @@ package com.lessu.xieshi.module.login;
 
 import android.Manifest;
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.utils.DeviceUtil;
-import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
-import com.scetia.Pro.common.Util.Constants;
-import com.lessu.xieshi.utils.ToastUtil;
-import com.scetia.Pro.common.Util.SPUtil;
-import com.lessu.xieshi.module.login.viewmodel.FirstViewModelFactory;
 import com.lessu.xieshi.base.AppApplication;
-import com.lessu.xieshi.module.login.viewmodel.FirstViewModel;
-import com.lessu.xieshi.module.foundationpile.ProjectListActivity;
+import com.lessu.xieshi.base.IndexActivity;
 import com.lessu.xieshi.module.construction.ConstructionListActivity;
 import com.lessu.xieshi.module.dataauditing.DataAuditingActivity;
 import com.lessu.xieshi.module.dataexamine.DataExamineActivity;
+import com.lessu.xieshi.module.foundationpile.ProjectListActivity;
 import com.lessu.xieshi.module.meet.activity.MeetingListActivity;
 import com.lessu.xieshi.module.sand.SandHomeActivity;
 import com.lessu.xieshi.module.scan.BluetoothActivity;
@@ -41,18 +31,16 @@ import com.lessu.xieshi.module.training.TrainingActivity;
 import com.lessu.xieshi.module.unqualified.UnqualifiedSearchActivity;
 import com.lessu.xieshi.module.weather.WeatherDetailActivity;
 import com.lessu.xieshi.set.SettingActivity;
-import com.lessu.xieshi.utils.UpdateAppUtil;
 import com.lessu.xieshi.uploadpicture.UploadPictureActivity;
+import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.GlideUtil;
+import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.common.photo.XXPhotoUtil;
-import com.scetia.Pro.network.bean.ExceptionHandle;
-
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FirstActivity extends NavigationActivity {
+public class FirstActivity extends IndexActivity {
     @BindView(R.id.iv_tianqi)
     ImageView ivTianqi;
     @BindView(R.id.tv_tianqi)
@@ -103,7 +91,7 @@ public class FirstActivity extends NavigationActivity {
     TextView tvSeccion6;
     @BindView(R.id.ll_seccion6)
     LinearLayout llSeccion6;
-    private FirstViewModel firstViewModel;
+    //private FirstViewModel firstViewModel;
     private static final String permission = Manifest.permission.ACCESS_FINE_LOCATION;
 
     @Override
@@ -128,58 +116,18 @@ public class FirstActivity extends NavigationActivity {
      */
     @Override
     protected void observerData() {
-        firstViewModel = new ViewModelProvider(this, new FirstViewModelFactory(this.getApplication(), this))
-                .get(FirstViewModel.class);
-
-        firstViewModel.getMapLiveData().observe(this, map -> {
-            String userPower = (String) map.get(LoginViewModel.TO_ACTIVITY);
-            initMenu(Objects.requireNonNull(userPower));
-        });
-
+        super.observerData();
         firstViewModel.getHourBeanData().observe(this, dataBean -> {
             String cityName = dataBean.getCityName();
             String wthr = dataBean.getWthr();
             tvTianqi.setText(cityName + " > " + wthr);
             firstTvTmp.setText(dataBean.getTemp() + "℃");
         });
-
-        firstViewModel.getLoadState().observe(this, loadState -> {
-            switch (loadState) {
-                case LOADING:
-                    LSAlert.showProgressHud(FirstActivity.this, getResources().getString(R.string.login_loading_text));
-                    break;
-                case SUCCESS:
-                    LSAlert.dismissProgressHud();
-                    break;
-                case FAILURE:
-                    LSAlert.dismissProgressHud();
-                    if (loadState.getCode() == 3000) {
-                        LSAlert.showAlert(FirstActivity.this, "提示", loadState.getMessage() + "\n需要重新登录"
-                                , "确定", false, () -> DeviceUtil.loginOut(this));
-                    } else if (loadState.getCode() == ExceptionHandle.NETWORK_ERROR) {
-                        LSAlert.showAlert(FirstActivity.this, "提示", loadState.getMessage(), "重试", "退出",false
-                                , new LSAlert.AlertCallback() {
-                                    @Override
-                                    public void onConfirm() {
-                                        firstViewModel.login(SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""),
-                                                SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""),DeviceUtil.getDeviceId(FirstActivity.this));
-                                    }
-
-                                    @Override
-                                    public void onCancel() {
-                                        AppApplication.exit();
-                                    }
-                                });
-                    } else {
-                        LSAlert.showAlert(FirstActivity.this, "提示", loadState.getMessage());
-                    }
-                    break;
-            }
-        });
     }
 
     @Override
     protected void initView() {
+        super.initView();
         navigationBar.setVisibility(View.GONE);
         //该功能还未开放！！！！！！
         llSeccion6.setVisibility(View.INVISIBLE);
@@ -187,32 +135,17 @@ public class FirstActivity extends NavigationActivity {
 
     @Override
     protected void initData() {
-        //检查app更新
-        UpdateAppUtil.checkUpdateApp(this, false);
+        super.initData();
         //加载头像
         GlideUtil.showImageViewNoCacheCircle(this, R.drawable.touxiang,
                 SPUtil.getSPConfig(Constants.User.PIC_NAME, ""), ivTouxiang);
-
         String userName = SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "");
         tvYonghuming.setText(userName);
-        //每次进入主界面要重新登陆获取数据，可能更新权限
-        if (SPUtil.getSPConfig(SPUtil.AUTO_LOGIN_KEY, false)) {
-            String password = SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, "");
-            //如果开启自动登录，进入页面需要自动登录
-            firstViewModel.login(userName, password,DeviceUtil.getDeviceId(this));
-        } else {
-            String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
-            if (!userPower.equals("")) initMenu(userPower);
-        }
     }
 
-    /**
-     * 初始化菜单
-     *
-     * @param newPower
-     */
-    private void initMenu(String newPower) {
-        if (newPower.equals("1")) {
+    @Override
+    protected void initExternalMenu(String power) {
+        if (power.equals("1")) {
             //供应商账号
             llSeccion1.setVisibility(View.VISIBLE);
             ivSeccion1.setImageResource(R.drawable.home_meeting_bg);
@@ -230,8 +163,8 @@ public class FirstActivity extends NavigationActivity {
             return;
         }
 
-        final String userPower = newPower.substring(0, 14);
-        char userPower2 = newPower.charAt(15);
+        final String userPower = power.substring(0, 14);
+        char userPower2 = power.charAt(15);
         if (userPower.equals("00010010100000")) {//j20623 279162 见证人
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
@@ -346,9 +279,7 @@ public class FirstActivity extends NavigationActivity {
             });
         }
         if (userPower.equals("01101000000000")) {//t9990001 1 检测人员
-            /*
-             * 如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
-             */
+            //如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
             if (SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "").toUpperCase().startsWith("MEET")) {
                 llSeccion1.setVisibility(View.VISIBLE);
                 llSeccion2.setVisibility(View.INVISIBLE);
@@ -449,8 +380,6 @@ public class FirstActivity extends NavigationActivity {
                 }
             });
         }
-        //界面初始化完成，开启自动登录
-        SPUtil.setSPConfig(SPUtil.AUTO_LOGIN_KEY, true);
     }
 
     /**
@@ -480,22 +409,6 @@ public class FirstActivity extends NavigationActivity {
                         }
                     });
         }
-    }
-
-    private long time = 0;
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (System.currentTimeMillis() - time > 2000) {
-                time = System.currentTimeMillis();
-                ToastUtil.showShort(getString(R.string.logout_text));
-                return true;
-            } else {
-                AppApplication.exit();
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     @OnClick({R.id.iv_tianqi, R.id.first_set, R.id.iv_touxiang})
