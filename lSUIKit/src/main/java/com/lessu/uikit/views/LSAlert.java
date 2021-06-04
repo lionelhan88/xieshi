@@ -213,13 +213,8 @@ public class LSAlert {
 
 
     private static ProgressDialog progressDialog;
-
-    public static void setProgressDialog(ProgressDialog progress) {
-        progressDialog = progress;
-    }
-
-    public static int progressHudCount = 0;
-    protected static List<String> progressHudText = new ArrayList<>();
+    private static int progressHudCount = 0;
+    private static List<String> progressHudText = new ArrayList<>();
     public static void showProgressHud(Context context){
         showProgressHud(context,"正在加载数据...");
     }
