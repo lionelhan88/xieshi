@@ -32,20 +32,6 @@ public class ConstructionListActivity extends XieShiSlidingMenuActivity implemen
 	ListPageWrapper wrapper;
 	String NotFinishedOnly ;
 	String QueryStr;
-	/*@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.construction_list_activity);
-		this.setTitle("工地列表");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-		
-		BarButtonItem	searchButtonItem = new BarButtonItem(this , R.drawable.icon_navigation_search );
-        searchButtonItem.setOnClickMethod(this,"searchButtonDidClick");
-        navigationBar.setRightBarItem(searchButtonItem);
-        
-        BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-        menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");	
-	}*/
 
 	@Override
 	protected int getLayoutId() {

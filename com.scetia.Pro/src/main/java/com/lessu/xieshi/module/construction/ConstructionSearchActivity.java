@@ -20,36 +20,6 @@ public class ConstructionSearchActivity extends NavigationActivity {
 	@BindView(R.id.rb_yes) RadioButton rb_yes;
 	@BindView(R.id.rb_no) RadioButton rb_no;
 	@BindView(R.id.bt_search) Button bt_search;
-	/*@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.construction_search_activity);
-		ButterKnife.bind(this);
-		rg_search = (RadioGroup) findViewById(R.id.rg_search);
-		rb_yes = (RadioButton) findViewById(R.id.rb_yes);
-		rb_no = (RadioButton) findViewById(R.id.rb_no);
-		Button bt_search = (Button) findViewById(R.id.bt_search);
-        this.setTitle("工地搜索");
-        
-        BarButtonItem searchButtonitem = new BarButtonItem(this , "确认" );
-        searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");
-		rg_search.setOnCheckedChangeListener((radioGroup, i) -> {
-			if(i==rb_yes.getId()){
-				notFinishedOnly = "true";
-			}else if(i==rb_no.getId()){
-				notFinishedOnly = "false";
-			}
-		});
-		bt_search.setOnClickListener((View.OnClickListener) view -> {
-			Bundle bundle = new Bundle();
-			bundle.putString("NotFinishedOnly", notFinishedOnly);
-			TextView tv = (TextView)(findViewById(R.id.queryStrTextView));
-			String queryStr = tv.getText().toString();
-			bundle.putString("QueryStr", queryStr);
-			setResult(RESULT_OK, ConstructionSearchActivity.this.getIntent().putExtras(bundle));
-			finish();
-		});
-	}*/
 
 	@Override
 	protected int getLayoutId() {

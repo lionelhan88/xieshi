@@ -22,6 +22,7 @@ import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
+import com.scetia.Pro.common.Util.LoadingDialog;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
 import com.lessu.xieshi.module.mis.activities.MisGuideActivity;
@@ -64,7 +65,7 @@ public class LoginActivity extends NavigationActivity {
     private void readPhoneStateDenied(int requestCode) {
         if (requestCode == REQUEST_READ_PHONE_STATE) {
             LSAlert.showAlert(this, "提示", "此应用需要授权电话管理权限，请授权！", "授权", () -> {
-                //TODO:跳转到系统设置页面去授予权限
+                //跳转到系统设置页面去授予权限
                 PermissionSettingPage.start(LoginActivity.this, true);
             });
         }

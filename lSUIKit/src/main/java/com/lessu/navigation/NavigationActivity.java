@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by lessu on 14-7-31.
+ *
  */
 public abstract class NavigationActivity extends FragmentActivity {
     protected NavigationBar navigationBar;
@@ -160,8 +161,7 @@ public abstract class NavigationActivity extends FragmentActivity {
     }
 
     protected void startOtherActivity(Class<? extends Activity> cls) {
-        Intent intent = new Intent(this, cls);
-        startActivity(intent);
+       startOtherActivity(cls,false);
     }
 
     protected void startOtherActivity(Class<? extends Activity> cls,boolean finish) {
@@ -265,5 +265,7 @@ public abstract class NavigationActivity extends FragmentActivity {
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
+
 
 }
