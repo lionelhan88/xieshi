@@ -120,6 +120,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
      */
     @Override
     protected void initView() {
+        setTitle("年假管理");
         listAdapter = new MisAnnualLeaveListAdapter(viewModel);
         annualLeaveRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         int div = DensityUtil.dip2px(MisAnnualLeaveManageActivity.this, 5);
