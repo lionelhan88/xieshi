@@ -164,22 +164,6 @@ public class MisGuideActivity extends NavigationActivity {
         if (shortUserPower.length() >= 8) {
             s8 = shortUserPower.charAt(7);
         }
-      /*  char s1 = shortUserPower.charAt(0);
-        char s2 = shortUserPower.charAt(1);
-        char s3 = shortUserPower.charAt(2);
-        char s4 = shortUserPower.charAt(3);
-        char s5 = shortUserPower.charAt(4);
-        char s6 = '0';
-        char s7 = '0';
-        if (shortUserPower.length() == 7) {
-            s1 = shortUserPower.charAt(1);
-            s2 = shortUserPower.charAt(2);
-            s3 = shortUserPower.charAt(3);
-            s4 = shortUserPower.charAt(4);
-            s5 = shortUserPower.charAt(5);
-            s6 = shortUserPower.charAt(0);
-            s7 = shortUserPower.charAt(6);
-        }*/
         if (s1 == '1') {
             menuArray.add(memberInfoSearch);
         }
@@ -222,21 +206,18 @@ public class MisGuideActivity extends NavigationActivity {
      */
     private void addItemView(MisGuideBean misguidebean) {
         View view = View.inflate(this, R.layout.misaddguide_item, null);
-        LinearLayout ll_additem = view.findViewById(R.id.ll_additem);
-        ImageView iv_additem = view.findViewById(R.id.iv_additem);
-        TextView tv_additem = view.findViewById(R.id.tv_additem);
-        iv_additem.setImageResource(misguidebean.pic);
-        tv_additem.setText(misguidebean.text);
-        ll_additem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (misguidebean.clazz.getName().contains("MeetingListActivity")) {
-                    Intent meetingIntent = new Intent(MisGuideActivity.this, misguidebean.clazz);
-                    meetingIntent.putExtra("type_user", 0);
-                    startActivity(meetingIntent);
-                } else {
-                    startOtherActivity(misguidebean.clazz);
-                }
+        LinearLayout llAddItem = view.findViewById(R.id.ll_additem);
+        ImageView ivAddItem = view.findViewById(R.id.iv_additem);
+        TextView tvAddItem = view.findViewById(R.id.tv_additem);
+        ivAddItem.setImageResource(misguidebean.pic);
+        tvAddItem.setText(misguidebean.text);
+        llAddItem.setOnClickListener(view1 -> {
+            if (misguidebean.clazz.getName().contains("MeetingListActivity")) {
+                Intent meetingIntent = new Intent(MisGuideActivity.this, misguidebean.clazz);
+                meetingIntent.putExtra("type_user", 0);
+                startActivity(meetingIntent);
+            } else {
+                startOtherActivity(misguidebean.clazz);
             }
         });
         ll_addparent.addView(view, 0);
