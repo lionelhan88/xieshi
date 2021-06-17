@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;

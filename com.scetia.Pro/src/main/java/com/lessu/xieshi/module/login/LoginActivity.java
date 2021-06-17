@@ -17,14 +17,16 @@ import com.good.permission.util.PermissionSettingPage;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.SettingUtil;
+import com.lessu.xieshi.utils.DeviceUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
+import com.scetia.Pro.common.Util.LoadingDialog;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.lessu.xieshi.module.login.viewmodel.LoginViewModel;
 import com.lessu.xieshi.module.mis.activities.MisGuideActivity;
-import com.lessu.xieshi.Utils.UpdateAppUtil;
+import com.lessu.xieshi.utils.UpdateAppUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,10 +47,6 @@ public class LoginActivity extends NavigationActivity {
         return R.layout.login_activity;
     }
 
-    @Override
-    protected void initView() {
-        navigationBar.setVisibility(View.GONE);
-    }
 
     /**
      * 申请所有需要的权限
@@ -67,7 +65,7 @@ public class LoginActivity extends NavigationActivity {
     private void readPhoneStateDenied(int requestCode) {
         if (requestCode == REQUEST_READ_PHONE_STATE) {
             LSAlert.showAlert(this, "提示", "此应用需要授权电话管理权限，请授权！", "授权", () -> {
-                //TODO:跳转到系统设置页面去授予权限
+                //跳转到系统设置页面去授予权限
                 PermissionSettingPage.start(LoginActivity.this, true);
             });
         }
@@ -112,13 +110,20 @@ public class LoginActivity extends NavigationActivity {
         });
     }
 
+
+    @Override
+    protected void initView() {
+        navigationBar.setVisibility(View.GONE);
+        //显示当前应用的版本号
+        tvLoginVersion.setText(DeviceUtil.getVersionName(this));
+    }
+
+
     /**
      * 初始化数据
      */
     @Override
     protected void initData() {
-        //显示出版本号
-        tvLoginVersion.setText(SettingUtil.getVersionName(this));
         //拿到本地存储的权限码
         String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
         Intent intent = getIntent();
@@ -132,21 +137,13 @@ public class LoginActivity extends NavigationActivity {
     }
 
     @OnClick(R.id.loginButton)
+    @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE, requestCode = REQUEST_READ_PHONE_STATE)
     public void loginButtonDidPress() {
         //登陆接口访问
         final String userName = userNameEditText.getText().toString();
         final String password = passWordEditText.getText().toString();
-        login(userName, password);
-    }
-
-    /**
-     * 执行登陆请求
-     * @param name   用户名
-     * @param password 密码
-     */
-    @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE, requestCode = REQUEST_READ_PHONE_STATE)
-    private void login(final String name, final String password) {
-        loginViewModel.login(name, password);
+        final String deviceID = DeviceUtil.getDeviceId(this);
+        loginViewModel.login(userName, password,deviceID);
     }
 
     /**
@@ -156,34 +153,22 @@ public class LoginActivity extends NavigationActivity {
      */
     private void checkUserPower(String userPower) {
         if (userPower.isEmpty()) {
-            LSAlert.showAlert(this, "无角色权限！");
+            LSAlert.showAlert(this, "当前用户无角色权限！");
             return;
         }
-        String shortUserPower;
         //目前测试 建设用砂功能，暂定权限为“1”
         if (userPower.equals("1")) {
-            Intent intent = new Intent(this, FirstActivity.class);
-            startActivity(intent);
-            finish();
+            startOtherActivity(FirstActivity.class,true);
             return;
         }
-        //新增的权限“比对审批”多一位 2018-10-19
-        if (userPower.length() == 15) {
-            shortUserPower = userPower.substring(9, 15);
-        } else if (userPower.length() < 15) {
-            shortUserPower = userPower.substring(9, 14);
-        } else {
-            //新版本新加了权限
-            shortUserPower = userPower.substring(16);
+        //新版本新加了权限
+        String misUserPower = userPower.substring(16);
+        if(misUserPower.contains("1")){
+            //如果16位以后的数包含了1就是内部用户
+            startOtherActivity(MisGuideActivity.class,true);
+        }else{
+            startOtherActivity(FirstActivity.class,true);
         }
-        Intent intent;
-        if (shortUserPower.equals("00000") || shortUserPower.equals("000000")) {
-            intent = new Intent(this, FirstActivity.class);
-        } else {
-            intent = new Intent(this, MisGuideActivity.class);
-        }
-        startActivity(intent);
-        finish();
     }
 
     @Override
@@ -193,13 +178,13 @@ public class LoginActivity extends NavigationActivity {
             if (RESULT_OK == resultCode) {
                 String userName1 = data.getStringExtra("userName");
                 String password1 = data.getStringExtra("password");
-                login(userName1, password1);
+                final String deviceID = DeviceUtil.getDeviceId(this);
+                loginViewModel.login(userName1, password1,deviceID);
             }
         }
     }
 
     private long time = 0;
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

@@ -10,7 +10,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.meet.event.OtherConfirmEvent;
 import com.scetia.Pro.common.Util.Constants;
 

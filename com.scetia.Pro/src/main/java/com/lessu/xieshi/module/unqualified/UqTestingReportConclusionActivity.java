@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.unqualified.bean.ReportConclusionBean;
 import com.lessu.xieshi.module.unqualified.viewmodel.TestingReportConclusionViewModel;
 import com.scetia.Pro.common.Util.Constants;

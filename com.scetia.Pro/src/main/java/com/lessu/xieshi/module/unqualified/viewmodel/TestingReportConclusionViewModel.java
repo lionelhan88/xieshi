@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.scetia.Pro.baseapp.basepage.BaseViewModel;
 import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.scetia.Pro.network.bean.ExceptionHandle;

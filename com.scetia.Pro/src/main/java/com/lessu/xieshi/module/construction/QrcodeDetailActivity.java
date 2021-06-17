@@ -18,15 +18,6 @@ import android.webkit.WebView;
 public class QrcodeDetailActivity extends TemplatedWebViewActivity {
 	private WebView sampledetailWebView;
 	String Id = "";
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sample_detail_activity);
-		if(sampledetailWebView == null){
-			sampledetailWebView = (WebView) findViewById(R.id.sample_detail);
-		}
-		this.setTitle("扫描详情");
-	}*/
 
 	@Override
 	protected int getLayoutId() {
@@ -82,7 +73,6 @@ public class QrcodeDetailActivity extends TemplatedWebViewActivity {
 
 	@Override
 	public boolean onReceiveEvent(String event, Map<String, String> params) {
-		
 		return false;
 	}
 }

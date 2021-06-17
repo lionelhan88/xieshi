@@ -1,16 +1,11 @@
 package com.lessu.xieshi.module.meet.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
@@ -27,7 +21,7 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.scetia.Pro.common.Util.Constants;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.MeetingUserBeanToMeetingActivity;
@@ -52,8 +46,6 @@ import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MisMeetingActivity extends NavigationActivity {

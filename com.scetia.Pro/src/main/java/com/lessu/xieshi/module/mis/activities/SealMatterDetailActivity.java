@@ -1,9 +1,7 @@
 package com.lessu.xieshi.module.mis.activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.SealManageUtil;
+import com.lessu.xieshi.utils.GsonUtil;
+import com.lessu.xieshi.utils.SealManageUtil;
 import com.lessu.xieshi.http.service.MisApiService;
 import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
 import com.lessu.xieshi.module.mis.adapter.MatterTypeTagsAdapter;
@@ -30,8 +28,6 @@ import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.network.bean.ExceptionHandle;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.manage.XSRetrofit;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.Arrays;

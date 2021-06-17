@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.network.bean.ExceptionHandle;

@@ -1,15 +1,10 @@
 package com.lessu.xieshi.module.foundationpile;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,12 +27,11 @@ import com.baidu.mapapi.model.LatLng;
 import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
-import com.google.gson.JsonArray;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GsonUtil;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.GsonUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.lessu.xieshi.http.service.CommonApiService;
 import com.scetia.Pro.common.Util.SPUtil;
@@ -48,7 +42,6 @@ import com.scetia.Pro.network.bean.XSResultData;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.manage.XSRetrofit;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

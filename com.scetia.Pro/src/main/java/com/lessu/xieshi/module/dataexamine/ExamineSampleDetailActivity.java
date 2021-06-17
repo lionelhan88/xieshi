@@ -1,19 +1,14 @@
 package com.lessu.xieshi.module.dataexamine;
 
 import android.os.Bundle;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.google.gson.EasyGson;
 import com.google.gson.JsonElement;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.bean.ExamineSample;
-
-import java.util.Map;
-
-import butterknife.ButterKnife;
 
 public class ExamineSampleDetailActivity extends NavigationActivity {
 /*	@Override

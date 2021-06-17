@@ -18,7 +18,7 @@ import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 
 import java.util.Calendar;
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package com.lessu.xieshi.module.mis.model;
 
 
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.http.service.MisApiService;
 import com.lessu.xieshi.module.mis.bean.MisAnnualLeaveData;
 import com.scetia.Pro.network.conversion.ResponseObserver;

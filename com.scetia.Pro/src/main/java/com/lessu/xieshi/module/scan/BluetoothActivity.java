@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -30,7 +29,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.lang.reflect.Method;

@@ -12,7 +12,7 @@ import com.lessu.net.ApiError;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.module.mis.bean.Pgdetailbean;
 import com.scetia.Pro.common.Util.Constants;
 

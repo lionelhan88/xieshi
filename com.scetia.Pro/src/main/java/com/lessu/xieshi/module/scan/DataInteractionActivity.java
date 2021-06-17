@@ -2,7 +2,6 @@ package com.lessu.xieshi.module.scan;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,10 +18,10 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.Utils.ToastUtil;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.scan.bean.ReceiveSampleInfoBean;
 import com.lessu.xieshi.module.scan.adapter.ReviewDownloadListAdapter;
 import com.lessu.xieshi.view.DragLayout;

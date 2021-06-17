@@ -1,7 +1,6 @@
 package com.lessu.xieshi.module.weather;
 
-import com.google.gson.Gson;
-import com.lessu.xieshi.Utils.GsonUtil;
+import com.lessu.xieshi.utils.GsonUtil;
 import com.scetia.Pro.network.base.BaseRepository;
 import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.lessu.xieshi.module.weather.bean.Hourbean;
