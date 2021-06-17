@@ -56,13 +56,13 @@
 
     <TextView
         android:id="@+id/tv_matter_apply_content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_medium"
         android:layout_marginTop="5dp"
-        android:text="adasdasd"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/matter_apply_content_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seal_manage_list_item_top_line" />
 
     <TextView

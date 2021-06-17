@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.base.BaseVMActivity;
 import com.lessu.xieshi.module.mis.adapter.EvaluationComparisonListAdapter;
 import com.lessu.xieshi.module.mis.bean.EvaluationComparisonBean;
 import com.lessu.xieshi.module.mis.viewmodel.EvaluationComparisonPrintViewModel;
 import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 import com.scetia.Pro.baseapp.uitls.GlobalEvent;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -32,7 +34,7 @@ import butterknife.OnClick;
  * created by Lollipop
  * on 2021/4/15
  */
-public class EvaluationComparisonPrintActivity extends NavigationActivity {
+public class EvaluationComparisonPrintActivity extends BaseVMActivity<EvaluationComparisonPrintViewModel> {
     @BindView(R.id.evaluation_comparison_list_search_view)
     SearchView evaluationComparisonListSearchView;
     @BindView(R.id.tv_evaluation_comparison_top_search)
@@ -43,7 +45,6 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
     SmartRefreshLayout refreshEvaluationComparisonList;
     @BindView(R.id.tv_matter_state)
     TextView tvEvaluationComparisonState;
-    private EvaluationComparisonPrintViewModel viewModel;
     private EvaluationComparisonListAdapter listAdapter;
     private HashMap<String,Object> params;
     private String approveType;
@@ -53,31 +54,26 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
     }
 
     @Override
-    protected void observerData() {
-        viewModel = new ViewModelProvider(this).get(EvaluationComparisonPrintViewModel.class);
-        viewModel.getLoadState().observe(this,loadState -> {
-            switch (loadState) {
-                case LOADING:
-                    LSAlert.showProgressHud(this, getResources().getString(R.string.loading_data_text));
-                    break;
-                case SUCCESS:
-                    LSAlert.dismissProgressHud();
-                    refreshEvaluationComparisonList.finishRefresh(true);
-                    break;
-                case FAILURE:
-                    LSAlert.dismissProgressHud();
-                    LSAlert.showAlert(this,loadState.getMessage());
-                    refreshEvaluationComparisonList.finishRefresh(false);
-                    break;
-            }
-            evaluationComparisonListSearchView.clearFocus();
-        });
+    protected void inSuccess(LoadState loadState) {
+        super.inSuccess(loadState);
+        refreshEvaluationComparisonList.finishRefresh(true);
+        evaluationComparisonListSearchView.clearFocus();
+    }
 
-        viewModel.getEvaluationComparisonLiveData().observe(this,evaluationComparisonBeans -> {
+    @Override
+    protected void inFailure(LoadState loadState) {
+        super.inFailure(loadState);
+        refreshEvaluationComparisonList.finishRefresh(false);
+        evaluationComparisonListSearchView.clearFocus();
+    }
+
+    @Override
+    protected void observerData() {
+        mViewModel.getEvaluationComparisonLiveData().observe(this,evaluationComparisonBeans -> {
             listAdapter.setNewData(evaluationComparisonBeans);
             rvEvaluationComparisonList.scrollToPosition(0);
         });
-        viewModel.getApproveState().observe(this,approveType->{
+        mViewModel.getApproveState().observe(this,approveType->{
             this.approveType = approveType;
         });
     }
@@ -96,7 +92,7 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
         evaluationComparisonListSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                viewModel.loadData(true,params);
+                mViewModel.loadData(true,params);
                 return false;
             }
 
@@ -108,7 +104,7 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
         });
         //刷新
         refreshEvaluationComparisonList.setOnRefreshListener(refreshLayout -> {
-            viewModel.loadData(false,params);
+            mViewModel.loadData(false,params);
         });
         listAdapter.setOnItemClickListener((adapter, view, position) -> {
             EvaluationComparisonBean.EvaluationComparisonItem bean = (EvaluationComparisonBean.EvaluationComparisonItem) adapter.getItem(position);
@@ -126,7 +122,7 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
         params = new HashMap<>();
         params.put(Constants.EvaluationComparison.REQUEST_PARAM_KEY_MEMBER_NAME_NO,"");
         params.put(Constants.EvaluationComparison.REQUEST_PARAM_KEY_STATE,Constants.EvaluationComparison.STATE_APPLYING);
-        viewModel.loadData(true,params);
+        mViewModel.loadData(true,params);
         tvEvaluationComparisonState.setText("申请中");
     }
 
@@ -138,7 +134,7 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
     public void ApproveSuccess(GlobalEvent<Boolean> event){
         if(event.getCode()==EventBusUtil.E&& event.getData() != null){
             //批准成功后，返回当前页面需要刷新列表
-            viewModel.loadData(false,params);
+            mViewModel.loadData(false,params);
         }
     }
 
@@ -156,13 +152,13 @@ public class EvaluationComparisonPrintActivity extends NavigationActivity {
                     }else if(options1==2){
                         params.put(Constants.EvaluationComparison.REQUEST_PARAM_KEY_STATE,Constants.EvaluationComparison.STATE_APPROVED);
                     }
-                    viewModel.loadData(true,params);
+                    mViewModel.loadData(true,params);
                 });
                 break;
             case R.id.tv_evaluation_comparison_top_search:
                 //点击搜索按钮
                 //TODO:刷新数据
-                viewModel.loadData(true,params);
+                mViewModel.loadData(true,params);
                 break;
         }
     }

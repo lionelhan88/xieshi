@@ -138,5 +138,13 @@ public class Constants {
         public static final String APPROVE_ENABLE="1";
     }
 
+    public static class Notice{
+        public static final String KEY_NOTICE_CONTENT = "key_notice_content";
+    }
+
+    public static class Certificate{
+        public static final String KEY_CERTIFICATE_BEAN = "key_certificate_bean";
+    }
+
 
 }

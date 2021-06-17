@@ -4,27 +4,27 @@
     android:id="@+id/activity_mis_comparison_aproval"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".module.mis.activities.MisComparisonAprovalActivity">
+    android:orientation="vertical">
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/mis_comparison_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:footerDividersEnabled="false"
+        android:divider="@null"
         android:dividerHeight="0dp"
-        android:divider="@null">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:footerDividersEnabled="false"/>
+
     <Button
         android:id="@+id/mis_com_approvaled"
-        android:textColor="#ffffff"
-        android:textSize="17sp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp"
-        android:text="审 批"
-        android:layout_marginLeft="21dp"
-        android:layout_marginRight="21dp"
-        android:background="@drawable/shape_tijiaoblue"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/shape_tijiaoblue"
+        android:text="审 批"
+        android:textColor="#ffffff"
+        android:textSize="17sp" />
 </LinearLayout>

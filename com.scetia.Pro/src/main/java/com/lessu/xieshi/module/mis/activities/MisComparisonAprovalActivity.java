@@ -37,9 +37,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class MisComparisonAprovalActivity extends NavigationActivity implements View.OnClickListener,
-        AdapterView.OnItemClickListener {
-    private BarButtonItem handleButtonItem;
+public class MisComparisonAprovalActivity extends NavigationActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListPageWrapper wrapper;
     private PullToRefreshListView misComparisonApprovalList;
     private String token;
@@ -48,16 +46,6 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
     private CompoundButton checkedcb;
     private boolean isfirst = true;
     private int checkedposition = -1;
-
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_comparison_aproval);
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        this.setTitle("比对审批");
-        initView();
-        initData();
-    }*/
 
     @Override
     protected int getLayoutId() {
@@ -70,17 +58,9 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
     @Override
     protected void initView() {
         this.setTitle("比对审批");
-        handleButtonItem = new BarButtonItem(this, R.drawable.back);
-        handleButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        navigationBar.setLeftBarItem(handleButtonItem);
-        misComparisonApprovalList = (PullToRefreshListView) findViewById(R.id.mis_comparison_list_view);
+        misComparisonApprovalList = findViewById(R.id.mis_comparison_list_view);
         misComparisonApprovalList.setOnClickListener(this);
-        misComApprovaled = (Button) findViewById(R.id.mis_com_approvaled);
+        misComApprovaled = findViewById(R.id.mis_com_approvaled);
         misComApprovaled.setOnClickListener(this);
     }
 
@@ -144,14 +124,14 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
             @Override
             protected void onPageCellSetData(final int position, View cell, final Object data) {
                 //是否选中
-                CheckBox cbComparisonApproval = (CheckBox) cell.findViewById(R.id.cb_comparison_approval);
+                CheckBox cbComparisonApproval = cell.findViewById(R.id.cb_comparison_approval);
                 //计划时间
-                TextView comApprovalDate = (TextView) cell.findViewById(R.id.mis_com_approval_date);
+                TextView comApprovalDate = cell.findViewById(R.id.mis_com_approval_date);
                 //计划编号
-                TextView comApprovalNum = (TextView) cell.findViewById(R.id.mis_com_approval_num);
+                TextView comApprovalNum = cell.findViewById(R.id.mis_com_approval_num);
                 //计划项目名称
-                TextView comApprovalName = (TextView) cell.findViewById(R.id.mis_com_approval_name);
-                TextView comIsApproval = (TextView) cell.findViewById(R.id.mis_com_is_approval);
+                TextView comApprovalName = cell.findViewById(R.id.mis_com_approval_name);
+                TextView comIsApproval = cell.findViewById(R.id.mis_com_is_approval);
                 if (BDApproveBtn.equals("0")) {
                     //如果为0则不显示审批按钮
                     misComApprovaled.setVisibility(View.GONE);
@@ -206,7 +186,6 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
                     List list = wrapper.getPageController().getList();
                     String jsonString = list.get(checkedposition).toString();
                     String Id = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("s1").getAsString();
-                    System.out.println("批准。。。。。............" + Id);
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("Token", token);
                     params.put("s1", Id);
@@ -238,11 +217,9 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        System.out.println("点击了。。。。。。。。。。");
         Intent intent = new Intent(MisComparisonAprovalActivity.this, MisComparionObjActivity.class);
         List list = wrapper.getPageController().getList();
         String jsonString = list.get(position - 1).toString();
-        System.out.println("lalala............" + jsonString);
         ComparisonPlan planBean = GsonUtil.JsonToObject(jsonString, ComparisonPlan.class);
         String id1 = planBean.getComparisonNum();
         intent.putExtra("Id", id1);

@@ -91,7 +91,6 @@ public class FirstActivity extends IndexActivity {
     TextView tvSeccion6;
     @BindView(R.id.ll_seccion6)
     LinearLayout llSeccion6;
-    //private FirstViewModel firstViewModel;
     private static final String permission = Manifest.permission.ACCESS_FINE_LOCATION;
 
     @Override
@@ -117,7 +116,7 @@ public class FirstActivity extends IndexActivity {
     @Override
     protected void observerData() {
         super.observerData();
-        firstViewModel.getHourBeanData().observe(this, dataBean -> {
+        mViewModel.getHourBeanData().observe(this, dataBean -> {
             String cityName = dataBean.getCityName();
             String wthr = dataBean.getWthr();
             tvTianqi.setText(cityName + " > " + wthr);

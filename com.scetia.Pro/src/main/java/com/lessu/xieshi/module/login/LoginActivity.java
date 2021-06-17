@@ -17,7 +17,9 @@ import com.good.permission.util.PermissionSettingPage;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.base.BaseVMActivity;
 import com.lessu.xieshi.utils.DeviceUtil;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.base.AppApplication;
@@ -30,7 +32,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends NavigationActivity {
+public class LoginActivity extends BaseVMActivity<LoginViewModel> {
     private static final int REQUEST_READ_PHONE_STATE = 2;
     @BindView(R.id.tv_login_version)
     TextView tvLoginVersion;
@@ -38,7 +40,6 @@ public class LoginActivity extends NavigationActivity {
     EditText userNameEditText;
     @BindView(R.id.passWordEditText)
     EditText passWordEditText;
-    private LoginViewModel loginViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -77,23 +78,7 @@ public class LoginActivity extends NavigationActivity {
 
     @Override
     protected void observerData() {
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        loginViewModel.getLoadState().observe(this, loadState -> {
-            switch (loadState) {
-                case LOADING:
-                    LSAlert.showProgressHud(LoginActivity.this,  getResources().getString(R.string.login_loading_text));
-                    break;
-                case SUCCESS:
-                    LSAlert.dismissProgressHud();
-                    break;
-                case FAILURE:
-                    LSAlert.dismissProgressHud();
-                    LSAlert.showAlert(LoginActivity.this, "提示", loadState.getMessage());
-                    break;
-            }
-        });
-
-        loginViewModel.getMapLiveData().observe(this, toActivityMap -> {
+        mViewModel.getMapLiveData().observe(this, toActivityMap -> {
             Object o = toActivityMap.get(LoginViewModel.TO_ACTIVITY);
             if (o instanceof Bundle) {
                 //是第一次登陆，跳转到手机号验证页面
@@ -134,6 +119,11 @@ public class LoginActivity extends NavigationActivity {
         }
     }
 
+    @Override
+    protected void inLoading(LoadState loadState) {
+        LSAlert.showProgressHud(LoginActivity.this,  getResources().getString(R.string.login_loading_text));
+    }
+
     @OnClick(R.id.loginButton)
     @PermissionNeed(value = Manifest.permission.READ_PHONE_STATE, requestCode = REQUEST_READ_PHONE_STATE)
     public void loginButtonDidPress() {
@@ -141,7 +131,7 @@ public class LoginActivity extends NavigationActivity {
         final String userName = userNameEditText.getText().toString();
         final String password = passWordEditText.getText().toString();
         final String deviceID = DeviceUtil.getDeviceId(this);
-        loginViewModel.login(userName, password,deviceID);
+        mViewModel.login(userName, password,deviceID);
     }
 
     /**
@@ -177,7 +167,7 @@ public class LoginActivity extends NavigationActivity {
                 String userName1 = data.getStringExtra("userName");
                 String password1 = data.getStringExtra("password");
                 final String deviceID = DeviceUtil.getDeviceId(this);
-                loginViewModel.login(userName1, password1,deviceID);
+                mViewModel.login(userName1, password1,deviceID);
             }
         }
     }

@@ -6,58 +6,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".module.mis.activities.MisPingGuActivity">
+
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="9dp"
         android:background="#ffffff"
-        android:orientation="horizontal"
-        >
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <EditText
-            android:layout_weight="10"
             android:id="@+id/et_pg_search"
-            android:layout_marginLeft="21dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/chaxun"/>
+            android:layout_marginLeft="21dp"
+            android:layout_weight="10"
+            android:background="@drawable/chaxun" />
+
         <TextView
-            android:layout_weight="-2"
             android:id="@+id/tv_pg_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
             android:layout_toRightOf="@+id/et_hy_search"
+            android:layout_weight="-2"
             android:text="查询"
-            android:textSize="17sp"
             android:textColor="#3598dc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 
-
-
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:layout_weight="10"
         android:id="@+id/lv_pgsearch"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:footerDividersEnabled="false"
-        android:dividerHeight="0dp"
+        android:layout_weight="10"
         android:divider="@null"
-        >
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:dividerHeight="0dp"
+        android:footerDividersEnabled="false"/>
+
     <Button
         android:id="@+id/bt_pg"
-        android:textColor="#ffffff"
-        android:textSize="17sp"
-        android:layout_marginTop="21dp"
-        android:layout_marginBottom="21dp"
-        android:text="批 准"
-        android:layout_weight="1"
-        android:layout_marginLeft="21dp"
-        android:layout_marginRight="21dp"
-        android:background="@drawable/shape_tijiaoblue"
         android:layout_width="match_parent"
-        android:layout_height="55dp" />
+        android:layout_height="55dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="21dp"
+        android:layout_weight="1"
+        android:background="@drawable/shape_tijiaoblue"
+        android:text="批 准"
+        android:textColor="#ffffff"
+        android:textSize="17sp" />
 </LinearLayout>

@@ -19,6 +19,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.lessu.xieshi.base.BaseVMActivity;
 import com.scetia.Pro.common.Util.DensityUtil;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
@@ -40,7 +41,7 @@ import static com.lessu.xieshi.R.id.bt_njone_sq;
 import static com.lessu.xieshi.R.id.bt_njtwo_sp;
 import static com.lessu.xieshi.R.id.bt_njtwo_sq;
 
-public class MisAnnualLeaveManageActivity extends NavigationActivity {
+public class MisAnnualLeaveManageActivity extends BaseVMActivity<MisAnnualLeaveViewModel> {
     public static final String SP_YEAR = "sp_year";
     @BindView(R.id.sp_nj_nianfen)
     Spinner spNJYear;
@@ -69,7 +70,6 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
     @BindView(R.id.tv_mis_annual_leave_state)
     TextView tvMisAnnualLeaveState;
     private String njApproveBtn;
-    private MisAnnualLeaveViewModel viewModel;
     private MisAnnualLeaveListAdapter listAdapter;
     private Calendar curDate;
 
@@ -83,8 +83,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
      */
     @Override
     protected void observerData() {
-        viewModel = new ViewModelProvider(this).get(MisAnnualLeaveViewModel.class);
-        viewModel.getPageLoadState().observe(this, new Observer<LoadState>() {
+        mViewModel.getPageLoadState().observe(this, new Observer<LoadState>() {
             @Override
             public void onChanged(LoadState loadState) {
                 listAdapter.setLoadState(loadState);
@@ -92,7 +91,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
             }
         });
 
-        viewModel.getAnnualLeaveData().observe(this, new Observer<MisAnnualLeaveData>() {
+        mViewModel.getAnnualLeaveData().observe(this, new Observer<MisAnnualLeaveData>() {
             @Override
             public void onChanged(MisAnnualLeaveData misAnnualLeaveData) {
                 njApproveBtn = misAnnualLeaveData.getNJApproveBtn();
@@ -107,12 +106,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
         });
 
         //将数据源添加到adapter中
-        viewModel.getPagedListLiveData().observe(this, new Observer<PagedList<MisAnnualLeaveData.AnnualLeaveBean>>() {
-            @Override
-            public void onChanged(PagedList<MisAnnualLeaveData.AnnualLeaveBean> annualLeaveBeans) {
-                listAdapter.submitList(annualLeaveBeans);
-            }
-        });
+        mViewModel.getPagedListLiveData().observe(this, annualLeaveBeans -> listAdapter.submitList(annualLeaveBeans));
     }
 
     /**
@@ -121,13 +115,13 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
     @Override
     protected void initView() {
         setTitle("年假管理");
-        listAdapter = new MisAnnualLeaveListAdapter(viewModel);
+        listAdapter = new MisAnnualLeaveListAdapter(mViewModel);
         annualLeaveRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         int div = DensityUtil.dip2px(MisAnnualLeaveManageActivity.this, 5);
         annualLeaveRv.addItemDecoration(new RecyclerViewItemDecoration(div));
         annualLeaveRv.setAdapter(listAdapter);
         misAnnualLeaveRefresh.setColorSchemeResources(R.color.blue_light1, R.color.blue_normal1, R.color.blue_normal2);
-        misAnnualLeaveRefresh.setOnRefreshListener(() -> viewModel.reRefresh());
+        misAnnualLeaveRefresh.setOnRefreshListener(() -> mViewModel.reRefresh());
         curDate = Calendar.getInstance();
         //设置初始查询年份为当前年份
         tvMisAnnualLeaveYear.setText(String.valueOf(curDate.get(Calendar.YEAR)));
@@ -139,7 +133,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nj_search:
-                viewModel.reRefresh();
+                mViewModel.reRefresh();
                 break;
             case R.id.bt_njtwo_sq:
             case R.id.bt_njone_sq:
@@ -162,7 +156,7 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
                     public void onTimeSelect(Date date, View v) {
                         String format = DateUtil.FORMAT_Y(date);
                         tvMisAnnualLeaveYear.setText(format);
-                        viewModel.setQueryYear(format);
+                        mViewModel.setQueryYear(format);
                     }
                 }).setType(new boolean[]{true, false, false, false, false, false})
                         .setRangDate(startDate, endDate).setDate(curDate).build().show();
@@ -175,13 +169,13 @@ public class MisAnnualLeaveManageActivity extends NavigationActivity {
                         tvMisAnnualLeaveState.setText(arr[options1]);
                         if (options1 == 0) {
                             //选中”全部“传入空字符串""
-                            viewModel.setQueryState("");
+                            mViewModel.setQueryState("");
                         } else if (options1 == 1) {
                             //选中”申请中“
-                            viewModel.setQueryState("0");
+                            mViewModel.setQueryState("0");
                         } else {
                             //选中”已批准“
-                            viewModel.setQueryState("1");
+                            mViewModel.setQueryState("1");
                         }
                     }
                 }).build();

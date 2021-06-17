@@ -63,6 +63,7 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
 
     @Override
     protected void initView() {
+        setTitle("记录审核");
         BarButtonItem searchButtonitem = new BarButtonItem(this, R.drawable.icon_navigation_search);
         searchButtonitem.setOnClickMethod(this, "searchButtonDidClick");
         navigationBar.setRightBarItem(searchButtonitem);

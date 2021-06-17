@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.base.BaseVMActivity;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.mis.adapter.SealManageListAdapter;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.lessu.xieshi.module.mis.viewmodel.SealManageListViewModel;
 import com.scetia.Pro.baseapp.uitls.GlobalEvent;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.DateUtil;
 import com.scetia.Pro.common.Util.DensityUtil;
@@ -39,7 +41,7 @@ import butterknife.OnClick;
  * created by Lollipop
  * on 2021/3/2
  */
-public class SealManageListActivity extends NavigationActivity {
+public class SealManageListActivity extends BaseVMActivity<SealManageListViewModel> {
     @BindView(R.id.seal_manage_list_search_view)
     SearchView sealManageListSearchView;
     @BindView(R.id.rv_seal_manage_list)
@@ -56,7 +58,6 @@ public class SealManageListActivity extends NavigationActivity {
     TextView loadingErrorRefresh;
     @BindView(R.id.ll_seam_manage_list_error)
     LinearLayout llSeamManageListError;
-    private SealManageListViewModel viewModel;
     private SealManageListAdapter listAdapter;
     private HashMap<String, Object> param = new HashMap<>();
 
@@ -65,35 +66,20 @@ public class SealManageListActivity extends NavigationActivity {
         return R.layout.activity_seal_manage_list;
     }
 
+
+
+    @Override
+    protected void observerData() {
+        mViewModel.getSealManageList().observe(this, sealManageBeans -> {
+            listAdapter.setNewData(sealManageBeans);
+        });
+    }
+
     @Override
     protected void initView() {
         setTitle(getResources().getString(R.string.seal_matter_list_name));
         sealManageListSearchView.setIconifiedByDefault(false);
         setUnderLinearTransparent(sealManageListSearchView);
-        viewModel = new ViewModelProvider(this).get(SealManageListViewModel.class);
-        viewModel.getLoadState().observe(this, loadState -> {
-            switch (loadState) {
-                case LOADING:
-                    LSAlert.showProgressHud(SealManageListActivity.this, "正在加载数据...");
-                    break;
-                case SUCCESS:
-                    LSAlert.dismissProgressHud();
-                    refreshSealManageList.finishRefresh(true);
-                    llSeamManageListError.setVisibility(View.GONE);
-                    break;
-                case FAILURE:
-                    LSAlert.dismissProgressHud();
-                    refreshSealManageList.finishRefresh(false);
-                    llSeamManageListError.setVisibility(loadState.getCode()==2000?View.GONE:View.VISIBLE);
-                    showLoadingError.setText(loadState.getMessage());
-                    break;
-            }
-        });
-
-        viewModel.getSealManageList().observe(this, sealManageBeans -> {
-            listAdapter.setNewData(sealManageBeans);
-        });
-
 
         listAdapter = new SealManageListAdapter();
         rvSealManageList.setLayoutManager(new LinearLayoutManager(this));
@@ -112,7 +98,7 @@ public class SealManageListActivity extends NavigationActivity {
         sealManageListSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                viewModel.getSealManagerListByQuery(param);
+                mViewModel.getSealManagerListByQuery(param);
                 return false;
             }
 
@@ -128,7 +114,7 @@ public class SealManageListActivity extends NavigationActivity {
         });
         refreshSealManageList.setEnableLoadMore(false);
         refreshSealManageList.setOnRefreshListener(refreshLayout -> {
-            viewModel.getSealManagerListByQuery(param, false);
+            mViewModel.getSealManagerListByQuery(param, false);
         });
 
         listAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -143,8 +129,23 @@ public class SealManageListActivity extends NavigationActivity {
     @Override
     protected void initData() {
         param.put(Constants.User.XS_TOKEN, Constants.User.GET_TOKEN());
-        viewModel.getSealTypeList();
-        viewModel.getSealManagerListByQuery(param, true);
+        mViewModel.getSealTypeList();
+        mViewModel.getSealManagerListByQuery(param, true);
+    }
+
+    @Override
+    protected void inSuccess(LoadState loadState) {
+        super.inSuccess(loadState);
+        refreshSealManageList.finishRefresh(true);
+        llSeamManageListError.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void inFailure(LoadState loadState) {
+        super.inFailure(loadState);
+        refreshSealManageList.finishRefresh(false);
+        llSeamManageListError.setVisibility(loadState.getCode()==2000?View.GONE:View.VISIBLE);
+        showLoadingError.setText(loadState.getMessage());
     }
 
     @Override
@@ -157,14 +158,14 @@ public class SealManageListActivity extends NavigationActivity {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void operatorMatterSuccess(GlobalEvent<Boolean> globalEvent) {
-        viewModel.getSealManagerListByQuery(param, false);
+        mViewModel.getSealManagerListByQuery(param, false);
     }
 
     @OnClick({R.id.tv_seal_type_top, R.id.tv_seal_manage_top_search, R.id.tv_matter_state,R.id.loading_error_refresh})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_seal_type_top:
-                List<SealManageBean.SealType> sealTypes = viewModel.getSealTypes();
+                List<SealManageBean.SealType> sealTypes = mViewModel.getSealTypes();
                 if (sealTypes.size() == 0) {
                     ToastUtil.showShort("暂无事项类型");
                     return;
@@ -177,7 +178,7 @@ public class SealManageListActivity extends NavigationActivity {
                     }else {
                         param.put(Constants.SealManage.KEY_SEAL_MATTER_TYPE, sealTypes.get(options1).getValue());
                     }
-                    viewModel.getSealManagerListByQuery(param, true);
+                    mViewModel.getSealManagerListByQuery(param, true);
                 });
                 break;
             case R.id.tv_matter_state:
@@ -189,12 +190,12 @@ public class SealManageListActivity extends NavigationActivity {
                     } else {
                         param.put(Constants.SealManage.KEY_SEAL_MATTER_STATE, options1 - 1 + "");
                     }
-                    viewModel.getSealManagerListByQuery(param, true);
+                    mViewModel.getSealManagerListByQuery(param, true);
                 });
                 break;
             case R.id.tv_seal_manage_top_search:
             case R.id.loading_error_refresh:
-                viewModel.getSealManagerListByQuery(param, true);
+                mViewModel.getSealManagerListByQuery(param, true);
                 break;
         }
     }

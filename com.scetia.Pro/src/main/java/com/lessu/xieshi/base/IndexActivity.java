@@ -23,65 +23,29 @@ import com.lessu.xieshi.module.mis.bean.MisGuideBean;
 import com.lessu.xieshi.utils.DeviceUtil;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.utils.UpdateAppUtil;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.network.bean.ExceptionHandle;
 
 import java.util.ArrayList;
 
-public abstract class IndexActivity extends NavigationActivity {
-    protected FirstViewModel firstViewModel;
+public abstract class IndexActivity extends BaseVMActivity<FirstViewModel> {
+
+    @Override
+    protected FirstViewModel createViewModel() {
+        return new ViewModelProvider(this, new FirstViewModelFactory(this.getApplication(), this))
+                .get(FirstViewModel.class);
+    }
 
     /**
      * 监听数据变化，更新UI界面
      */
     @Override
     protected void observerData() {
-        firstViewModel = new ViewModelProvider(this, new FirstViewModelFactory(this.getApplication(), this))
-                .get(FirstViewModel.class);
-        firstViewModel.getMapLiveData().observe(this, map -> {
+        mViewModel.getMapLiveData().observe(this, map -> {
             String userPower = (String) map.get(LoginViewModel.TO_ACTIVITY);
             initMenu(userPower);
-        });
-
-        firstViewModel.getLoadState().observe(this, loadState -> {
-            switch (loadState) {
-                case LOADING:
-                    LSAlert.showProgressHud(this, getResources().getString(R.string.login_loading_text));
-                    break;
-                case SUCCESS:
-                    LSAlert.dismissProgressHud();
-                    break;
-                case FAILURE:
-                    LSAlert.dismissProgressHud();
-                    switch (loadState.getCode()) {
-                        case 3000:
-                            LSAlert.showAlert(this, "提示", loadState.getMessage() + "\n是否重新登录？"
-                                    , "确定", false, () -> DeviceUtil.loginOut(this));
-                            break;
-                        case ExceptionHandle.NETWORK_ERROR:
-                            LSAlert.showAlert(this, "提示", loadState.getMessage(), "重试", "退出", false
-                                    , new LSAlert.AlertCallback() {
-                                        @Override
-                                        public void onConfirm() {
-                                            firstViewModel.login(
-                                                    SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""),
-                                                    SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""),
-                                                    DeviceUtil.getDeviceId(IndexActivity.this)
-                                            );
-                                        }
-
-                                        @Override
-                                        public void onCancel() {
-                                            AppApplication.exit();
-                                        }
-                                    });
-                            break;
-                        default:
-                            LSAlert.showAlert(this, "提示", loadState.getMessage());
-                            break;
-                    }
-            }
         });
     }
 
@@ -101,7 +65,7 @@ public abstract class IndexActivity extends NavigationActivity {
             String userName = SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "");
             String password = SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, "");
             //如果开启自动登录，进入页面需要自动登录
-            firstViewModel.login(userName, password,DeviceUtil.getDeviceId(this));
+            mViewModel.login(userName, password,DeviceUtil.getDeviceId(this));
         } else {
             String userPower = SPUtil.getSPConfig(Constants.User.KEY_USER_POWER, "");
             initMenu(userPower);
@@ -174,7 +138,6 @@ public abstract class IndexActivity extends NavigationActivity {
         }
         menuArray.add(meetingManager);
         if (s8 == '1') {
-            //测试阶段，加入“评估打印”
             menuArray.add(evaluation);
         }
 
@@ -199,6 +162,42 @@ public abstract class IndexActivity extends NavigationActivity {
 
     }
 
+    @Override
+    protected void inLoading(LoadState loadState) {
+        LSAlert.showProgressHud(this, getResources().getString(R.string.login_loading_text));
+    }
+
+    @Override
+    protected void inFailure(LoadState loadState) {
+        super.inFailure(loadState);
+        switch (loadState.getCode()) {
+            case 3000:
+                LSAlert.showAlert(this, "提示", loadState.getMessage() + "\n是否重新登录？"
+                        , "确定", false, () -> DeviceUtil.loginOut(this));
+                break;
+            case ExceptionHandle.NETWORK_ERROR:
+                LSAlert.showAlert(this, "提示", loadState.getMessage(), "重试", "退出", false
+                        , new LSAlert.AlertCallback() {
+                            @Override
+                            public void onConfirm() {
+                                mViewModel.login(
+                                        SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, ""),
+                                        SPUtil.getSPConfig(Constants.User.KEY_PASSWORD, ""),
+                                        DeviceUtil.getDeviceId(IndexActivity.this)
+                                );
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                AppApplication.exit();
+                            }
+                        });
+                break;
+            default:
+                LSAlert.showAlert(this, "提示", loadState.getMessage());
+                break;
+        }
+    }
 
     private long time = 0;
 

@@ -30,15 +30,6 @@ public class MisComparionObjActivity extends NavigationActivity  {
     private BarButtonItem handleButtonItem;
     private String token;
     private List<ComparisonObjBean> list = new ArrayList<>();
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_comparion_obj);
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        this.setTitle("参加比对单位");
-        initView();
-        initData();
-    }*/
 
     @Override
     protected int getLayoutId() {
@@ -129,7 +120,6 @@ public class MisComparionObjActivity extends NavigationActivity  {
             }
         };
         wrapper.wrap(misComparisonObjList);
-       // ButterKnife.bind(this);
     }
 
 }

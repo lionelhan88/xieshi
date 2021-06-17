@@ -7,6 +7,7 @@ import com.lessu.navigation.BarButtonItem;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.mis.bean.CertificateBean;
+import com.scetia.Pro.common.Util.Constants;
 
 import java.util.List;
 
@@ -53,8 +54,7 @@ public class CertificateDetailActivity extends NavigationActivity {
 
     @Override
     protected void initData() {
-        Intent getintent = getIntent();
-        CertificateBean data = (CertificateBean) getintent.getSerializableExtra("miszhengshu");
+        CertificateBean data = (CertificateBean) getIntent().getSerializableExtra(Constants.Certificate.KEY_CERTIFICATE_BEAN);
         String certificateState = data.getCertificateState();//状态
         String name = data.getName();//姓名
         String sex = data.getSex();//性别

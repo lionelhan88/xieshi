@@ -31,45 +31,6 @@ public class DataSearchActivity extends XieShiSlidingMenuActivity {
 	String typeTitle = "";
 	String projectTitle = "";
 	String flagTitle = "";
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.data_search_activity);
-		this.setTitle("记录审核查询");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.bind(this);
-		token = Content.getToken();
-		Type = "1";
-        Bundle bundle = getIntent().getExtras();
-        kindId = bundle.getString("KindId");
-        itemId = bundle.getString("ItemId");
-        doneFlag = bundle.getString("doneFlag");
-        typeTitle = bundle.getString("TypeTitle");
-        projectTitle = bundle.getString("ProjectTitle");
-        flagTitle = bundle.getString("FlagTitle");
-        if (doneFlag.isEmpty()) {
-        	doneFlag="0";
-        }
-        if (!typeTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.typeTextView));
-	        tv.setText(typeTitle);
-	        projectDataBind();
-		}
-        if (!projectTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.projectTextView));
-	        tv.setText(projectTitle);
-		}
-        if (flagTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
-	        tv.setText("否");
-	        flagTitle = "否";
-		}
-		else{
-			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
-	        tv.setText(flagTitle);
-		}
-		getType();
-	}*/
 
 	@Override
 	protected int getLayoutId() {

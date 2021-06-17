@@ -49,16 +49,6 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
     private boolean isfirst = true;
     private int checkedposition = -1;
 
-    /*   @Override
-       protected void onCreate(Bundle savedInstanceState) {
-           super.onCreate(savedInstanceState);
-           setContentView(R.layout.activity_mis_pingu);
-           navigationBar.setBackgroundColor(0xFF3598DC);
-           this.setTitle("评估信息查询");
-           initView();
-           initData();
-       }
-   */
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mis_pingu;
@@ -67,10 +57,10 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
     @Override
     protected void initView() {
         this.setTitle("评估信息查询");
-        et_pg_search = (EditText) findViewById(R.id.et_pg_search);
-        tv_pg_search = (TextView) findViewById(R.id.tv_pg_search);
-        lv_pgsearch = (PullToRefreshListView) findViewById(R.id.lv_pgsearch);
-        bt_pg = (Button) findViewById(R.id.bt_pg);
+        et_pg_search = findViewById(R.id.et_pg_search);
+        tv_pg_search = findViewById(R.id.tv_pg_search);
+        lv_pgsearch = findViewById(R.id.lv_pgsearch);
+        bt_pg = findViewById(R.id.bt_pg);
         tv_pg_search.setOnClickListener(this);
         bt_pg.setOnClickListener(this);
     }
@@ -142,9 +132,9 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
                                              Object data) {
                 // TODO Auto-generated method stub
                 //ImageView iv_xuanzhong = (ImageView) cell.findViewById(R.id.iv_xuanzhong);
-                CheckBox cb_xuanzhong = (CheckBox) cell.findViewById(R.id.cb_xuanzhong);
-                TextView tv_pg3 = (TextView) cell.findViewById(R.id.tv_pg3);
-                TextView tv_pg4 = (TextView) cell.findViewById(R.id.tv_pg4);
+                CheckBox cb_xuanzhong = cell.findViewById(R.id.cb_xuanzhong);
+                TextView tv_pg3 = cell.findViewById(R.id.tv_pg3);
+                TextView tv_pg4 = cell.findViewById(R.id.tv_pg4);
                 System.out.println("pgApproveBtn...00000000000sssssss" + pgApproveBtn);
                 if (pgApproveBtn.equals("\"0\"")) {
                     System.out.println("gone..........");
