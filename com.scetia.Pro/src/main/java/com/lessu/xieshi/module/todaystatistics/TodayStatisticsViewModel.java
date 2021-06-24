@@ -53,7 +53,7 @@ public class TodayStatisticsViewModel extends BaseViewModel {
 
                     @Override
                     public void failure(ExceptionHandle.ResponseThrowable throwable) {
-                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message));
+                        loadState.postValue(LoadState.FAILURE.setMessage(throwable.message).setCode(throwable.code));
                     }
                 });
     }

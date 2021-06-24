@@ -169,7 +169,7 @@ public abstract class IndexActivity extends BaseVMActivity<FirstViewModel> {
 
     @Override
     protected void inFailure(LoadState loadState) {
-        super.inFailure(loadState);
+        LSAlert.dismissProgressHud();
         switch (loadState.getCode()) {
             case 3000:
                 LSAlert.showAlert(this, "提示", loadState.getMessage() + "\n是否重新登录？"

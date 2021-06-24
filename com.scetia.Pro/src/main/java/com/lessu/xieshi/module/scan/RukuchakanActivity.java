@@ -165,12 +165,6 @@ public class RukuchakanActivity extends NavigationActivity implements View.OnCli
                 tv_chakan.setText(msg);
             }
         });
-      /*  new Thread(new Runnable() {
-            @Override
-            public void run() {
-                read();
-            }
-        }).start();*/
     }
 
     /**

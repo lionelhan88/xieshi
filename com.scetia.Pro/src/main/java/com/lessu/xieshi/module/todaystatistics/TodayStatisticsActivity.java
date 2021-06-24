@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.base.BaseVMActivity;
 import com.lessu.xieshi.bean.TodayStatisticsBean;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class TodayStatisticsActivity extends NavigationActivity implements  View.OnClickListener {
+public class TodayStatisticsActivity extends BaseVMActivity<TodayStatisticsViewModel> implements  View.OnClickListener {
 	private TextView tv_qianyitian;
 	private TextView tv_houyitian;
 	private LinearLayout ll_riqi;
@@ -29,7 +31,6 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 	private TextView tv_tongjishijian;
 	private RecyclerView rvToadyStatistics;
 	private ToadyStatisticsListAdapter adapter;
-	private TodayStatisticsViewModel viewModel;
 	private String riqi;
 	private int Year;
 	private int Month;
@@ -43,32 +44,7 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 
 	@Override
 	protected void observerData() {
-		viewModel = new ViewModelProvider(this).get(TodayStatisticsViewModel.class);
-		viewModel.getLoadState().observe(this, loadState -> {
-			switch (loadState){
-				case LOADING:
-					LSAlert.showProgressHud(TodayStatisticsActivity.this,loadState.getMessage());
-					break;
-				case SUCCESS:
-					LSAlert.dismissProgressHud();
-					break;
-				case FAILURE:
-					LSAlert.dismissProgressHud();
-					if(loadState.getCode()==3000) {
-						LSAlert.showAlert(TodayStatisticsActivity.this,"无相关记录！");
-						adapter.setNewData(new ArrayList<>());
-						tv_gcyanshouyp.setText("");
-						tv_jdchoujianyp.setText("");
-						tv_feigcyanshouyp.setText("");
-						tv_tongjishijian.setText("");
-					}else{
-						LSAlert.showAlert(TodayStatisticsActivity.this,loadState.getMessage());
-					}
-					break;
-			}
-		});
-
-		viewModel.getTodayStatisticsLiveData().observe(this, todayStatisticsBean -> {
+		mViewModel.getTodayStatisticsLiveData().observe(this, todayStatisticsBean -> {
 			TodayStatisticsBean.JsonContentBean jsonContent = todayStatisticsBean.getJsonContent();
 			tv_gcyanshouyp.setText(jsonContent.getDay_ImportSampleCount()+"");
 			tv_jdchoujianyp.setText(jsonContent.getDay_JdSample()+"");
@@ -77,6 +53,26 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 			tv_tongjishijian.setText(split[0]);
 			adapter.setNewData(jsonContent.getItemList());
 		});
+	}
+
+	@Override
+	protected void inLoading(LoadState loadState) {
+		LSAlert.showProgressHud(TodayStatisticsActivity.this,loadState.getMessage());
+	}
+
+	@Override
+	protected void inFailure(LoadState loadState) {
+		LSAlert.dismissProgressHud();
+		if(loadState.getCode()==3000) {
+			LSAlert.showAlert(TodayStatisticsActivity.this,"无相关记录！");
+			adapter.setNewData(new ArrayList<>());
+			tv_gcyanshouyp.setText("");
+			tv_jdchoujianyp.setText("");
+			tv_feigcyanshouyp.setText("");
+			tv_tongjishijian.setText("");
+		}else{
+			LSAlert.showAlert(TodayStatisticsActivity.this,loadState.getMessage());
+		}
 	}
 
 	/**
@@ -106,7 +102,7 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 	@Override
 	protected void onStart() {
 		super.onStart();
-		viewModel.loadData("0",riqi);
+		mViewModel.loadData("0",riqi);
 	}
 
 	@Override
@@ -114,11 +110,11 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 		switch (view.getId()){
 			case R.id.tv_qianyitian:
 				tv_riqi.setText(getTitleDate(-1));
-				viewModel.loadData("0",riqi);
+				mViewModel.loadData("0",riqi);
 				break;
 			case R.id.tv_houyitian:
 				tv_riqi.setText(getTitleDate(1));
-				viewModel.loadData("0",riqi);
+				mViewModel.loadData("0",riqi);
 				break;
 			case R.id.ll_riqi:
 				new DatePickerDialog(this, mDateSetListener, Year, Month, Day).show();
@@ -130,7 +126,7 @@ public class TodayStatisticsActivity extends NavigationActivity implements  View
 							  int dayOfMonth) {
 			cal.set(year,monthOfYear,dayOfMonth);
 			tv_riqi.setText(getTitleDate(0));
-			viewModel.loadData("0",riqi);
+			mViewModel.loadData("0",riqi);
 		}
 	};
 

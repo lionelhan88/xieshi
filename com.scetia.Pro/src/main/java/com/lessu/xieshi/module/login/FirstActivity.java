@@ -13,6 +13,7 @@ import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.uikit.views.LSAlert;
+import com.lessu.xieshi.BuildConfig;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.base.IndexActivity;
@@ -24,7 +25,7 @@ import com.lessu.xieshi.module.meet.activity.MeetingListActivity;
 import com.lessu.xieshi.module.sand.SandHomeActivity;
 import com.lessu.xieshi.module.scan.BluetoothActivity;
 import com.lessu.xieshi.module.scan.PrintDataActivity;
-import com.lessu.xieshi.module.scan.YangpinshibieActivity;
+import com.lessu.xieshi.module.scan.SampleIdentificationActivity;
 import com.lessu.xieshi.module.todaystatistics.SiteSearchListMapActivity;
 import com.lessu.xieshi.module.todaystatistics.TodayStatisticsActivity;
 import com.lessu.xieshi.module.training.TrainingActivity;
@@ -164,81 +165,8 @@ public class FirstActivity extends IndexActivity {
 
         final String userPower = power.substring(0, 14);
         char userPower2 = power.charAt(15);
-        if (userPower.equals("00010010100000")) {//j20623 279162 见证人
-            llSeccion1.setVisibility(View.VISIBLE);
-            llSeccion2.setVisibility(View.VISIBLE);
-            llSeccion3.setVisibility(View.VISIBLE);
-            llSeccion4.setVisibility(View.INVISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
-            ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
-            tvSeccion1.setText("样品查询");
-            ivSeccion2.setImageResource(R.drawable.tupianshangchuan);
-            tvSeccion2.setText("现场图片上传");
-            ivSeccion3.setImageResource(R.drawable.yangpinshibie);
-            tvSeccion3.setText("样品识别");
-            llSeccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, ConstructionListActivity.class);
-                    startActivity(intent);
-                }
-            });
-            llSeccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, UploadPictureActivity.class);
-                    startActivity(intent);
-                }
-            });
-            llSeccion3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").equals("")) {
-                        intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
-                    } else {
-                        AppApplication.isGLY = false;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-        }
-        if (userPower.equals("00010000100000")) {//Q13503 123456 取样人
-            llSeccion1.setVisibility(View.VISIBLE);
-            llSeccion2.setVisibility(View.VISIBLE);
-            llSeccion3.setVisibility(View.INVISIBLE);
-            llSeccion4.setVisibility(View.INVISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
-            ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
-            tvSeccion1.setText("样品查询");
-            ivSeccion2.setImageResource(R.drawable.yangpinshibie);
-            tvSeccion2.setText("样品识别");
-            llSeccion1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, ConstructionListActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            llSeccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
-                        intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
-                    } else {
-                        AppApplication.isGLY = false;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-        }
-        if (userPower.equals("10001101100000")) {//gly 1319 质监站人员
+    /*    if (BuildConfig.DEBUG) {
+            //gly 1319 质监站人员
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
             llSeccion3.setVisibility(View.VISIBLE);
@@ -269,15 +197,95 @@ public class FirstActivity extends IndexActivity {
             llSeccion4.setOnClickListener(view -> {
                 Intent intent = new Intent();
                 if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
-                    intent.setClass(FirstActivity.this, YangpinshibieActivity.class);
+                    intent.setClass(FirstActivity.this, SampleIdentificationActivity.class);
                 } else {
                     AppApplication.isGLY = false;
                     intent.setClass(FirstActivity.this, BluetoothActivity.class);
                 }
                 startActivity(intent);
             });
+        return;
+    }*/
+        if (userPower.equals("00010010100000")) {//j20623 279162 见证人
+            llSeccion1.setVisibility(View.VISIBLE);
+            llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.VISIBLE);
+            llSeccion4.setVisibility(View.INVISIBLE);
+            llSeccion5.setVisibility(View.INVISIBLE);
+            llSeccion6.setVisibility(View.INVISIBLE);
+            ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
+            tvSeccion1.setText("样品查询");
+            ivSeccion2.setImageResource(R.drawable.tupianshangchuan);
+            tvSeccion2.setText("现场图片上传");
+            ivSeccion3.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion3.setText("样品识别");
+            llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
+            llSeccion2.setOnClickListener(view -> startOtherActivity(UploadPictureActivity.class));
+            llSeccion3.setOnClickListener(view -> {
+                if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").equals("")) {
+                    startOtherActivity(SampleIdentificationActivity.class);
+                } else {
+                    AppApplication.isGLY = false;
+                    startOtherActivity(BluetoothActivity.class);
+                }
+            });
         }
-        if (userPower.equals("01101000000000")) {//t9990001 1 检测人员
+
+        //Q13503 123456 取样人
+        if (userPower.equals("00010000100000")) {
+            llSeccion1.setVisibility(View.VISIBLE);
+            llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.INVISIBLE);
+            llSeccion4.setVisibility(View.INVISIBLE);
+            llSeccion5.setVisibility(View.INVISIBLE);
+            llSeccion6.setVisibility(View.INVISIBLE);
+            ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
+            tvSeccion1.setText("样品查询");
+            ivSeccion2.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion2.setText("样品识别");
+            llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
+
+            llSeccion2.setOnClickListener(view -> {
+                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+                    startOtherActivity(SampleIdentificationActivity.class);
+                } else {
+                    AppApplication.isGLY = false;
+                    startOtherActivity(BluetoothActivity.class);
+                }
+            });
+        }
+
+        //gly 1319 质监站人员
+        if (userPower.equals("10001101100000")) {
+            llSeccion1.setVisibility(View.VISIBLE);
+            llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.VISIBLE);
+            llSeccion4.setVisibility(View.VISIBLE);
+            llSeccion5.setVisibility(View.INVISIBLE);
+            llSeccion6.setVisibility(View.INVISIBLE);
+            ivSeccion1.setImageResource(R.drawable.jinritongji1);
+            tvSeccion1.setText("工地查询");
+            ivSeccion2.setImageResource(R.drawable.xinxichaxun);
+            tvSeccion2.setText("不合格信息查询");
+            ivSeccion3.setImageResource(R.drawable.gongchengchaxun1);
+            tvSeccion3.setText("基桩静载");
+            ivSeccion4.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion4.setText("样品识别");
+            llSeccion1.setOnClickListener(view -> startOtherActivity(SiteSearchListMapActivity.class));
+            llSeccion2.setOnClickListener(view -> startOtherActivity(UnqualifiedSearchActivity.class));
+            llSeccion3.setOnClickListener(view -> startOtherActivity(ProjectListActivity.class));
+            llSeccion4.setOnClickListener(view -> {
+                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+                    startOtherActivity(SampleIdentificationActivity.class);
+                } else {
+                    AppApplication.isGLY = false;
+                    startOtherActivity(BluetoothActivity.class);
+                }
+            });
+        }
+
+        //t9990001 1 检测人员
+        if (userPower.equals("01101000000000")) {
             //如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
             if (SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "").toUpperCase().startsWith("MEET")) {
                 llSeccion1.setVisibility(View.VISIBLE);
@@ -288,13 +296,10 @@ public class FirstActivity extends IndexActivity {
                 llSeccion6.setVisibility(View.INVISIBLE);
                 ivSeccion1.setImageResource(R.drawable.home_meeting_bg);
                 tvSeccion1.setText("会议安排");
-                llSeccion1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
-                        intentMeeting.putExtra("type_user", 1);
-                        startActivity(intentMeeting);
-                    }
+                llSeccion1.setOnClickListener(view -> {
+                    Intent intentMeeting = new Intent(FirstActivity.this, MeetingListActivity.class);
+                    intentMeeting.putExtra("type_user", 1);
+                    startActivity(intentMeeting);
                 });
             } else {
                 llSeccion1.setVisibility(View.VISIBLE);
@@ -306,13 +311,7 @@ public class FirstActivity extends IndexActivity {
                 llSeccion6.setVisibility(View.INVISIBLE);
                 ivSeccion1.setImageResource(R.drawable.shujushenhe1);
                 tvSeccion1.setText("记录审核");
-                llSeccion1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(FirstActivity.this, DataAuditingActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                llSeccion1.setOnClickListener(view -> startOtherActivity(DataAuditingActivity.class));
             }
             ivSeccion2.setImageResource(R.drawable.baogaopizhun);
             tvSeccion2.setText("报告批准");
@@ -327,57 +326,24 @@ public class FirstActivity extends IndexActivity {
             ivSeccion6.setImageResource(R.drawable.home_meeting_bg);
             tvSeccion6.setText("用砂管理");
 
-            llSeccion2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(FirstActivity.this, DataExamineActivity.class);
-                    startActivity(intent);
+            llSeccion2.setOnClickListener(view -> startOtherActivity( DataExamineActivity.class));
+            llSeccion3.setOnClickListener(view -> {
+                startOtherActivity(TodayStatisticsActivity.class);
+            });
+            llSeccion4.setOnClickListener(view -> {
+                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+                    startOtherActivity(PrintDataActivity.class);
+                } else {
+                    AppApplication.isGLY = true;
+                    startOtherActivity(BluetoothActivity.class);
                 }
             });
-            llSeccion3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Class tempClass = null;
-                    if (userPower.charAt(0) == '0') {
-                        tempClass = TodayStatisticsActivity.class;
-                        Intent intent = new Intent(FirstActivity.this, tempClass);
-                        startActivity(intent);
-                    } else {
-                        tempClass = SiteSearchListMapActivity.class;
-                        Intent intent = new Intent(FirstActivity.this, tempClass);
-                        intent.putExtra("diyici", true);
-                        startActivity(intent);
-                    }
-                }
-            });
-            llSeccion4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
-                        intent.setClass(FirstActivity.this, PrintDataActivity.class);
-                    } else {
-                        AppApplication.isGLY = true;
-                        intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                    }
-                    startActivity(intent);
-                }
-            });
-            llSeccion5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentXITONG = new Intent(FirstActivity.this, TrainingActivity.class);
-                    startActivity(intentXITONG);
+            llSeccion5.setOnClickListener(view -> {
+                Intent intentXITONG = new Intent(FirstActivity.this, TrainingActivity.class);
+                startActivity(intentXITONG);
 
-                }
             });
-            llSeccion6.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intentMeeting = new Intent(FirstActivity.this, SandHomeActivity.class);
-                    startActivity(intentMeeting);
-                }
-            });
+            llSeccion6.setOnClickListener(view -> startOtherActivity(SandHomeActivity.class));
         }
     }
 

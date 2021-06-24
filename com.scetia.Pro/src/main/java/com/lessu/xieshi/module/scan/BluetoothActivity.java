@@ -291,7 +291,7 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
             if(AppApplication.isGLY){
                 intent.setClass(BluetoothActivity.this, PrintDataActivity.class);
             }else{
-                intent.setClass(BluetoothActivity.this, YangpinshibieActivity.class);
+                intent.setClass(BluetoothActivity.this, SampleIdentificationActivity.class);
             }
             startActivity(intent);
             bluetoothAdapter.cancelDiscovery();
