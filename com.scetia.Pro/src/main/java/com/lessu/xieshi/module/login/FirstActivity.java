@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.good.permission.annotation.PermissionDenied;
 import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
@@ -22,7 +23,6 @@ import com.lessu.xieshi.module.dataauditing.DataAuditingActivity;
 import com.lessu.xieshi.module.dataexamine.DataExamineActivity;
 import com.lessu.xieshi.module.foundationpile.ProjectListActivity;
 import com.lessu.xieshi.module.meet.activity.MeetingListActivity;
-import com.lessu.xieshi.module.sand.SandHomeActivity;
 import com.lessu.xieshi.module.scan.BluetoothActivity;
 import com.lessu.xieshi.module.scan.PrintDataActivity;
 import com.lessu.xieshi.module.scan.SampleIdentificationActivity;
@@ -151,7 +151,7 @@ public class FirstActivity extends IndexActivity {
             ivSeccion1.setImageResource(R.drawable.home_meeting_bg);
             tvSeccion1.setText("用砂管理");
             llSeccion1.setOnClickListener(v -> {
-                startOtherActivity(SandHomeActivity.class);
+                ARouter.getInstance().build("/app_sand/sandHomeActivity").navigation();
             });
             llSeccion2.setVisibility(View.INVISIBLE);
             llSeccion3.setVisibility(View.INVISIBLE);
@@ -165,47 +165,6 @@ public class FirstActivity extends IndexActivity {
 
         final String userPower = power.substring(0, 14);
         char userPower2 = power.charAt(15);
-    /*    if (BuildConfig.DEBUG) {
-            //gly 1319 质监站人员
-            llSeccion1.setVisibility(View.VISIBLE);
-            llSeccion2.setVisibility(View.VISIBLE);
-            llSeccion3.setVisibility(View.VISIBLE);
-            llSeccion4.setVisibility(View.VISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
-
-            ivSeccion1.setImageResource(R.drawable.jinritongji1);
-            tvSeccion1.setText("工地查询");
-            ivSeccion2.setImageResource(R.drawable.xinxichaxun);
-            tvSeccion2.setText("不合格信息查询");
-            ivSeccion3.setImageResource(R.drawable.gongchengchaxun1);
-            tvSeccion3.setText("基桩静载");
-            ivSeccion4.setImageResource(R.drawable.yangpinshibie);
-            tvSeccion4.setText("样品识别");
-            llSeccion1.setOnClickListener(view -> {
-                Intent intent = new Intent(FirstActivity.this, SiteSearchListMapActivity.class);
-                startActivity(intent);
-            });
-            llSeccion2.setOnClickListener(view -> {
-                Intent intent = new Intent(FirstActivity.this, UnqualifiedSearchActivity.class);
-                startActivity(intent);
-            });
-            llSeccion3.setOnClickListener(view -> {
-                Intent intent = new Intent(FirstActivity.this, ProjectListActivity.class);
-                startActivity(intent);
-            });
-            llSeccion4.setOnClickListener(view -> {
-                Intent intent = new Intent();
-                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
-                    intent.setClass(FirstActivity.this, SampleIdentificationActivity.class);
-                } else {
-                    AppApplication.isGLY = false;
-                    intent.setClass(FirstActivity.this, BluetoothActivity.class);
-                }
-                startActivity(intent);
-            });
-        return;
-    }*/
         if (userPower.equals("00010010100000")) {//j20623 279162 见证人
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
@@ -323,8 +282,6 @@ public class FirstActivity extends IndexActivity {
                 ivSeccion5.setImageResource(R.drawable.zaixianjiaoyu);
             }
             tvSeccion5.setText("在线培训");
-            ivSeccion6.setImageResource(R.drawable.home_meeting_bg);
-            tvSeccion6.setText("用砂管理");
 
             llSeccion2.setOnClickListener(view -> startOtherActivity( DataExamineActivity.class));
             llSeccion3.setOnClickListener(view -> {
@@ -343,7 +300,6 @@ public class FirstActivity extends IndexActivity {
                 startActivity(intentXITONG);
 
             });
-            llSeccion6.setOnClickListener(view -> startOtherActivity(SandHomeActivity.class));
         }
     }
 

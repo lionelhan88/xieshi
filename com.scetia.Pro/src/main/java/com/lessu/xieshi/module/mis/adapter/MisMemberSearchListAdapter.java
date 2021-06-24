@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.lessu.xieshi.R;
-import com.scetia.Pro.baseapp.page.BasePageListAdapter;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
 import com.lessu.xieshi.module.mis.viewmodel.MisSearchViewModel;
+import com.scetia.Pro.baseapp.basepage.BasePageListAdapter;
 import com.scetia.Pro.baseapp.basepage.PageListCommonViewHolder;
 
 /**

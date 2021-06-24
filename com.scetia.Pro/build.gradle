@@ -15,13 +15,16 @@ android {
         versionName rootProject.ext.android.versionName
         multiDexEnabled true
         //添加如下配置就OK了
-        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     //配置签名文件
     signingConfigs {
         release {
             try {
-
                 storeFile file("../kestore/Scetia_Pro.jks")
                 storePassword "xieshi123"
                 keyAlias "xieshi123"
@@ -43,9 +46,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-      /*  debug{
-            signingConfig signingConfigs.release
-        }*/
     }
     applicationVariants.all { variant ->
         def buildType = variant.buildType.name
@@ -91,8 +91,10 @@ dependencies {
     implementation rootProject.ext.dependencies.updateUtilsSDK2
     implementation rootProject.ext.dependencies.permissionGood
     implementation rootProject.ext.dependencies.pulltorefreash
+    implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.annationProcess.butterknifAnnationProcess
     annotationProcessor rootProject.ext.annationProcess.glideAnnationProcess
+    annotationProcessor rootProject.ext.annationProcess.arouterProcessorr
     testImplementation rootProject.ext.testJunit
     androidTestImplementation rootProject.ext.androidTest
     implementation project(':lSUIKit')
@@ -101,6 +103,8 @@ dependencies {
     implementation project(':library')
     implementation project(':lib_common')
     implementation project(':lib_map')
+    //如果需要建设用沙功能在这里引入组件即可使用
+    //implementation project(':app_sand')
     implementation files('libs/uhfreaderapi.jar')
     compile files('libs/zbar.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')

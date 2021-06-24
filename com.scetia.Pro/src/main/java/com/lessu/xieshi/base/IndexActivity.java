@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
+import com.lessu.xieshi.BuildConfig;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.login.viewmodel.FirstViewModel;
 import com.lessu.xieshi.module.login.viewmodel.FirstViewModelFactory;
@@ -77,6 +78,11 @@ public abstract class IndexActivity extends BaseVMActivity<FirstViewModel> {
      * @param userPower 用户权限码
      */
     private void initMenu(String userPower) {
+        //建设用沙功能测试使用的权限为"1"
+        if(BuildConfig.DEBUG&&userPower.equals("1")){
+            initExternalMenu(userPower);
+            return;
+        }
         String misUserPower = userPower.substring(16);
         String externalUserPower = userPower.substring(0,16);
         if(misUserPower.contains("1")){

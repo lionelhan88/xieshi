@@ -66,35 +66,6 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="info_show_list_linearLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">40dp</item>
-        <item name="android:background">@drawable/press_with_light_gray_underline_bg</item>
-        <item name="android:orientation">horizontal</item>
-
-    </style>
-
-    <style name="flow_declaration_linearLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">50dp</item>
-        <item name="android:background">@drawable/press_with_light_gray_underline_bg</item>
-        <item name="android:orientation">horizontal</item>
-
-    </style>
-
-    <style name="info_show_list_left">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="sm_flow_declaration_detail_text_left_style" parent="info_show_list_left">
-        <item name="android:layout_weight">1.5</item>
-    </style>
 
     <style name="text_style_wrap_content">
         <item name="android:layout_width">wrap_content</item>
@@ -103,20 +74,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="info_show_list_right">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">3</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/x5</item>
-    </style>
 
-    <style name="info_show_list_edit_text" parent="info_show_list_right">
-        <item name="android:enabled">true</item>
-        <item name="android:background">@null</item>
-        <item name="android:textSize">@dimen/sp_14</item>
-    </style>
     //工地搜索
 
     <style name="site_search_by_condition_edit_text_style">
@@ -128,13 +86,7 @@
         <item name="android:background">@null</item>
     </style>
 
-    <style name="sand_result_query_detail_text_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:textColor">@color/white_smoke</item>
-        <item name="android:textSize">@dimen/text_size_small</item>
-    </style>
+
 
     <style name="seal_matter_detail_text_label_style" parent="info_show_list_left">
         <item name="android:textColor">@color/grey_dim</item>

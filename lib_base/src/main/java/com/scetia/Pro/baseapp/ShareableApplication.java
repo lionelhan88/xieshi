@@ -54,6 +54,7 @@ public abstract class ShareableApplication extends Application implements Applic
         activityHashMap.clear();
     }
 
+
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         //如果当前 集合中不存在此activity则存入

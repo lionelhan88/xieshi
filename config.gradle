@@ -13,6 +13,7 @@ ext {
     annationProcess = [
             butterknifAnnationProcess: 'com.jakewharton:butterknife-compiler:10.2.3',
             glideAnnationProcess     : 'com.github.bumptech.glide:compiler:4.11.0',
+            arouterProcessorr        : 'com.alibaba:arouter-compiler:1.5.2'
     ]
     androidTest = [
             'androidx.test.ext:junit:1.1.2',
@@ -75,6 +76,8 @@ ext {
                     'androidx.recyclerview:recyclerview:1.1.0',
                     'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
             ],
+            arouter            : 'com.alibaba:arouter-api:1.5.2',
+
 
     ]
 
