@@ -1,0 +1,31 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="flow_declaration_linearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:background">@drawable/press_with_light_gray_underline_bg</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+
+    <style name="sm_flow_declaration_detail_text_left_style" parent="info_show_list_left">
+        <item name="android:layout_weight">1.5</item>
+    </style>
+
+    <style name="sand_result_query_detail_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/white_smoke</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+</resources>

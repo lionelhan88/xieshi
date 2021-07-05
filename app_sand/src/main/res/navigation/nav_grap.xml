@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgration"
+    app:startDestination="@id/sandManageHomeFragment">
+    <fragment
+        android:id="@+id/sandManageHomeFragment"
+        android:name="com.scetia.app_sand.fragment.SandManageHomeFragment"
+        android:label="SandManageHomeFragment"
+        tools:layout="@layout/fragment_sand_manage">
+        <action
+            android:id="@+id/actionManageToProviderList"
+            app:destination="@id/SandInfoMaintainProviderFragment" />
+        <action
+            android:id="@+id/actionManageToSalesManage"
+            app:destination="@id/SandInfoMaintainSalesFragment" />
+        <action
+            android:id="@+id/actionManageToTestingManage"
+            app:destination="@id/SandInfoMaintainTestingManageFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/actionManageToTestingCommission"
+            app:destination="@id/TestingCommissionListFragment" />
+        <action
+            android:id="@+id/actionManageToSMFlowDeclaration"
+            app:destination="@id/SMFlowDeclarationListFragment" />
+        <action
+            android:id="@+id/actionManageToTestingQuery"
+            app:destination="@id/TestingInfoQueryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SandInfoMaintainProviderFragment"
+        android:name="com.scetia.app_sand.fragment.SandSupplierListFragment"
+        android:label="SandInfoMaintainProviderFragment"
+        tools:layout="@layout/fragment_sand_info_maintain" />
+    <fragment
+        android:id="@+id/SandInfoMaintainSalesFragment"
+        android:name="com.scetia.app_sand.fragment.SandSalesTargetListFragment"
+        android:label="SMFlowDeclarationDetailFragment"
+        tools:layout="@layout/fragment_sand_info_maintain_sales">
+        <action
+            android:id="@+id/actionSalesFragmentToCompanyResult"
+            app:destination="@id/SupplierQueryResultFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/SandInfoMaintainTestingManageFragment"
+        android:name="com.scetia.app_sand.fragment.SandTestingCompanyListFragment"
+        android:label="SandInfoMaintainTestingManageFragment"
+        tools:layout="@layout/fragment_testing_company_manage">
+        <action
+            android:id="@+id/actionTestingMangeToTestingQueryResult"
+            app:destination="@id/TestingCompanyQueryResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/TestingCommissionListFragment"
+        android:name="com.scetia.app_sand.fragment.TestingCommissionListFragment"
+        android:label="TestingCommissionListFragment"
+        tools:layout="@layout/fragment_sand_info_maintain_sales">
+        <action
+            android:id="@+id/actionCommissionListToDetail"
+            app:destination="@+id/sandTestingCommissionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sandTestingCommissionFragment"
+        android:name="com.scetia.app_sand.fragment.TestingCommissionDetailFragment"
+        android:label="SandTestingCommissionFragment"
+        tools:layout="@layout/fragment_sand_testing_commission" >
+        <action
+            android:id="@+id/actionSandTestingCommissionFragmentToFlowDeclarationList"
+            app:destination="@id/SMFlowDeclarationListFragment" />
+        <action
+            android:id="@+id/actionSandTestingCommissionFragmentToCompanyList"
+            app:destination="@id/SandInfoMaintainTestingManageFragment" />
+        <action
+            android:id="@+id/action_sandTestingCommissionFragment_to_scalePictureActivity"
+            app:destination="@id/scalePictureActivity" />
+        <action
+            android:id="@+id/testingCommissionDetailToSamplingProcess"
+            app:destination="@+id/TCSamplingProcessFragment"/>
+        <action
+            android:id="@+id/testingCommissionDetailToIdentification"
+            app:destination="@+id/UniqueIdentificationNoFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/SMFlowDeclarationListFragment"
+        android:name="com.scetia.app_sand.fragment.SMFlowDeclarationListFragment"
+        android:label="SMFlowDeclarationListFragment"
+        tools:layout="@layout/fragment_sm_flow_declaration_list">
+        <action
+            android:id="@+id/actionSMFlowDeclarationListToDetail"
+            app:destination="@id/SMFlowDeclarationDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SMFlowDeclarationDetailFragment"
+        android:name="com.scetia.app_sand.fragment.SMFlowDeclarationDetailFragment"
+        android:label="SMFlowDeclarationDetailFragment"
+        tools:layout="@layout/fragment_sm_flow_declaration_detail">
+        <action
+            android:id="@+id/actionSMFlowDeclarationDetailToSupplierFragment"
+            app:destination="@id/SandInfoMaintainProviderFragment"/>
+        <action android:id="@+id/actionSMFLowDeclarationDetailToSaleTarget"
+            app:destination="@+id/SandInfoMaintainSalesFragment"/>
+        <action android:id="@+id/flowDeclarationDetailToCommissionDetail"
+            app:destination="@+id/sandTestingCommissionFragment"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/TestingInfoQueryFragment"
+        android:name="com.scetia.app_sand.fragment.TestingInfoQueryListFragment"
+        android:label="TestingInfoQueryFragment"
+        tools:layout="@layout/fragment_testing_info_query_list">
+        <action
+            android:id="@+id/actionTestingQueryListToDetail"
+            app:destination="@id/TestingInfoQueryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/TestingInfoQueryDetailFragment"
+        android:name="com.scetia.app_sand.fragment.TestingInfoQueryDetailFragment"
+        android:label="TestingInfoQueryDetailFragment"
+        tools:layout="@layout/fragment_testing_info_query_details" />
+    <fragment
+        android:id="@+id/SupplierQueryResultFragment"
+        android:name="com.scetia.app_sand.fragment.SandSalesTargetQueryListFragment"
+        android:label="SupplierQueryResultFragment"
+        tools:layout="@layout/fragment_company_query_result" />
+    <fragment
+        android:id="@+id/TestingCompanyQueryResultFragment"
+        android:name="com.scetia.app_sand.fragment.SandTestingCompanyQueryListFragment"
+        android:label="TestingCompanyQueryResultFragment"
+        tools:layout="@layout/fragment_testing_company_query_result" />
+    <fragment
+        android:id="@+id/TCSamplingProcessFragment"
+        android:name="com.scetia.app_sand.fragment.TCSamplingProcessFragment"
+        android:label="TCSamplingProcessFragment"
+        tools:layout="@layout/fragment_testing_commission_sampling_process" />
+    <fragment
+        android:id="@+id/UniqueIdentificationNoFragment"
+        android:name="com.scetia.app_sand.fragment.UniqueIdentificationNoFragment" />
+    <activity
+        android:id="@+id/scalePictureActivity"
+        android:name="com.scetia.app_sand.activity.ScalePictureActivity"
+        android:label="ScalePictureActivity" />
+</navigation>

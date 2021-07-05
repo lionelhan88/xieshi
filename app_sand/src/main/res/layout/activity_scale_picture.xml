@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scale_rl"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/content_loading"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"/>
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/scale_picture_image"
+        android:transitionName="enlargePicture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
+</RelativeLayout>

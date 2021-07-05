@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'android-aspectjx'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testImplementation rootProject.ext.testJunit
+    androidTestImplementation rootProject.ext.androidTest
+    implementation rootProject.ext.dependencies.arouter
+    implementation rootProject.ext.dependencies.photoview
+    implementation project(':lSUIKit')
+    implementation project(':lib_base')
+    implementation project(':lib_network')
+    implementation project(':library')
+    implementation project(':lib_common')
+    implementation project(':lib_map')
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
+    annotationProcessor rootProject.ext.annationProcess.butterknifAnnationProcess
+    annotationProcessor rootProject.ext.annationProcess.glideAnnationProcess
+
+}

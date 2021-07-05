@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll_bottom_btn_nav"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="备案证号:" />
+
+                <TextView
+                    android:id="@+id/flow_declaration_detail_record_number"
+                    style="@style/info_show_list_edit_text"
+                    android:drawableEnd="@drawable/xialamis"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择备案证号"
+                    android:paddingEnd="5dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="备案证名称:" />
+
+                <TextView
+                    android:id="@+id/flow_declaration_detail_record_name"
+                    style="@style/info_show_list_edit_text"
+                    android:paddingEnd="20dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="船名（船号）:" />
+
+                <EditText
+                    android:id="@+id/flow_declaration_detail_ship_name"
+                    style="@style/info_show_list_edit_text"
+                    android:paddingEnd="20dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="建设用砂名称:" />
+
+                <TextView
+                    android:id="@+id/flow_declaration_detail_sand_name"
+                    style="@style/info_show_list_edit_text"
+                    android:drawableEnd="@drawable/xialamis"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择建设用砂名称"
+                    android:paddingEnd="5dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="建设用砂规格:" />
+
+                <TextView
+                    android:id="@+id/flow_declaration_detail_sand_spec"
+                    style="@style/info_show_list_edit_text"
+                    android:drawableEnd="@drawable/xialamis"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择建设用砂规格"
+                    android:paddingEnd="5dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/info_show_list_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="检测参数:" />
+
+                <TextView
+                    android:id="@+id/flow_declaration_detail_test_parameter"
+                    style="@style/info_show_list_edit_text"
+                    android:drawableEnd="@drawable/xialamis"
+                    android:hint="请选择检测参数"
+                    android:paddingEnd="5dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="码头名称:" />
+
+                <EditText
+                    android:id="@+id/flow_declaration_detail_wharf_name"
+                    style="@style/info_show_list_edit_text"
+                    android:gravity="start|center_vertical"
+                    android:paddingEnd="20dp" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="销售对象:" />
+
+                <TextView
+                    android:id="@+id/flow_declaration_detail_sale_user"
+                    style="@style/info_show_list_edit_text"
+                    android:drawableEnd="@drawable/xialamis"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择销售对象"
+                    android:paddingEnd="5dp"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/flow_declaration_linearLayout">
+
+                <TextView
+                    style="@style/sm_flow_declaration_detail_text_left_style"
+                    android:text="销售数量（t）:" />
+
+                <EditText
+                    android:id="@+id/flow_declaration_detail_sale_number"
+                    style="@style/info_show_list_edit_text"
+                    android:hint="@string/sales_number_text"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:paddingEnd="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_btn_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/bt_flow_declaration_detail_save"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/blue_normal2"
+            android:text="保存"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/center_label"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bt_flow_declaration_detail_declaration"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/orange2"
+            android:text="委托"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_provider_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_provider_search_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_sand_provider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="@string/sand_manage_info_provider_search_text"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_provider_search_img"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_sales_manage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_sales_manage_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_sand_sales_manage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="@string/sand_manage_info_sales_manage_text"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_sales_manage_img"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_testing_manage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_testing_manage_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_testing_manage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="@string/sand_manage_info_testing_manage_text"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_testing_manage_img"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_flow_declaration"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_flow_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_flow_declaration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="@string/sand_manage_flow_declaration_text"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_flow_img"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_testing_commission"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_testing_commission_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_testing_commission"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="@string/sand_manage_testing_commission_text"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_testing_commission_img"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_info_query"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_entrusted_registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_info_query"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="@string/sand_manage_info_query_text"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_entrusted_registration"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sand_manage_info_qrcode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/light_gray_underline_with_white_bg"
+        android:paddingStart="10dp">
+
+        <ImageView
+            android:id="@+id/sand_manage_entrusted_registration1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_info_query"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/nextmis"
+            android:gravity="center_vertical"
+            android:paddingEnd="20dp"
+            android:text="扫一扫"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sand_manage_entrusted_registration1"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

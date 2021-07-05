@@ -108,6 +108,7 @@ dependencies {
     implementation files('libs/uhfreaderapi.jar')
     compile files('libs/zbar.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
+    //检测内存泄漏的工具
    // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 
 }
