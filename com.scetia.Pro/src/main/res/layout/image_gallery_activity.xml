@@ -37,12 +37,8 @@
 			        android:src="@drawable/icon_download_left_arrow"
 			        android:scaleType="fitXY"
 			        />
-			    <LinearLayout 
-			        android:layout_width="0dp"
-			        android:layout_weight="1"
-			        android:layout_height="match_parent"
-			        ></LinearLayout>
-			    <ImageView 
+
+				<ImageView
 			        android:id="@+id/rightButton"
 			        android:layout_width="50dp"
 			        android:layout_height="50dp"

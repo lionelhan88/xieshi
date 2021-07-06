@@ -39,6 +39,7 @@
                 android:gravity="right"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <CheckBox
                     android:layout_marginRight="30dp"
                     android:layout_centerVertical="true"
@@ -50,8 +51,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:button="@drawable/checkbox_selector_in"
-                    ></CheckBox>
+                    android:button="@drawable/checkbox_selector_in" />
             </RelativeLayout>
         </LinearLayout>
         <View

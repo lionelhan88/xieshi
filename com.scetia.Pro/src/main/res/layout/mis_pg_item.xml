@@ -11,14 +11,14 @@
 		android:background="#ffffff"
 		android:orientation="horizontal"
 		>
-		 <CheckBox
-			 android:id="@+id/cb_xuanzhong"
-			 android:layout_gravity="center_vertical"
-			 android:layout_marginLeft="12dp"
-			 android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
-			 android:button="@drawable/checkbox_selector_in"
-		      ></CheckBox>
+
+		<CheckBox
+			android:id="@+id/cb_xuanzhong"
+			android:layout_gravity="center_vertical"
+			android:layout_marginLeft="12dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:button="@drawable/checkbox_selector_in" />
 		<!--<ImageView-->
 			<!--android:id="@+id/iv_xuanzhong"-->
 			<!--android:layout_gravity="center_vertical"-->

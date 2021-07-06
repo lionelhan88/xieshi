@@ -6,6 +6,6 @@
         android:id="@+id/lv_sample_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"></ListView>
+        android:divider="@null" />
 
 </RelativeLayout>

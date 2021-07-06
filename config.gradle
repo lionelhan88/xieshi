@@ -5,7 +5,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 29,
             versionCode      : 3,
-            versionName      : "1.047",
+            versionName      : "1.048",
             applicationId    : "com.scetia.Pro",
             isApplication    : false
     ]

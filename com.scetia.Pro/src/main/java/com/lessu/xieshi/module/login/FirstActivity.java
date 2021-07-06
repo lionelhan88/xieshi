@@ -14,7 +14,6 @@ import com.good.permission.annotation.PermissionNeed;
 import com.good.permission.util.PermissionSettingPage;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lessu.uikit.views.LSAlert;
-import com.lessu.xieshi.BuildConfig;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.base.IndexActivity;
