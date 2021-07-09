@@ -128,8 +128,6 @@ public class FirstActivity extends IndexActivity {
     protected void initView() {
         super.initView();
         navigationBar.setVisibility(View.GONE);
-        //该功能还未开放！！！！！！
-        llSeccion6.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -152,11 +150,6 @@ public class FirstActivity extends IndexActivity {
             llSeccion1.setOnClickListener(v -> {
                 ARouter.getInstance().build("/app_sand/sandHomeActivity").navigation();
             });
-            llSeccion2.setVisibility(View.INVISIBLE);
-            llSeccion3.setVisibility(View.INVISIBLE);
-            llSeccion4.setVisibility(View.INVISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
             //界面初始化完成，开启自动登录
             SPUtil.setSPConfig(SPUtil.AUTO_LOGIN_KEY, true);
             return;
@@ -168,9 +161,6 @@ public class FirstActivity extends IndexActivity {
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
             llSeccion3.setVisibility(View.VISIBLE);
-            llSeccion4.setVisibility(View.INVISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
             ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
             tvSeccion1.setText("样品查询");
             ivSeccion2.setImageResource(R.drawable.tupianshangchuan);
@@ -180,7 +170,7 @@ public class FirstActivity extends IndexActivity {
             llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
             llSeccion2.setOnClickListener(view -> startOtherActivity(UploadPictureActivity.class));
             llSeccion3.setOnClickListener(view -> {
-                if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").equals("")) {
+                if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").isEmpty()) {
                     startOtherActivity(SampleIdentificationActivity.class);
                 } else {
                     AppApplication.isGLY = false;
@@ -193,10 +183,6 @@ public class FirstActivity extends IndexActivity {
         if (userPower.equals("00010000100000")) {
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
-            llSeccion3.setVisibility(View.INVISIBLE);
-            llSeccion4.setVisibility(View.INVISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
             ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
             tvSeccion1.setText("样品查询");
             ivSeccion2.setImageResource(R.drawable.yangpinshibie);
@@ -204,7 +190,7 @@ public class FirstActivity extends IndexActivity {
             llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
 
             llSeccion2.setOnClickListener(view -> {
-                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+                if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").isEmpty()) {
                     startOtherActivity(SampleIdentificationActivity.class);
                 } else {
                     AppApplication.isGLY = false;
@@ -219,8 +205,6 @@ public class FirstActivity extends IndexActivity {
             llSeccion2.setVisibility(View.VISIBLE);
             llSeccion3.setVisibility(View.VISIBLE);
             llSeccion4.setVisibility(View.VISIBLE);
-            llSeccion5.setVisibility(View.INVISIBLE);
-            llSeccion6.setVisibility(View.INVISIBLE);
             ivSeccion1.setImageResource(R.drawable.jinritongji1);
             tvSeccion1.setText("工地查询");
             ivSeccion2.setImageResource(R.drawable.xinxichaxun);
@@ -233,7 +217,7 @@ public class FirstActivity extends IndexActivity {
             llSeccion2.setOnClickListener(view -> startOtherActivity(UnqualifiedSearchActivity.class));
             llSeccion3.setOnClickListener(view -> startOtherActivity(ProjectListActivity.class));
             llSeccion4.setOnClickListener(view -> {
-                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+                if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").isEmpty()) {
                     startOtherActivity(SampleIdentificationActivity.class);
                 } else {
                     AppApplication.isGLY = false;
@@ -247,11 +231,6 @@ public class FirstActivity extends IndexActivity {
             //如果登录的账号中有"Meet"开头的，才显示会议菜单按钮，其他隐藏
             if (SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "").toUpperCase().startsWith("MEET")) {
                 llSeccion1.setVisibility(View.VISIBLE);
-                llSeccion2.setVisibility(View.INVISIBLE);
-                llSeccion3.setVisibility(View.INVISIBLE);
-                llSeccion4.setVisibility(View.INVISIBLE);
-                llSeccion5.setVisibility(View.INVISIBLE);
-                llSeccion6.setVisibility(View.INVISIBLE);
                 ivSeccion1.setImageResource(R.drawable.home_meeting_bg);
                 tvSeccion1.setText("会议安排");
                 llSeccion1.setOnClickListener(view -> {
@@ -265,8 +244,6 @@ public class FirstActivity extends IndexActivity {
                 llSeccion3.setVisibility(View.VISIBLE);
                 llSeccion4.setVisibility(View.VISIBLE);
                 llSeccion5.setVisibility(View.VISIBLE);
-                //暂时定位 用砂管理
-                llSeccion6.setVisibility(View.INVISIBLE);
                 ivSeccion1.setImageResource(R.drawable.shujushenhe1);
                 tvSeccion1.setText("记录审核");
                 llSeccion1.setOnClickListener(view -> startOtherActivity(DataAuditingActivity.class));
@@ -283,11 +260,9 @@ public class FirstActivity extends IndexActivity {
             tvSeccion5.setText("在线培训");
 
             llSeccion2.setOnClickListener(view -> startOtherActivity( DataExamineActivity.class));
-            llSeccion3.setOnClickListener(view -> {
-                startOtherActivity(TodayStatisticsActivity.class);
-            });
+            llSeccion3.setOnClickListener(view -> startOtherActivity(TodayStatisticsActivity.class));
             llSeccion4.setOnClickListener(view -> {
-                if (!SPUtil.getSPConfig("deviceaddress", "").equals("")) {
+                if (!SPUtil.getSPConfig(SPUtil.BLUETOOTH_DEVICE, "").isEmpty()) {
                     startOtherActivity(PrintDataActivity.class);
                 } else {
                     AppApplication.isGLY = true;
@@ -295,9 +270,7 @@ public class FirstActivity extends IndexActivity {
                 }
             });
             llSeccion5.setOnClickListener(view -> {
-                Intent intentXITONG = new Intent(FirstActivity.this, TrainingActivity.class);
-                startActivity(intentXITONG);
-
+                startOtherActivity(TrainingActivity.class);
             });
         }
     }
@@ -321,11 +294,6 @@ public class FirstActivity extends IndexActivity {
                         @Override
                         public void onConfirm() {
                             PermissionSettingPage.start(FirstActivity.this, true);
-                        }
-
-                        @Override
-                        public void onCancel() {
-
                         }
                     });
         }
