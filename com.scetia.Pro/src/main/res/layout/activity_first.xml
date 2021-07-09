@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
             android:background="@drawable/tianqi" />
 
         <TextView
@@ -24,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x20"
-            android:layout_toRightOf="@+id/iv_tianqi"
+            android:layout_marginStart="@dimen/x20"
+            android:layout_toEndOf="@+id/iv_tianqi"
             android:textColor="#ffffff"
             android:textSize="14sp" />
 
@@ -34,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_toRightOf="@+id/tv_tianqi"
+            android:layout_marginStart="@dimen/x30"
+            android:layout_toEndOf="@+id/tv_tianqi"
             android:textColor="#ffffff"
             android:textSize="14sp" />
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x20"
+            android:layout_marginEnd="@dimen/x20"
             android:src="@drawable/icon_setting" />
     </RelativeLayout>
 
@@ -97,7 +97,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/iv_seccion1"
@@ -121,7 +122,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/iv_seccion2"
@@ -145,7 +147,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/iv_seccion3"
@@ -175,7 +178,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/iv_seccion4"
@@ -199,7 +203,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/iv_seccion5"
@@ -223,7 +228,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/iv_seccion6"
