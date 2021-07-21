@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by fhm on 2016/7/15.
  */
 public class GsonUtil {
-    private static Gson mGson = new Gson();
+    private static final Gson mGson = new Gson();
     /**
      * json转换为类对象
      * @param jsonString
@@ -38,7 +38,7 @@ public class GsonUtil {
      * @return
      */
     public static <T> List<T> JsonToList(String jsonString, final Class<T> cls) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         try {
             list = mGson.fromJson(jsonString, new ParameterizedType() {
                 @NonNull

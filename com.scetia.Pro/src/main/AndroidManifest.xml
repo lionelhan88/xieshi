@@ -154,10 +154,6 @@
         <activity android:name=".module.training.TrainingActivity" />
         <activity android:name=".module.meet.activity.MeetingListActivity" />
         <activity android:name=".module.meet.activity.OtherConfirmActivity" />
-
-        <activity
-            android:name=".module.sand.SandHomeActivity"
-            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".module.mis.activities.SealManageListActivity">
 
         </activity>

@@ -34,48 +34,6 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 	String flagTitle = "";
 	private int click;
 
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.examine_search_activity);
-		this.setTitle("报告批准查询");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-		ButterKnife.bind(this);
-		token = Content.getToken();
-		Type = "0";
-        Bundle bundle = getIntent().getExtras();
-        kindId = bundle.getString("KindId");
-        itemId = bundle.getString("ItemId");
-
-		System.out.println("sousuo....."+itemId);
-		doneFlag = bundle.getString("doneFlag");
-        typeTitle = bundle.getString("TypeTitle");
-        projectTitle = bundle.getString("ProjectTitle");
-        flagTitle = bundle.getString("FlagTitle");
-        if (doneFlag.isEmpty()) {
-        	doneFlag="0";
-        }
-        if (!typeTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.typeTextView));
-	        tv.setText(typeTitle);
-	        projectDataBind();
-		}
-        if (!projectTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.projectTextView));
-	        tv.setText(projectTitle);
-		}
-        if (flagTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
-	        tv.setText("否");
-	        flagTitle = "否";
-		}
-		else{
-			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
-	        tv.setText(flagTitle);
-		}
-		getType();
-	}*/
-
 	@Override
 	protected int getLayoutId() {
 		return R.layout.examine_search_activity;
@@ -89,8 +47,6 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 		Bundle bundle = getIntent().getExtras();
 		kindId = bundle.getString("KindId");
 		itemId = bundle.getString("ItemId");
-
-		System.out.println("sousuo....."+itemId);
 		doneFlag = bundle.getString("doneFlag");
 		typeTitle = bundle.getString("TypeTitle");
 		projectTitle = bundle.getString("ProjectTitle");
@@ -99,21 +55,21 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			doneFlag="0";
 		}
 		if (!typeTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.typeTextView));
+			TextView tv = findViewById(R.id.typeTextView);
 			tv.setText(typeTitle);
 			projectDataBind();
 		}
 		if (!projectTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.projectTextView));
+			TextView tv = findViewById(R.id.projectTextView);
 			tv.setText(projectTitle);
 		}
 		if (flagTitle.isEmpty()){
-			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+			TextView tv = findViewById(R.id.auditedTextView);
 			tv.setText("否");
 			flagTitle = "否";
 		}
 		else{
-			TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+			TextView tv = findViewById(R.id.auditedTextView);
 			tv.setText(flagTitle);
 		}
 	}
@@ -156,7 +112,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 		for (int i=0;i<typeJson.size();i++){
 			itemArrayList.add(typeJson.get(i).getAsJsonObject().get("KindName").getAsString());
 		}
-		final String[] itemString =  (String[])itemArrayList.toArray(new String[typeJson.size()]);
+		final String[] itemString = itemArrayList.toArray(new String[typeJson.size()]);
 		int index = -1;
 		if (typeTitle!=null && !typeTitle.isEmpty()){
 			index = itemArrayList.indexOf(typeTitle);
@@ -171,11 +127,11 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 		  new DialogInterface.OnClickListener() {  
 		                              
 		     public void onClick(DialogInterface dialog, int which) {  
-		        TextView tv = (TextView)(findViewById(R.id.typeTextView));
+		        TextView tv = findViewById(R.id.typeTextView);
 		        tv.setText(itemString[which]);
 		        typeTitle = itemString[which];
 		        kindId = typeJson.get(which).getAsJsonObject().get("KindId").getAsString();
-		        TextView tv1 = (TextView)(findViewById(R.id.projectTextView));
+		        TextView tv1 = findViewById(R.id.projectTextView);
 		        tv1.setText("");
 		        itemId = "";
 		        dialog.dismiss();  
@@ -190,7 +146,6 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 	}
 	
 	protected void projectDataBind() {
-		// TODO Auto-generated method stub
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("Token", token);
 		params.put("Type", Type);
@@ -199,7 +154,6 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			
 			@Override
 			public void onSuccessJson(JsonElement result) {
-				// TODO Auto-generated method stub
 				JsonArray json = result.getAsJsonObject().get("Data").getAsJsonArray();
 				System.out.println("itemjson...."+itemJson);
 				itemJson = json;
@@ -207,7 +161,6 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			
 			@Override
 			public String onFailed(ApiError error) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -226,7 +179,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			for (int i=0;i<itemJsonSize;i++){
 				itemArrayList.add(itemJson.get(i).getAsJsonObject().get("ItemName").getAsString());
 			}
-			final String[] itemString =  (String[])itemArrayList.toArray(new String[itemJson.size()]);
+			final String[] itemString = itemArrayList.toArray(new String[itemJson.size()]);
 			int index = -1;
 			if (projectTitle!=null && !projectTitle.isEmpty()){
 				index = itemArrayList.indexOf(projectTitle);
@@ -241,7 +194,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			  new DialogInterface.OnClickListener() {  
 			                              
 			     public void onClick(DialogInterface dialog, int which) {  
-			        TextView tv = (TextView)(findViewById(R.id.projectTextView));
+			        TextView tv = findViewById(R.id.projectTextView);
 			        tv.setText(itemString[which]);
 			        projectTitle = itemString[which];
 			        itemId = itemJson.get(which).getAsJsonObject().get("ItemId").getAsString();
@@ -284,7 +237,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 		    	 else{
 		    		 doneFlag = "0";
 		    	 }
-		        TextView tv = (TextView)(findViewById(R.id.auditedTextView));
+		        TextView tv = findViewById(R.id.auditedTextView);
 		        tv.setText(itemString[which]);
 		        flagTitle = itemString[which];
 		        dialog.dismiss();  
@@ -301,16 +254,10 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			LSAlert.showAlert(ExamineSearchActivity.this, "请选择项目！");
 			return;
 		}
-
-		//itemId = itemJson.get(click).getAsJsonObject().get("ItemId").getAsString();
-
 		Bundle bundle = new Bundle();
 		bundle.putString("TypeTitle", typeTitle);
 		bundle.putString("ProjectTitle", projectTitle);
 		bundle.putString("FlagTitle", flagTitle);
-
-		System.out.println("sousuo...diannjiqvedinmg.."+itemId);
-
 		bundle.putString("ItemId", itemId);
 		bundle.putString("doneFlag", doneFlag);
 		bundle.putString("KindId", kindId);

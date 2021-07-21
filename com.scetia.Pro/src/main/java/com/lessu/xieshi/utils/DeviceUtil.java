@@ -1,6 +1,5 @@
 package com.lessu.xieshi.utils;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,11 +7,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import androidx.core.app.ActivityCompat;
-
-import com.lessu.xieshi.base.AppApplication;
 import com.lessu.xieshi.module.login.LoginActivity;
-import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
 

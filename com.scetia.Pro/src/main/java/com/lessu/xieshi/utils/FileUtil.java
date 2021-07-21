@@ -133,7 +133,7 @@ public  class FileUtil {
                 InputStreamReader read = new InputStreamReader(
                         new FileInputStream(file), encoding);
                 BufferedReader bufferedReader = new BufferedReader(read);
-                String lineTxt = null;
+                String lineTxt;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     sb.append(lineTxt);
                 }

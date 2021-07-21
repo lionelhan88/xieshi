@@ -108,7 +108,6 @@ public class Decrypt {
                         if (isChip(xinpianjiemi)) {
                             return xinpianjiemi;
                         } else {
-                            System.out.println("");
                             return null;//虽然包含55但是不符合
                         }
                     } else {
@@ -133,10 +132,6 @@ public class Decrypt {
         String substring = s.substring(0, 1);
         String index = "1";
         System.out.println(s.substring(0, 1) + substring.equals(index));
-        if (s.length() == 10 && substring.equals(index)) {
-            return true;
-        } else {
-            return false;
-        }
+        return s.length() == 10 && substring.equals(index);
     }
 }

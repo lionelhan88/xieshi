@@ -4,7 +4,6 @@ import android.view.KeyEvent;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.BuildConfig;
 import com.lessu.xieshi.R;

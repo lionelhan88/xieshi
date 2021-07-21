@@ -65,8 +65,7 @@ public class LongString {
         byte _b0 = Byte.decode("0x" + new String(new byte[]{src0}));
         _b0 = (byte) (_b0 << 4);
         byte _b1 = Byte.decode("0x" + new String(new byte[]{src1}));
-        byte result = (byte) (_b0 | _b1);
-        return result;
+        return (byte) (_b0 | _b1);
     }
 
     /**
@@ -79,7 +78,7 @@ public class LongString {
         if (TextUtils.isEmpty(def)) {
             return "";
         }
-        MessageDigest md5 = null;
+        MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
             byte[] bytes = md5.digest(def.getBytes());

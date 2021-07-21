@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -31,31 +30,28 @@ public class UpdateAppUtil {
         updateparams.put("PlatformType", "1");//1为安卓
         updateparams.put("SystemType", "2");//2为内部版
         EasyAPI.apiConnectionAsync(context, isShowDialog, false, ApiMethodDescription.get("/ServiceUST.asmx/GetAppVersion"), updateparams,
-                new EasyAPI.ApiFastSuccessCallBack() {
-                    @Override
-                    public void onSuccessJson(JsonElement result) {
-                        JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
-                        //服务器app版本号
-                        final String serviceVersion = json.get("Version").getAsString();
-                        boolean isUpdate =isShouldUpdate(context,serviceVersion);
-                        if (isUpdate) {
-                            //TODO:如果需要更新，弹出更新提示
-                            final String urlString = json.get("Update_Url").getAsString();
-                            //是否强制更新标识
-                            final boolean isMustBeUpdate = json.get("Update_Flag").getAsInt()==1;
-                            String description = "";
-                            if (isMustBeUpdate) {
-                                //TODO:弹出强制跟新弹窗，用户点击取消就退出app
-                                description = "更新内容:\r\n" + json.get("Description").getAsString()
-                                        + "\r\n此更新为强制更新，必须更新后尚可继续使用！" + " 是否立即前往更新？";
-                            } else {
-                                description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
-                            }
-                            showUpdateDialog(context,serviceVersion, description, urlString, isMustBeUpdate);
+                result -> {
+                    JsonObject json = result.getAsJsonObject().get("Data").getAsJsonArray().get(0).getAsJsonObject();
+                    //服务器app版本号
+                    final String serviceVersion = json.get("Version").getAsString();
+                    boolean isUpdate =isShouldUpdate(context,serviceVersion);
+                    if (isUpdate) {
+                        //TODO:如果需要更新，弹出更新提示
+                        final String urlString = json.get("Update_Url").getAsString();
+                        //是否强制更新标识
+                        final boolean isMustBeUpdate = json.get("Update_Flag").getAsInt()==1;
+                        String description = "";
+                        if (isMustBeUpdate) {
+                            //TODO:弹出强制跟新弹窗，用户点击取消就退出app
+                            description = "更新内容:\r\n" + json.get("Description").getAsString()
+                                    + "\r\n此更新为强制更新，必须更新后尚可继续使用！" + " 是否立即前往更新？";
                         } else {
-                            if (isShowDialog) {
-                                LSAlert.showAlert(context, "已经是最新版本了");
-                            }
+                            description = "更新内容:\r\n" + json.get("Description").getAsString() + "是否立即前往更新？";
+                        }
+                        showUpdateDialog(context,serviceVersion, description, urlString, isMustBeUpdate);
+                    } else {
+                        if (isShowDialog) {
+                            LSAlert.showAlert(context, "已经是最新版本了");
                         }
                     }
                 });

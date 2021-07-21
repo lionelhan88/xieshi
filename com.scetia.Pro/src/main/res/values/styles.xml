@@ -87,7 +87,6 @@
     </style>
 
 
-
     <style name="seal_matter_detail_text_label_style" parent="info_show_list_left">
         <item name="android:textColor">@color/grey_dim</item>
         <item name="android:textSize">@dimen/text_size_medium</item>

@@ -122,6 +122,7 @@ public class DataSearchActivity extends XieShiSlidingMenuActivity {
 			}
 		});
 	}
+
 	@OnClick(R.id.typeButton)
 	protected void typeButtonDidClick(){
 		ArrayList<String> itemArrayList = new ArrayList<String>();
