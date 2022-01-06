@@ -8,6 +8,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.lessu.xieshi.module.login.LoginActivity;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.Util.SPUtil;
 

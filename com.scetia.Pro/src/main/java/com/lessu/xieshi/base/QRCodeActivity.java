@@ -7,28 +7,22 @@
 package com.lessu.xieshi.base;
 
 
+import android.content.Intent;
+import android.hardware.Camera;
+import android.hardware.Camera.AutoFocusCallback;
+import android.hardware.Camera.PreviewCallback;
+import android.hardware.Camera.Size;
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.FrameLayout;
+
+import androidx.core.content.ContextCompat;
+
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.construction.QrcodeDetailActivity;
 import com.lessu.xieshi.view.CameraPreview;
-
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.os.Handler;
-
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
-
-import android.hardware.Camera;
-import android.hardware.Camera.PreviewCallback;
-import android.hardware.Camera.AutoFocusCallback;
-import android.hardware.Camera.Size;
-
-/* Import ZBar Class files */
-import androidx.core.content.ContextCompat;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;

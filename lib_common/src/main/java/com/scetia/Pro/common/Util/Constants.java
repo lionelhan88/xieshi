@@ -39,7 +39,8 @@ public class Constants {
 
         public static String GET_TOKEN() {
             //秘书长token
-            //String testToken = "69D28D31-F25B-4A3A-8981-043670CA943A";
+            //String testToken = "9de5fd1e-1da4-4aba-b5ce-a60485bcf87c";
+            //9de5fd1e-1da4-4aba-b5ce-a60485bcf87c
             //郑健
             //String testToken = "DFDDF84F-699B-45DA-A625-3AF9032681AA";
             //return testToken;

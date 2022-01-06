@@ -51,6 +51,7 @@ import com.scetia.Pro.network.conversion.ResponseObserver;
 import com.scetia.Pro.network.manage.XSRetrofit;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

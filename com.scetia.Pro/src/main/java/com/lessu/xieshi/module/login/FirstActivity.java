@@ -161,12 +161,15 @@ public class FirstActivity extends IndexActivity {
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
             llSeccion3.setVisibility(View.VISIBLE);
+            llSeccion4.setVisibility(View.VISIBLE);
             ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
             tvSeccion1.setText("样品查询");
             ivSeccion2.setImageResource(R.drawable.tupianshangchuan);
             tvSeccion2.setText("现场图片上传");
             ivSeccion3.setImageResource(R.drawable.yangpinshibie);
             tvSeccion3.setText("样品识别");
+            ivSeccion4.setImageResource(R.drawable.zaixianjiaoyu);
+            tvSeccion4.setText("见证员继续教育");
             llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
             llSeccion2.setOnClickListener(view -> startOtherActivity(UploadPictureActivity.class));
             llSeccion3.setOnClickListener(view -> {
@@ -177,16 +180,25 @@ public class FirstActivity extends IndexActivity {
                     startOtherActivity(BluetoothActivity.class);
                 }
             });
+            llSeccion4.setOnClickListener(view->{
+                Intent intent = new Intent(this,TrainingActivity.class);
+                intent.putExtra("qu_yang","1");
+                startActivity(intent);
+            });
+            return;
         }
 
         //Q13503 123456 取样人
         if (userPower.equals("00010000100000")) {
             llSeccion1.setVisibility(View.VISIBLE);
             llSeccion2.setVisibility(View.VISIBLE);
+            llSeccion3.setVisibility(View.VISIBLE);
             ivSeccion1.setImageResource(R.drawable.yangpinchaxun);
             tvSeccion1.setText("样品查询");
             ivSeccion2.setImageResource(R.drawable.yangpinshibie);
             tvSeccion2.setText("样品识别");
+            ivSeccion3.setImageResource(R.drawable.yangpinshibie);
+            tvSeccion3.setText("取样员继续教育");
             llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
 
             llSeccion2.setOnClickListener(view -> {
@@ -197,6 +209,12 @@ public class FirstActivity extends IndexActivity {
                     startOtherActivity(BluetoothActivity.class);
                 }
             });
+            llSeccion3.setOnClickListener(view->{
+                Intent intent = new Intent(this,TrainingActivity.class);
+                intent.putExtra("qu_yang","1");
+                startActivity(intent);
+            });
+            return;
         }
 
         //gly 1319 质监站人员
@@ -224,6 +242,7 @@ public class FirstActivity extends IndexActivity {
                     startOtherActivity(BluetoothActivity.class);
                 }
             });
+            return;
         }
 
         //t9990001 1 检测人员

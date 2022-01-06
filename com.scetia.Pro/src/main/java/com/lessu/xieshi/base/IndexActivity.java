@@ -142,7 +142,7 @@ public abstract class IndexActivity extends BaseVMActivity<FirstViewModel> {
             menuArray.add(sealManager);
         }
         menuArray.add(meetingManager);
-        if (s8 == '1'||SPUtil.getSPConfig(Constants.User.KEY_USER_NAME, "").equals("ljs5813288")) {
+        if (s8 == '1') {
             menuArray.add(evaluation);
         }
 

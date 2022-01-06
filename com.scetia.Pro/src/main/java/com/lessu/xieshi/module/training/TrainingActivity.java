@@ -142,7 +142,14 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
         tvMonthYear.setText(dates[1]+"，"+dates[0]);
         final HashMap<String,Object> params = new HashMap<>();
         params.put("token",  Constants.User.GET_TOKEN());
-        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post("/ServiceEAT.asmx/GetPaidContinuedEducationInfo")
+        String apiMethod;
+        if(getIntent().getStringExtra("qu_yang")!=null){
+            //见证取样人继续教育
+            apiMethod = "/ServiceMis.asmx/GetPaidContinuedEducationInfo";
+        }else{
+            apiMethod = "/ServiceEAT.asmx/GetPaidContinuedEducationInfo";
+        }
+        EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post(apiMethod)
                 , params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                     @Override
                     public void onSuccessJson(JsonElement result) {

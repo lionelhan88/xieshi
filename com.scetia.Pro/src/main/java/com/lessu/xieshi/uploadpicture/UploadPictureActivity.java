@@ -2,7 +2,6 @@ package com.lessu.xieshi.uploadpicture;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.EasyGson;
 import com.google.gson.JsonArray;
@@ -26,19 +24,15 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.easy.EasyUI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 import com.scetia.Pro.common.Util.Constants;
 import com.scetia.Pro.common.photo.ImageUtil;
-import com.lessu.xieshi.base.XieShiSlidingMenuActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class UploadPictureActivity extends XieShiSlidingMenuActivity implements OnItemClickListener{
-	ArrayList<CharSequence> imageList = new ArrayList<CharSequence>();
 	JsonArray list = new JsonArray();
 	int nowUploadIndex = -1;
 	int position = -1;
@@ -51,35 +45,32 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 	@Override
 	protected void initView() {
 		this.setTitle("图片上传");
-		ListView listView = (ListView) findViewById(R.id.listView);
+		ListView listView = findViewById(R.id.listView);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
 		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
 		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
+		navigationBar.setLeftBarItem(menuButtonitem);
 	}
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		String token =  Constants.User.GET_TOKEN();
 		params.put("Token", token);
 		params.put("TaskName", "");
 		params.put("ProjectName", "");
-		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceStake.asmx/GetTaskList"), params, new EasyAPI.ApiFastSuccessCallBack() {
-			@Override
-			public void onSuccessJson(JsonElement result) {
-				String jsonString = result.getAsJsonObject().get("Data").toString();
-				JsonElement jsonElement = EasyGson.jsonFromString(jsonString);
-				if (!jsonElement.isJsonNull()&&jsonElement.isJsonArray()){
-					list = jsonElement.getAsJsonArray();
-				}
-				else{
-					LSAlert.showAlert(UploadPictureActivity.this, "当前无数据!");
-				}
-				adapter.notifyDataSetChanged();
+		EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceStake.asmx/GetTaskList"), params, result -> {
+			String jsonString = result.getAsJsonObject().get("Data").toString();
+			JsonElement jsonElement = EasyGson.jsonFromString(jsonString);
+			if (!jsonElement.isJsonNull()&&jsonElement.isJsonArray()){
+				list = jsonElement.getAsJsonArray();
 			}
+			else{
+				LSAlert.showAlert(UploadPictureActivity.this, "当前无数据!");
+			}
+			adapter.notifyDataSetChanged();
 		});
 
 	}
@@ -136,47 +127,39 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 				.setTitle("图片选择")
 				.setIcon(android.R.drawable.ic_dialog_info)
 				.setSingleChoiceItems(new String[] {"图片1","图片2","图片3"}, 0,
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog, int which) {
-								nowUploadIndex = which;
-								picChoose();
-								dialog.dismiss();
-							}
+						(dialog, which) -> {
+							nowUploadIndex = which;
+							picChoose();
+							dialog.dismiss();
 						})
 				.setNegativeButton("取消", null)
 				.show();
 	}
 
 	protected void picChoose() {
-		// TODO Auto-generated method stub
 		new AlertDialog.Builder(UploadPictureActivity.this)
 				.setTitle("图片选择")
 				.setIcon(android.R.drawable.ic_dialog_info)
-				.setSingleChoiceItems(new String[] {"拍照","相册"}, 0,
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog, int which) {
-								if (which==0){
-									Intent intent = new Intent("android.media.action.IMAGE_CAPTURE"); //"android.media.action.IMAGE_CAPTURE";
-									startActivityForResult(intent, 1);
-								}
-								else{
-									Intent intent = new Intent();
-			        /* �?��Pictures画面Type设定为image */
-									intent.setType("image/*");
-			        /* 使用Intent.ACTION_GET_CONTENT这个Action */
-									intent.setAction(Intent.ACTION_GET_CONTENT);
-			        /* 取得相片后返回本画面 */
-									startActivityForResult(intent, 1);
-								}
-								dialog.dismiss();
+				.setSingleChoiceItems(new String[]{"拍照", "相册"}, 0,
+						(dialog, which) -> {
+							Intent intent;
+							if (which == 0) {
+								intent = new Intent("android.media.action.IMAGE_CAPTURE");
+							} else {
+								intent = new Intent();
+								/* �?��Pictures画面Type设定为image */
+								intent.setType("image/*");
+								/* 使用Intent.ACTION_GET_CONTENT这个Action */
+								intent.setAction(Intent.ACTION_GET_CONTENT);
+								/* 取得相片后返回本画面 */
 							}
+							startActivityForResult(intent, 1);
+							dialog.dismiss();
 						})
 				.setNegativeButton("取消", null)
 				.show();
-
 	}
+
 	public void downloadButtomDidClick(View button){
 		final int position = (Integer) button.getTag();
 		Intent intent = new Intent(UploadPictureActivity.this,ImageGalleryActivity.class);
@@ -226,23 +209,19 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 						HashMap<String, Object> params = new HashMap<>();
 						String token =  Constants.User.GET_TOKEN();
 						String taskID = list.get(position).getAsJsonObject().get("TaskID").getAsString();
-						String imgIndex = String.valueOf(nowUploadIndex);
-						imgIndex = String.valueOf(nowUploadIndex+1);
+						String imgIndex = String.valueOf(nowUploadIndex+1);
 						params.put("Token", token);
 						params.put("TaskID", taskID);
 						params.put("ImgIndex", imgIndex);
 						params.put("ImgByte", imgByteString);
 						System.out.print(params);
-						EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post("/ServiceStake.asmx/UploadTaskImage"), params, new EasyAPI.ApiFastSuccessCallBack() {
-							@Override
-							public void onSuccessJson(JsonElement result) {
-								String jsonString = result.getAsJsonObject().get("Data").toString();
-								if (jsonString.equals("1")){
-									LSAlert.showAlert(UploadPictureActivity.this, "上传成功");
-								}
-								else{
-									LSAlert.showAlert(UploadPictureActivity.this, "上传失败");
-								}
+						EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post("/ServiceStake.asmx/UploadTaskImage"), params, result -> {
+							String jsonString = result.getAsJsonObject().get("Data").toString();
+							if (jsonString.equals("1")){
+								LSAlert.showAlert(UploadPictureActivity.this, "上传成功");
+							}
+							else{
+								LSAlert.showAlert(UploadPictureActivity.this, "上传失败");
 							}
 						});
 					}
@@ -259,35 +238,5 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 
 	public void menuButtonDidClick(){
 		menu.toggle();
-	}
-
-//	@Override
-//	public boolean dispatchKeyEvent(KeyEvent event) {
-//		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//			exitBy2Click();
-//			return false;
-//		} else {
-//			return super.dispatchKeyEvent(event);
-//		}
-//	}
-	private static Boolean isExit = false;
-	private void exitBy2Click() {
-		// TODO Auto-generated method stub
-		Timer tExit = null;
-		if (isExit == false) {
-			isExit = true; // 准备�?��
-			Toast.makeText(this, "再按�?��返回键�?出程�?", Toast.LENGTH_SHORT).show();
-			tExit = new Timer();
-			tExit.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					isExit = false; // 取消�?��
-				}
-			}, 1000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任�?
-
-		} else {
-			finish();
-			System.exit(0);
-		}
 	}
 }
