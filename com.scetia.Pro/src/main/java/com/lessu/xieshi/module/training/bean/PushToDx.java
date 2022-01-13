@@ -1,6 +1,5 @@
 package com.lessu.xieshi.module.training.bean;
 
-import com.google.gson.annotations.SerializedName;
 import com.lessu.xieshi.bean.Project;
 
 import java.util.List;

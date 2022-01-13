@@ -18,19 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ExamineParamsActivity extends NavigationActivity implements OnItemClickListener {
 	JsonArray list = new JsonArray();
-	/*@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.examine_params_activity);
-		ListView listView = (ListView) findViewById(R.id.listView);
-
-		listView.setAdapter(adapter);
-
-		listView.setOnItemClickListener(this);
-		this.setTitle("参数列表");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-	}*/
-
 	@Override
 	protected int getLayoutId() {
 		return R.layout.examine_params_activity;
@@ -46,7 +33,6 @@ public class ExamineParamsActivity extends NavigationActivity implements OnItemC
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		Bundle bundle = getIntent().getExtras();
 		

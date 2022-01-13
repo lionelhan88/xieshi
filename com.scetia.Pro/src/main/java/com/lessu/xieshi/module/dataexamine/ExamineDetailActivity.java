@@ -18,19 +18,6 @@ import android.webkit.WebView;
 
 public class ExamineDetailActivity extends TemplatedWebViewActivity {
 	private WebView webView;
-	private Map<String,String> activtyMapper;
-/*
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.auditing_detail_activity);
-		if(webView == null){
-			webView = (WebView) findViewById(R.id.auditing_detail);
-		}
-		this.setTitle("样品信息");
-		navigationBar.setBackgroundColor(0xFF3598DC);
-	}
-*/
 
 	@Override
 	protected int getLayoutId() {

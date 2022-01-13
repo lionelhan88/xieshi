@@ -174,7 +174,6 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 
 	private void connectionComplete(String responseString ,Object processedResult){
 		if (resultType == ResultType.Standard || preprocessor!=null) {
-			System.out.println("responseString................."+responseString);
 			JsonObject result = (JsonObject) processedResult;
 			System.out.println("result................."+result);
 			try{

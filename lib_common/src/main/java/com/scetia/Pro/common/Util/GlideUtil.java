@@ -3,6 +3,7 @@ package com.scetia.Pro.common.Util;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -111,16 +112,19 @@ public class GlideUtil {
      *
      * @param context
      * @param url
-     * @param imgeview
+     * @param imageView
      */
     public static void showImageViewNoCacheCircle(Context context, int placeHolder, String url,
-                                                  ImageView imgeview) {
+                                                  ImageView imageView) {
+        if(TextUtils.isEmpty(url)){
+            return;
+        }
         Glide.with(context).load(url)// 加载图片
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .placeholder(placeHolder)
                 .skipMemoryCache(true)//跳过内存缓存
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//跳过硬盘缓存
-                .into(imgeview);
+                .into(imageView);
     }
 
     public static void showDrawableResourceId(Context context, int resourceId, ImageView imageView) {

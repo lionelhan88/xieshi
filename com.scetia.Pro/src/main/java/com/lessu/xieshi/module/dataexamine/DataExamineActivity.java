@@ -63,16 +63,15 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 	@Override
 	protected void initView() {
 		this.setTitle("报告批准");
-		BarButtonItem	searchButtonitem = new BarButtonItem(this , R.drawable.icon_navigation_search );
-		searchButtonitem.setOnClickMethod(this,"searchButtonDidClick");
-		navigationBar.setRightBarItem(searchButtonitem);
-		BarButtonItem	menuButtonitem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
-		menuButtonitem.setOnClickMethod(this,"menuButtonDidClick");
+		BarButtonItem	searchBtnItem = new BarButtonItem(this , R.drawable.icon_navigation_search );
+		searchBtnItem.setOnClickMethod(this,"searchButtonDidClick");
+		navigationBar.setRightBarItem(searchBtnItem);
+		BarButtonItem	menuBtnItem = new BarButtonItem(this ,R.drawable.icon_navigation_menu);
+		menuBtnItem.setOnClickMethod(this,"menuButtonDidClick");
 	}
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		//跳转到搜索页
 		if (itemId == null || itemId.isEmpty()){
@@ -117,20 +116,15 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 
 			@Override
 			protected void onPageToInit(final PageController pageController) {
-				// TODO Auto-generated method stub
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				params.put("Token", token);
 				if (doneFlag.equals("1")){
 					itemId = "1110";
 				}
-
 				params.put("ItemId", itemId);
 				pageController.setApiParams(params);
 				pageController.pageName = "CurrentPageNo";
 				pageController.stepName = "PageSize";
-				System.out.println("itemId....limian......"+itemId);
-				System.out.println(params);
-
 
 				pageController.setPageinfoAdapter(new PageInfoAdapterInterface(){
 					@Override
@@ -218,13 +212,11 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 				}
 			}
 		};
-		System.out.println("这里走了没");
 		wrapper.wrap(listView);
 		listView.setOnItemClickListener(this);
 	}
 
 	private void getDefaultData() {
-		// TODO Auto-generated method stub
 		//获取分类
 		String Type = "0";//报告批准分类
 		HashMap<String, Object> paramsType = new HashMap<String, Object>();
@@ -301,8 +293,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 		bundle.putString("KindId", kindId);
 		intent.putExtras(bundle);
 		startActivityForResult(intent, 2);
-
-
 	}
 
 
@@ -394,7 +384,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 					LSAlert.showAlert(DataExamineActivity.this, alertMessage);
 
 					arrayList.clear();
-					//wrapper.refreshNoMerge();
 					getData();
 				};
 
@@ -411,7 +400,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg2 != null){
 			Bundle bundle = arg2.getExtras();
