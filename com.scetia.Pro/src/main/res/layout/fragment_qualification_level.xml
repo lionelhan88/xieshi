@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingStart="@dimen/x10"
+    android:paddingEnd="@dimen/x10">
+
+    <include layout="@layout/content_loading_state_layout" />
+
+    <TextView
+        android:id="@+id/no_qualification_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:text="暂无等级"
+        android:textSize="17sp" />
+
+    <ScrollView
+        android:id="@+id/content_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="类别：" />
+
+                <TextView
+                    android:id="@+id/member_ql_category"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="建筑材料：" />
+
+                <TextView
+                    android:id="@+id/member_ql_building_materials"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="地基基础：" />
+
+                <TextView
+                    android:id="@+id/member_ql_basement"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="主体结构：" />
+
+                <TextView
+                    android:id="@+id/member_ql_structure"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="钢结构：" />
+
+                <TextView
+                    android:id="@+id/member_ql_steel_structure"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="室内环境：" />
+
+                <TextView
+                    android:id="@+id/member_ql_indoor_env"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="建筑节能：" />
+
+                <TextView
+                    android:id="@+id/member_ql_curtain_energy"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="建筑幕布及门窗：" />
+
+                <TextView
+                    android:id="@+id/member_ql_curtain_window"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="通风与空调：" />
+
+                <TextView
+                    android:id="@+id/member_ql_ventilation"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="套内质量：" />
+
+                <ImageView
+                    android:id="@+id/member_ql_indoor_great"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="能效测评：" />
+
+                <ImageView
+                    android:id="@+id/member_ql_efficiency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="变形质量：" />
+
+                <ImageView
+                    android:id="@+id/member_ql_deformation_quality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="防静电：" />
+
+                <ImageView
+                    android:id="@+id/member_ql_static_electricity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/xianmis" />
+
+            <LinearLayout style="@style/member_search_info_linear_style">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="园林绿化：" />
+
+                <ImageView
+                    android:id="@+id/member_ql_greening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

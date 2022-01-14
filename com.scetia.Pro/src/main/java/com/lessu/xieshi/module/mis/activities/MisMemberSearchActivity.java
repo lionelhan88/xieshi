@@ -1,24 +1,19 @@
 package com.lessu.xieshi.module.mis.activities;
 
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.base.BaseVMActivity;
-import com.scetia.Pro.baseapp.uitls.LoadState;
 import com.lessu.xieshi.module.mis.adapter.MisMemberSearchListAdapter;
-import com.lessu.xieshi.module.mis.viewmodel.MisSearchViewModel;
 import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
-import com.scetia.Pro.baseapp.listener.AdapterItemClickListener;
+import com.lessu.xieshi.module.mis.viewmodel.MisSearchViewModel;
+import com.scetia.Pro.baseapp.uitls.EventBusUtil;
+import com.scetia.Pro.baseapp.uitls.GlobalEvent;
+import com.scetia.Pro.baseapp.uitls.LoadState;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -63,7 +58,7 @@ public class MisMemberSearchActivity extends BaseVMActivity<MisSearchViewModel> 
         swipeRefresh.setOnRefreshListener(() -> mViewModel.reFresh());
         searchAdapter = new MisMemberSearchListAdapter(mViewModel);
         searchAdapter.setAdapterItemClickListener((position, contentBean) -> {
-            EventBus.getDefault().postSticky(contentBean);
+            EventBusUtil.sendStickyEvent(new GlobalEvent<>(EventBusUtil.E, contentBean));
             startOtherActivity(HyDetailActivity.class);
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

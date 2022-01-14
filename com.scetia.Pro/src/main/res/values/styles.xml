@@ -132,4 +132,22 @@
     <style name="evaluation_comparison_content_style" parent="info_show_list_right">
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
+
+    //会员信息查询
+    <style name="member_search_info_linear_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="member_search_info_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#666680</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="member_search_info_content_style" parent="member_search_info_label_style">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

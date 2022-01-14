@@ -22,6 +22,8 @@
 
     //不合格信息查询
     <color name="unqualified_search_label_color">@color/light_gray2</color>
+    //会员信息查询
+    <color name="member_search_info_tab_title_color">#63CFC2</color>
 
 
 

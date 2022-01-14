@@ -15,6 +15,9 @@ import com.scetia.Pro.baseapp.fragment.BaseFragment;
 import com.scetia.Pro.baseapp.uitls.EventBusUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 /**
  * created by ljs
  * on 2021/1/4
@@ -45,7 +48,14 @@ public abstract class BaseVMFragment<VM extends ViewModel> extends BaseFragment 
         return false;
     }
 
-    protected abstract Class<VM> getViewModelClass();
+    protected  Class<VM> getViewModelClass(){
+        Class<VM> modelClass = null;
+        Type genericSuperclass = getClass().getGenericSuperclass();
+        if(genericSuperclass instanceof ParameterizedType){
+            modelClass= (Class<VM>) ((ParameterizedType)genericSuperclass).getActualTypeArguments()[0];
+        }
+        return modelClass;
+    }
 
     protected ViewModelProvider.Factory getViewModelFactory() {
         return null;

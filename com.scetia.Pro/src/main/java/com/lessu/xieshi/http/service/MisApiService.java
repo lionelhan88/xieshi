@@ -1,6 +1,7 @@
 package com.lessu.xieshi.http.service;
 
 import com.lessu.xieshi.module.mis.bean.EvaluationComparisonBean;
+import com.lessu.xieshi.module.mis.bean.MemberQualificationLevel;
 import com.lessu.xieshi.module.mis.bean.SealManageBean;
 import com.scetia.Pro.network.bean.XSResultData;
 import com.lessu.xieshi.module.mis.bean.CertificateBean;
@@ -103,4 +104,10 @@ public interface MisApiService {
     @POST("ServiceMis.asmx/ZSApprove")
     @FormUrlEncoded
     Observable<XSResultData<Object>> postApproveEvaluationComparison(@Field("param") String params);
+
+    /**
+     * 获取会员资质等级
+     */
+    @GET("ServiceMis.asmx/GetMemberNl")
+    Observable<XSResultData<List<MemberQualificationLevel>>> getMemberNl(@Query("param") String param);
 }

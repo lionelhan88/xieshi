@@ -26,7 +26,6 @@ public class CustomResponseIntercept implements Interceptor {
         Response response = chain.proceed(request);
         //改造response
         String header = response.header("X-Pagination");
-        //{"totalItemsCount":1,"pageSize":3,"pageIndex":0,"pageCount":1,"previousPageLink":null,"nextPageLink":null}
         if(request.url().toString().contains(ConstantApi.BUILD_SAND_BASE_URL)&&!TextUtils.isEmpty(header)){
             Gson gson = new Gson();
             JsonObject headerJson = gson.fromJson(header, JsonObject.class);

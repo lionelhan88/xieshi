@@ -41,13 +41,15 @@ public abstract class BaseFragment extends ImmersionFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OnBackPressedCallback callback = new OnBackPressedCallback(isEnableHandleBack()) {
-            @Override
-            public void handleOnBackPressed() {
-                leftNavBarClick(contentView);
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this,callback);
+        if(isNeedDispatchKeyBack()){
+            OnBackPressedCallback callback = new OnBackPressedCallback(isEnableHandleBack()) {
+                @Override
+                public void handleOnBackPressed() {
+                    leftNavBarClick(contentView);
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(this,callback);
+        }
     }
 
     @Override
@@ -82,6 +84,10 @@ public abstract class BaseFragment extends ImmersionFragment {
         handleButtonItem.setOnClickListener(this::leftNavBarClick);
         navigationBar.setLeftBarItem(handleButtonItem);
         return navigationBar;
+    }
+
+    protected boolean isNeedDispatchKeyBack(){
+        return true;
     }
 
     /**

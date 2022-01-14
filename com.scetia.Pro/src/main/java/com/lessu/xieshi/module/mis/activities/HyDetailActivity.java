@@ -1,38 +1,30 @@
 package com.lessu.xieshi.module.mis.activities;
 
-import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.lessu.navigation.NavigationActivity;
 import com.lessu.xieshi.R;
-import com.lessu.xieshi.module.mis.bean.MisMemberSearchResultData;
+import com.lessu.xieshi.module.mis.fragment.MemberSearchInfoFragment;
+import com.lessu.xieshi.module.mis.fragment.QualificationLevelFragment;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 public class HyDetailActivity extends NavigationActivity {
-    private TextView tv_mishy_huiyuanhao;
-    private TextView tv_mishy_name;
-    private TextView tv_mishy_xingzhi;
-    private TextView tv_mishy_zhuangtai;
-    private TextView tv_mishy_ruhuidate;
-    private TextView tv_mishy_bianhao;
-    private TextView tv_mishy_daoqidate;
-    private TextView tv_mishy_fuzename;
-    private TextView tv_mishy_fuzephone;
-    private TextView tv_mishy_danweiphone;
-    private TextView tv_mishy_dizhi;
-
- /*   @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hydetail);
-        navigationBar.setBackgroundColor(ContextCompat.getColor(this,R.color.top_bar_background));
-        this.setTitle("会员信息");
-        initView();
-        EventBus.getDefault().register(this);
-    }
-*/
+    @BindView(R.id.member_search_info_vp)
+    ViewPager memberSearchInfoVP;
+    @BindView(R.id.member_search_info_tab_layout)
+    TabLayout tabLayout;
+    private List<Fragment> fragments;
+    private final String[] titles=new String[]{"基本信息","资质等级"};
     @Override
     protected int getLayoutId() {
         return R.layout.activity_hydetail;
@@ -40,53 +32,29 @@ public class HyDetailActivity extends NavigationActivity {
 
     @Override
     protected void initView() {
-        this.setTitle("会员信息");
-        tv_mishy_huiyuanhao = findViewById(R.id.tv_mishy_huiyuanhao);
-        tv_mishy_name = findViewById(R.id.tv_mishy_name);
-        tv_mishy_xingzhi = findViewById(R.id.tv_mishy_xingzhi);
-        tv_mishy_zhuangtai = findViewById(R.id.tv_mishy_zhuangtai);
-        tv_mishy_ruhuidate = findViewById(R.id.tv_mishy_ruhuidate);
-        tv_mishy_bianhao = findViewById(R.id.tv_mishy_bianhao);
-        tv_mishy_daoqidate = findViewById(R.id.tv_mishy_daoqidate);
-        tv_mishy_fuzename = findViewById(R.id.tv_mishy_fuzename);
-        tv_mishy_fuzephone = findViewById(R.id.tv_mishy_fuzephone);
-        tv_mishy_danweiphone = findViewById(R.id.tv_mishy_danweiphone);
-        tv_mishy_dizhi = findViewById(R.id.tv_mishy_dizhi);
-        EventBus.getDefault().register(this);
-    }
-
-    /**
-     * 初始化数据
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void initData(MisMemberSearchResultData.ListContentBean contentBean) {
-        EventBus.getDefault().removeStickyEvent(contentBean);
-        tv_mishy_huiyuanhao.setText(contentBean.getMemberId());
-        tv_mishy_name.setText(contentBean.getMemberName());
-        tv_mishy_xingzhi.setText(contentBean.getMemberType());
-        tv_mishy_zhuangtai.setText(contentBean.getMemberStatus());
-        tv_mishy_ruhuidate.setText(contentBean.getJoinDate());
-        tv_mishy_bianhao.setText(contentBean.getCertificateId());
-        tv_mishy_daoqidate.setText(contentBean.getCertificateExpirationDate());
-        String fzr = contentBean.getFzr();
-        String fzname="";
-        String fzphone="";
-        if(fzr.contains("/")){
-            String[] split = fzr.split("/");
-            fzname = split[0];
-            if(split.length>=3&&!"".equals(split[2])) {
-                fzphone = split[2];
+        setTitle("会员信息");
+        fragments = new ArrayList<>();
+        fragments.add(new MemberSearchInfoFragment());
+        fragments.add(new QualificationLevelFragment());
+        memberSearchInfoVP.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
             }
-        }
-        tv_mishy_fuzename.setText(fzname);
-        tv_mishy_fuzephone.setText(fzphone);
-        tv_mishy_danweiphone.setText(contentBean.getPhoneNumber());
-        tv_mishy_dizhi.setText(contentBean.getContactAddress());
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+
+            @Nullable
+            @org.jetbrains.annotations.Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+        });
+        tabLayout.setupWithViewPager(memberSearchInfoVP);
     }
 }

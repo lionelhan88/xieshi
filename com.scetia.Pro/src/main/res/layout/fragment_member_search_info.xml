@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingStart="@dimen/x10"
+    android:paddingEnd="@dimen/x10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="会员号:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_huiyuanhao"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="单位名称:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_name"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="会员性质:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_xingzhi"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="会员状态:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_zhuangtai"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="入会日期:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_ruhuidate"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="评估证书编号:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_bianhao"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="到期日期:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_daoqidate"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="负责人:   " />
+
+                <TextView
+                    android:id="@+id/tv_mishy_fuzename"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/member_search_info_label_style"
+                    android:text="电话:   " />
+
+                <TextView
+                    android:id="@+id/tv_mishy_fuzephone"
+                    style="@style/member_search_info_content_style" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="单位电话:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_danweiphone"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/xianmis" />
+
+        <LinearLayout style="@style/member_search_info_linear_style">
+
+            <TextView
+                style="@style/member_search_info_label_style"
+                android:text="联系地址:   " />
+
+            <TextView
+                android:id="@+id/tv_mishy_dizhi"
+                style="@style/member_search_info_content_style" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
