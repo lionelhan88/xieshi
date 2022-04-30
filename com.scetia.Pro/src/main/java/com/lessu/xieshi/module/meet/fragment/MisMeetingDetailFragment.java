@@ -3,6 +3,7 @@ package com.lessu.xieshi.module.meet.fragment;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.lessu.xieshi.utils.DeviceUtil;
 import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
@@ -44,6 +46,8 @@ import static com.lessu.xieshi.module.meet.activity.MeetingDetailActivity.MEETIN
 
 public class MisMeetingDetailFragment extends LazyFragment {
 
+    @BindView(R.id.meeting_detail_address_online)
+    LinearLayout meetingDetailAddressOnline;
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)
@@ -154,6 +158,10 @@ public class MisMeetingDetailFragment extends LazyFragment {
             }
         });
 
+        meetingDetailAddressOnline.setOnClickListener(v->{
+            DeviceUtil.startSysUri(requireActivity(),meetingDetailAddress.getText().toString());
+        });
+
     }
 
     @Override
@@ -209,6 +217,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
             //已经签到过了
             meetingUserIsSigned.setText("已签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
+            meetingDetailAddressOnline.setVisibility(View.VISIBLE);
         } else {
             meetingUserIsSigned.setText("未签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.orange1));
@@ -260,6 +269,8 @@ public class MisMeetingDetailFragment extends LazyFragment {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveMeetingDetailRefresh(SendMeetingDetailToList event) {
+        //签到成功后，显示在线会议地址
+        meetingDetailAddressOnline.setVisibility(View.VISIBLE);
         initData();
     }
 

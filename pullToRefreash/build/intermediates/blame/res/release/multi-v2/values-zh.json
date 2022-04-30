@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/values-zh/values-zh.xml",
+            "map": [
+                {
+                    "source": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/src/main/res/values-zh/pull_refresh_strings.xml",
+                    "from": {
+                        "startLines": "6,2,4,3",
+                        "startColumns": "2,2,2,2",
+                        "startOffsets": "241,53,175,112",
+                        "endColumns": "70,58,64,62",
+                        "endOffsets": "309,109,237,172"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,128,189,256",
+                        "endColumns": "72,60,66,64",
+                        "endOffsets": "123,184,251,316"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-zh/values-zh.xml",
+            "map": [
+                {
+                    "source": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/src/main/res/values-zh/pull_refresh_strings.xml",
+                    "from": {
+                        "startLines": "6,2,4,3",
+                        "startColumns": "2,2,2,2",
+                        "startOffsets": "241,53,175,112",
+                        "endColumns": "70,58,64,62",
+                        "endOffsets": "309,109,237,172"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,128,189,256",
+                        "endColumns": "72,60,66,64",
+                        "endOffsets": "123,184,251,316"
+                    }
+                }
+            ]
+        }
+    ]
+}

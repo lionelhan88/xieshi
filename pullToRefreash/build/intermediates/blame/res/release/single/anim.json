@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_fade_in.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/slide_out_to_top.xml",
+        "source": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/src/main/res/anim/slide_out_to_top.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/slide_in_from_bottom.xml",
+        "source": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/src/main/res/anim/slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_slide_in_top.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_tooltip_exit.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_tooltip_enter.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_popup_exit.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_popup_enter.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_slide_out_top.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/slide_in_from_top.xml",
+        "source": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/src/main/res/anim/slide_in_from_top.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/slide_out_to_bottom.xml",
+        "source": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/src/main/res/anim/slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_fade_out.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/anim/abc_slide_out_bottom.xml"
+    }
+]

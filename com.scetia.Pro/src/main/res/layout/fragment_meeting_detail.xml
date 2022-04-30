@@ -4,169 +4,190 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/fragment_meeting_detail_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/taskLL"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white_smoke"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/x5"
-            android:paddingTop="@dimen/y5"
-            android:paddingRight="@dimen/x5"
-            android:paddingBottom="10dp">
-
-            <LinearLayout style="@style/info_show_list_linearLayout">
-
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="会议名称:" />
-
-                <TextView
-                    android:id="@+id/meeting_detail_name"
-                    style="@style/info_show_list_edit_text"
-                    android:textSize="@dimen/text_size_medium" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/info_show_list_linearLayout">
-
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="会议发起人:" />
-
-                <TextView
-                    android:id="@+id/meeting_detail_create_user"
-                    style="@style/info_show_list_edit_text" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/info_show_list_linearLayout">
-
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="联系人电话:" />
-
-                <TextView
-                    android:id="@+id/meeting_detail_phone"
-                    style="@style/info_show_list_edit_text"/>
-            </LinearLayout>
-
-            <LinearLayout style="@style/info_show_list_linearLayout">
-
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="会议时间:" />
-
-                <TextView
-                    android:id="@+id/meeting_detail_start_date"
-                    style="@style/info_show_list_edit_text"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1.5"/>
-                <TextView
-                    style="@style/info_show_list_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0"
-                    android:text="~"/>
-                <TextView
-                    android:id="@+id/meeting_detail_end_date"
-                    style="@style/info_show_list_edit_text"
-                    android:gravity="center"
-                    android:layout_weight="1.5"/>
-            </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                style="@style/info_show_list_linearLayout">
+                android:id="@+id/taskLL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_smoke"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/x5"
+                android:paddingTop="@dimen/y5"
+                android:paddingRight="@dimen/x5"
+                android:paddingBottom="10dp">
 
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="会议地址:" />
+                <LinearLayout style="@style/info_show_list_linearLayout">
 
-                <TextView
-                    android:id="@+id/meeting_detail_address"
-                    style="@style/info_show_list_edit_text"
-                    android:paddingRight="@dimen/dp_10" />
-            </LinearLayout>
-
-
-
-            <LinearLayout style="@style/info_show_list_linearLayout"
-                android:id="@+id/ll_meeting_confirm">
-
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="会议通知:" />
-
-                <LinearLayout
-                    style="@style/info_show_list_edit_text">
                     <TextView
-                        android:id="@+id/bt_meeting_is_confirm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="已确认"
-                        android:textColor="@color/white"
-                        android:background="@drawable/text_blue_round_bg"/>
+                        style="@style/info_show_list_left"
+                        android:text="会议名称:" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_name"
+                        style="@style/info_show_list_edit_text"
+                        android:textSize="@dimen/text_size_medium" />
                 </LinearLayout>
 
-            </LinearLayout>
-            <LinearLayout style="@style/info_show_list_linearLayout"
-                android:id="@+id/ll_meeting_signed">
+                <LinearLayout style="@style/info_show_list_linearLayout">
 
-                <TextView
-                    style="@style/info_show_list_left"
-                    android:text="是否已签到:" />
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="会议发起人:" />
 
-                <TextView
-                    android:id="@+id/meeting_user_is_signed"
-                    style="@style/info_show_list_edit_text" />
-            </LinearLayout>
-            <LinearLayout
-                style="@style/info_show_list_linearLayout"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y5"
-                android:layout_marginBottom="@dimen/y5"
-                android:background="@drawable/white_round_stroke_bg"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/y5">
+                    <TextView
+                        android:id="@+id/meeting_detail_create_user"
+                        style="@style/info_show_list_edit_text" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout style="@style/info_show_list_linearLayout">
+
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="联系人电话:" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_phone"
+                        style="@style/info_show_list_edit_text" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/info_show_list_linearLayout">
+
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="会议时间:" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_start_date"
+                        style="@style/info_show_list_edit_text"
+                        android:layout_weight="1.5"
+                        android:gravity="center_vertical" />
+
+                    <TextView
+                        style="@style/info_show_list_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:text="~" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_end_date"
+                        style="@style/info_show_list_edit_text"
+                        android:layout_weight="1.5"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/info_show_list_linearLayout">
+
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="会议地址:" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_address"
+                        style="@style/info_show_list_edit_text"
+                        android:paddingRight="@dimen/dp_10" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/ll_meeting_confirm"
+                    style="@style/info_show_list_linearLayout">
+
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="会议通知:" />
+
+                    <LinearLayout style="@style/info_show_list_edit_text">
+
+                        <TextView
+                            android:id="@+id/bt_meeting_is_confirm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_blue_round_bg"
+                            android:padding="5dp"
+                            android:text="已确认"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_meeting_signed"
+                    style="@style/info_show_list_linearLayout">
+
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="是否已签到:" />
+
+                    <TextView
+                        android:id="@+id/meeting_user_is_signed"
+                        style="@style/info_show_list_edit_text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/meeting_detail_address_online"
+                    style="@style/info_show_list_linearLayout"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/info_show_list_edit_text"
+                        android:paddingRight="@dimen/dp_10"
+                        android:gravity="center"
+                        android:textColor="@color/today_statics_list_title_color"
+                        android:text="参加在线会议，请点击" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/info_show_list_linearLayout"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_arc_right_background"
-                    android:padding="@dimen/x5"
-                    android:text="会议内容"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_small" />
-                <TextView
-                    android:id="@+id/meeting_detail_content"
-                    style="@style/info_show_list_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:minLines="5"
-                    android:visibility="gone"/>
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_marginBottom="@dimen/y5"
+                    android:background="@drawable/white_round_stroke_bg"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/y5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/layout_arc_right_background"
+                        android:padding="@dimen/x5"
+                        android:text="会议内容"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_content"
+                        style="@style/info_show_list_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:minLines="5"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/meeting_detail_content_img"
+                        style="@style/info_show_list_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
                 <ImageView
-                    android:id="@+id/meeting_detail_content_img"
-                    style="@style/info_show_list_edit_text"
+                    android:id="@+id/meeting_detail_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"/>
+                    android:layout_height="200dp"
+                    android:visibility="gone" />
             </LinearLayout>
-            <ImageView
-                android:id="@+id/meeting_detail_photo"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:visibility="gone"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

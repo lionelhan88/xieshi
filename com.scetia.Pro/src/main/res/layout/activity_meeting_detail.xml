@@ -181,6 +181,16 @@
                     android:id="@+id/meeting_user_is_signed"
                     style="@style/info_show_list_edit_text" />
             </LinearLayout>
+            <LinearLayout style="@style/info_show_list_linearLayout"
+                android:id="@+id/meeting_detail_address_online"
+                android:visibility="gone">
+                <TextView
+                    style="@style/info_show_list_edit_text"
+                    android:paddingRight="@dimen/dp_10"
+                    android:gravity="center"
+                    android:textColor="@color/today_statics_list_title_color"
+                    android:text="参加在线会议，请点击"/>
+            </LinearLayout>
 
             <LinearLayout
                 style="@style/info_show_list_linearLayout"

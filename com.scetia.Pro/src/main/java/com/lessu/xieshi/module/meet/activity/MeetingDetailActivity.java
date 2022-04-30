@@ -3,6 +3,8 @@ package com.lessu.xieshi.module.meet.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.utils.DeviceUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
@@ -50,6 +53,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MeetingDetailActivity extends NavigationActivity {
     public static final String MEETING_DETAIL_IMG = "http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
+    @BindView(R.id.meeting_detail_address_online)
+    LinearLayout getMeetingDetailAddressOnline;
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)
@@ -170,6 +175,7 @@ public class MeetingDetailActivity extends NavigationActivity {
             //已经签到过了
             meetingUserIsSigned.setText("已签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
+            getMeetingDetailAddressOnline.setVisibility(View.VISIBLE);
         } else {
             meetingUserIsSigned.setText("未签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.orange1));
@@ -279,6 +285,8 @@ public class MeetingDetailActivity extends NavigationActivity {
                             //签到成功改变状态
                             meetingUserIsSigned.setText("已签到");
                             curMeetingUserBean.setCheckStatus("1");
+                            //签到成功，显示在线会议地址
+                            getMeetingDetailAddressOnline.setVisibility(View.VISIBLE);
                             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
                             if (customDialog != null) {
                                 customDialog.dismiss();
@@ -400,9 +408,12 @@ public class MeetingDetailActivity extends NavigationActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo, R.id.meeting_detail_content_img})
+    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo, R.id.meeting_detail_content_img,R.id.meeting_detail_address_online})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.meeting_detail_address_online:
+                DeviceUtil.startSysUri(this,meetingDetailAddress.getText().toString());
+                break;
             case R.id.bt_meeting_is_confirm:
                 //2020-09-18 直接进入参会人和手机号页面，不再弹出是否选择本人或其他人
                 if (curMeetingUserBean.getConfirmNotify().equals("0")) {

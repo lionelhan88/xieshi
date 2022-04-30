@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/layout-watch-v20/abc_alert_dialog_title_material.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/layout-watch-v20/abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "/Users/lollipop/AndroidStudioProjects/xieshi/pullToRefreash/build/intermediates/res/merged/release/layout-watch-v20/abc_alert_dialog_button_bar_material.xml",
+        "source": "/Users/lollipop/.gradle/caches/transforms-2/files-2.1/08a94ce7d902ab1b43a6797b606f0458/appcompat-1.0.0/res/layout-watch-v20/abc_alert_dialog_button_bar_material.xml"
+    }
+]

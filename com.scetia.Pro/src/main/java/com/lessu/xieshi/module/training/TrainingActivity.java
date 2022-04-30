@@ -2,6 +2,7 @@ package com.lessu.xieshi.module.training;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -161,20 +162,20 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                             TrainingUserInfo trainingUserInfo = gson.fromJson(json, TrainingUserInfo.class);
                             pushToDx = trainingUserInfo.getPushToDx();
                             curTrainingUserInfo= trainingUserInfo;
+
                             userName.setText(trainingUserInfo.getFullName());
                             sgz.setText(trainingUserInfo.getCertificateNo());
                             trainingCustomName.setText(trainingUserInfo.getPlanName());
                             projects = (ArrayList<Project>) trainingUserInfo.getPushToDx().getProjects();
                             List<PaidItem> paidItemNames = trainingUserInfo.getPaidItemNames();
-                            if(paidItemNames.size()<=0){
-                                //没有课程信息
-                                trainingScanLogin.setEnabled(false);
-                                trainingLearnsOnline.setEnabled(false);
-                                trainingTeachData.setEnabled(false);
-                                trainScanLogin.setImageResource(R.drawable.icon_training_scan_disabled);
-                                trainLearnOnline.setImageResource(R.drawable.icon_training_learn_disabled);
-                                trainTeach.setImageResource(R.drawable.icon_training_teach_disabled);
+                            if(TextUtils.isEmpty(curTrainingUserInfo.getCertificateNo())){
+                                disableTrain();
                                 trainLearningTitle.setText("您目前没有任何继续教育报名及付费记录");
+                                return;
+                            }
+                            if(paidItemNames.size()<=0){
+                                disableTrain();
+                                trainLearningTitle.setText("已报名付费，暂无课程");
                                 return;
                             }
                             tags.addAll(trainingUserInfo.getPaidItemNames());
@@ -195,6 +196,15 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                 });
     }
 
+    private void disableTrain(){
+        //没有课程信息
+        trainingScanLogin.setEnabled(false);
+        trainingLearnsOnline.setEnabled(false);
+        trainingTeachData.setEnabled(false);
+        trainScanLogin.setImageResource(R.drawable.icon_training_scan_disabled);
+        trainLearnOnline.setImageResource(R.drawable.icon_training_learn_disabled);
+        trainTeach.setImageResource(R.drawable.icon_training_teach_disabled);
+    }
     /**
      * 打开扫码页面
      */

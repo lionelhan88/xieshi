@@ -3,6 +3,7 @@ package com.lessu.xieshi.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -64,5 +65,15 @@ public class DeviceUtil {
             }
         }
         return deviceId;
+    }
+
+    public static void startSysUri(Context context,String address){
+        if(address.startsWith("http")||address.startsWith("https")){
+            Intent intentMeet = new Intent();
+            intentMeet.setAction(Intent.ACTION_VIEW);
+            Uri uri  = Uri.parse(address);
+            intentMeet.setData(uri);
+            context.startActivity(intentMeet);
+        }
     }
 }
