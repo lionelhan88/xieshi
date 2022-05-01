@@ -26,17 +26,6 @@
                 android:paddingRight="@dimen/x5"
                 android:paddingBottom="10dp">
 
-                <LinearLayout style="@style/info_show_list_linearLayout">
-
-                    <TextView
-                        style="@style/info_show_list_left"
-                        android:text="会议名称:" />
-
-                    <TextView
-                        android:id="@+id/meeting_detail_name"
-                        style="@style/info_show_list_edit_text"
-                        android:textSize="@dimen/text_size_medium" />
-                </LinearLayout>
 
                 <LinearLayout style="@style/info_show_list_linearLayout">
 
@@ -47,6 +36,18 @@
                     <TextView
                         android:id="@+id/meeting_detail_create_user"
                         style="@style/info_show_list_edit_text" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/info_show_list_linearLayout">
+
+                    <TextView
+                        style="@style/info_show_list_left"
+                        android:text="会议名称:" />
+
+                    <TextView
+                        android:id="@+id/meeting_detail_name"
+                        style="@style/info_show_list_edit_text"
+                        android:textSize="@dimen/text_size_medium" />
                 </LinearLayout>
 
                 <LinearLayout style="@style/info_show_list_linearLayout">
@@ -99,7 +100,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:id="@+id/ll_meeting_confirm"
                     style="@style/info_show_list_linearLayout">
@@ -134,18 +134,47 @@
                         android:id="@+id/meeting_user_is_signed"
                         style="@style/info_show_list_edit_text" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/meeting_detail_online_sign"
+                    style="@style/info_show_list_linearLayout"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/info_show_list_edit_text"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="会议签到"
+                        android:background="@color/orange1"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/meeting_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="在线会议签到，与会议前1小时，可以进行操作，签到成功后，可以进入在线会议，请各位参会代表准时参加。"
+                    android:textColor="@color/red_dark"
+                    android:textSize="12sp" />
+
+
                 <LinearLayout
                     android:id="@+id/meeting_detail_address_online"
                     style="@style/info_show_list_linearLayout"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:visibility="gone">
 
                     <TextView
                         style="@style/info_show_list_edit_text"
-                        android:paddingRight="@dimen/dp_10"
                         android:gravity="center"
-                        android:textColor="@color/today_statics_list_title_color"
-                        android:text="参加在线会议，请点击" />
+                        android:paddingRight="@dimen/dp_10"
+                        android:text="参加在线会议，请点击"
+                        android:background="@color/today_statics_list_title_color"
+                        android:textColor="@color/white" />
                 </LinearLayout>
+
                 <LinearLayout
                     style="@style/info_show_list_linearLayout"
                     android:layout_height="wrap_content"

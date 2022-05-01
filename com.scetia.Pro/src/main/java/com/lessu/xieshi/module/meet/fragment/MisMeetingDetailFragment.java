@@ -14,6 +14,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.lessu.xieshi.module.meet.CustomDialog;
+import com.lessu.xieshi.module.meet.activity.MisMeetingActivity;
 import com.lessu.xieshi.utils.DeviceUtil;
 import com.lessu.xieshi.utils.GsonUtil;
 import com.lessu.net.ApiMethodDescription;
@@ -21,12 +23,14 @@ import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
 import com.lessu.xieshi.module.meet.activity.ScalePictureActivity;
+import com.lessu.xieshi.utils.ToastUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.module.meet.bean.MeetingBean;
 import com.lessu.xieshi.module.meet.event.MeetingUserBeanToMeetingActivity;
 import com.lessu.xieshi.module.meet.event.MisMeetingFragmentToMis;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.scetia.Pro.baseapp.fragment.LazyFragment;
+import com.scetia.Pro.common.Util.DateUtil;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.common.Util.GlideUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -37,6 +41,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +53,10 @@ public class MisMeetingDetailFragment extends LazyFragment {
 
     @BindView(R.id.meeting_detail_address_online)
     LinearLayout meetingDetailAddressOnline;
+    @BindView(R.id.meeting_detail_online_sign)
+    LinearLayout meetDetailOnlineSign;
+    @BindView(R.id.meeting_tip)
+    TextView meetingTip;
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)
@@ -79,7 +88,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
     private MeetingBean meetingBean;
     private MeetingBean.MeetingUserBean curMeetingUserBean = new MeetingBean.MeetingUserBean();
     private String curUserId = "";
-
+    private CustomDialog customDialog;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_meeting_detail;
@@ -159,9 +168,105 @@ public class MisMeetingDetailFragment extends LazyFragment {
         });
 
         meetingDetailAddressOnline.setOnClickListener(v->{
-            DeviceUtil.startSysUri(requireActivity(),meetingDetailAddress.getText().toString());
+            DeviceUtil.startSysUri(requireActivity(),meetingBean.getPlaceAddress());
         });
 
+        meetDetailOnlineSign.setOnClickListener(v->{
+            if (curMeetingUserBean.getCheckStatus().equals("1")) {
+                ToastUtil.showSignedSuccess(requireActivity(), curMeetingUserBean.getUnitMemberCode(),
+                        curMeetingUserBean.getMemberName(),
+                        curMeetingUserBean.getUserFullName());
+                return;
+            }
+            double count =
+                    DateUtil.getGapHour(DateUtil.formatDate(new Date(),"yyyy-MM-dd HH:mm"),meetingBean.getMeetingStartTime());
+            if(count<=1){
+                openSigned(meetingBean.getMeetingId());
+            }else{
+                ToastUtil.showShort("会议开始前1小时才可以签到！");
+            }
+        });
+
+    }
+
+    /**
+     * 开启签到
+     */
+    private void openSigned(String meetingId){
+        //如果已经签过到了，就提示已签到，不再签到
+        if (curMeetingUserBean.getCheckStatus().equals("1")) {
+            ToastUtil.showSignedSuccess(requireActivity(), curMeetingUserBean.getUnitMemberCode(),
+                    curMeetingUserBean.getMemberName(),
+                    curMeetingUserBean.getUserFullName());
+            return;
+        }
+        if (meetingBean.getMeetingNeedSign().equals("1")) {
+            //需要手写签名
+            customDialog = CustomDialog.newInstance(curMeetingUserBean.getUnitMemberCode(),
+                    curMeetingUserBean.getMemberName(), curMeetingUserBean.getUserFullName());
+            customDialog.show(getChildFragmentManager(), "dialog");
+            customDialog.setCustomDialogInterface(new CustomDialog.CustomDialogInterface() {
+
+                @Override
+                public void clickOkButton(String base64Str) {
+                    if (base64Str.equals("")) {
+                        ToastUtil.showShort("请手写姓名！");
+                        return;
+                    }
+                    requestScanResult(meetingId, curMeetingUserBean.getUserId(), base64Str);
+                }
+
+            });
+        } else {
+            //不需要手写签名，直接提交
+            requestScanResult(meetingId, curMeetingUserBean.getUserId(), "");
+        }
+    }
+
+
+    /**
+     * 扫码签到
+     * @param scanResult 扫码返回的meetingid
+     * @param userId 当前用户的 userid
+     */
+    private void requestScanResult(String scanResult,String userId,String signImage){
+        if(userId==null||userId.equals("")){
+            LSAlert.showAlert(requireActivity(),"不是参会人员，无法签到！");
+            return;
+        }
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("Token",  Constants.User.GET_TOKEN());
+        params.put("s1", scanResult.toUpperCase());
+        params.put("s2", userId.toUpperCase());
+        params.put("s3",signImage);
+        EasyAPI.apiConnectionAsync(requireActivity(), true, false, ApiMethodDescription.post("/ServiceMis.asmx/ScanCode"),
+                params, new EasyAPI.ApiFastSuccessCallBack() {
+                    @Override
+                    public void onSuccessJson(JsonElement result) {
+                        int data = result.getAsJsonObject().get("Data").getAsInt();
+                        if(data==1){
+                            if(customDialog!=null){
+                                customDialog.dismiss();
+                            }
+                            //发送通知列表页面刷新
+                            EventBus.getDefault().post(new SendMeetingDetailToList(true));
+                            //提交成功
+                            LSAlert.showAlert(requireActivity(), "签到成功");
+                            //签到成功后，显示进入在线会议按钮
+                            meetingDetailAddressOnline.setVisibility(View.VISIBLE);
+                            //签到成功以后，不能再次点击签到按钮
+                            meetDetailOnlineSign.setEnabled(false);
+                        }else if(data==2){
+                            if(customDialog!=null){
+                                customDialog.dismiss();
+                            }
+                            LSAlert.showAlert(requireActivity(),"已经签过了,不能再签到了");
+
+                        }else{
+                            LSAlert.showAlert(requireActivity(),"签到失败");
+                        }
+                    }
+                });
     }
 
     @Override
@@ -187,7 +292,11 @@ public class MisMeetingDetailFragment extends LazyFragment {
         meetingDetailPhone.setText(meetingBean.getCreatePersonPhone());
         meetingDetailStartDate.setText(meetingBean.getMeetingStartTime());
         meetingDetailEndDate.setText(meetingBean.getMeetingEndTime());
-        meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
+        if(meetingBean.getPlaceAddress().startsWith("http:")||meetingBean.getPlaceAddress().startsWith("https:")){
+            meetingDetailAddress.setText("腾讯会议");
+        }else{
+            meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
+        }
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
         //加载图片之前清除缓存
      /*   ImageLoader.getInstance().clearMemoryCache();
@@ -211,12 +320,15 @@ public class MisMeetingDetailFragment extends LazyFragment {
             //不是参会人员,隐藏会议通知确认和签到状态
             llMeetingConfirm.setVisibility(View.GONE);
             llMeetingSigned.setVisibility(View.GONE);
+            meetDetailOnlineSign.setVisibility(View.GONE);
+            meetingTip.setVisibility(View.GONE);
             return;
         }
         if (curMeetingUserBean.getCheckStatus() != null && curMeetingUserBean.getCheckStatus().equals("1")) {
             //已经签到过了
             meetingUserIsSigned.setText("已签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
+            meetDetailOnlineSign.setEnabled(false);
             meetingDetailAddressOnline.setVisibility(View.VISIBLE);
         } else {
             meetingUserIsSigned.setText("未签到");
@@ -226,7 +338,7 @@ public class MisMeetingDetailFragment extends LazyFragment {
             btMeetingIsConfirm.setText("已确认");
             btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
         } else {
-            btMeetingIsConfirm.setText("请确认会议通知");
+            btMeetingIsConfirm.setText("参会确认");
             btMeetingIsConfirm.setBackgroundResource(R.drawable.orange_round_bg);
         }
     }
@@ -269,8 +381,6 @@ public class MisMeetingDetailFragment extends LazyFragment {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveMeetingDetailRefresh(SendMeetingDetailToList event) {
-        //签到成功后，显示在线会议地址
-        meetingDetailAddressOnline.setVisibility(View.VISIBLE);
         initData();
     }
 
