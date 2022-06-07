@@ -47,25 +47,18 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    applicationVariants.all { variant ->
-        def buildType = variant.buildType.name
-        //只对release起作用
-        if (buildType == "release") {
-            def fileDir = "D:\\APP签名和打包\\xieshi path\\Scetia_Pro_v${versionName}"
-            def file = new File(fileDir)
-            if (!file.exists()) {
-                //如果文件不存在，创建文件
-                file.mkdirs()
-            }
-            variant.getPackageApplication().outputDirectory = file
-        }
-        variant.outputs.each { mm ->
-            if (buildType == "release") {
-                def fileName = "Scetia_Pro_v${versionName}.apk"
-                mm.outputFileName = fileName
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if(buildType.name=="release"){
+                outputFileName = "Scetia.Pro" +"_v" + defaultConfig.versionName  + ".apk"
             }
         }
+        if(variant.buildType.name=="release"){
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + File.separator + "output")
+        }
+
     }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -79,6 +72,8 @@ android {
     aspectjx {
         exclude 'com.squareup.leakcanary'
     }
+
+
 }
 
 
@@ -109,6 +104,6 @@ dependencies {
     compile files('libs/zbar.jar')
     compile files('libs/ksoap2-android-assembly-3.1.0-jar-with-dependencies.jar')
     //检测内存泄漏的工具
-   // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+    // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 
 }

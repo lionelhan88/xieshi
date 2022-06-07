@@ -44,7 +44,6 @@
             android:id="@+id/sm_flow_declaration_item_ship_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y10"
             android:text="船名（车号）："
             android:textSize="@dimen/text_size_medium"
             app:layout_constraintBottom_toBottomOf="@+id/sm_flow_declaration_item_ship_name"

@@ -178,4 +178,24 @@ public class DateUtil {
         dayCount++;
         return dayCount;
     }
+
+    public static double getGapHour(String beginTime, String endTime) {
+        String str1 = beginTime;  //"yyyyMMdd"格式 如 20131022
+        String str2 = endTime;  //"yyyyMMdd"格式 如 20131022
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");//输入日期的格式
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = simpleDateFormat.parse(str1);
+            date2 = simpleDateFormat.parse(str2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        GregorianCalendar cal1 = new GregorianCalendar();
+        GregorianCalendar cal2 = new GregorianCalendar();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        double dayCount = (cal2.getTimeInMillis() - cal1.getTimeInMillis()) / (1000.0 * 3600);//从间隔毫秒变成间隔天数
+        return dayCount;
+    }
 }

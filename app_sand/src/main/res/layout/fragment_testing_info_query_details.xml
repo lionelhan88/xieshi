@@ -185,7 +185,6 @@
                     android:id="@+id/result_query_detail_bottom_commission_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y20"
                     android:gravity="left"
                     android:text="委托编号"
                     android:textColor="@color/grey_dim"
