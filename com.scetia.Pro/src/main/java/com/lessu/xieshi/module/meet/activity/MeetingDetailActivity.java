@@ -3,6 +3,10 @@ package com.lessu.xieshi.module.meet.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +25,8 @@ import com.lessu.net.ApiMethodDescription;
 import com.lessu.net.EasyAPI;
 import com.lessu.uikit.views.LSAlert;
 import com.lessu.xieshi.R;
+import com.lessu.xieshi.utils.DeviceUtil;
+import com.scetia.Pro.baseapp.uitls.LogUtil;
 import com.scetia.Pro.common.Util.Constants;
 import com.lessu.xieshi.utils.ToastUtil;
 import com.lessu.xieshi.module.meet.CustomDialog;
@@ -30,6 +36,7 @@ import com.lessu.xieshi.module.meet.event.OtherConfirmEvent;
 import com.lessu.xieshi.module.meet.event.SendMeetingDetailToList;
 import com.lessu.xieshi.module.meet.event.SendMeetingListToDetail;
 import com.lessu.xieshi.module.scan.ScanActivity;
+import com.scetia.Pro.common.Util.DateUtil;
 import com.scetia.Pro.common.Util.SPUtil;
 import com.scetia.Pro.common.Util.GlideUtil;
 
@@ -37,6 +44,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,6 +58,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MeetingDetailActivity extends NavigationActivity {
     public static final String MEETING_DETAIL_IMG = "http://www.scetia.com/Scetia_Meet_Gonggao_2020-09-18.jpg";
+    @BindView(R.id.meeting_detail_address_online)
+    LinearLayout getMeetingDetailAddressOnline;
+    @BindView(R.id.meeting_detail_online_sign)
+    LinearLayout meetingDetailOnlineSign;
     @BindView(R.id.meeting_detail_name)
     TextView meetingDetailName;
     @BindView(R.id.meeting_detail_create_user)
@@ -101,6 +113,7 @@ public class MeetingDetailActivity extends NavigationActivity {
         handleButtonItem2 = new BarButtonItem(this, R.drawable.icon_scan_white);
         navigationBar.addRightBarItem(handleButtonItem2);
         handleButtonItem2.setOnClickMethod(this, "scanSign");
+
         //签到信息
         curUserId = SPUtil.getSPConfig(Constants.User.USER_ID, "");
         //此处要循环比较,如果当前登录的用户也是参与人员，则也显示签到信息
@@ -143,7 +156,11 @@ public class MeetingDetailActivity extends NavigationActivity {
         meetingDetailPhone.setText(meetingBean.getCreatePersonPhone());
         meetingDetailStartDate.setText(meetingBean.getMeetingStartTime());
         meetingDetailEndDate.setText(meetingBean.getMeetingEndTime());
-        meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
+        if(meetingBean.getPlaceAddress().startsWith("http:")||meetingBean.getPlaceAddress().startsWith("https:")){
+            meetingDetailAddress.setText("腾讯会议");
+        }else{
+            meetingDetailAddress.setText(meetingBean.getPlaceAddress() + meetingBean.getMeetingPlace());
+        }
         meetingDetailContent.setText(meetingBean.getMeetingDetail());
         Glide.with(this).load(MEETING_DETAIL_IMG)
                 .skipMemoryCache(false)
@@ -169,7 +186,9 @@ public class MeetingDetailActivity extends NavigationActivity {
         if (curMeetingUserBean.getCheckStatus() != null && curMeetingUserBean.getCheckStatus().equals("1")) {
             //已经签到过了
             meetingUserIsSigned.setText("已签到");
+            meetingDetailOnlineSign.setEnabled(false);
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
+            getMeetingDetailAddressOnline.setVisibility(View.VISIBLE);
         } else {
             meetingUserIsSigned.setText("未签到");
             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.orange1));
@@ -178,7 +197,7 @@ public class MeetingDetailActivity extends NavigationActivity {
             btMeetingIsConfirm.setText("已确认");
             btMeetingIsConfirm.setBackgroundResource(R.drawable.text_blue_round_bg);
         } else {
-            btMeetingIsConfirm.setText("请确认会议通知");
+            btMeetingIsConfirm.setText("参会确认");
             btMeetingIsConfirm.setBackgroundResource(R.drawable.orange_round_bg);
         }
         meetingDetailJoinUserFullName.setText(curMeetingUserBean.getUserFullName());
@@ -279,6 +298,10 @@ public class MeetingDetailActivity extends NavigationActivity {
                             //签到成功改变状态
                             meetingUserIsSigned.setText("已签到");
                             curMeetingUserBean.setCheckStatus("1");
+                            //签到成功，显示在线会议地址
+                            getMeetingDetailAddressOnline.setVisibility(View.VISIBLE);
+                            //签到成功以后，签到按钮不能再次点击
+                            meetingDetailOnlineSign.setEnabled(false);
                             meetingUserIsSigned.setTextColor(getResources().getColor(R.color.blue_normal2));
                             if (customDialog != null) {
                                 customDialog.dismiss();
@@ -361,48 +384,80 @@ public class MeetingDetailActivity extends NavigationActivity {
                 if (result == null) {
                     return;
                 }
-                //如果已经签过到了，就提示已签到，不再签到
-                if (curMeetingUserBean.getCheckStatus().equals("1")) {
-                    ToastUtil.showSignedSuccess(this, curMeetingUserBean.getUnitMemberCode(),
-                            curMeetingUserBean.getMemberName(),
-                            curMeetingUserBean.getUserFullName());
-                    return;
-                }
-                if (meetingBean.getMeetingNeedSign().equals("1")) {
-                    //需要手写签名
-                    customDialog = CustomDialog.newInstance(curMeetingUserBean.getUnitMemberCode(),
-                            curMeetingUserBean.getMemberName(), curMeetingUserBean.getUserFullName());
-                    customDialog.show(getSupportFragmentManager(), "dialog");
-                    customDialog.setCustomDialogInterface(new CustomDialog.CustomDialogInterface() {
-
-                        @Override
-                        public void clickOkButton(String base64Str) {
-                            if (base64Str.equals("")) {
-                                ToastUtil.showShort("请手写姓名！");
-                                return;
-                            }
-                            requestScanResult(result, curMeetingUserBean.getUserId(), base64Str);
-                        }
-
-                    });
-
-                } else {
-                    //不需要手写签名，直接提交
-                    requestScanResult(result, curMeetingUserBean.getUserId(), "");
-                }
+                openSigned(result);
+//                //如果已经签过到了，就提示已签到，不再签到
+//                if (curMeetingUserBean.getCheckStatus().equals("1")) {
+//                    ToastUtil.showSignedSuccess(this, curMeetingUserBean.getUnitMemberCode(),
+//                            curMeetingUserBean.getMemberName(),
+//                            curMeetingUserBean.getUserFullName());
+//                    return;
+//                }
+//                if (meetingBean.getMeetingNeedSign().equals("1")) {
+//                    //需要手写签名
+//                    customDialog = CustomDialog.newInstance(curMeetingUserBean.getUnitMemberCode(),
+//                            curMeetingUserBean.getMemberName(), curMeetingUserBean.getUserFullName());
+//                    customDialog.show(getSupportFragmentManager(), "dialog");
+//                    customDialog.setCustomDialogInterface(new CustomDialog.CustomDialogInterface() {
+//
+//                        @Override
+//                        public void clickOkButton(String base64Str) {
+//                            if (base64Str.equals("")) {
+//                                ToastUtil.showShort("请手写姓名！");
+//                                return;
+//                            }
+//                            requestScanResult(result, curMeetingUserBean.getUserId(), base64Str);
+//                        }
+//
+//                    });
+//                } else {
+//                    //不需要手写签名，直接提交
+//                    requestScanResult(result, curMeetingUserBean.getUserId(), "");
+//                }
             }
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    /**
+     * 开启签到
+     */
+    private void openSigned(String meetingId){
+        //如果已经签过到了，就提示已签到，不再签到
+        if (curMeetingUserBean.getCheckStatus().equals("1")) {
+            ToastUtil.showSignedSuccess(this, curMeetingUserBean.getUnitMemberCode(),
+                    curMeetingUserBean.getMemberName(),
+                    curMeetingUserBean.getUserFullName());
+            return;
+        }
+        if (meetingBean.getMeetingNeedSign().equals("1")) {
+            //需要手写签名
+            customDialog = CustomDialog.newInstance(curMeetingUserBean.getUnitMemberCode(),
+                    curMeetingUserBean.getMemberName(), curMeetingUserBean.getUserFullName());
+            customDialog.show(getSupportFragmentManager(), "dialog");
+            customDialog.setCustomDialogInterface(new CustomDialog.CustomDialogInterface() {
+
+                @Override
+                public void clickOkButton(String base64Str) {
+                    if (base64Str.equals("")) {
+                        ToastUtil.showShort("请手写姓名！");
+                        return;
+                    }
+                    requestScanResult(meetingId, curMeetingUserBean.getUserId(), base64Str);
+                }
+
+            });
+        } else {
+            //不需要手写签名，直接提交
+            requestScanResult(meetingId, curMeetingUserBean.getUserId(), "");
+        }
     }
 
-    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo, R.id.meeting_detail_content_img})
+    @OnClick({R.id.bt_meeting_is_confirm, R.id.meeting_detail_photo, R.id.meeting_detail_content_img,
+            R.id.meeting_detail_address_online,R.id.meeting_detail_online_sign})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.meeting_detail_address_online:
+                DeviceUtil.startSysUri(this,meetingBean.getPlaceAddress());
+                break;
             case R.id.bt_meeting_is_confirm:
                 //2020-09-18 直接进入参会人和手机号页面，不再弹出是否选择本人或其他人
                 if (curMeetingUserBean.getConfirmNotify().equals("0")) {
@@ -456,6 +511,21 @@ public class MeetingDetailActivity extends NavigationActivity {
                 scaleIntent.putExtra("detail_photo", MEETING_DETAIL_IMG);
                 startActivity(scaleIntent);
                 this.overridePendingTransition(R.anim.acitvity_zoom_open, 0);
+                break;
+            case R.id.meeting_detail_online_sign:
+                if (curMeetingUserBean.getCheckStatus().equals("1")) {
+                    ToastUtil.showSignedSuccess(this, curMeetingUserBean.getUnitMemberCode(),
+                            curMeetingUserBean.getMemberName(),
+                            curMeetingUserBean.getUserFullName());
+                    return;
+                }
+                double count =
+                        DateUtil.getGapHour(DateUtil.formatDate(new Date(),"yyyy-MM-dd HH:mm"),meetingBean.getMeetingStartTime());
+                if(count<=1){
+                    openSigned(meetingBean.getMeetingId());
+                }else{
+                    ToastUtil.showShort("会议开始前1小时才可以签到！");
+                }
                 break;
         }
     }
