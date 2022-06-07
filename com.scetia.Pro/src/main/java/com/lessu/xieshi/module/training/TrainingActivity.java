@@ -2,6 +2,7 @@ package com.lessu.xieshi.module.training;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -159,6 +160,16 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                             JsonObject json = result.getAsJsonObject().get("data").getAsJsonObject();
                             Gson gson = new Gson();
                             TrainingUserInfo trainingUserInfo = gson.fromJson(json, TrainingUserInfo.class);
+                            if(TextUtils.isEmpty(trainingUserInfo.getCertificateNo())){
+                                trainingScanLogin.setEnabled(false);
+                                trainingLearnsOnline.setEnabled(false);
+                                trainingTeachData.setEnabled(false);
+                                trainScanLogin.setImageResource(R.drawable.icon_training_scan_disabled);
+                                trainLearnOnline.setImageResource(R.drawable.icon_training_learn_disabled);
+                                trainTeach.setImageResource(R.drawable.icon_training_teach_disabled);
+                                trainLearningTitle.setText("您目前没有任何继续教育报名及付费记录");
+                                return;
+                            }
                             pushToDx = trainingUserInfo.getPushToDx();
                             curTrainingUserInfo= trainingUserInfo;
                             userName.setText(trainingUserInfo.getFullName());
@@ -174,7 +185,7 @@ public class TrainingActivity extends NavigationActivity implements View.OnClick
                                 trainScanLogin.setImageResource(R.drawable.icon_training_scan_disabled);
                                 trainLearnOnline.setImageResource(R.drawable.icon_training_learn_disabled);
                                 trainTeach.setImageResource(R.drawable.icon_training_teach_disabled);
-                                trainLearningTitle.setText("您目前没有任何继续教育报名及付费记录");
+                                trainLearningTitle.setText("已付费，暂无课程");
                                 return;
                             }
                             tags.addAll(trainingUserInfo.getPaidItemNames());

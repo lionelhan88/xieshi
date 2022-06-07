@@ -47,15 +47,6 @@ public class LearnDataActivity extends NavigationActivity {
      * 没有观看的课程
      */
     private List<CourseScore> noneCourse = new ArrayList<>();
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_learn);
-        setTitle("学习情况");
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        initView();
-        initData();
-    }*/
 
     @Override
     protected int getLayoutId() {

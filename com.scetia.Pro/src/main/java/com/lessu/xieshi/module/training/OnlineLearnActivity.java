@@ -46,15 +46,6 @@ public class OnlineLearnActivity extends NavigationActivity {
     private IX5WebChromeClient.CustomViewCallback mCallBack;
     private ImmersionBar immersionBar;
     private ProgressBar progressBar;
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_online_learn);
-        setTitle("在线课程");
-        navigationBar.setBackgroundColor(0xFF3598DC);
-        initView();
-        initData();
-    }*/
 
     @Override
     protected int getLayoutId() {

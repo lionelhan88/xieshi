@@ -197,7 +197,7 @@ public class FirstActivity extends IndexActivity {
             tvSeccion1.setText("样品查询");
             ivSeccion2.setImageResource(R.drawable.yangpinshibie);
             tvSeccion2.setText("样品识别");
-            ivSeccion3.setImageResource(R.drawable.yangpinshibie);
+            ivSeccion3.setImageResource(R.drawable.zaixianjiaoyu);
             tvSeccion3.setText("取样员继续教育");
             llSeccion1.setOnClickListener(view -> startOtherActivity(ConstructionListActivity.class));
 

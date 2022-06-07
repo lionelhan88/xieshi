@@ -110,9 +110,9 @@ public class QualificationLevelFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void loadData(GlobalEvent<MisMemberSearchResultData.ListContentBean> event) {
         if (event.getCode() == EventBusUtil.E) {
-            Map<String, String> param = new HashMap<>();
+            Map<String, Object> param = new HashMap<>();
             param.put("s1", event.getData().getMemberId());
-            request(new Gson().toJson(param));
+            request(GsonUtil.mapToJsonStr(param));
         }
     }
 
