@@ -73,10 +73,7 @@ public class WeatherViewModel extends BaseViewModel {
                     double longitude = bdLocation.getLongitude();
                     String address = bdLocation.getAddrStr();
                     LogUtil.showLogE(latitude + longitude + address);
-                    String a = "121.48941";
-                    String b = "31.40527";
-//                    getToadyHour(Constants.User.GET_TOKEN(), String.valueOf(longitude), String.valueOf(latitude));
-                    getToadyHour(Constants.User.GET_TOKEN(), a, b);
+                    getToadyHour(Constants.User.GET_TOKEN(), String.valueOf(longitude), String.valueOf(latitude));
                 }
                 baiduMapLifecycle.stopLocation();
             }
