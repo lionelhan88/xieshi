@@ -23,7 +23,6 @@ public  class WeatherUtil {
     private static String okweather;
     private static long gjzindex=0;
     private static String daiti;
-
     private static Comparator<Weatherbean> okweathercompare;
 
     //有 有时有 有零星 有短时 或 转 到
@@ -38,12 +37,10 @@ public  class WeatherUtil {
         inital();
         for (int i = 0; i < al.size(); i++) {
             String weather = al.get(i).weather;
-            if( weatherder.contains(weather)){
+            if(weatherder.contains(weather)){
                 daiti="";
                 int index = weatherder.indexOf(weather);
-                System.out.println("index......."+index);
                 String substring = weatherder.substring(index);
-                System.out.println("subString/................."+substring);
                 int length = weather.length();
                 for (int j = 0; j < length; j++) {
                     daiti = daiti+" ";
@@ -55,17 +52,12 @@ public  class WeatherUtil {
         Collections.sort(iandwal,comparator);
         okweather=iandwal.size()!=0?iandwal.get(0).weather:"";
         for (int i = 0; i < iandwal.size(); i++) {
-            System.out.println("a.............a.............."+iandwal.get(i).index+iandwal.get(i).weather);
                 if(i<iandwal.size()-1) {
                 String laststring = iandwal.get(i).weather;
                 String endstring = iandwal.get(i+1).weather;
-
                 int startindex = iandwal.get(i).index + laststring.length();
                 int endindex = iandwal.get(i + 1).index;
                 String isgjz = yuanshiweather.substring(startindex, endindex);
-                System.out.println("isgjz..." + isgjz);
-                //如果这些中间的字符串是那些指定的关键字
-                    //tianqilistlist.contains(isgjz)
                 if(tianqilistlist.contains(isgjz)){
                     okweather=okweather+isgjz+endstring;
                     gjzindex++;
@@ -73,15 +65,12 @@ public  class WeatherUtil {
                     if (gjzindex == 0) {
                         okweather=endstring;
                     }else{
-                        System.out.println("elseokweather............"+okweather);
-
                         return endingokweather(okweather);
                     }
                 }
 
             }
         }
-        System.out.println("okweather............"+okweather);
         return endingokweather(okweather);
     }
 
@@ -97,8 +86,6 @@ public  class WeatherUtil {
             return  new Tqpicbean(okweather,endindokweatherlist.get(0).weathersmall,endindokweatherlist.get(0).weatherbig,endindokweatherlist.get(1).weathersmall,endindokweatherlist.get(1).weatherbig);
         }else if(endindokweatherlist.size()>=3){
             Collections.sort(endindokweatherlist,okweathercompare);
-
-            System.out.println(endindokweatherlist.get(0).weather+"-----------------------"+endindokweatherlist.get(1).weather);
             return new Tqpicbean(okweather,endindokweatherlist.get(0).weathersmall,endindokweatherlist.get(0).weatherbig,endindokweatherlist.get(1).weathersmall,endindokweatherlist.get(1).weatherbig);
         }else{
             return null;
@@ -138,7 +125,7 @@ public  class WeatherUtil {
             }
         };
 
-//初始化天气list
+        //初始化天气list
         al.add(new Weatherbean("强沙尘暴",1, R.drawable.qiangshachenbaox,R.drawable.qiangshachenbaod));
         al.add(new Weatherbean("扬沙",2,R.drawable.yangshax,R.drawable.yangshad));
         al.add(new Weatherbean("浮尘",3,R.drawable.fuchenx,R.drawable.fuchend));
@@ -168,9 +155,6 @@ public  class WeatherUtil {
         al.add(new Weatherbean("雪",27,R.drawable.xiaoxuex,R.drawable.xiaoxued));
         al.add(new Weatherbean("冻雨",28,R.drawable.dongyux,R.drawable.dongyud));
         al.add(new Weatherbean("霾",29,R.drawable.maix,R.drawable.maid));
-
-
-
         //有 有时有 有零星 有短时 或 转 到
         //初始化关键字list
         tianqilistlist.add("有");
