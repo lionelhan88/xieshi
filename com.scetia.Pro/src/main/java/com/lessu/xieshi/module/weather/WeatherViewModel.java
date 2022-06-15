@@ -32,8 +32,7 @@ public class WeatherViewModel extends BaseViewModel {
     private static final String BASE_BAI_URL = "http://www.scetia.com/Scetia.AutoUpdate/weather/安卓/白天/bai";
     private static final String BASE_BANG_URL = "http://www.scetia.com/Scetia.AutoUpdate/weather/安卓/傍晚/bang";
     private static final String BASE_WAN_URL = "http://www.scetia.com/Scetia.AutoUpdate/weather/安卓/晚上/wan";
-    private static final String[] A_K = {"a", "b", "c", "d", "e", "f",
-            "g", "h", "i", "j", "k"};
+    private static final String[] A_K = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"};
 
 
     private MutableLiveData<Tenbean> tenBeanData = new MutableLiveData<>();
@@ -72,7 +71,7 @@ public class WeatherViewModel extends BaseViewModel {
                     double latitude = bdLocation.getLatitude();
                     double longitude = bdLocation.getLongitude();
                     String address = bdLocation.getAddrStr();
-                    LogUtil.showLogE(latitude + longitude + address);
+                    LogUtil.showLogE("wd:"+latitude + "jd:"+longitude + "address"+address);
                     getToadyHour(Constants.User.GET_TOKEN(), String.valueOf(longitude), String.valueOf(latitude));
                 }
                 baiduMapLifecycle.stopLocation();
