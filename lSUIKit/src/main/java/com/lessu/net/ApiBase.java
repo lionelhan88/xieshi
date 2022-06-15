@@ -1,10 +1,12 @@
 package com.lessu.net;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApiBase {
-
+    private static final String TAG = "ApiBaseTag";
     protected static ApiBase apiInstance;
     public static ApiBase sharedInstance(){
         if(apiInstance == null){
@@ -46,11 +48,10 @@ public class ApiBase {
         	method = "get";
         	absoluteUrlString = getAbsoluteUrlString(description.apiUrl);
         }
-        System.out.println("absoluteUrlString......"+absoluteUrlString);
+        Log.d(TAG,absoluteUrlString);
         ApiConnection retConnection = new ApiConnection(absoluteUrlString);
         retConnection.setParams(params);
         retConnection.setResultType(ApiConnection.ResultType.values()[description.resultType.ordinal()]);
-        System.out.println(retConnection.urlString);
         retConnection.setRequestMethod(method);
         if(description.connectionMethod == ApiMethodDescription.ConnectionMethod.Soap){
         	retConnection.soapAction = description.soapAction;

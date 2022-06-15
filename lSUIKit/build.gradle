@@ -26,6 +26,8 @@ dependencies {
     implementation project(':pullToRefreash')
     implementation project(':lib_common')
     implementation files('libs/android-async-http-1.4.5.jar')
+    //网络请求中有使用到老版本的org.apache包，需要饥饿和上面的useLibrary 'org.apache.http.legacy'一起使用
+    implementation 'org.apache.httpcomponents:httpcore:4.4.2'
     annotationProcessor rootProject.ext.annationProcess.butterknifAnnationProcess
 
 }

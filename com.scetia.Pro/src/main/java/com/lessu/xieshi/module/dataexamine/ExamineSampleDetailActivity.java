@@ -34,7 +34,6 @@ public class ExamineSampleDetailActivity extends NavigationActivity {
 		super.onStart();
 		Bundle bundle = getIntent().getExtras();
 		String jsonString = bundle.getString("jsonString");
-		System.out.println(jsonString);
 		JsonElement jsonElement = EasyGson.jsonFromString(jsonString);
 		ExamineSample examineSample = GsonUtil.JsonToObject(jsonString, ExamineSample.class);
 		TextView tv1 = (TextView) findViewById(R.id.tv1);

@@ -133,7 +133,6 @@ public class TodayStatisticsDetailActivity extends NavigationActivity {
                     public PageInfo adapter(JsonElement input) {
                         PageInfo pageInfo = new PageInfo();
                         pageInfo.isSuccess = true;
-                        System.out.println(input);
                         JsonObject inputJson = input.getAsJsonObject().get("Data").getAsJsonObject();
                         JsonArray inputJsonArray = inputJson.get("ListContent").getAsJsonArray();
                         int size = inputJsonArray.size();
@@ -179,7 +178,6 @@ public class TodayStatisticsDetailActivity extends NavigationActivity {
         EasyAPI.apiConnectionAsync(this, true, false,
                 ApiMethodDescription.get("/ServiceTS.asmx/ManageUnitTodayStatisInfoList"), params, result -> {
                     JsonObject jsonObject = result.getAsJsonObject().get("Data").getAsJsonObject();
-                    System.out.println(jsonObject);
                     list = jsonObject.get("ListContent").getAsJsonArray();
                     if (list == null || list.isJsonNull() || list.size() == 0) {
                         LSAlert.showAlert(TodayStatisticsDetailActivity.this, "无相关记录");
@@ -203,7 +201,6 @@ public class TodayStatisticsDetailActivity extends NavigationActivity {
             if (success) {
                 //返回数据成功
                 JsonObject data = result.getAsJsonObject().get("Data").getAsJsonObject();
-                System.out.println(data);
                 //如果返回的data为空数据，提示用户没有数据
                 ProjectQueryTestingBean projectQueryTestingBean = new Gson().fromJson(data, ProjectQueryTestingBean.class);
                 /**

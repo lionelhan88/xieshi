@@ -92,7 +92,6 @@ public class SampleDetailActivity extends NavigationActivity {
 					public void onSuccessJson(JsonElement result) {
 						al=new ArrayList<ListSampleDetail>();
 						String jsonString = result.getAsJsonObject().get("Data").toString();
-						System.out.println(jsonString);
 						Yangpinxinxi yangpinxinxi = GsonUtil.JsonToObject(jsonString, Yangpinxinxi.class);
 						JsonElement jsonElement = EasyGson.jsonFromString(jsonString);
 						JsonObject json = jsonElement.getAsJsonObject();

@@ -239,8 +239,6 @@ public class DataExamineActivity extends XieShiSlidingMenuActivity implements On
 
 						@Override
 						public void onSuccessJson(JsonElement result) {
-							// TODO Auto-generated method stub
-							System.out.println(result);
 							JsonArray json = result.getAsJsonObject().get("Data").getAsJsonArray();
 							if (json.size()>0){
 								itemId = json.get(0).getAsJsonObject().get("ItemId").getAsString();

@@ -88,7 +88,6 @@ public class MisAnnualLeaveApprovalActivity extends NavigationActivity implement
                         // TODO Auto-generated method stub
                         PageInfo pageInfo = new PageInfo();
                         pageInfo.isSuccess = true;
-                        System.out.println(input);
                         //测试
                         JsonObject inputJson = input.getAsJsonObject().get("Data").getAsJsonObject();
                         //njApproveBtn = inputJson.get("NJApproveBtn").toString();
@@ -167,12 +166,10 @@ public class MisAnnualLeaveApprovalActivity extends NavigationActivity implement
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("Token", token);
                     params.put("s1", Id);
-                    System.out.println(params);
                     EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceMis.asmx/NJApprove "), params,
                             new EasyAPI.ApiFastSuccessFailedCallBack() {
                         @Override
                         public void onSuccessJson(JsonElement result) {
-                            System.out.println(result);
                             Misnjbean misnjbean = GsonUtil.JsonToObject(result.toString(), Misnjbean.class);
                             boolean success = misnjbean.isSuccess();
                             if(success){

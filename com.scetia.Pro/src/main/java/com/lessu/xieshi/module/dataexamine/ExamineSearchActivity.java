@@ -88,9 +88,7 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			@Override
 			public void onSuccessJson(JsonElement result) {
 				// TODO Auto-generated method stub
-				JsonArray json = result.getAsJsonObject().get("Data").getAsJsonArray();
-				System.out.println("json...."+json);
-				typeJson = json;
+				typeJson = result.getAsJsonObject().get("Data").getAsJsonArray();
 			}
 			
 			@Override
@@ -155,7 +153,6 @@ public class ExamineSearchActivity extends XieShiSlidingMenuActivity {
 			@Override
 			public void onSuccessJson(JsonElement result) {
 				JsonArray json = result.getAsJsonObject().get("Data").getAsJsonArray();
-				System.out.println("itemjson...."+itemJson);
 				itemJson = json;
 			}
 			

@@ -189,12 +189,9 @@ public class MisAnnualLeaveApplyActivity extends NavigationActivity implements V
                     params.put("LeaveTime2", endstring);
                     params.put("LeaveReason", et_shiyou.getText().toString());
 
-
-                    System.out.println(params);
                     EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceMis.asmx/NJApply "), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                         @Override
                         public void onSuccessJson(JsonElement result) {
-                            System.out.println(result);
                             boolean success = result.getAsJsonObject().get("Success").getAsBoolean();
                             String message = result.getAsJsonObject().get("Message").getAsString();
                             if (!success) {
@@ -206,7 +203,6 @@ public class MisAnnualLeaveApplyActivity extends NavigationActivity implements V
 
                         @Override
                         public String onFailed(ApiError error) {
-                            System.out.println("失败了。。。。。。。。" + error.errorMeesage);
                             ToastUtil.showShort(error.errorMeesage);
                             return null;
                         }

@@ -137,7 +137,6 @@ public class HideSwitchFragmentNavigator extends FragmentNavigator {
         //判断是否有添加，如果没有添加，则添加，并且显示
         //如果已经添加了，直接显示
         if (frag == null) {
-            System.out.println(" create new fragment..." + tag);
             frag = instantiateFragment(mContext, mFragmentManager,
                     className, args);
         }
@@ -158,17 +157,12 @@ public class HideSwitchFragmentNavigator extends FragmentNavigator {
 
         //隐藏上一个显示的内容
         for (Fragment fragment : mFragmentManager.getFragments()) {
-            System.out.println("hide fragment -- > " + fragment.getClass().getName());
             ft.hide(fragment);
         }
-
         if (!frag.isAdded()) {
-            System.out.println("add fragment ... " + tag);
             ft.add(mContainerId, frag, tag);
         }
-
         ft.show(frag);
-        //ft.replace(mContainerId, frag);
         ft.setPrimaryNavigationFragment(frag);
 
         final @IdRes int destId = destination.getId();

@@ -158,12 +158,10 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
 
                     @Override
                     public boolean onTouch(View arg0, MotionEvent arg1) {
-                        // TODO Auto-generated method stub
                         ListViewCell cell = (ListViewCell) arg0;
                         if (arg1.getAction() == MotionEvent.ACTION_DOWN) {
                             int i = (int) arg1.getX();
                             String positionflag = String.valueOf(cell.getPosition());
-                            System.out.println("i的值为" + i);
                             if (!doneFlag.equals("1")) {
                                 if (i >= 950) {
                                     if (arrayList.contains(positionflag)) {
@@ -347,9 +345,7 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
         HttpUrlConnect httpConnect = new HttpUrlConnect(url, handlParams);
         if (httpConnect.startConnection()) {
             String result = httpConnect.getResultString();
-            System.out.println("里面的审核。。。" + result);
             String jsonString = RegKit.match(result, ">(\\{.+\\})</", 1);
-
             JsonObject jsonResult = EasyGson.jsonFromString(jsonString).getAsJsonObject();
             if (jsonResult.get("Success").getAsString().equalsIgnoreCase("true")) {
                 auditedCounter = auditedCounter + 1;
@@ -363,8 +359,6 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
 
     @OnClick(R.id.auditingChoosenButton)
     protected void auditingChoosenButtonDidClick() {
-        System.out.println("点击了批准选中");
-        System.out.println("arraylist....." + arrayList.size());
         if (arrayList.size() > 0) {
             auditedCounter = 0;
             loseauditedCounter = 0;
@@ -374,7 +368,6 @@ public class DataAuditingActivity extends XieShiSlidingMenuActivity implements O
                 @Override
                 protected Void doInBackground(Void... arg0) {
                     List listTemp = wrapper.getPageController().getList();
-                    System.out.println("arraylist....." + arrayList.size());
                     for (int i = 0; i < arrayList.size(); i++) {
                         int position = Integer.parseInt(arrayList.get(i));
                         String jsonString = listTemp.get(position).toString();

@@ -226,13 +226,11 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
             }
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
                 if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                    System.out.println("--------打开蓝牙-----------");
                     blueSwitch.setChecked(true);
                     bondDevices.setEnabled(true);
                     unbindDevices.setEnabled(true);
                     searchBlueDevices();
                 } else if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) {
-                    System.out.println("--------关闭蓝牙-----------");
                     Toast.makeText(BluetoothActivity.this,"蓝牙断开了",Toast.LENGTH_SHORT).show();
                     blueSwitch.setChecked(false);
                     bondDevices.setEnabled(false);
@@ -271,7 +269,6 @@ public class BluetoothActivity extends XieShiSlidingMenuActivity {
     private void addBondDevicesToListView() {
         bondData = new ArrayList<>();
         int count = bondDeviceslist.size();
-        System.out.println("已绑定设备数量" + count);
         for (int i = 0; i < count; i++) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("deviceName", bondDeviceslist.get(i).getName());

@@ -21,7 +21,6 @@ public class ExampleUnitTest {
     @Test
     public void getTestingCommissionList(){
         int a = 1>>2;
-        System.out.println(a+"");
     }
     @Test
     public void testGanpt() throws ParseException {
@@ -31,10 +30,7 @@ public class ExampleUnitTest {
 
         int gapCount = DateUtil.getGapCount(date, endDate);
         int gapCount2 = (int) DateUtil.getGapCount("20210305", "20210308");
-        System.out.println(gapCount+"");
-        System.out.println(gapCount2+"");
         Date date1 = DateUtil.parseTo("2021-03-08", "yyyy-MM-dd");
-        System.out.println(DateUtil.FORMAT_BAR_YMD(date1)+"");
     }
 
     @Test

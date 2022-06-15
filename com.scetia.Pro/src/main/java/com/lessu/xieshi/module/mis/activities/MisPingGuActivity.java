@@ -100,13 +100,10 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
                 pageController.setPageinfoAdapter(new PageInfoAdapterInterface() {
                     @Override
                     public PageInfo adapter(JsonElement input) {
-                        // TODO Auto-generated method stub
                         PageInfo pageInfo = new PageInfo();
                         pageInfo.isSuccess = true;
-                        System.out.println(input);
                         JsonObject inputJson = input.getAsJsonObject().get("Data").getAsJsonObject();
                         pgApproveBtn = inputJson.get("PGApproveBtn").toString();
-                        System.out.println("pgApproveBtn............" + pgApproveBtn);
                         JsonArray inputJsonArray = inputJson.get("ListContent").getAsJsonArray();
                         int size = inputJsonArray.size();
                         List<JsonElement> list = new ArrayList<JsonElement>();
@@ -122,7 +119,6 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
 
             @Override
             protected View onPageCreateCell(int position) {
-                // TODO Auto-generated method stub
                 LinearLayout listCell = (LinearLayout) View.inflate(MisPingGuActivity.this, R.layout.mis_pg_item, null);
                 return listCell;
             }
@@ -130,14 +126,10 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
             @Override
             protected void onPageCellSetData(final int position, View cell,
                                              Object data) {
-                // TODO Auto-generated method stub
-                //ImageView iv_xuanzhong = (ImageView) cell.findViewById(R.id.iv_xuanzhong);
                 CheckBox cb_xuanzhong = cell.findViewById(R.id.cb_xuanzhong);
                 TextView tv_pg3 = cell.findViewById(R.id.tv_pg3);
                 TextView tv_pg4 = cell.findViewById(R.id.tv_pg4);
-                System.out.println("pgApproveBtn...00000000000sssssss" + pgApproveBtn);
                 if (pgApproveBtn.equals("\"0\"")) {
-                    System.out.println("gone..........");
                     cb_xuanzhong.setVisibility(View.GONE);
                     bt_pg.setVisibility(View.GONE);
                     tv_pg3.setText("状态: ");
@@ -147,15 +139,11 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
                     EasyUI.setTextViewText(cell.findViewById(R.id.tv_pg_zhuangtai), (JsonObject) data, "Status", "暂无");
                     EasyUI.setTextViewText(cell.findViewById(R.id.tv_pg_num), (JsonObject) data, "InnerId", "暂无");
                 } else if (pgApproveBtn.equals("\"1\"")) {
-                    System.out.println("VISIBLE..........");
                     cb_xuanzhong.setVisibility(View.VISIBLE);
                     cb_xuanzhong.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                            System.out.println("isfirst....." + isfirst);
-                            System.out.println("compoundButton..." + compoundButton);
-                            System.out.println("b..." + b);
                             if (b == true && !isfirst) {
                                 checkedcb.setChecked(false);
                                 checkedcb = compoundButton;
@@ -190,14 +178,11 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> adapter, View cell, int position, long id) {
-        System.out.println("点击了。。。。。。。。。。");
         Intent intent = new Intent(MisPingGuActivity.this, PingGuDetailActivity.class);
         List list = wrapper.getPageController().getList();
         String jsonString = list.get(position - 1).toString();
-        System.out.println("lalala............" + jsonString);
         Pgitembean pgdetailbean = GsonUtil.JsonToObject(jsonString, Pgitembean.class);
         String id1 = pgdetailbean.getId();
-        // String projectId = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("ProjectId").getAsString();
         Bundle bundle = new Bundle();
         bundle.putString("Id", id1);
         intent.putExtras(bundle);
@@ -218,17 +203,12 @@ public class MisPingGuActivity extends NavigationActivity implements AdapterView
                     List list = wrapper.getPageController().getList();
                     String jsonString = list.get(checkedposition).toString();
                     String Id = EasyGson.jsonFromString(jsonString).getAsJsonObject().get("Id").getAsString();
-                    System.out.println("批准。。。。。............" + Id);
-
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("Token", token);
                     params.put("s1", Id);
-                    System.out.println(params);
                     EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceMis.asmx/PGApprove "), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                         @Override
                         public void onSuccessJson(JsonElement result) {
-                            // TODO Auto-generated method stub
-                            System.out.println(result);
                             Mispingubean mispingubean = GsonUtil.JsonToObject(result.toString(), Mispingubean.class);
                             boolean success = mispingubean.isSuccess();
                             if (success) {

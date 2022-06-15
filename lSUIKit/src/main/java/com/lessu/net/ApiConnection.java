@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class ApiConnection  implements ApiConnectionHandlerInterface {
 	public static String DefaultStandardSuccessKey    = "success";
 	public static String DefaultStandardDataKey       = "data";
@@ -97,9 +98,7 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 			}
 		}else if(requestMethod.equalsIgnoreCase("SOAP")){
 			try {
-				Header[] headers =  {
-						new BasicHeader("SOAPAction"  , soapUrl+"/"+soapAction),
-				};
+				Header[] headers =  {new BasicHeader("SOAPAction"  , soapUrl+"/"+soapAction),};
 				StringEntity entity;
 				String soapBody = "<${action} xmlns=\"${url}\">${params}</${action}>";
 				soapBody = soapBody.replace("${action}" , soapAction).replace("${url}", soapUrl);
@@ -122,11 +121,8 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 				String soapString = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body>%s</soap:Body></soap:Envelope>";
 				soapString = String.format(soapString, soapBody);
 				entity = new StringEntity(soapString);
-				//entity.setContentType("text/xml; charset=utf-8");
 				String contentType = "text/xml; charset=utf-8";
 				requestHandle = getSharedClient().post(null, urlString, headers, entity , contentType, connectionHandler);
-
-				//	                requestHandle = getSharedClient().post(urlString, connectionHandler);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -175,7 +171,6 @@ public class ApiConnection  implements ApiConnectionHandlerInterface {
 	private void connectionComplete(String responseString ,Object processedResult){
 		if (resultType == ResultType.Standard || preprocessor!=null) {
 			JsonObject result = (JsonObject) processedResult;
-			System.out.println("result................."+result);
 			try{
 				if ( callbacks != null){
 					callbacks.onSuccess(result);

@@ -485,7 +485,6 @@ public class PrintDataActivity extends NavigationActivity implements View.OnClic
                         //是芯片
                     } else {
                         String s = LongString.bytes2HexString(buffer2);
-                        System.out.println(s);
                         String jiexinpian = Decrypt.decodeChip(s);
                         if (jiexinpian != null) {
                             if (!Xal.contains(jiexinpian)) {

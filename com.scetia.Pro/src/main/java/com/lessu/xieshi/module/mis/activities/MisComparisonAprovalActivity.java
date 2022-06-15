@@ -98,10 +98,8 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
                     public PageInfo adapter(JsonElement input) {
                         PageInfo pageInfo = new PageInfo();
                         pageInfo.isSuccess = true;
-                        System.out.println(input);
                         JsonObject inputJson = input.getAsJsonObject().get("Data").getAsJsonObject();
                         BDApproveBtn = inputJson.get("BDApproveBtn").toString();
-                        System.out.println("BDApproveBtn............" + BDApproveBtn);
                         JsonArray inputJsonArray = inputJson.get("ListContent").getAsJsonArray();
                         int size = inputJsonArray.size();
                         List<JsonElement> list = new ArrayList<JsonElement>();
@@ -189,11 +187,9 @@ public class MisComparisonAprovalActivity extends NavigationActivity implements 
                     HashMap<String, Object> params = new HashMap<String, Object>();
                     params.put("Token", token);
                     params.put("s1", Id);
-                    System.out.println(params);
                     EasyAPI.apiConnectionAsync(MisComparisonAprovalActivity.this, true, false, ApiMethodDescription.get("/ServiceMis.asmx/BDApprove "), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
                         @Override
                         public void onSuccessJson(JsonElement result) {
-                            System.out.println(result);
                             MisComaprisonResponse mispingubean = GsonUtil.JsonToObject(result.toString(), MisComaprisonResponse.class);
                             boolean success = mispingubean.isSuccess();
                             if (success) {

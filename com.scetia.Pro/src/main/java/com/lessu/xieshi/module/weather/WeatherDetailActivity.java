@@ -330,7 +330,6 @@ public class WeatherDetailActivity extends NavigationActivity {
             int minper = (dailyForecast.mintemp - minver) / 10;
             dailyForecast.maxper = maxper;
             dailyForecast.minper = minper;
-            System.out.println("forecastList.get(i).maxper" + forecastList.get(i).maxper);
         }
         dfTq.setData(forecastList, weatherHourLineHeight);
     }

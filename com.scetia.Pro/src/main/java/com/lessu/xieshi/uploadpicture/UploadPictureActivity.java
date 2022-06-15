@@ -214,7 +214,6 @@ public class UploadPictureActivity extends XieShiSlidingMenuActivity implements 
 						params.put("TaskID", taskID);
 						params.put("ImgIndex", imgIndex);
 						params.put("ImgByte", imgByteString);
-						System.out.print(params);
 						EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.post("/ServiceStake.asmx/UploadTaskImage"), params, result -> {
 							String jsonString = result.getAsJsonObject().get("Data").toString();
 							if (jsonString.equals("1")){

@@ -80,17 +80,13 @@ public class PingGuDetailActivity extends NavigationActivity {
     protected void initData() {
         Intent getintent=getIntent();
         String id = getintent.getExtras().getString("Id");
-        System.out.println(id);
         String token =  Constants.User.GET_TOKEN();
         HashMap<String, Object> params = new HashMap<>();
         params.put("Token", token);
         params.put("s1", id);
-        System.out.println(params);
         EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceMis.asmx/PGDetail "), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
-                // TODO Auto-generated method stub
-                System.out.println(result);
                 Pgdetailbean pgdetailbean = GsonUtil.JsonToObject(result.toString(), Pgdetailbean.class);
                 Pgdetailbean.DataBean data = pgdetailbean.getData();
                // String memberCode = data.getMemberCode();//编号

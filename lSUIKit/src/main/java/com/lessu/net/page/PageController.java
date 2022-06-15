@@ -164,14 +164,11 @@ public class PageController {
 
         params.put(stepName, Validate.stringFromInt(step));
         params.put(pageName, Validate.stringFromInt(1));
-
-
-        if (shoudMerge == false) {
+        if (!shoudMerge) {
             setCurrentPage(1);
         }
 
         refreashConnection = ApiBase.sharedInstance().getConnectionWithApiMethod(apiMethod, params);
-//        refreashConnection.addCache = false;
 
         this.shouldMerge = shoudMerge;
 
@@ -181,7 +178,6 @@ public class PageController {
             public void onSuccessJson(JsonElement result) {
                 super.onSuccessJson(result);
                 refreshRequestDidSuccess(result);
-                System.out.println("刷新onSuccessJson了");
             }
 
             @Override
@@ -190,22 +186,14 @@ public class PageController {
                 if (delegate != null) {
                     delegate.onRefreshFailed(error);
                 }
-                System.out.println("刷新onFailed了" + error.errorMeesage);
-                System.out.println("刷新onFailed了" + error.errorDomain);
-                System.out.println("刷新onFailed了" + error.errorCode);
-
-
             }
 
             @Override
             public void onFinal() {
                 super.onFinal();
                 isRefreashing = false;
-                System.out.println("刷新onFinal了");
             }
         });
-
-//        [_refreashConnection loadFromCache];
         boolean validatePass = true;
         if (delegate != null) {
             validatePass = delegate.beforeRefreshRequest(refreashConnection);
@@ -252,18 +240,9 @@ public class PageController {
             } else {
                 list = newlistElement;
             }
-//            if (_refreashConnection.isCacheLoading) {
-//                if (_onCacheRefreashBlock) {
-//                    _onCacheRefreashBlock(_list,result);
-//                }
-//            }
-//            else
-//            {
             if (delegate != null) {
                 delegate.onRefreshSuccess(list, result);
             }
-//                _refreashConnection.addCache = true;
-//            }
         } else {
             ApiError error = new ApiError();
             error.errorDomain = PageControllerErrorDomain;
@@ -289,16 +268,6 @@ public class PageController {
             List newListElement = pageInfo.listData;
             totalPage = pageInfo.totalPage;
             mergeArray(list, newListElement, keyName, MergeDirection.Tail);
-
-//            if (_nextPageConnection.isCacheLoading) {
-//                if (_onCacheNextBlock) {
-//                    _onCacheNextBlock(_list,result);
-//                }
-//            }else{
-//                if (_onNextSuccessBlock) {
-//                    _onNextSuccessBlock(_list,result);
-//                }
-//            }
             if (delegate != null) {
                 delegate.onNextSuccess(list, result);
             }
@@ -517,29 +486,3 @@ public class PageController {
         this.currentPage = currentPage;
     }
 }
-/*
-
-
-    @implementation LSPageController (DefaultSetting)
-    + (void)setDefaultStepName:(String )stepName{
-        kLSPageControllerStepName = stepName;
-    }
-    + (void)setDefaultPageName:(String )pageName{
-        kLSPageControllerStepName = pageName;
-    }
-    + (void)setDefaultStep:(int)step{
-        kLSPageControllerStep    = step;
-    }
-
-    + (void)setDefaultListKey:(String )listKey{
-        kLSPageControllerListKey = listKey;
-    }
-    + (void)setDefaultPageInfoKey:(String )pageinfokey{
-        kLSPageControllerPageInfoKey = pageinfokey;
-    }
-    + (void)setDefaultPageInfoTotalKey:(String )totalkey{
-        kLSPageControllerPageInfoTotalKey = totalkey;
-    }
-    @end
-}
-*/

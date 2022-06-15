@@ -448,7 +448,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                         soapObject2.addProperty("ccStr", sampleid);
                                     }else{
                                         String s = null;
-                                        System.out.println("sss"+ss);
                                         if(ss.contains(";")){
                                             String[] srr = ss.split(";");
                                             if(srr.length==1){
@@ -468,12 +467,10 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                                     s=srr[0]+"~"+srr[srr.length-1]+";";
                                                 }
                                             }
-                                            System.out.println("s........"+s);
                                             soapObject2.addProperty("ccStr", s);
                                         }
 
                                     }
-                                    System.out.println("huiyuanhao"+ SPUtil.getSPConfig("huiyuanhao",""));
                                     if(SPUtil.getSPConfig("huiyuanhao","")!=null) {
                                         soapObject2.addProperty("membercode", SPUtil.getSPConfig("huiyuanhao", ""));
                                     }
@@ -489,9 +486,7 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
                                         e.printStackTrace();
                                     }
                                     SoapObject object2 = (SoapObject) envelope2.bodyIn;
-                                    System.out.println("object2...."+object2);
                                     final Object message = object2.getProperty("message");
-                                    System.out.println("message....."+message.toString());
                                     if(message!=null&&!message.toString().equals("anyType{}")){
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -521,7 +516,6 @@ public class ShenqingshangbaoActivity extends NavigationActivity implements View
 
                             }
                         }
-                        System.out.println(object1.toString());
                     }
                 }).start();
 

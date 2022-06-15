@@ -60,7 +60,6 @@ public class ShebeixinxiActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     SoapObject object = (SoapObject) envelope.bodyIn;
-                    System.out.println("啦啦啦。。。"+object.toString());
                     if(object.toString().equals("CheckHmResponse{}")){
                         runOnUiThread(new Runnable() {
                             @Override
@@ -71,8 +70,6 @@ public class ShebeixinxiActivity extends AppCompatActivity {
                     }else {
                         final String result = object.getProperty(0).toString();
                         SPUtil.setSPConfig("huiyuanhao", result);
-                        System.out.println("object..." + object);
-                        System.out.println("result...." + result);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

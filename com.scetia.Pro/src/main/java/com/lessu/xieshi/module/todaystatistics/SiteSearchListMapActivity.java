@@ -480,7 +480,6 @@ public class SiteSearchListMapActivity extends XieShiSlidingMenuActivity {
         DecimalFormat df = new DecimalFormat("#.000000");
         String dx = df.format(latitude);
         String dy = df.format(longitude);
-        System.out.println(dy + "," + dx);
         return dy + "," + dx;
     }
 

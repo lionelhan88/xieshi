@@ -85,7 +85,6 @@ public class MisComparionObjActivity extends NavigationActivity  {
                     public PageInfo adapter(JsonElement input) {
                         PageInfo pageInfo = new PageInfo();
                         pageInfo.isSuccess = true;
-                        System.out.println(input);
                         JsonObject inputJson = input.getAsJsonObject().get("Data").getAsJsonObject();
                         JsonArray inputJsonArray = inputJson.get("ListContent").getAsJsonArray();
                         int size = inputJsonArray.size();

@@ -128,10 +128,8 @@ public class Decrypt {
      * @return
      */
     public static boolean isChip(String s) {
-        System.out.println(s.length());
         String substring = s.substring(0, 1);
         String index = "1";
-        System.out.println(s.substring(0, 1) + substring.equals(index));
         return s.length() == 10 && substring.equals(index);
     }
 }

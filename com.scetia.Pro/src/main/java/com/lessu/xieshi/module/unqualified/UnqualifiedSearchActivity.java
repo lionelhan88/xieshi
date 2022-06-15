@@ -211,7 +211,6 @@ public class UnqualifiedSearchActivity extends XieShiSlidingMenuActivity {
 					HashMap<String, Object> params = new HashMap<>();
 					params.put("Token",  Constants.User.GET_TOKEN());
 					params.put("Condition", idString[position]);
-					System.out.println(params);
 					EasyAPI.apiConnectionAsync(UnqualifiedSearchActivity.this, true, false, ApiMethodDescription.get("/ServiceSource.asmx/ItemItemSource"), params, new EasyAPI.ApiFastSuccessCallBack() {
 						@Override
 						public void onSuccessJson(JsonElement result) {

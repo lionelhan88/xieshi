@@ -258,8 +258,6 @@ public class SampleInfoCheckConfirmActivity extends NavigationActivity implement
                         }
                         SoapObject object = (SoapObject) envelope.bodyIn;
                         final String result = object.getProperty(0).toString();
-                        System.out.println("object..."+object);
-                        System.out.println("result...."+result);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

@@ -71,11 +71,9 @@ public class SiteSceneBlockActivity extends XieShiSlidingMenuActivity {
         params.put("Type", 1);
         params.put("ProjectId", projectId);
         params.put("Token", token);
-        System.out.println(params);
         EasyAPI.apiConnectionAsync(this, true, false, ApiMethodDescription.get("/ServiceTS.asmx/GetSampleInProject"), params, new EasyAPI.ApiFastSuccessFailedCallBack() {
             @Override
             public void onSuccessJson(JsonElement result) {
-                System.out.println(result);
                 XianchangshikuaibBean xianchangbean = GsonUtil.JsonToObject(result.toString(), XianchangshikuaibBean.class);
                 int code = xianchangbean.getCode();
                 if(code==1000){

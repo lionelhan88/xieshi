@@ -69,9 +69,7 @@ public class SampleDetailActivity extends NavigationActivity {
 			public void onSuccessJson(JsonElement result) {
 				// TODO Auto-generated method stub
 				al=new ArrayList<ListSampleDetail>();
-				System.out.println(result);
 				String jsonString = result.getAsJsonObject().get("Data").toString();
-				System.out.println("样品信息"+jsonString);
 				if(jsonString.equals("null")){
 					return;
 				}

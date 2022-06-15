@@ -81,8 +81,6 @@ public class SampleListActivity extends NavigationActivity implements OnItemClic
 
 					@Override
 					public PageInfo adapter(JsonElement input) {
-						// TODO Auto-generated method stub
-						System.out.println(input);
 						PageInfo pageInfo = new PageInfo();
 						pageInfo.isSuccess = true;
 						JsonObject inputJson = input.getAsJsonObject().get("Data").getAsJsonObject();
